@@ -5,10 +5,9 @@
                 @if($startGame == false)
                     <form method="POST" action="#" wire:submit.prevent="">
                         <div>
-                            <x-jet-label for="word" value="{{ __('Word') }}"/>
                             <x-jet-input wire:model.defer="word" wire:blur="checkWord()" wire:keydown.tab="checkWord()"
                                          wire:keydown.enter="checkWord()" wire:keydown.blur="checkWord()"
-                                         placeholder="Max 5 letters" id="word" class="mt-1" type="text"
+                                         placeholder="5 harflik bir kelime seç" id="word" class="mt-1" type="text"
                                          value="{{ $word }}" name="word" required autofocus/>
                             <div>
                                 @if($wordError)
@@ -19,7 +18,7 @@
 
                         <div class="flex items-center justify-end mt-4">
                             <x-jet-button type="button" wire:click="autoWord()" class="ml-4">
-                                {{ __('Auto Word') }}
+                                {{ __('Otomatik kelime') }}
                             </x-jet-button>
                         </div>
 
