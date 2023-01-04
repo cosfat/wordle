@@ -15,10 +15,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('welcome');
-
+Route::get('/', \App\Http\Livewire\Welcome::class);
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),

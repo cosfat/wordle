@@ -57,13 +57,10 @@
             </div>
         </div>
     </div>
-
-
     <script type="module">
         window.Echo.private(`game-channel.{{ \Illuminate\Support\Facades\Auth::id() }}`)
             .listen('GameNotification', (e) => {
-
+                alert("Yeni oyun!")
             });
-
     </script>
 </div>

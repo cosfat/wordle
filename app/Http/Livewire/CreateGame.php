@@ -3,13 +3,11 @@
 namespace App\Http\Livewire;
 
 use App\Events\GameNotification;
-use App\Events\WordGuessed;
 use App\Models\User;
 use App\Models\Word;
 use App\Models\Game;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
-use App\Events\GameStarted;
 
 class CreateGame extends Component
 {

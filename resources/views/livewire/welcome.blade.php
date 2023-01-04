@@ -1,22 +1,7 @@
 @auth
     <x-app-layout>
-        <div class="py-12">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                    <div
-                        class="bg-indigo-600 shadow-xl shadow-indigo-200 py-10 px-20 flex justify-between items-center">
-                        <p wire:click="showCreateGame()" class=" text-white"><span class="text-4xl font-medium">WORDLE ?</span> <br> <span
-                                class="text-lg">Rakiplerinle Wordle Oyna! </span></p>
-                        <button
-                            class="px-5 py-3  font-medium text-slate-700 shadow-xl  hover:bg-white duration-150  bg-yellow-400">
-                            YENİ OYUN BAŞLAT
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-            <livewire:create-game/>
-
+        <livewire:navigation/>
+        <livewire:create-game/>
         <livewire:my-games/>
         <livewire:my-opps/>
     </x-app-layout>
