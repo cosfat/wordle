@@ -1,5 +1,6 @@
 <?php
 
+use App\Events\GameNotification;
 use App\Events\WordGuessed;
 use Illuminate\Support\Facades\Route;
 

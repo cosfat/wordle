@@ -26,6 +26,7 @@ class CreateGame extends Component
     public $gameWord;
     public $gameOpp;
 
+    public $gameId;
 
     public function checkWord(){
         $word = $this->word;
@@ -102,8 +103,9 @@ class CreateGame extends Component
         $game->word_id = $word;
         $game->save();
         $this->emit('MyGames');
+        $this->gameId = $game->id;
 
-        event(new GameNotification($game->id));
+        GameNotification::dispatch($opp);
     }
 
 

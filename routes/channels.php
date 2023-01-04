@@ -14,16 +14,14 @@ use App\Models\Game;
 | used to check if an authenticated user can listen to the channel.
 |
 */
-Broadcast::channel('game-channel.{gameId}', function ($user, $gameId) {
-    $game = Game::find($gameId);
-    if ($game->opponent_id == Auth::id()) {
-        return true;
-    }
-else {
-    return false;
-}
+Broadcast::channel('game-channel.{opp}', function ($user, $opp) {
+
+   $game = Game::whereOpponent_id($opp)->first();
+   return $user->id === $game->opponent_id;
+
 });
 
-    Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
-        return (int)$user->id === (int)$id;
-    });
+Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
+    return (int)$user->id === (int)$id;
+});
+

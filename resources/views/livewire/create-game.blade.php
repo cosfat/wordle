@@ -51,10 +51,20 @@
                             </div>
                         @endif
                         @else
-                            {{ \App\Models\Word::find($gameWord)->name }}<br>{{ \App\Models\User::find($gameOpp)->name }}
+                            {{ \App\Models\Word::find($gameWord)->name }}
+                            <br>{{ \App\Models\User::find($gameOpp)->name }}
                         @endif
                     </form>
             </div>
         </div>
     </div>
+
+
+    <script type="module">
+        window.Echo.private(`game-channel.{{ \Illuminate\Support\Facades\Auth::id() }}`)
+            .listen('GameNotification', (e) => {
+
+            });
+
+    </script>
 </div>
