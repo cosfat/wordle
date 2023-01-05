@@ -1,3 +1,5 @@
+<div>
+
 <div class="py-12">
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
@@ -5,7 +7,8 @@
                 @if($startGame == false)
                     <form method="POST" action="#" wire:submit.prevent="">
                         <div>
-                            <x-jet-input wire:model.defer="word" wire:blur="checkWord()" wire:keydown.tab="checkWord()"
+                            <x-jet-input wire:model.defer="word" wire:blur="checkWord()"
+                                         wire:keydown.tab="checkWord()"
                                          wire:keydown.enter="checkWord()" wire:keydown.blur="checkWord()"
                                          placeholder="5 harflik bir kelime seç" id="word" class="mt-1" type="text"
                                          value="{{ $word }}" name="word" required autofocus/>
@@ -57,10 +60,6 @@
             </div>
         </div>
     </div>
-    <script type="module">
-        window.Echo.private(`game-channel.{{ \Illuminate\Support\Facades\Auth::id() }}`)
-            .listen('GameNotification', (e) => {
-                alert("Yeni oyun!")
-            });
-    </script>
+</div>
+
 </div>

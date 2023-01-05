@@ -106,7 +106,6 @@ class CreateGame extends Component
         GameNotification::dispatch($opp);
     }
 
-
     public function render()
     {
         return view('livewire.create-game');

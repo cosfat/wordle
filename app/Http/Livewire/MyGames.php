@@ -2,25 +2,28 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Game;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class MyGames extends Component
 {
+    use WithPagination;
+
     protected $listeners = ['MyGames' => 'getGames'];
-    public $games;
-
-    public function mount(){
-        $this->games = Auth::user()->games()->get();
-
-    }
+    protected $games;
 
     public function getGames(){
-        $this->games = Auth::user()->games()->get();
+        $this->games = Game::where('user_id', Auth::id())->orWhere('opponent_id', Auth::id())->orderBy('id', 'desc');
     }
 
     public function render()
     {
-        return view('livewire.my-games');
+
+        $this->games = Game::where('user_id', Auth::id())->orWhere('opponent_id', Auth::id())->orderBy('id', 'desc');
+        return view('livewire.my-games',[
+                        'games' => $this->games->simplePaginate(3),
+        ]);
     }
 }
