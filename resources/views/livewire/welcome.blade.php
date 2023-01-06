@@ -6,24 +6,24 @@
                     class="bg-indigo-600 shadow-xl shadow-indigo-200 py-10 px-20 flex justify-between items-center">
                     <a href="/"><p class=" text-white"><span class="text-4xl font-medium">WORDLE</span> <br> <span
                                 class="text-lg">Rakiplerinle Wordle Oyna! </span></p></a>
-                    <button wire:click="$toggle('showCreate')"
-                            class="px-5 py-3  font-medium text-slate-700 shadow-xl hover:bg-white duration-150 bg-yellow-400">
+                    <button wire:click="showCreate"
+                            class="px-5 py-3  font-medium text-slate-700 shadow-xl hover:bg-white duration-150 bg-yellow-400 @if($createColor)border-b-2 border-gray-800 @endif">
                         YENİ OYUN
                     </button>
-                    <button wire:click="$toggle('showMyGames')"
-                            class="px-5 py-3  font-medium text-slate-700 shadow-xl hover:bg-white duration-150 bg-yellow-400">
+                    <button wire:click="showMyGames"
+                            class="px-5 py-3  font-medium text-slate-700 shadow-xl hover:bg-white duration-150 bg-yellow-400 @if($myGamesColor)border-b-2 border-gray-800 @endif">
                         OYUNLARIM
                     </button>
                     @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
                         <button
-                            class="px-5 py-3  font-medium text-slate-700 shadow-xl  hover:bg-white duration-150  bg-yellow-400">
+                            class="px-5 py-3  font-medium text-slate-700 shadow-xl  hover:bg-white duration-150  bg-yellow-400 @if($myProfileColor)border-b-2 border-gray-800 @endif">
                             <img class="h-8 w-8 rounded-full object-cover"
                                  src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}"/>
                         </button>
                     @else
 
-                        <button type="button" wire:click="$toggle('showMyProfile')"
-                                class="px-5 py-3  font-medium text-slate-700 shadow-xl  hover:bg-white duration-150  bg-yellow-400">
+                        <button type="button" wire:click="showMyProfile"
+                                class="px-5 py-3  font-medium text-slate-700 shadow-xl  hover:bg-white duration-150  bg-yellow-400 @if($myProfileColor)border-b-2 border-gray-800 @endif">
                             {{ Auth::user()->name }}
                         </button>
                     @endif
@@ -42,7 +42,7 @@
         <script type="module">
             window.Echo.private(`game-channel.{{ \Illuminate\Support\Facades\Auth::id() }}`)
                 .listen('GameNotification', (e) => {
-                    alert("Yeni oyun!")
+                    notifyGame(`Yeni oyun isteği geldi!`)
                 });
         </script>
     </div>

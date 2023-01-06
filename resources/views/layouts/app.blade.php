@@ -11,7 +11,7 @@
         <link rel="stylesheet" href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap">
 
         <!-- Scripts -->
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
+        @vite(['resources/css/app.css', 'resources/css/custom.css', 'resources/js/app.js'])
 
         <!-- Styles -->
         @livewireStyles
@@ -39,5 +39,21 @@
         @stack('modals')
 
         @livewireScripts
+
+        <script>
+            function notifyGame(message) {
+                // Get the snackbar DIV
+                var x = document.getElementById("notifyBar");
+
+                // Add the "show" class to DIV
+                x.className = "show";
+                x.textContent = message;
+
+                // After 3 seconds, remove the show class from DIV
+                setTimeout(function(){ x.className = x.className.replace("show", ""); }, 5000);
+            }
+        </script>
+
+        <div id="notifyBar"></div>
     </body>
 </html>

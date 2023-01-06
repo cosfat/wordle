@@ -14,24 +14,14 @@
                 <x-jet-section-border />
             @endif
 
-            @if (Laravel\Fortify\Features::canManageTwoFactorAuthentication())
-                <div class="mt-10 sm:mt-0">
-                    @livewire('profile.two-factor-authentication-form')
-                </div>
+                <form method="POST" action="{{ route('logout') }}" x-data>
+                    @csrf
 
-                <x-jet-section-border />
-            @endif
-
-            <div class="mt-10 sm:mt-0">
-                @livewire('profile.logout-other-browser-sessions-form')
-            </div>
-
-            @if (Laravel\Jetstream\Jetstream::hasAccountDeletionFeatures())
-                <x-jet-section-border />
-
-                <div class="mt-10 sm:mt-0">
-                    @livewire('profile.delete-user-form')
-                </div>
-            @endif
+                    <x-jet-danger-button class="ml-2"  href="{{ route('logout') }}"
+                                         @click.prevent="$root.submit();">
+                        {{ __('Çıkış yap') }}
+                    </x-jet-danger-button>
+                </form>
         </div>
+
     </div>

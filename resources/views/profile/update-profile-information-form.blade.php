@@ -91,14 +91,5 @@
         <x-jet-button wire:loading.attr="disabled" wire:target="photo">
             {{ __('Save') }}
         </x-jet-button>
-
-        <form method="POST" action="{{ route('logout') }}" x-data>
-            @csrf
-
-            <x-jet-danger-button class="ml-2"  href="{{ route('logout') }}"
-                                 @click.prevent="$root.submit();">
-                {{ __('Çıkış yap') }}
-            </x-jet-danger-button>
-        </form>
     </x-slot>
 </x-jet-form-section>

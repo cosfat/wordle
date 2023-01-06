@@ -11,6 +11,7 @@ use Livewire\Component;
 
 class CreateGame extends Component
 {
+    public $gameName;
     public $word;
     public $opponent;
     public $opponentId;
@@ -102,6 +103,7 @@ class CreateGame extends Component
         $game->save();
         $this->emit('MyGames');
         $this->gameId = $game->id;
+        $this->gameName = $game->word->name;
 
         GameNotification::dispatch($opp);
     }
