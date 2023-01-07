@@ -50,7 +50,12 @@
                 x.textContent = message;
 
                 // After 3 seconds, remove the show class from DIV
-                setTimeout(function(){ x.className = x.className.replace("show", ""); }, 5000);
+                setTimeout(function(){ x.className = x.className.replace("show", "hidden"); }, 2000);
+                console.log(1);
+            }
+
+            function notifyIcon(){
+                document.getElementById('notifyIconText').textContent = 1;
             }
         </script>
 

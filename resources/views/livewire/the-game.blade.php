@@ -14,10 +14,10 @@
         }
 
         .letter-box {
-            border: 2px solid gray;
+            border: 4px solid #4f46e5;
             border-radius: 3px;
             margin: 2px;
-            font-size: 2.5rem;
+            font-size: 2rem;
             font-weight: 700;
             height: 3rem;
             width: 3rem;
@@ -28,7 +28,7 @@
         }
 
         .filled-box {
-            border: 2px solid black;
+            border: 4px solid #facc15;
         }
 
         .letter-row {
@@ -63,16 +63,16 @@
     </div>
     <div id="keyboard-cont">
         <div class="first-row">
-            <button class="keyboard-button">q</button>
-            <button class="keyboard-button">w</button>
             <button class="keyboard-button">e</button>
             <button class="keyboard-button">r</button>
             <button class="keyboard-button">t</button>
             <button class="keyboard-button">y</button>
             <button class="keyboard-button">u</button>
-            <button class="keyboard-button">i</button>
+            <button class="keyboard-button">ı</button>
             <button class="keyboard-button">o</button>
             <button class="keyboard-button">p</button>
+            <button class="keyboard-button">ğ</button>
+            <button class="keyboard-button">ü</button>
         </div>
         <div class="second-row">
             <button class="keyboard-button">a</button>
@@ -84,16 +84,19 @@
             <button class="keyboard-button">j</button>
             <button class="keyboard-button">k</button>
             <button class="keyboard-button">l</button>
+            <button class="keyboard-button">ş</button>
+            <button class="keyboard-button">i</button>
         </div>
         <div class="third-row">
             <button class="keyboard-button">Del</button>
             <button class="keyboard-button">z</button>
-            <button class="keyboard-button">x</button>
             <button class="keyboard-button">c</button>
             <button class="keyboard-button">v</button>
             <button class="keyboard-button">b</button>
             <button class="keyboard-button">n</button>
             <button class="keyboard-button">m</button>
+            <button class="keyboard-button">ö</button>
+            <button class="keyboard-button">ç</button>
             <button class="keyboard-button">Enter</button>
         </div>
     </div>
@@ -141,7 +144,7 @@
                 return
             }
 
-            let found = pressedKey.match(/[a-z]/gi)
+            let found = pressedKey.match(/[a-zöçşığü]/gi)
             if (!found || found.length > 1) {
                 return
             } else {
@@ -200,14 +203,14 @@
                 let letterPosition = rightGuess.indexOf(currentGuess[i])
                 // is letter in the correct guess
                 if (letterPosition === -1) {
-                    letterColor = 'grey'
+                    letterColor = '#e3e3e3'
                 } else {
                     // now, letter is definitely in word
                     // if letter index and right guess index are the same
                     // letter is in the right position
                     if (currentGuess[i] === rightGuess[i]) {
                         // shade green
-                        letterColor = 'green'
+                        letterColor = '#02cc09'
                     } else {
                         // shade box yellow
                         letterColor = 'yellow'
@@ -238,6 +241,9 @@
                     notifyGame(`Kaybettin! Doğru kelime: ${rightGuessString}`)
                 }
             }
+            var wordNumber = 6 - guessesRemaining;
+
+          //  this.emit('editGame', {{ $gameId }}, guessString, wordNumber)
         }
 
         function shadeKeyBoard(letter, color) {

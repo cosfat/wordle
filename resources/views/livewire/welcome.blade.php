@@ -1,35 +1,37 @@
 @auth
-    <div>
-        <div class="max-w-7xl mx-auto">
+    <div class="max-w-7xl mx-auto">
+        <div>
             <div class="overflow-hidden shadow-xl">
                 <div
-                    class="bg-indigo-600 shadow-xl shadow-indigo-200 py-10 px-20 flex justify-between items-center">
-                    <a href="/"><p class=" text-white"><span class="text-4xl font-medium">WORDLE</span> <br> <span
-                                class="text-lg">Rakiplerinle Wordle Oyna! </span></p></a>
+                    class="bg-indigo-600 py-10 shadow-xl shadow-indigo-200 flex justify-center items-center">
+
+                    <a href="/" class="px-2 py-3 text-indigo-500 font-medium text-slate-700 shadow-xl hover:bg-gray-100 duration-150 bg-white">
+                        WORDLE
+                    </a>
                     <button wire:click="showCreate"
-                            class="px-5 py-3  font-medium text-slate-700 shadow-xl hover:bg-white duration-150 bg-yellow-400 @if($createColor)border-b-2 border-gray-800 @endif">
-                        YENİ OYUN
+                            class="px-2 py-3  font-medium text-slate-700 shadow-xl hover:bg-white duration-150 bg-yellow-400 @if($createColor)border-b-2 border-gray-800 @endif">
+                        BAŞLA
                     </button>
                     <button wire:click="showMyGames"
-                            class="px-5 py-3  font-medium text-slate-700 shadow-xl hover:bg-white duration-150 bg-yellow-400 @if($myGamesColor)border-b-2 border-gray-800 @endif">
-                        OYUNLARIM
+                            class="px-2 py-3  font-medium text-slate-700 shadow-xl hover:bg-white duration-150 bg-yellow-400 @if($myGamesColor)border-b-2 border-gray-800 @endif">
+                        OYUNLAR
+                        <div class="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-red-500 border-2 border-white rounded-full -top-2 -right-2 dark:border-gray-900">1</div>
                     </button>
                     @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
                         <button
-                            class="px-5 py-3  font-medium text-slate-700 shadow-xl  hover:bg-white duration-150  bg-yellow-400 @if($myProfileColor)border-b-2 border-gray-800 @endif">
+                            class="px-2 py-3  font-medium text-slate-700 shadow-xl  hover:bg-white duration-150  bg-yellow-400 @if($myProfileColor)border-b-2 border-gray-800 @endif">
                             <img class="h-8 w-8 rounded-full object-cover"
                                  src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}"/>
                         </button>
                     @else
 
                         <button type="button" wire:click="showMyProfile"
-                                class="px-5 py-3  font-medium text-slate-700 shadow-xl  hover:bg-white duration-150  bg-yellow-400 @if($myProfileColor)border-b-2 border-gray-800 @endif">
+                                class="px-2 py-3  font-medium text-slate-700 shadow-xl  hover:bg-white duration-150  bg-yellow-400 @if($myProfileColor)border-b-2 border-gray-800 @endif">
                             {{ Auth::user()->name }}
                         </button>
                     @endif
                 </div>
             </div>
-        </div>
         @if($showCreate)
         <livewire:create-game />
         @endif
@@ -43,8 +45,10 @@
             window.Echo.private(`game-channel.{{ \Illuminate\Support\Facades\Auth::id() }}`)
                 .listen('GameNotification', (e) => {
                     notifyGame(`Yeni oyun isteği geldi!`)
+                    notifyIcon();
                 });
         </script>
+        </div>
     </div>
 @else
     <div>

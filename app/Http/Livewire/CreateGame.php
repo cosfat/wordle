@@ -7,6 +7,8 @@ use App\Models\User;
 use App\Models\Word;
 use App\Models\Game;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use Livewire\Component;
 
 class CreateGame extends Component
@@ -27,39 +29,50 @@ class CreateGame extends Component
 
     public $gameId;
 
-    public function checkWord(){
+    public $letterLength = 5;
+
+    public function test(){
+        return false;
+    }
+
+    public function checkWord()
+    {
         $word = $this->word;
-        if(Word::where('name', $word)->exists())
-        {
-            $wordRow = Word::where('name', $word)->first();
-            $this->wordError = false;
-            $this->hideOpponent = false;
-            $this->gameWord = $wordRow->id;
+        if (Str::length($word) == $this->letterLength) {
+            if (Word::where('name', $word)->exists()) {
+                $wordRow = Word::where('name', $word)->first();
+                $this->wordError = false;
+                $this->hideOpponent = false;
+                $this->gameWord = $wordRow->id;
 
-        }
-        else{
+            } else {
 
+                $this->wordError = true;
+                $this->hideOpponent = true;
+            }
+        } else {
             $this->wordError = true;
             $this->hideOpponent = true;
         }
     }
+
     public function autoWord()
     {
-        $word = Word::inRandomOrder()->first();
-        $this->word = $word->name;
+
+        $word = DB::select(DB::raw("SELECT id, name, CHAR_LENGTH(name) AS 'chrlen' FROM words WHERE CHAR_LENGTH(name) = $this->letterLength ORDER BY RAND() LIMIT 1"));
+        $this->word = $word[0]->name;
         $this->wordError = false;
         $this->hideOpponent = false;
-        $this->gameWord = $word->id;
+        $this->gameWord =  $word[0]->id;
 
     }
 
     public function autoOpp()
     {
-        if($this->word == null OR $this->wordError == true){
+        if ($this->word == null or $this->wordError == true) {
             $this->hideOpponent = true;
 
-        }
-        else{
+        } else {
             $this->hideOpponent = false;
         }
         $opponent = User::where('id', '!=', Auth::id())->inRandomOrder()->first();
@@ -75,7 +88,7 @@ class CreateGame extends Component
         $email = $this->opponentEmail;
         $user = User::where('email', $email)->where('id', '!=', Auth::id());
 
-        if($user->exists()){
+        if ($user->exists()) {
             $this->opponent = $user->first()->name;
             $this->opponentId = $user->first()->id;
             $this->gameOpp = $this->opponentId;
@@ -84,15 +97,15 @@ class CreateGame extends Component
             $this->startGame = true;
             $this->startGame();
 
-        }
-        else{
+        } else {
             $this->opponentError = true;
             $this->startGame = false;
         }
     }
 
 
-    public function startGame(){
+    public function startGame()
+    {
         $word = $this->gameWord;
         $opp = $this->gameOpp;
 

@@ -2,8 +2,8 @@
     @if($showGame == false)
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 flex flex-wrap justify-center">
         @foreach($games as $game)
-            @if($game->user->id != \Illuminate\Support\Facades\Auth::id())
-                        <a href="#" wire:click="theGame({{  $game->id }})">
+
+                        <a href="#"  @if($game->user->id != \Illuminate\Support\Facades\Auth::id()) wire:click="theGame({{  $game->id }}) @endif">
                 <div
                     class="p-10 flex flex-col items-center text-center group hover:bg-slate-50 cursor-pointer">
                 <span
@@ -40,8 +40,6 @@
 
                     </p>
                 </div>
-                        </a>
-            @endif
                 @endforeach
     </div>
     <div class="flex justify-end p-6">{{ $games->links() }}</div>
