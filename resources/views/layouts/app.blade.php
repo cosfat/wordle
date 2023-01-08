@@ -39,9 +39,9 @@
         @stack('modals')
 
         @livewireScripts
-
         <script>
             function notifyGame(message) {
+                alert(2);
                 // Get the snackbar DIV
                 var x = document.getElementById("notifyBar");
 
@@ -50,8 +50,7 @@
                 x.textContent = message;
 
                 // After 3 seconds, remove the show class from DIV
-                setTimeout(function(){ x.className = x.className.replace("show", "hidden"); }, 2000);
-                console.log(1);
+                setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
             }
 
             function notifyIcon(){

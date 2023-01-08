@@ -31,29 +31,25 @@ class CreateGame extends Component
 
     public $letterLength = 5;
 
-    public function test(){
+    public function test()
+    {
         return false;
     }
 
     public function checkWord()
     {
         $word = $this->word;
-        if (Str::length($word) == $this->letterLength) {
-            if (Word::where('name', $word)->exists()) {
-                $wordRow = Word::where('name', $word)->first();
-                $this->wordError = false;
-                $this->hideOpponent = false;
-                $this->gameWord = $wordRow->id;
+        if (Word::where('name', $word)->exists() AND Str::length($word) == $this->letterLength) {
+            $wordRow = Word::where('name', $word)->first();
+            $this->wordError = false;
+            $this->hideOpponent = false;
+            $this->gameWord = $wordRow->id;
 
-            } else {
-
-                $this->wordError = true;
-                $this->hideOpponent = true;
-            }
         } else {
             $this->wordError = true;
             $this->hideOpponent = true;
         }
+
     }
 
     public function autoWord()
@@ -63,7 +59,7 @@ class CreateGame extends Component
         $this->word = $word[0]->name;
         $this->wordError = false;
         $this->hideOpponent = false;
-        $this->gameWord =  $word[0]->id;
+        $this->gameWord = $word[0]->id;
 
     }
 
