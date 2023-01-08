@@ -16,8 +16,8 @@
                         type="button" wire:click="checkWord()">
                         {{ __('Gönder') }}
                     </button>
-                    @if($wordError)
-                        <script>notifyGame('Geçersiz kelime')</script>
+                    @if (session()->has('message'))
+                               <script>notifyGame('Geçersiz kelime')</script>
                     @endif
                 </div>
 

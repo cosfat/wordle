@@ -2,6 +2,8 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class Welcome extends Component
@@ -12,6 +14,7 @@ class Welcome extends Component
     public $createColor =true;
     public $myGamesColor =false;
     public $myProfileColor =false;
+    public $unseen;
 
     public function showCreate(){
 
@@ -42,8 +45,17 @@ class Welcome extends Component
         $this->myProfileColor =true;
     }
 
+    public function unseen(){
+        $this->unseen = false;
+        $user = Auth::user();
+        if($user->unseen()){
+            $this->unseen = true;
+        }
+    }
+
     public function render()
     {
+        $this->unseen();
         return view('livewire.welcome');
     }
 }

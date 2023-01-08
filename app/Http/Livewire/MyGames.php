@@ -32,7 +32,7 @@ class MyGames extends Component
 
         $this->games = Game::where('user_id', Auth::id())->orWhere('opponent_id', Auth::id())->orderBy('id', 'desc');
         return view('livewire.my-games',[
-                        'games' => $this->games->simplePaginate(3),
+                        'games' => $this->games->simplePaginate(5),
         ]);
     }
 }

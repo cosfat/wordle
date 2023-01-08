@@ -44,8 +44,8 @@ class CreateGame extends Component
             $this->wordError = false;
             $this->hideOpponent = false;
             $this->gameWord = $wordRow->id;
-
         } else {
+            session()->flash('message', 'Post successfully updated.');
             $this->wordError = true;
             $this->hideOpponent = true;
         }

@@ -41,7 +41,6 @@
         @livewireScripts
         <script>
             function notifyGame(message) {
-                alert(2);
                 // Get the snackbar DIV
                 var x = document.getElementById("notifyBar");
 
@@ -50,11 +49,13 @@
                 x.textContent = message;
 
                 // After 3 seconds, remove the show class from DIV
-                setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+                setTimeout(function(){ x.className = x.className.replace("show", ""); }, 4500);
             }
 
             function notifyIcon(){
-                document.getElementById('notifyIconText').textContent = 1;
+                document.getElementById('oyunlarim').classList.add("font-bold");
+                document.getElementById('oyunlarim').classList.add("bg-red-500");
+                document.getElementById('oyunlarim').classList.add("text-white");
             }
         </script>
 

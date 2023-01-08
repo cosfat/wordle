@@ -5,28 +5,27 @@
                 <div
                     class="bg-indigo-600 py-10 shadow-xl shadow-indigo-200 flex justify-center items-center">
 
-                    <a href="/" class="px-2 py-3 text-indigo-500 font-medium text-slate-700 shadow-xl hover:bg-gray-100 duration-150 bg-white">
+                    <a href="/" class="px-2 py-3 text-indigo-500 font-medium font-bold shadow-xl hover:bg-gray-100 duration-150 bg-white">
                         WORDLE
                     </a>
                     <button wire:click="showCreate"
-                            class="px-2 py-3  font-medium text-slate-700 shadow-xl hover:bg-white duration-150 bg-yellow-400 @if($createColor)border-b-2 border-gray-800 @endif">
+                            class="px-2 py-3  font-medium  shadow-xl hover:bg-white duration-150 bg-yellow-400 @if($createColor)border-b-2 border-gray-800 @endif">
                         BAŞLA
                     </button>
-                    <button wire:click="showMyGames"
-                            class="px-2 py-3  font-medium text-slate-700 shadow-xl hover:bg-white duration-150 bg-yellow-400 @if($myGamesColor)border-b-2 border-gray-800 @endif">
+                    <div wire:click="showMyGames" id="oyunlarim"
+                            class="@if($unseen) font-bold bg-red-500 text-white @endif cursor-pointer px-2 py-3  font-medium shadow-xl hover:bg-white hover:text-gray-800 duration-150 bg-yellow-400 @if($myGamesColor)border-b-2 border-gray-800 @endif">
                         OYUNLAR
-                        <div class="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-red-500 border-2 border-white rounded-full -top-2 -right-2 dark:border-gray-900">1</div>
-                    </button>
+                    </div>
                     @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
                         <button
-                            class="px-2 py-3  font-medium text-slate-700 shadow-xl  hover:bg-white duration-150  bg-yellow-400 @if($myProfileColor)border-b-2 border-gray-800 @endif">
+                            class="px-2 py-3 font-medium  shadow-xl  hover:bg-white duration-150  bg-yellow-400 @if($myProfileColor)border-b-2 border-gray-800 @endif">
                             <img class="h-8 w-8 rounded-full object-cover"
                                  src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}"/>
                         </button>
                     @else
 
                         <button type="button" wire:click="showMyProfile"
-                                class="px-2 py-3  font-medium text-slate-700 shadow-xl  hover:bg-white duration-150  bg-yellow-400 @if($myProfileColor)border-b-2 border-gray-800 @endif">
+                                class="px-2 py-3  font-medium  shadow-xl  hover:bg-white duration-150  bg-yellow-400 @if($myProfileColor)border-b-2 border-gray-800 @endif">
                             {{ Auth::user()->name }}
                         </button>
                     @endif
