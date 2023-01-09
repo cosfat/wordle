@@ -103,12 +103,13 @@
     </div>
     <script>
         let words = JSON.parse({!! json_encode(\App\Models\Word::pluck('name')->toJSON()) !!})
+        let guesses = @json($guessesArray);
+
         const NUMBER_OF_GUESSES = {{ $length + 1 }};
-        let guessesRemaining = NUMBER_OF_GUESSES;
+        let guessesRemaining = NUMBER_OF_GUESSES - {{ $guessesCount }};
         let currentGuess = [];
         let nextLetter = 0;
         let rightGuessString = "{{ \App\Models\Game::find($gameId)->word->name }}";
-        console.log(nextLetter);
 
         function initBoard() {
             let board = document.getElementById("game-board");
@@ -128,6 +129,7 @@
         }
 
         initBoard()
+
 
         document.addEventListener("keyup", (e) => {
 
@@ -154,6 +156,27 @@
             }
         })
 
+        guesses.forEach(function (k){
+            Array.from(k).forEach(function (m){
+                addedLetter = String(m);
+                insertAddedLetter(addedLetter);
+            })
+        })
+
+        function insertAddedLetter (addedLetter) {
+            if (nextLetter === {{ $length }}) {
+                return
+            }
+            addedLetter = addedLetter.toLowerCase()
+
+            let row = document.getElementsByClassName("letter-row")[{{ $length + 1 }} - {{ $guessesCount }}]
+            let box = row.children[nextLetter]
+            box.textContent = addedLetter
+            box.classList.add("filled-box")
+            currentGuess.push(addedLetter)
+            nextLetter += 1
+        }
+
         function insertLetter (pressedKey) {
             if (nextLetter === {{ $length }}) {
                 return
@@ -167,8 +190,6 @@
             box.classList.add("filled-box")
             currentGuess.push(pressedKey)
             nextLetter += 1
-
-            console.log(nextLetter);
         }
 
         function deleteLetter () {
@@ -247,7 +268,7 @@
             }
             var wordNumber = {{ $length + 1 }} - guessesRemaining;
 
-          //  this.emit('editGame', {{ $gameId }}, guessString, wordNumber)
+            Livewire.emit('addGuess', guessString, {{ $gameId }})
         }
 
         function shadeKeyBoard(letter, color) {
@@ -308,5 +329,6 @@
             notifyGame("{{  session('message')  }}")
         </script>
     @endif
+    <livewire:guess-recorder></livewire:guess-recorder>
     <script   src="https://code.jquery.com/jquery-3.6.3.min.js"   integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU="   crossorigin="anonymous"></script>
 </div>

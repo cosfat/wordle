@@ -53,4 +53,9 @@ class Game extends Model
     public function word(){
         return $this->belongsTo(Word::class);
     }
+
+    public function guesses()
+    {
+        return $this->hasMany(Guess::class);
+    }
 }
