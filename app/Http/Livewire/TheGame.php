@@ -12,6 +12,10 @@ class TheGame extends Component
     public $wordNumber;
     public $word;
 
+    public function mount($gameId){
+        $this->gameId = $gameId;
+    }
+
     public function editGame($gameId, $word, $wordNumber){
         $theWord = "word_".$wordNumber;
         $game = Game::find($gameId);

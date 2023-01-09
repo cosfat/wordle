@@ -15,16 +15,12 @@ class MyGames extends Component
     protected $listeners = ['MyGames' => 'getGames'];
     protected $games;
 
-    public $showGame = false;
-
     public function getGames(){
-        $this->games = Game::where('user_id', Auth::id())->orWhere('opponent_id', Auth::id())->orderBy('id', 'desc');
+        $this->games = Game::where('opponent_id', Auth::id())->orWhere('user_id', Auth::id())->orderBy('id', 'desc');
     }
 
     public function theGame($gameId){
-        $this->showGame = true;
-        $this->gameId = $gameId;
-        $this->emit('TheGame');
+        $this->emitUp('showTheGame', $gameId);
     }
 
     public function render()

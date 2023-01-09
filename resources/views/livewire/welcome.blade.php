@@ -5,7 +5,8 @@
                 <div
                     class="bg-indigo-600 py-10 shadow-xl shadow-indigo-200 flex justify-center items-center">
 
-                    <a href="/" class="px-2 py-3 text-indigo-500 font-medium font-bold shadow-xl hover:bg-gray-100 duration-150 bg-white">
+                    <a href="/"
+                       class="px-2 py-3 text-indigo-500 font-medium font-bold shadow-xl hover:bg-gray-100 duration-150 bg-white">
                         WORDLE
                     </a>
                     <button wire:click="showCreate"
@@ -13,7 +14,7 @@
                         BAŞLA
                     </button>
                     <div wire:click="showMyGames" id="oyunlarim"
-                            class="@if($unseen) font-bold bg-red-500 text-white @endif cursor-pointer px-2 py-3  font-medium shadow-xl hover:bg-white hover:text-gray-800 duration-150 bg-yellow-400 @if($myGamesColor)border-b-2 border-gray-800 @endif">
+                         class="@if($unseen) font-bold bg-red-500 text-white @endif cursor-pointer px-2 py-3  font-medium shadow-xl hover:bg-white hover:text-gray-800 duration-150 bg-yellow-400 @if($myGamesColor)border-b-2 border-gray-800 @endif">
                         OYUNLAR
                     </div>
                     @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
@@ -31,22 +32,25 @@
                     @endif
                 </div>
             </div>
-        @if($showCreate)
-        <livewire:create-game />
-        @endif
-        @if($showMyGames)
-        <livewire:my-games/>
-        @endif
-        @if($showMyProfile)
-            <livewire:my-profile/>
-        @endif
-        <script type="module">
-            window.Echo.private(`game-channel.{{ \Illuminate\Support\Facades\Auth::id() }}`)
-                .listen('GameNotification', (e) => {
-                    notifyGame(`Yeni oyun isteği geldi!`)
-                    notifyIcon();
-                });
-        </script>
+            @if($showCreate)
+                <livewire:create-game/>
+            @endif
+            @if($showMyGames)
+                <livewire:my-games/>
+            @endif
+            @if($showMyProfile)
+                <livewire:my-profile/>
+            @endif
+            @if($showTheGame)
+                <livewire:the-game :gameId={{ $gameId }}/>
+            @endif
+            <script type="module">
+                window.Echo.private(`game-channel.{{ \Illuminate\Support\Facades\Auth::id() }}`)
+                    .listen('GameNotification', (e) => {
+                        notifyGame(`Yeni oyun isteği geldi!`)
+                        notifyIcon();
+                    });
+            </script>
         </div>
     </div>
 @else

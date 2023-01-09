@@ -1,14 +1,9 @@
 <div class="py-12">
-    @if($showGame == false)
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 flex flex-wrap justify-center">
             @foreach($games as $game)
-                <a href="#"
-                   @if($game->user->id != \Illuminate\Support\Facades\Auth::id()) wire:click="theGame({{  $game->id }}) @endif">
                     <div
-                        class="p-10 flex flex-col items-center text-center group hover:bg-slate-50 cursor-pointer">
+                        class="p-10 flex flex-col items-center text-center group hover:bg-slate-50 cursor-pointer" @if($game->user->id != \Illuminate\Support\Facades\Auth::id()) wire:click="theGame({{ $game->id }})" @endif>
                         @if($game->opponent_id == \Illuminate\Support\Facades\Auth::id() AND $game->seen == 0)
-                            <button type="button"
-                                    class="relative inline-flex items-center p-3 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                                 <div
                                     class="absolute inline-flex items-center justify-center p-2 text-xs font-bold text-white bg-red-500 border-2 border-white rounded-full">
                                     Yeni oyun
@@ -50,12 +45,7 @@
 
                         </p>
                     </div>
-
-                </a>
             @endforeach
         </div>
         <div class="flex justify-end p-6">{{ $games->links() }}</div>
-    @else
-        <livewire:the-game :gameId="$gameId"></livewire:the-game>
-    @endif
 </div>

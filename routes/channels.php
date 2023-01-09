@@ -16,8 +16,13 @@ use App\Models\Game;
 */
 Broadcast::channel('game-channel.{opp}', function ($user, $opp) {
 
-   $game = Game::whereOpponent_id($opp)->first();
-   return $user->id === $game->opponent_id;
+    if(Game::whereOpponent_id($opp)->exists()){
+        $game = Game::whereOpponent_id($opp)->first();
+        return $user->id === $game->opponent_id;
+    }
+    else{
+        return true;
+    }
 
 });
 
