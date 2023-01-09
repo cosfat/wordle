@@ -1,8 +1,10 @@
 <div name="the-game">
-
     <div class="flex justify-center mt-4 mb-4">
-        <h2 class="text-2xl font-bold tracking-tight sm:text-center sm:text-4xl text-indigo-500">{{ $opponentName }}</h2>
+        <h2 class="text-2xl font-bold tracking-tight sm:text-center sm:text-4xl text-indigo-500">{{ $opponentName }}: </h2>
+        <h2 class="text-2xl font-bold tracking-tight sm:text-center sm:text-4xl text-red-600"> {{ $wordName }}</h2>
+
     </div>
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <style>
         h1 {
@@ -103,12 +105,11 @@
     </div>
     <script>
         let words = JSON.parse({!! json_encode(\App\Models\Word::pluck('name')->toJSON()) !!})
-        const NUMBER_OF_GUESSES = {{ $length + 1 }};
+        const NUMBER_OF_GUESSES = {{ $length + 1}};
         let guessesRemaining = NUMBER_OF_GUESSES;
         let currentGuess = [];
         let nextLetter = 0;
         let rightGuessString = "{{ \App\Models\Game::find($gameId)->word->name }}";
-        console.log(nextLetter);
 
         function initBoard() {
             let board = document.getElementById("game-board");
@@ -129,127 +130,6 @@
 
         initBoard()
 
-        document.addEventListener("keyup", (e) => {
-
-            if (guessesRemaining === 0) {
-                return
-            }
-
-            let pressedKey = String(e.key)
-            if (pressedKey === "Backspace" && nextLetter !== 0) {
-                deleteLetter()
-                return
-            }
-
-            if (pressedKey === "Enter") {
-                checkGuess()
-                return
-            }
-
-            let found = pressedKey.match(/[a-zöçşığü]/gi)
-            if (!found || found.length > 1) {
-                return
-            } else {
-                insertLetter(pressedKey)
-            }
-        })
-
-        function insertLetter (pressedKey) {
-            if (nextLetter === {{ $length }}) {
-                return
-            }
-            pressedKey = pressedKey.toLowerCase()
-
-            let row = document.getElementsByClassName("letter-row")[{{ $length + 1 }} - guessesRemaining]
-            let box = row.children[nextLetter]
-            animateCSS(box, "pulse")
-            box.textContent = pressedKey
-            box.classList.add("filled-box")
-            currentGuess.push(pressedKey)
-            nextLetter += 1
-
-            console.log(nextLetter);
-        }
-
-        function deleteLetter () {
-            let row = document.getElementsByClassName("letter-row")[{{ $length + 1 }} - guessesRemaining]
-            let box = row.children[nextLetter - 1]
-            box.textContent = ""
-            box.classList.remove("filled-box")
-            currentGuess.pop()
-            nextLetter -= 1
-        }
-        function checkGuess () {
-            let row = document.getElementsByClassName("letter-row")[{{ $length + 1 }} - guessesRemaining]
-            let guessString = ''
-            let rightGuess = Array.from(rightGuessString)
-
-            for (const val of currentGuess) {
-                guessString += val
-            }
-
-            if (guessString.length != {{ $length }}) {
-                notifyGame("5 harfli kelime yazmalısın")
-                return
-            }
-
-            if (!words.includes(guessString)) {
-                notifyGame("Bu kelime veritabanımızda yok")
-                return
-            }
-
-
-            for (let i = 0; i < {{ $length }}; i++) {
-                let letterColor = ''
-                let box = row.children[i]
-                let letter = currentGuess[i]
-
-                let letterPosition = rightGuess.indexOf(currentGuess[i])
-                // is letter in the correct guess
-                if (letterPosition === -1) {
-                    letterColor = '#e3e3e3'
-                } else {
-                    // now, letter is definitely in word
-                    // if letter index and right guess index are the same
-                    // letter is in the right position
-                    if (currentGuess[i] === rightGuess[i]) {
-                        // shade green
-                        letterColor = '#02cc09'
-                    } else {
-                        // shade box yellow
-                        letterColor = 'yellow'
-                    }
-
-                    rightGuess[letterPosition] = "#"
-                }
-
-                let delay = 250 * i
-                setTimeout(()=> {
-                    animateCSS(box, 'flipInX')
-                    //shade box
-                    box.style.backgroundColor = letterColor
-                    shadeKeyBoard(letter, letterColor)
-                }, delay)
-            }
-
-            if (guessString === rightGuessString) {
-                notifyGame("Tebrikler!")
-                guessesRemaining = 0
-                return
-            } else {
-                guessesRemaining -= 1;
-                currentGuess = [];
-                nextLetter = 0;
-
-                if (guessesRemaining === 0) {
-                    notifyGame(`Kaybettin! Doğru kelime: ${rightGuessString}`)
-                }
-            }
-            var wordNumber = {{ $length + 1 }} - guessesRemaining;
-
-          //  this.emit('editGame', {{ $gameId }}, guessString, wordNumber)
-        }
-
         function shadeKeyBoard(letter, color) {
             for (const elem of document.getElementsByClassName("keyboard-button")) {
                 if (elem.textContent === letter) {
@@ -267,21 +147,6 @@
                 }
             }
         }
-
-        document.getElementById("keyboard-cont").addEventListener("click", (e) => {
-            const target = e.target
-
-            if (!target.classList.contains("keyboard-button")) {
-                return
-            }
-            let key = target.textContent
-
-            if (key === "Del") {
-                key = "Backspace"
-            }
-
-            document.dispatchEvent(new KeyboardEvent("keyup", {'key': key}))
-        })
 
         const animateCSS = (element, animation, prefix = 'animate__') =>
             // We create a Promise and return it
@@ -303,6 +168,7 @@
                 node.addEventListener('animationend', handleAnimationEnd, {once: true});
             });
     </script>
+
     @if (session()->has('message'))
         <script>
             notifyGame("{{  session('message')  }}")

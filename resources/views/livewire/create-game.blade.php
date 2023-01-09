@@ -1,4 +1,4 @@
-<div name="create-game">
+<div>
     @if($startGame == false)
 
         <form method="POST" action="#" wire:submit.prevent="test">
@@ -16,7 +16,7 @@
                         type="button" wire:click="checkWord()">
                         {{ __('Gönder') }}
                     </button>
-                    @if (session()->has('message'))
+                    @if ($wordError)
                                <script>notifyGame('Geçersiz kelime')</script>
                     @endif
                 </div>
@@ -65,6 +65,11 @@
                 </div>
             </form>
         @endif
+    @endif
+
+        @if (session()->has('message'))
+            <script>
+                notifyGame("{{  session('message')  }}")
+            </script>
         @endif
-</div>
 </div>

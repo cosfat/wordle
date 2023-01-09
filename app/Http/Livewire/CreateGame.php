@@ -13,7 +13,6 @@ use Livewire\Component;
 
 class CreateGame extends Component
 {
-    public $gameName;
     public $word;
     public $opponent;
     public $opponentId;
@@ -27,19 +26,21 @@ class CreateGame extends Component
     public $gameWord;
     public $gameOpp;
 
-    public $gameId;
-
-    public $letterLength = 5;
+    public $length = 5;
 
     public function test()
     {
         return false;
     }
 
+    public function mount($length = 5){
+        $this->length = $length;
+    }
+
     public function checkWord()
     {
         $word = $this->word;
-        if (Word::where('name', $word)->exists() AND Str::length($word) == $this->letterLength) {
+        if (Word::where('name', $word)->exists() AND Str::length($word) == $this->length) {
             $wordRow = Word::where('name', $word)->first();
             $this->wordError = false;
             $this->hideOpponent = false;
@@ -54,7 +55,7 @@ class CreateGame extends Component
     public function autoWord()
     {
 
-        $word = DB::select(DB::raw("SELECT id, name, CHAR_LENGTH(name) AS 'chrlen' FROM words WHERE CHAR_LENGTH(name) = $this->letterLength ORDER BY RAND() LIMIT 1"));
+        $word = DB::select(DB::raw("SELECT id, name, CHAR_LENGTH(name) AS 'chrlen' FROM words WHERE CHAR_LENGTH(name) = $this->length ORDER BY RAND() LIMIT 1"));
         $this->word = $word[0]->name;
         $this->wordError = false;
         $this->hideOpponent = false;
@@ -108,11 +109,11 @@ class CreateGame extends Component
         $game->user_id = Auth::id();
         $game->opponent_id = $opp;
         $game->word_id = $word;
+        $game->length = $this->length;
         $game->save();
-        $this->gameId = $game->id;
-        $this->gameName = $game->word->name;
-        $this->emitUp('showMyGames');
         GameNotification::dispatch($opp);
+        session()->flash('message', 'Oyun başarıyla oluşturuldu.');
+        return redirect()->to('/game-watcher/'.$game->id);
     }
 
     public function render()

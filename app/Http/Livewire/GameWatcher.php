@@ -7,25 +7,28 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
-class TheGame extends Component
+class GameWatcher extends Component
 {
     public $length;
     public $gameId;
     public $word;
+    public $wordName;
     public $opponentName;
 
     public function mount($gameId)
     {
-        $game = Game::whereId($gameId)->where('opponent_id', Auth::id());
+        $game = Game::whereId($gameId)->where('user_id', Auth::id());
         if ($game->exists()) {
             $game = $game->first();
-            $this->gameId = $gameId;
             $this->length = $game->length;
-            $this->opponentName = User::find($game->user_id)->name;
+            $this->gameId = $gameId;
+            $this->wordName = $game->word->name;
+            $this->opponentName = User::find($game->opponent_id)->name;
         } else {
             session()->flash('message', 'Bu oyunu görme yetkiniz yok.');
             return redirect()->to('/create-game');
         }
+
     }
 
     public function editGame($gameId, $word, $wordNumber)
@@ -38,9 +41,6 @@ class TheGame extends Component
 
     public function render()
     {
-        $game = Game::find($this->gameId);
-        $game->seen = 1;
-        $game->save();
-        return view('livewire.the-game');
+        return view('livewire.game-watcher');
     }
 }

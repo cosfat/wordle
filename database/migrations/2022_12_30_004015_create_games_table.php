@@ -27,6 +27,7 @@ return new class extends Migration
             $table->boolean('seen')->default(false);
             $table->bigInteger('winner_id')->nullable();
             $table->integer('degree')->nullable();
+            $table->integer('length');
             $table->timestamps();
         });
     }

@@ -25,6 +25,11 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 
-    Route::get('/game/{gameId}', \App\Http\Livewire\TheGame::class);
+    Route::get('/the-game/{gameId}', \App\Http\Livewire\TheGame::class);
+    Route::get('/game-watcher/{gameId}', \App\Http\Livewire\GameWatcher::class);
+    Route::get('/my-profile', \App\Http\Livewire\MyProfile::class);
+    Route::get('/my-games', \App\Http\Livewire\MyGames::class);
+    Route::get('/create-game', \App\Http\Livewire\CreateGame::class);
+    Route::get('/create-game/{length}', \App\Http\Livewire\CreateGame::class);
 });
 

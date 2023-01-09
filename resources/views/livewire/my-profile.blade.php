@@ -24,4 +24,9 @@
                 </form>
         </div>
 
+    @if (session()->has('message'))
+        <script>
+            notifyGame("{{  session('message')  }}")
+        </script>
+    @endif
     </div>
