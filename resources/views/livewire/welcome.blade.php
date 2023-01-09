@@ -1,9 +1,8 @@
 @auth
-    <div class="max-w-7xl mx-auto">
+    <div name="welcome" class="max-w-7xl mx-auto">
         <div>
-            <div class="overflow-hidden shadow-xl">
-                <div
-                    class="bg-indigo-600 py-10 shadow-xl shadow-indigo-200 flex justify-center items-center">
+            <div name="menu-bar" class="overflow-hidden shadow-xl">
+                <div class="bg-indigo-600 py-10 shadow-xl shadow-indigo-200 flex justify-center items-center">
 
                     <a href="/"
                        class="px-2 py-3 text-indigo-500 font-medium font-bold shadow-xl hover:bg-gray-100 duration-150 bg-white">
@@ -32,6 +31,7 @@
                     @endif
                 </div>
             </div>
+
             @if($showCreate)
                 <livewire:create-game/>
             @endif
@@ -44,13 +44,6 @@
             @if($showTheGame)
                 <livewire:the-game :gameId={{ $gameId }}/>
             @endif
-            <script type="module">
-                window.Echo.private(`game-channel.{{ \Illuminate\Support\Facades\Auth::id() }}`)
-                    .listen('GameNotification', (e) => {
-                        notifyGame(`Yeni oyun isteği geldi!`)
-                        notifyIcon();
-                    });
-            </script>
         </div>
     </div>
 @else

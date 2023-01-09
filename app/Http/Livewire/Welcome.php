@@ -8,7 +8,8 @@ use Livewire\Component;
 
 class Welcome extends Component
 {
-    protected $listeners = ['showTheGame'];
+    protected $listeners = ['showTheGame', 'showMyGames'];
+
     public $showCreate = true;
     public $showMyGames = false;
     public $showTheGame = false;
@@ -34,7 +35,6 @@ class Welcome extends Component
         $this->showMyGames = true;
         $this->showMyProfile = false;
         $this->showTheGame = false;
-
         $this->createColor =false;
         $this->myGamesColor =true;
         $this->myProfileColor =false;

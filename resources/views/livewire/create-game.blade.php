@@ -1,4 +1,4 @@
-<div>
+<div name="create-game">
     @if($startGame == false)
 
         <form method="POST" action="#" wire:submit.prevent="test">
@@ -65,11 +65,6 @@
                 </div>
             </form>
         @endif
-    @else
-        <script>
-            notifyGame("Oyun başarıyla oluşturuldu.");
-        </script>
-        <livewire:my-games></livewire:my-games>
-    @endif
+        @endif
 </div>
 </div>

@@ -24,5 +24,7 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
+
+    Route::get('/game/{gameId}', \App\Http\Livewire\TheGame::class);
 });
 

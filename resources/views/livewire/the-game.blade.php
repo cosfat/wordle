@@ -1,4 +1,4 @@
-<div>
+<div name="the-game">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <style>
         h1 {
@@ -104,6 +104,7 @@
         let currentGuess = [];
         let nextLetter = 0;
         let rightGuessString = "{{ \App\Models\Game::find($gameId)->word->name }}";
+        console.log(nextLetter);
 
         function initBoard() {
             let board = document.getElementById("game-board");
@@ -162,6 +163,8 @@
             box.classList.add("filled-box")
             currentGuess.push(pressedKey)
             nextLetter += 1
+
+            console.log(nextLetter);
         }
 
         function deleteLetter () {

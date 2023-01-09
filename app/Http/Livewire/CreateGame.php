@@ -109,10 +109,9 @@ class CreateGame extends Component
         $game->opponent_id = $opp;
         $game->word_id = $word;
         $game->save();
-        $this->emit('MyGames');
         $this->gameId = $game->id;
         $this->gameName = $game->word->name;
-
+        $this->emitUp('showMyGames');
         GameNotification::dispatch($opp);
     }
 

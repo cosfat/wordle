@@ -14,6 +14,7 @@ class TheGame extends Component
 
     public function mount($gameId){
         $this->gameId = $gameId;
+
     }
 
     public function editGame($gameId, $word, $wordNumber){
