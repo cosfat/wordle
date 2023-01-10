@@ -146,6 +146,11 @@
             })
         }
 
+        function refreshWatcher()
+        {
+            Livewire.emit('refreshComponent');
+        }
+
 
         function insertAddedLetter (addedLetter, k) {
 
@@ -170,7 +175,6 @@
 
 
         function checkAddedGuess (a) {
-            console.log(addedRow)
             let row = document.getElementsByClassName("letter-row")[{{ $length + 1 }} - a]
             let guessString = ''
             let rightGuess = Array.from(rightGuessString)
@@ -267,4 +271,5 @@
         </script>
     @endif
     <script   src="https://code.jquery.com/jquery-3.6.3.min.js"   integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU="   crossorigin="anonymous"></script>
+    <x-jet-danger-button wire:click="deleteGame">Bu oyunu sil</x-jet-danger-button>
 </div>

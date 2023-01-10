@@ -26,6 +26,18 @@ Broadcast::channel('game-channel.{opp}', function ($user, $opp) {
 
 });
 
+Broadcast::channel('guesses-channel.{opp}', function ($user, $opp) {
+
+    if(Game::whereOpponent_id($opp)->exists()){
+        $game = Game::whereOpponent_id($opp)->first();
+        return $user->id === $game->opponent_id;
+    }
+    else{
+        return true;
+    }
+
+});
+
 Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
     return (int)$user->id === (int)$id;
 });

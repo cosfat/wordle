@@ -22,6 +22,11 @@
                     notifyGame(`Yeni oyun isteği geldi!`)
                     notifyIcon();
                 });
+
+            window.Echo.private(`guesses-channel.{{ \Illuminate\Support\Facades\Auth::id() }}`)
+                .listen('GuessTyped', (e) => {
+                    refreshWatcher();
+                });
         </script>
         <script>
             function notifyGame(message) {

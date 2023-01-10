@@ -3,12 +3,16 @@
 
         <form method="POST" action="#" wire:submit.prevent="test">
             <div class="p-5 gap-2 border-b-2">
-                <div class="flex justify-center">
-                    <h2 class="text-2xl font-bold tracking-tight sm:text-center sm:text-4xl text-indigo-500">Kelime</h2>
+                <div class="flex justify-center mb-4">
+                    <h2 wire:click="changeLength(4)" class="border-2 p-2 cursor-pointer text-2xl font-bold tracking-tight sm:text-4xl sm:text-center text-indigo-500 ml-3">4</h2>
+                    <h2 wire:click="changeLength(5)" class="border-2 p-2 cursor-pointer text-2xl font-bold tracking-tight sm:text-4xl sm:text-center text-indigo-500 ml-3">5</h2>
+                    <h2 wire:click="changeLength(6)" class="border-2 p-2 cursor-pointer text-2xl font-bold tracking-tight sm:text-4xl sm:text-center text-indigo-500 ml-3">6</h2>
+                    <h2 wire:click="changeLength(7)" class="border-2 p-2 cursor-pointer text-2xl font-bold tracking-tight sm:text-4xl sm:text-center text-indigo-500 ml-3">7</h2>
+                    <h2 wire:click="changeLength(8)" class="border-2 p-2 cursor-pointer text-2xl font-bold tracking-tight sm:text-4xl sm:text-center text-indigo-500 ml-3">8</h2>
                 </div>
                 <div class="flex justify-center">
                     <x-jet-input wire:model.defer="word"
-                                 placeholder="5 harflik bir kelime seç" id="word" class="mt-1" type="text"
+                                 placeholder="{{ $length }} harflik bir kelime seç" id="word" class="mt-1" type="text"
                                  value="{{ $word }}" name="word" required autofocus/>
 
                     <button

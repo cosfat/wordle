@@ -17,7 +17,17 @@ class GameWatcher extends Component
 
     public $guessesCount;
     public $guessesArray;
+    protected $listeners = ['refreshComponent'];
 
+    public function refreshComponent(){
+        return redirect(request()->header('Referer'));
+    }
+
+    public function deleteGame(){
+        $game = Game::find($this->gameId);
+        $game->delete();
+        return redirect(url('/'));
+    }
     public function mount($gameId)
     {
         $game = Game::whereId($gameId)->where('user_id', Auth::id());

@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Events\GameNotification;
+use App\Events\GuessTyped;
 use App\Models\User;
 use App\Models\Word;
 use App\Models\Game;
@@ -34,6 +35,10 @@ class CreateGame extends Component
     }
 
     public function mount($length = 5){
+        $this->length = $length;
+    }
+
+    public function changeLength($length){
         $this->length = $length;
     }
 
