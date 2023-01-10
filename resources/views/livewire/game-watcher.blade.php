@@ -106,6 +106,8 @@
     <script>
         let words = JSON.parse({!! json_encode(\App\Models\Word::pluck('name')->toJSON()) !!})
         const NUMBER_OF_GUESSES = {{ $length + 1}};
+
+        let guesses = @json($guessesArray);
         let guessesRemaining = NUMBER_OF_GUESSES;
         let currentGuess = [];
         let nextLetter = 0;
@@ -130,6 +132,96 @@
 
         initBoard()
 
+
+        let addedGuessesCount = 0;
+        let nextAddedLetter = 0;
+        let addedRow = {{ $length + 1 }};
+        if(guesses !== null){
+
+            guesses.forEach(function (k){
+                Array.from(k).forEach(function (m){
+                    addedLetter = String(m);
+                    insertAddedLetter(addedLetter, k);
+                })
+            })
+        }
+
+
+        function insertAddedLetter (addedLetter, k) {
+
+            let row = document.getElementsByClassName("letter-row")[addedGuessesCount]
+            let box = row.children[nextAddedLetter];
+
+            currentGuess.push(addedLetter)
+            if (nextAddedLetter === {{ $length }} - 1){
+                checkAddedGuess(addedRow);
+                nextAddedLetter = -1;
+                addedGuessesCount += 1;
+                addedRow -= 1;
+            }
+
+            addedLetter = addedLetter.toLowerCase()
+            box.textContent = addedLetter
+            box.classList.add("filled-box")
+
+            nextAddedLetter += 1
+
+        }
+
+
+        function checkAddedGuess (a) {
+            console.log(addedRow)
+            let row = document.getElementsByClassName("letter-row")[{{ $length + 1 }} - a]
+            let guessString = ''
+            let rightGuess = Array.from(rightGuessString)
+
+            for (const val of currentGuess) {
+                guessString += val
+            }
+
+            for (let i = 0; i < {{ $length }}; i++) {
+                let letterColor = ''
+                let box = row.children[i]
+                let letter = currentGuess[i]
+
+                let letterPosition = rightGuess.indexOf(currentGuess[i])
+
+                // is letter in the correct guess?
+                if (letterPosition === -1) {
+                    letterColor = '#e3e3e3'
+                } else {
+                    // now, letter is definitely in word
+                    // if letter index and right guess index are the same
+                    // letter is in the right position
+                    if (currentGuess[i] === rightGuess[i]) {
+                        // shade green
+                        letterColor = '#02cc09'
+                    } else {
+                        // shade box yellow
+                        letterColor = 'yellow'
+                    }
+
+                    rightGuess[letterPosition] = "#"
+                }
+
+                box.style.backgroundColor = letterColor;
+                shadeKeyBoard(letter, letterColor)
+            }
+
+            if (guessString === rightGuessString) {
+                notifyGame("Tebrikler!")
+                guessesRemaining = 0
+                return
+            } else {
+                guessesRemaining -= 1;
+                currentGuess = [];
+                nextLetter = 0;
+
+                if (guessesRemaining === 0) {
+                    notifyGame(`Kaybettin! Doğru kelime: ${rightGuessString}`)
+                }
+            }
+        }
         function shadeKeyBoard(letter, color) {
             for (const elem of document.getElementsByClassName("keyboard-button")) {
                 if (elem.textContent === letter) {

@@ -15,11 +15,19 @@ class GameWatcher extends Component
     public $wordName;
     public $opponentName;
 
+    public $guessesCount;
+    public $guessesArray;
+
     public function mount($gameId)
     {
         $game = Game::whereId($gameId)->where('user_id', Auth::id());
         if ($game->exists()) {
             $game = $game->first();
+            $guesses = $game->guesses()->get();
+            foreach ($guesses as $guess) {
+                $this->guessesArray[] = $guess->word->name;
+            }
+            $this->guessesCount = $guesses->count();
             $this->length = $game->length;
             $this->gameId = $gameId;
             $this->wordName = $game->word->name;

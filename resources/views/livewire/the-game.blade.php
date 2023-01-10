@@ -159,39 +159,43 @@
 
         let addedGuessesCount = 0;
         let nextAddedLetter = 0;
-        guesses.forEach(function (k){
-            Array.from(k).forEach(function (m){
-                addedLetter = String(m);
-                insertAddedLetter(addedLetter, k);
+        let addedRow = {{ $length + 1 }};
+        if(guesses !== null){
+
+            guesses.forEach(function (k){
+                Array.from(k).forEach(function (m){
+                    addedLetter = String(m);
+                    insertAddedLetter(addedLetter, k);
+                })
             })
-        })
+        }
+
 
         function insertAddedLetter (addedLetter, k) {
-            if (nextAddedLetter === {{ $length }}){
-                checkAddedGuess(k);
-                nextAddedLetter = 0;
+
+            let row = document.getElementsByClassName("letter-row")[addedGuessesCount]
+            let box = row.children[nextAddedLetter];
+
+            currentGuess.push(addedLetter)
+            if (nextAddedLetter === {{ $length }} - 1){
+                checkAddedGuess(addedRow);
+                nextAddedLetter = -1;
                 addedGuessesCount += 1;
+                addedRow -= 1;
             }
 
             addedLetter = addedLetter.toLowerCase()
-
-            let row = document.getElementsByClassName("letter-row")[addedGuessesCount]
-
-            let box = row.children[nextAddedLetter];
-
             box.textContent = addedLetter
             box.classList.add("filled-box")
 
-            currentGuess.push(addedLetter)
-
             nextAddedLetter += 1
+
         }
 
-        function checkAddedGuess (k) {
-            console.log(k);
-            console.log(guessesRemaining);
-            let addedRow = {{ $length + 1 }};
-            let row = document.getElementsByClassName("letter-row")[{{ $length + 1 }} - addedRow]
+
+        function checkAddedGuess (a) {
+            console.log(addedRow)
+            let row = document.getElementsByClassName("letter-row")[{{ $length + 1 }} - a]
             let guessString = ''
             let rightGuess = Array.from(rightGuessString)
 
@@ -205,6 +209,7 @@
                 let letter = currentGuess[i]
 
                 let letterPosition = rightGuess.indexOf(currentGuess[i])
+
                 // is letter in the correct guess?
                 if (letterPosition === -1) {
                     letterColor = '#e3e3e3'
@@ -223,7 +228,7 @@
                     rightGuess[letterPosition] = "#"
                 }
 
-                box.style.backgroundColor = letterColor
+                box.style.backgroundColor = letterColor;
                 shadeKeyBoard(letter, letterColor)
             }
 
@@ -240,7 +245,6 @@
                     notifyGame(`Kaybettin! Doğru kelime: ${rightGuessString}`)
                 }
             }
-            addedRow -= 1;
         }
 
         function insertLetter (pressedKey) {
@@ -319,6 +323,10 @@
                 }, delay)
             }
 
+
+            var wordNumber = {{ $length + 1 }} - guessesRemaining;
+
+            Livewire.emit('addGuess', guessString, {{ $gameId }});
             if (guessString === rightGuessString) {
                 notifyGame("Tebrikler!")
                 guessesRemaining = 0
@@ -332,9 +340,6 @@
                     notifyGame(`Kaybettin! Doğru kelime: ${rightGuessString}`)
                 }
             }
-            var wordNumber = {{ $length + 1 }} - guessesRemaining;
-
-            Livewire.emit('addGuess', guessString, {{ $gameId }})
         }
 
         function shadeKeyBoard(letter, color) {
