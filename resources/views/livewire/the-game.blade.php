@@ -106,7 +106,7 @@
         let guesses = @json($guessesArray);
 
         const NUMBER_OF_GUESSES = {{ $length + 1 }};
-        let guessesRemaining = NUMBER_OF_GUESSES - {{ $guessesCount }};
+        let guessesRemaining = NUMBER_OF_GUESSES;
         let currentGuess = [];
         let nextLetter = 0;
         let rightGuessString = "{{ \App\Models\Game::find($gameId)->word->name }}";
@@ -156,25 +156,91 @@
             }
         })
 
+
+        let addedGuessesCount = 0;
+        let nextAddedLetter = 0;
         guesses.forEach(function (k){
             Array.from(k).forEach(function (m){
                 addedLetter = String(m);
-                insertAddedLetter(addedLetter);
+                insertAddedLetter(addedLetter, k);
             })
         })
 
-        function insertAddedLetter (addedLetter) {
-            if (nextLetter === {{ $length }}) {
-                return
+        function insertAddedLetter (addedLetter, k) {
+            if (nextAddedLetter === {{ $length }}){
+                checkAddedGuess(k);
+                nextAddedLetter = 0;
+                addedGuessesCount += 1;
             }
+
             addedLetter = addedLetter.toLowerCase()
 
-            let row = document.getElementsByClassName("letter-row")[{{ $length + 1 }} - {{ $guessesCount }}]
-            let box = row.children[nextLetter]
+            let row = document.getElementsByClassName("letter-row")[addedGuessesCount]
+
+            let box = row.children[nextAddedLetter];
+
             box.textContent = addedLetter
             box.classList.add("filled-box")
+
             currentGuess.push(addedLetter)
-            nextLetter += 1
+
+            nextAddedLetter += 1
+        }
+
+        function checkAddedGuess (k) {
+            console.log(k);
+            console.log(guessesRemaining);
+            let addedRow = {{ $length + 1 }};
+            let row = document.getElementsByClassName("letter-row")[{{ $length + 1 }} - addedRow]
+            let guessString = ''
+            let rightGuess = Array.from(rightGuessString)
+
+            for (const val of currentGuess) {
+                guessString += val
+            }
+
+            for (let i = 0; i < {{ $length }}; i++) {
+                let letterColor = ''
+                let box = row.children[i]
+                let letter = currentGuess[i]
+
+                let letterPosition = rightGuess.indexOf(currentGuess[i])
+                // is letter in the correct guess?
+                if (letterPosition === -1) {
+                    letterColor = '#e3e3e3'
+                } else {
+                    // now, letter is definitely in word
+                    // if letter index and right guess index are the same
+                    // letter is in the right position
+                    if (currentGuess[i] === rightGuess[i]) {
+                        // shade green
+                        letterColor = '#02cc09'
+                    } else {
+                        // shade box yellow
+                        letterColor = 'yellow'
+                    }
+
+                    rightGuess[letterPosition] = "#"
+                }
+
+                box.style.backgroundColor = letterColor
+                shadeKeyBoard(letter, letterColor)
+            }
+
+            if (guessString === rightGuessString) {
+                notifyGame("Tebrikler!")
+                guessesRemaining = 0
+                return
+            } else {
+                guessesRemaining -= 1;
+                currentGuess = [];
+                nextLetter = 0;
+
+                if (guessesRemaining === 0) {
+                    notifyGame(`Kaybettin! Doğru kelime: ${rightGuessString}`)
+                }
+            }
+            addedRow -= 1;
         }
 
         function insertLetter (pressedKey) {
