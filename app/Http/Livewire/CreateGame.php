@@ -17,7 +17,7 @@ class CreateGame extends Component
     public $word;
     public $opponent;
     public $opponentId;
-    public $opponentEmail;
+    public $opponentUserName;
 
     public $hideOpponent = true;
     public $wordError = false;
@@ -86,8 +86,8 @@ class CreateGame extends Component
 
     public function checkEmail()
     {
-        $email = $this->opponentEmail;
-        $user = User::where('email', $email)->where('id', '!=', Auth::id());
+        $username = $this->opponentUserName;
+        $user = User::where('username', $username)->where('id', '!=', Auth::id());
 
         if ($user->exists()) {
             $this->opponent = $user->first()->name;

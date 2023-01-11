@@ -44,10 +44,10 @@
                     </div>
 
                     <div class="flex justify-center">
-                        <x-jet-input wire:model.defer="opponentEmail" placeholder="E-mail adresi"
-                                     id="opponentEmail"
+                        <x-jet-input wire:model.defer="opponentUserName" placeholder="Kullanıcı adı"
+                                     id="opponentUserName"
                                      class="mt-1"
-                                     type="text" name="opponentEmail" value="{{ $opponentEmail }}"/>
+                                     type="text" name="opponentUserName" value="{{ $opponentUserName }}"/>
                         <button type="button"
                                 class="ml-2 px-5 py-3 font-medium text-slate-700 shadow-xl hover:bg-white duration-150 bg-yellow-400"
                                 wire:click="checkEmail()" class="ml-4">

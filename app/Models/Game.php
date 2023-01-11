@@ -58,4 +58,8 @@ class Game extends Model
     {
         return $this->hasMany(Guess::class);
     }
+
+    public function opponent(){
+        return $this->belongsTo(Opponent::class);
+    }
 }
