@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Game;
+use App\Models\Guess;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
@@ -26,6 +27,10 @@ class GameWatcher extends Component
     public function deleteGame(){
         $game = Game::find($this->gameId);
         $game->delete();
+        $guesses = Guess::where('game_id', $this->gameId)->get();
+        foreach ($guesses as $guess) {
+            $guess->delete();
+        }
         return redirect(url('/'));
     }
     public function mount($gameId)

@@ -19,7 +19,7 @@
         <script type="module">
             window.Echo.private(`game-channel.{{ \Illuminate\Support\Facades\Auth::id() }}`)
                 .listen('GameNotification', (e) => {
-                    notifyGame(`Yeni oyun isteği geldi!`)
+                    notifyGame("Yeni oyun isteği geldi!", "my-games");
                     notifyIcon();
                 });
 
@@ -29,22 +29,30 @@
                 });
         </script>
         <script>
-            function notifyGame(message) {
+            function notifyGame(message, address=null) {
                 // Get the snackbar DIV
                 var x = document.getElementById("notifyBar");
 
                 // Add the "show" class to DIV
                 x.className = "show";
-                x.textContent = message;
+
+                if(address != null){
+
+                    x.innerHTML = "<a href='/"+address+"'>"+message+"</a>";
+                }
+                else{
+
+                    x.textContent = message;
+                }
 
                 // After 3 seconds, remove the show class from DIV
                 setTimeout(function(){ x.className = x.className.replace("show", ""); }, 4500);
             }
 
             function notifyIcon(){
-                document.getElementById('oyunlarim').classList.add("font-bold");
-                document.getElementById('oyunlarim').classList.add("bg-red-500");
-                document.getElementById('oyunlarim').classList.add("text-white");
+                document.getElementById('games').classList.add("font-bold");
+                document.getElementById('games').classList.add("bg-red-500");
+                document.getElementById('games').classList.add("text-white");
             }
         </script>
         <div id="notifyBar"></div>
@@ -64,7 +72,7 @@
                                 <a href="/create-game" class="px-2 py-3  font-medium  shadow-xl hover:bg-white duration-150 bg-yellow-400">
                                     BAŞLA
                                 </a>
-                                <a href="/my-games" class="cursor-pointer px-2 py-3  font-medium shadow-xl hover:bg-white hover:text-gray-800 duration-150 bg-yellow-400">
+                                <a id="games" href="/my-games" class="cursor-pointer px-2 py-3  font-medium shadow-xl hover:bg-white hover:text-gray-800 duration-150 bg-yellow-400">
                                     OYUNLAR
                                 </a>
                                 @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
@@ -106,15 +114,15 @@
                         <form method="POST" action="{{ route('login') }}">
                             @csrf
 
+
                             <div>
-                                <x-jet-label for="email" value="{{ __('Email') }}"/>
-                                <x-jet-input id="email" class="block mt-1 w-full" type="email" name="email"
-                                             :value="old('email')"
+                                <x-jet-label for="username" value="{{ __('Kullanıcı adı') }}"/>
+                                <x-jet-input id="username" class="block mt-1 w-full" type="text" name="username"
+                                             :value="old('username')"
                                              required autofocus/>
                             </div>
-
                             <div class="mt-4">
-                                <x-jet-label for="password" value="{{ __('Password') }}"/>
+                                <x-jet-label for="password" value="{{ __('Parola') }}"/>
                                 <x-jet-input id="password" class="block mt-1 w-full" type="password" name="password" required
                                              autocomplete="current-password"/>
                             </div>
@@ -122,7 +130,7 @@
                             <div class="block mt-4">
                                 <label for="remember_me" class="flex items-center">
                                     <x-jet-checkbox id="remember_me" name="remember"/>
-                                    <span class="ml-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
+                                    <span class="ml-2 text-sm text-gray-600">{{ __('Beni hatırla') }}</span>
                                 </label>
                             </div>
 
@@ -130,17 +138,17 @@
                                 @if (Route::has('password.request'))
                                     <a class="underline text-sm text-gray-600 hover:text-gray-900"
                                        href="{{ route('password.request') }}">
-                                        {{ __('Forgot your password?') }}
+                                        {{ __('Parola hatırlatıcısı') }}
                                     </a>
                                 @endif
                                 <x-jet-button class="ml-4">
-                                    {{ __('Log in') }}
+                                    {{ __('Giriş') }}
                                 </x-jet-button>
                             </div>
 
                             <div class="flex items-center justify-end mt-4">
                                 <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('register') }}">
-                                    {{ __('Register') }}
+                                    {{ __('Üye ol') }}
                                 </a>
                             </div>
                         </form>

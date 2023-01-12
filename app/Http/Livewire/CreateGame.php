@@ -23,11 +23,15 @@ class CreateGame extends Component
     public $wordError = false;
     public $opponentError = false;
     public $startGame = false;
+    public $suggestBoxes = false;
 
     public $gameWord;
     public $gameOpp;
 
     public $length = 5;
+
+    public $suggetNumber = 5;
+    public $suggests = array();
 
     public function test()
     {
@@ -36,6 +40,8 @@ class CreateGame extends Component
 
     public function mount($length = 5){
         $this->length = $length;
+
+
     }
 
     public function changeLength($length){
@@ -57,14 +63,27 @@ class CreateGame extends Component
 
     }
 
+    public function pickSuggest($s)
+    {
+        $word = Word::whereName($s);
+        if($word->exists()){
+            $this->word = $word->first()->name;
+            $this->gameWord = $word->first()->id;
+            $this->wordError = false;
+            $this->hideOpponent = false;
+        }
+    }
+
     public function autoWord()
     {
+        $this->suggests = [];
 
-        $word = DB::select(DB::raw("SELECT id, name, CHAR_LENGTH(name) AS 'chrlen' FROM words WHERE CHAR_LENGTH(name) = $this->length ORDER BY RAND() LIMIT 1"));
-        $this->word = $word[0]->name;
-        $this->wordError = false;
-        $this->hideOpponent = false;
-        $this->gameWord = $word[0]->id;
+        $suggestQuery = DB::select(DB::raw("SELECT id, name, CHAR_LENGTH(name) AS 'chrlen' FROM words WHERE CHAR_LENGTH(name) = $this->length ORDER BY RAND() LIMIT $this->suggetNumber"));
+
+        foreach ($suggestQuery as $item) {
+            $this->suggests[] = $item->name;
+        }
+        $this->suggestBoxes = true;
 
     }
 

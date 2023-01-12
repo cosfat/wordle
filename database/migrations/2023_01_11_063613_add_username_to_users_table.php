@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->text('username')->unique();
+            $table->string('username', 200)->unique();
         });
     }
 
@@ -28,5 +28,6 @@ return new class extends Migration
         Schema::table('users', function (Blueprint $table) {
             //
         });
+
     }
 };

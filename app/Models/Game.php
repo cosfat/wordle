@@ -43,7 +43,7 @@ class Game extends Model
      *
      * @var array
      */
-    protected $fillable = ['user_id','opponent_id','word','word_1','word_2','word_3','word_4','word_5','word_6','seen','winner_id','degree'];
+    protected $fillable = ['user_id','opponent_id','word','seen','winner_id','degree'];
 
 
     public function user(){
