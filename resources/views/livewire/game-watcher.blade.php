@@ -213,7 +213,7 @@
             }
 
             if (guessString === rightGuessString) {
-                notifyGame("Tebrikler!")
+                notifyGame("Malesef rakibin kelimeyi bildi!")
                 guessesRemaining = 0
                 return
             } else {
@@ -222,7 +222,7 @@
                 nextLetter = 0;
 
                 if (guessesRemaining === 0) {
-                    notifyGame(`Kaybettin! Doğru kelime: ${rightGuessString}`)
+                    notifyGame(`Kazandın! Rakibin bilemedi: ${rightGuessString}`)
                 }
             }
         }
@@ -271,5 +271,4 @@
         </script>
     @endif
     <script   src="https://code.jquery.com/jquery-3.6.3.min.js"   integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU="   crossorigin="anonymous"></script>
-    <x-jet-danger-button wire:click="deleteGame">Bu oyunu sil</x-jet-danger-button>
 </div>

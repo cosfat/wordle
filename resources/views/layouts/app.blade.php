@@ -96,6 +96,8 @@
                 <main>
                     {{ $slot }}
                 </main>
+
+                <livewire:friend-feed></livewire:friend-feed>
             @else
                 <x-guest-layout>
                     <x-jet-authentication-card>
@@ -113,8 +115,6 @@
 
                         <form method="POST" action="{{ route('login') }}">
                             @csrf
-
-
                             <div>
                                 <x-jet-label for="username" value="{{ __('Kullanıcı adı') }}"/>
                                 <x-jet-input id="username" class="block mt-1 w-full" type="text" name="username"

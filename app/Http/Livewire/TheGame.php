@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Models\Game;
 use App\Models\Guess;
+use App\Models\Point;
 use App\Models\User;
 use App\Models\Word;
 use Illuminate\Support\Facades\Auth;
@@ -18,6 +19,61 @@ class TheGame extends Component
 
     public $guessesCount;
     public $guessesArray;
+
+    protected $listeners = ['loser', 'winner'];
+
+    public function loser()
+    {
+        $game = Game::whereId($this->gameId)->first();
+        $game->winner_id = $game->user_id;
+        $game->degree = 8 - $game->length;
+        $game->save();
+
+        $point = Point::whereUser_id($game->user_id);
+        if($point->exists())
+        {
+            $point = $point->first();
+            $previous = $point->point;
+            $new = $game->degree;
+            $total = $previous + $new;
+            $point->point = $total;
+            $point->save();
+        }
+        else {
+            $point = new Point;
+            $point->user_id = $game->user_id;
+            $point->point = $game->degree;;
+            $point->save();
+
+        }
+        return redirect('/the-game/'.$this->gameId);
+    }
+
+
+    public function winner()
+    {
+        $game = Game::whereId($this->gameId)->first();
+        $game->winner_id = $game->opponent_id;
+        $game->degree = 9 - Guess::whereGame_id($this->gameId)->count();
+        $game->save();
+
+        $point = Point::whereUser_id($game->winner_id);
+        if($point->exists()){
+            $point = $point->first();
+            $previous = $point->point;
+            $new = $game->degree;
+            $total = $previous + $new;
+            $point->point = $total;
+            $point->save();
+        }
+        else {
+            $point = new Point;
+            $point->user_id = $game->winner_id;
+            $point->point = $game->degree;;
+            $point->save();
+        }
+        return redirect('/the-game/'.$this->gameId);
+    }
 
     public function mount($gameId)
     {

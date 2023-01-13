@@ -21,10 +21,6 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified'
 ])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
-
     Route::get('/the-game/{gameId}', \App\Http\Livewire\TheGame::class);
     Route::get('/game-watcher/{gameId}', \App\Http\Livewire\GameWatcher::class);
     Route::get('/my-profile', \App\Http\Livewire\MyProfile::class);

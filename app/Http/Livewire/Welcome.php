@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
@@ -10,12 +9,14 @@ class Welcome extends Component
 {
     public function mount()
     {
-        if(Auth::check()){
+        if(Auth::check())
+        {
             if(Auth::user()->games()->count() > 0)
             {
                 return redirect()->to('/my-games');
             }
-            else{
+            else
+            {
                 return redirect()->to('/create-game');
             }
         }

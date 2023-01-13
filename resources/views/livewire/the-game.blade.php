@@ -290,7 +290,88 @@
             }
 
 
+            for(k = 0; k < 3; k++)
+            {
+                if(k === 0){
+                    for (let i = 0; i < {{ $length }}; i++) {
+                        console.log(currentGuess[i] + " - " + rightGuess[i] + " - " + k);
+                        let letterColor = ''
+                        let box = row.children[i]
+                        let letter = currentGuess[i]
+
+                        let letterPosition = rightGuess.indexOf(currentGuess[i])
+                        // is letter in the correct guess
+                            // now, letter is definitely in word
+                            // if letter index and right guess index are the same
+                            // letter is in the right position
+                            if (currentGuess[i] === rightGuess[i]) {
+                                // shade green
+                                letterColor = '#02cc09'
+                                rightGuess[letterPosition] = "#"
+                            }
+                        let delay = 250 * i
+                        setTimeout(()=> {
+                            animateCSS(box, 'flipInX')
+                            //shade box
+                            box.style.backgroundColor = letterColor
+                            shadeKeyBoard(letter, letterColor)
+                        }, delay)
+                    }
+                }
+                else if(k === 1)
+                {
+                    for (let i = 0; i < {{ $length }}; i++) {
+                        let letterColor = ''
+                        let box = row.children[i]
+                        let letter = currentGuess[i]
+
+                        let letterPosition = rightGuess.indexOf(currentGuess[i])
+
+                        if(letterPosition !== -1 && currentGuess[i] !== rightGuess[i])
+                        {
+
+                            letterColor = 'yellow'
+
+                            rightGuess[letterPosition] = "#"
+                        }
+
+                        let delay = 250 * i
+                        setTimeout(()=> {
+                            animateCSS(box, 'flipInX')
+                            //shade box
+                            box.style.backgroundColor = letterColor
+                            shadeKeyBoard(letter, letterColor)
+                        }, delay)
+                    }
+                }
+                else
+                {
+                    for (let i = 0; i < {{ $length }}; i++) {
+                        let letterColor = ''
+                        let box = row.children[i]
+                        let letter = currentGuess[i]
+
+                        let letterPosition = rightGuess.indexOf(currentGuess[i])
+                        // is letter in the correct guess
+                        if (letterPosition === -1) {
+                            letterColor = '#e3e3e3'
+                        }
+                        let delay = 250 * i
+                        setTimeout(()=> {
+                            animateCSS(box, 'flipInX')
+                            //shade box
+                            box.style.backgroundColor = letterColor
+                            shadeKeyBoard(letter, letterColor)
+                        }, delay)
+                    }
+                }
+            }
+
+/*
+
             for (let i = 0; i < {{ $length }}; i++) {
+                console.log(currentGuess[i] + " - " + rightGuess[i])
+
                 let letterColor = ''
                 let box = row.children[i]
                 let letter = currentGuess[i]
@@ -314,6 +395,7 @@
                     rightGuess[letterPosition] = "#"
                 }
 
+
                 let delay = 250 * i
                 setTimeout(()=> {
                     animateCSS(box, 'flipInX')
@@ -323,13 +405,15 @@
                 }, delay)
             }
 
+*/
 
             var wordNumber = {{ $length + 1 }} - guessesRemaining;
 
             Livewire.emit('addGuess', guessString, {{ $gameId }});
             if (guessString === rightGuessString) {
                 notifyGame("Tebrikler!")
-                guessesRemaining = 0
+                guessesRemaining = 0;
+                Livewire.emit('winner');
                 return
             } else {
                 guessesRemaining -= 1;
@@ -337,7 +421,8 @@
                 nextLetter = 0;
 
                 if (guessesRemaining === 0) {
-                    notifyGame(`Kaybettin! Doğru kelime: ${rightGuessString}`)
+                    notifyGame(`Kaybettin! Doğru kelime: ${rightGuessString}`);
+                    Livewire.emit('loser');
                 }
             }
         }

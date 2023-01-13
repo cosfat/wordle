@@ -1,0 +1,1 @@
+LOAD DATA INFILE '/var/lib/mysql-files/k.txt' INTO TABLE words fields terminated BY '\n' (name) SET ID=null

@@ -24,15 +24,6 @@ class GameWatcher extends Component
         return redirect(request()->header('Referer'));
     }
 
-    public function deleteGame(){
-        $game = Game::find($this->gameId);
-        $game->delete();
-        $guesses = Guess::where('game_id', $this->gameId)->get();
-        foreach ($guesses as $guess) {
-            $guess->delete();
-        }
-        return redirect(url('/'));
-    }
     public function mount($gameId)
     {
         $game = Game::whereId($gameId)->where('user_id', Auth::id());
