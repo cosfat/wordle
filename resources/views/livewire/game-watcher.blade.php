@@ -183,6 +183,8 @@
                 guessString += val
             }
 
+
+
             for (let i = 0; i < {{ $length }}; i++) {
                 let letterColor = ''
                 let box = row.children[i]
@@ -211,6 +213,8 @@
                 box.style.backgroundColor = letterColor;
                 shadeKeyBoard(letter, letterColor)
             }
+
+
 
             if (guessString === rightGuessString) {
                 notifyGame("Malesef rakibin kelimeyi bildi!")

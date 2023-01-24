@@ -32,6 +32,7 @@ class CreateGame extends Component
 
     public $suggetNumber = 5;
     public $suggests = array();
+    public $suggestFriend = array();
 
     public function test()
     {
@@ -44,6 +45,22 @@ class CreateGame extends Component
 
     }
 
+    public function suggestFriend()
+    {
+        $gamesArray = array();
+        $games = Game::where('user_id', Auth::id())->orWhere('opponent_id', Auth::id())->get();
+        foreach ($games as $game) {
+            if($game->opponent_id == Auth::id()){
+                $gamesArray[$game->user_id] = User::whereId($game->user_id)->first()->name;
+            }
+            else{
+                $gamesArray[$game->opponent_id] = User::whereId($game->opponent_id)->first()->name;
+            }
+        }
+
+        $this->suggestFriend = $gamesArray;
+    }
+
     public function changeLength($length){
         $this->length = $length;
     }
@@ -51,10 +68,12 @@ class CreateGame extends Component
     public function checkWord()
     {
         $word = $this->word;
+
         if (Word::where('name', $word)->exists() AND Str::length($word) == $this->length) {
             $wordRow = Word::where('name', $word)->first();
             $this->wordError = false;
             $this->hideOpponent = false;
+            $this->suggestFriend();
             $this->gameWord = $wordRow->id;
         } else {
             $this->wordError = true;
@@ -71,6 +90,7 @@ class CreateGame extends Component
             $this->gameWord = $word->first()->id;
             $this->wordError = false;
             $this->hideOpponent = false;
+            $this->suggestFriend();
         }
     }
 

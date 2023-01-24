@@ -56,8 +56,24 @@
                         <h2 class="text-2xl font-bold tracking-tight sm:text-center sm:text-4xl text-indigo-500">
                             Rakip</h2>
                     </div>
+                    <div class="flex justify-center mt-3">
+                        <h2>Arkadaşlarımdan seç</h2>
+                    </div>
+                    <div class="flex justify-center flex-wrap  mt-3">
+                        @foreach($suggestFriend as $friend)
+                            <button type="button"
+                                    class="mt-1 px-5 py-3 font-medium text-slate-700 shadow-xl hover:bg-white duration-150 bg-yellow-400"
+                                    wire:click="$set('opponentUserName', '{{ $friend }}')" class="ml-4">
+                                {{ $friend }}
 
-                    <div class="flex justify-center">
+                            </button>
+                        @endforeach
+                    </div>
+
+                    <div class="flex justify-center mt-6">
+                        <h2>Kullanıcı adıyla bul</h2>
+                    </div>
+                    <div class="flex justify-center mt-3">
                         <x-jet-input wire:model.defer="opponentUserName" placeholder="Kullanıcı adı"
                                      id="opponentUserName"
                                      class="mt-1"
@@ -73,7 +89,10 @@
                         @endif
                     </div>
 
-                    <div class="flex justify-center">
+                    <div class="flex justify-center mt-6">
+                        <h2>Rasgele oyuncu bul</h2>
+                    </div>
+                    <div class="flex justify-center mt-3">
                         <button type="button"
                                 class="mt-1 px-5 py-3 font-medium text-slate-700 shadow-xl hover:bg-white duration-150 bg-yellow-400"
                                 wire:click="autoOpp()" class="ml-4">
@@ -81,6 +100,7 @@
                         </button>
                     </div>
                 </div>
+
             </form>
         @endif
     @endif
