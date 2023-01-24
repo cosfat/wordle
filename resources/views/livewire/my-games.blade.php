@@ -1,47 +1,80 @@
-<div name="my-games" class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 flex flex-wrap justify-center">
-            @foreach($games as $game)
+<div name="my-games" class="py-4">
+        <div class="p-5 gap-2 border-b-2">
+            <div class="flex flex-wrap">
+                <h2 class="text-2xl font-bold tracking-tight sm:text-center sm:text-4xl text-indigo-500">
+                    Oyun isteklerim</h2>
+            </div>
+            <div class="flex flex-wrap">
+                @if($gamesOp->count() == 0)
+                    <p>Hiç oyun isteğin yok, oyunu arkadaşlarına tavsiye edebilirsin!</p>
 
-                <a href="@if($game->user->id != \Illuminate\Support\Facades\Auth::id())
-    /the-game/{{ $game->id }}
-    @else
-    /game-watcher/{{ $game->id }}
-@endif">
-                    <div class="p-10 flex flex-col items-center text-center group hover:bg-slate-50 cursor-pointer">
-                        @if($game->opponent_id == \Illuminate\Support\Facades\Auth::id() AND $game->seen == 0)
-                                <div class="absolute inline-flex items-center justify-center p-2 text-xs font-bold text-white bg-red-500 border-2 border-white rounded-full">
-                                    Yeni oyun
-                                </div>
+                @endif
+            @foreach($gamesOp as $game)
+                <a href="/the-game/{{ $game->id }}">
+                    <div class="p-10 flex flex-col  items-center text-center group hover:bg-slate-50 cursor-pointer">
+                        @if($game->seen == 0)
+                            <div
+                                class="absolute inline-flex items-center justify-center p-2 text-xs font-bold text-white bg-red-500 border-2 border-white rounded-full">
+                                Yeni oyun
+                            </div>
                         @endif
-                        <span class="p-5 rounded-full @if($game->winner_id != null) bg-gray-500 @else @if($game->user->id == \Illuminate\Support\Facades\Auth::id()) bg-indigo-500 @else  bg-red-500 @endif @endif text-white shadow-lg @if($game->winner_id != null) shadow-gray-200 @else @if($game->user->id == \Illuminate\Support\Facades\Auth::id()) shadow-indigo-200 @else shadow-red-200 @endif @endif">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+                        <span class="p-5 rounded-full bg-red-500 text-white shadow-lg shadow-red-200">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24"
+                                 stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round"
+                                                                                stroke-linejoin="round"
+                                                                                d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
                         </span>
 
                         <p class="text-xl font-medium text-slate-700 mt-3">
-                            @if($game->user_id != \Illuminate\Support\Facades\Auth::id())
-                                {{ $game->user->name}}
-                            @else
-                                {{ \App\Models\User::find($game->opponent_id)->name}}
-                            @endif
+                            {{ $game->user->name}}
                         </p>
 
                         <p class="mt-2 text-sm text-slate-500">
-                            @if($game->user_id != \Illuminate\Support\Facades\Auth::id())
-                                *****
-                            @else
-                                {{ $game->word->name }}
-                            @endif
+                            *****
                         </p>
                     </div>
-
                 </a>
             @endforeach
+
+            </div>
         </div>
-        <div class="flex justify-end p-6">{{ $games->links() }}</div>
+
+
+        <div class="p-5 gap-2 border-b-2">
+            <div class="flex flex-wrap">
+                <h2 class="text-2xl font-bold tracking-tight sm:text-center sm:text-4xl text-indigo-500">
+                    Gönderdiğim oyunlar</h2>
+            </div>
+            <div class="flex flex-wrap">
+
+                @if($gamesMe->count() == 0)
+                    <p>Hiç oyun göndermediniz, yeni oyun <a href="/create-game" class="text-indigo-500">başlaatmak için tıkla!</a></p>
+                @endif
+            @foreach($gamesMe as $game)
+
+                <a href="/game-watcher/{{ $game->id }}">
+                    <div class="p-10 flex flex-col items-center text-center group hover:bg-slate-50 cursor-pointer">
+                        <span class="p-5 rounded-full bg-indigo-500 text-white shadow-lg shadow-indigo-200">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24"
+                                 stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round"
+                                                                                stroke-linejoin="round"
+                                                                                d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+                        </span>
+                        <p class="text-xl font-medium text-slate-700 mt-3">
+                            {{ \App\Models\User::whereId($game->opponent_id)->first()->username }}
+                        </p>
+                        <p class="mt-2 text-sm text-slate-500">
+                            {{ $game->word->name }}
+                        </p>
+                    </div>
+                </a>
+            @endforeach
+            </div>
+        </div>
+    </div>
 
     @if (session()->has('message'))
         <script>
             notifyGame("{{  session('message')  }}")
         </script>
     @endif
-</div>

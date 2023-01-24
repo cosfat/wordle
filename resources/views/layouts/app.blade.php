@@ -72,7 +72,13 @@
                                 <a href="/create-game" class="px-2 py-3  font-medium  shadow-xl hover:bg-white duration-150 bg-yellow-400">
                                     BAŞLA
                                 </a>
-                                <a id="games" href="/my-games" class="cursor-pointer px-2 py-3  font-medium shadow-xl hover:bg-white hover:text-gray-800 duration-150 bg-yellow-400">
+                                <a id="games" href="/my-games" class="cursor-pointer px-2 py-3
+
+                                 @if(\App\Models\Game::where('opponent_id', \Illuminate\Support\Facades\Auth::id())->where('seen', 0)->exists())
+                                    font-bold bg-red-500 text-white
+                                    @endif
+
+                                 font-medium shadow-xl hover:bg-white hover:text-gray-800 duration-150 bg-yellow-400">
                                     OYUNLAR
                                 </a>
                                 @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())

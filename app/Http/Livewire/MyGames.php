@@ -13,10 +13,13 @@ class MyGames extends Component
     public $gameId;
 
     protected $listeners = ['MyGames' => 'getGames'];
-    protected $games;
+    protected $gamesMe;
+    protected $gamesOp;
+    protected $gamesFin;
 
     public function getGames(){
-        $this->games = Game::where('opponent_id', Auth::id())->orWhere('user_id', Auth::id())->where('winner_id', null)->orderBy('updated_at', 'desc');
+        $this->gamesMe = Game::where('user_id', Auth::id())->where('winner_id', null)->orderBy('updated_at', 'desc')->get();
+        $this->gamesOp = Game::where('opponent_id', Auth::id())->where('winner_id', null)->orderBy('updated_at', 'desc')->get();
     }
 
     public function theGame($gameId){
@@ -25,10 +28,11 @@ class MyGames extends Component
 
     public function render()
     {
-
-        $this->games = Game::where('user_id', Auth::id())->orWhere('opponent_id', Auth::id())->where('winner_id', null)->orderBy('updated_at', 'desc');
+        $this->gamesMe = Game::where('user_id', Auth::id())->where('winner_id', null)->orderBy('updated_at', 'desc')->get();
+        $this->gamesOp = Game::where('opponent_id', Auth::id())->where('winner_id', null)->orderBy('updated_at', 'desc')->get();
         return view('livewire.my-games',[
-                        'games' => $this->games->simplePaginate(6),
+                        'gamesMe' => $this->gamesMe,
+                        'gamesOp' => $this->gamesOp,
         ]);
     }
 }
