@@ -10,6 +10,7 @@ use Livewire\Component;
 class GameLogs extends Component
 {
     public $notes = array();
+    protected $listeners = ['refreshLogs' => '$refresh'];
 
     public function render()
     {
@@ -23,6 +24,7 @@ class GameLogs extends Component
 
             $this->notes[$x]['user'] = $username;
             $this->notes[$x]['word'] = $word;
+            $this->notes[$x]['link'] = $game->id;
 
             if ($game->winner_id != Auth::id()) {
                 $this->notes[$x]['status'] = 1;

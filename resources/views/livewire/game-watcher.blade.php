@@ -148,7 +148,7 @@
 
         function refreshWatcher()
         {
-            Livewire.emit('refreshComponent');
+            Livewire.emit('refreshGameWatcher');
         }
 
 

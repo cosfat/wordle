@@ -18,9 +18,9 @@ class GameWatcher extends Component
 
     public $guessesCount;
     public $guessesArray;
-    protected $listeners = ['refreshComponent'];
+    protected $listeners = ['refreshGameWatcher'];
 
-    public function refreshComponent(){
+    public function refreshGameWatcher(){
         return redirect(request()->header('Referer'));
     }
 

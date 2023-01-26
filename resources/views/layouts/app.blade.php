@@ -25,6 +25,8 @@
 
             window.Echo.private(`guesses-channel.{{ \Illuminate\Support\Facades\Auth::id() }}`)
                 .listen('GuessTyped', (e) => {
+                    console.log(e)
+                    notifyGame("Tahminde bulunuldu!", "my-games");
                     refreshWatcher();
                 });
         </script>
@@ -102,9 +104,10 @@
                 <main>
                     {{ $slot }}
                 </main>
-
-                <livewire:game-logs></livewire:game-logs>
-                <livewire:friend-feed></livewire:friend-feed>
+<div class="flex flex-wrap">
+    <livewire:game-logs></livewire:game-logs>
+    <livewire:friend-feed></livewire:friend-feed>
+</div>
             @else
                 <x-guest-layout>
                     <x-jet-authentication-card>
