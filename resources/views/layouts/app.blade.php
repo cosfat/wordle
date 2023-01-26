@@ -103,6 +103,7 @@
                     {{ $slot }}
                 </main>
 
+                <livewire:game-logs></livewire:game-logs>
                 <livewire:friend-feed></livewire:friend-feed>
             @else
                 <x-guest-layout>

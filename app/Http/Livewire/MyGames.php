@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Game;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithPagination;

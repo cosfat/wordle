@@ -7,15 +7,15 @@
                     <h2>Kelimen kaç harfli olsun?</h2>
                 </div>
                 <div class="flex justify-center mt-3">
-                    <h2 wire:click="changeLength(4)" class="border-2 px-4 py-2 cursor-pointer text-2xl font-bold tracking-tight sm:text-4xl sm:text-center text-indigo-500 ml-3">4</h2>
-                    <h2 wire:click="changeLength(5)" class="border-2 px-4 py-2 cursor-pointer text-2xl font-bold tracking-tight sm:text-4xl sm:text-center text-indigo-500 ml-3">5</h2>
-                    <h2 wire:click="changeLength(6)" class="border-2 px-4 py-2 cursor-pointer text-2xl font-bold tracking-tight sm:text-4xl sm:text-center text-indigo-500 ml-3">6</h2>
-                    <h2 wire:click="changeLength(7)" class="border-2 px-4 py-2 cursor-pointer text-2xl font-bold tracking-tight sm:text-4xl sm:text-center text-indigo-500 ml-3">7</h2>
-                    <h2 wire:click="changeLength(8)" class="border-2 px-4 py-2 cursor-pointer text-2xl font-bold tracking-tight sm:text-4xl sm:text-center text-indigo-500 ml-3">8</h2>
+                    <h2 wire:click="changeLength(4)" class="border-2 px-4 py-2 cursor-pointer text-2xl font-bold tracking-tight sm:text-4xl sm:text-center text-indigo-500 ml-3" style="border-color: rgb(250, 204, 21);">4</h2>
+                    <h2 wire:click="changeLength(5)" class="border-2 px-4 py-2 cursor-pointer text-2xl font-bold tracking-tight sm:text-4xl sm:text-center text-indigo-500 ml-3" style="border-color: rgb(250, 204, 21);">5</h2>
+                    <h2 wire:click="changeLength(6)" class="border-2 px-4 py-2 cursor-pointer text-2xl font-bold tracking-tight sm:text-4xl sm:text-center text-indigo-500 ml-3" style="border-color: rgb(250, 204, 21);">6</h2>
+                    <h2 wire:click="changeLength(7)" class="border-2 px-4 py-2 cursor-pointer text-2xl font-bold tracking-tight sm:text-4xl sm:text-center text-indigo-500 ml-3" style="border-color: rgb(250, 204, 21);">7</h2>
+                    <h2 wire:click="changeLength(8)" class="border-2 px-4 py-2 cursor-pointer text-2xl font-bold tracking-tight sm:text-4xl sm:text-center text-indigo-500 ml-3" style="border-color: rgb(250, 204, 21);">8</h2>
                 </div>
                 <div class="flex justify-center mt-3">
                     <x-jet-input wire:model.defer="word"
-                                 placeholder="{{ $length }} harflik bir kelime seç" id="word" class="mt-1" type="text"
+                                 placeholder="{{ $length }} harflik bir kelime yaz" id="word" class="mt-1" type="text"
                                  value="{{ $word }}" name="word" required autofocus/>
 
                     <button

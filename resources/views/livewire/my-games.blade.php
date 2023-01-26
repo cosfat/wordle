@@ -48,7 +48,7 @@
             <div class="flex flex-wrap">
 
                 @if($gamesMe->count() == 0)
-                    <p>Hiç oyun göndermediniz, yeni oyun <a href="/create-game" class="text-indigo-500">başlaatmak için tıkla!</a></p>
+                    <p>Hiç oyun göndermediniz, yeni oyun <a href="/create-game" class="text-indigo-500">başlatmak için tıkla!</a></p>
                 @endif
             @foreach($gamesMe as $game)
 
