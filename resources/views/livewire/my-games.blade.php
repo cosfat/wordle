@@ -26,7 +26,7 @@
                         </span>
 
                         <p class="text-xl font-medium text-slate-700 mt-3">
-                            {{ $game->user->name}}
+                            {{ substr($game->user->name, 0, 9)}}
                         </p>
 
                         <p class="mt-2 text-sm text-slate-500">
@@ -61,7 +61,7 @@
                                                                                 d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
                         </span>
                         <p class="text-xl font-medium text-slate-700 mt-3">
-                            {{ \App\Models\User::whereId($game->opponent_id)->first()->username }}
+                            {{ substr(\App\Models\User::whereId($game->opponent_id)->first()->username, 0, 9) }}
                         </p>
                         <p class="mt-2 text-sm text-slate-500">
                             {{ $game->word->name }}

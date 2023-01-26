@@ -85,7 +85,11 @@
                         </button>
 
                         @if($opponentError)
-                            <script>notifyGame('Geçersiz kullanıcı')</script>
+                            @if($existingGameError)
+                                <script>notifyGame('Bu kullanıcıya zaten oyun gönderdiniz')</script>
+                            @else
+                                <script>notifyGame('Geçersiz kullanıcı')</script>
+                                @endif
                         @endif
                     </div>
 

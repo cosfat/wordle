@@ -22,6 +22,7 @@ class CreateGame extends Component
     public $hideOpponent = true;
     public $wordError = false;
     public $opponentError = false;
+    public $existingGameError = false;
     public $startGame = false;
     public $suggestBoxes = false;
 
@@ -128,17 +129,37 @@ class CreateGame extends Component
         $username = $this->opponentUserName;
         $user = User::where('username', $username)->where('id', '!=', Auth::id());
 
-        if ($user->exists()) {
-            $this->opponent = $user->first()->name;
-            $this->opponentId = $user->first()->id;
-            $this->gameOpp = $this->opponentId;
+        $existing = false;
 
-            $this->opponentError = false;
-            $this->startGame = true;
-            $this->startGame();
+        if ($user->exists()) {
+            $existingGames = Game::where('user_id', Auth::id())->where('opponent_id', $user->first()->id)->where('winner_id', null)->get();
+            foreach ($existingGames as $existingGame) {
+                $guessCount = $existingGame->guesses()->count();
+                if($guessCount < 6){
+                    $existing = true;
+                    break;
+                }
+            }
+
+            if($existing == false){
+                $this->opponent = $user->first()->name;
+                $this->opponentId = $user->first()->id;
+                $this->gameOpp = $this->opponentId;
+
+                $this->opponentError = false;
+                $this->existingGameError = false;
+                $this->startGame = true;
+                $this->startGame();
+            }
+            else{
+                $this->opponentError = true;
+                $this->existingGameError = true;
+                $this->startGame = false;
+            }
 
         } else {
             $this->opponentError = true;
+            $this->existingGameError = false;
             $this->startGame = false;
         }
     }
