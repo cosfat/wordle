@@ -15,6 +15,7 @@ class GameWatcher extends Component
     public $word;
     public $wordName;
     public $opponentName;
+    public $lastGuessTime = "Tahmin yok";
 
     public $guessesCount;
     public $guessesArray;
@@ -30,6 +31,11 @@ class GameWatcher extends Component
         if ($game->exists()) {
             $game = $game->first();
             $guesses = $game->guesses()->get();
+            $lastGuess = $game->guesses()->orderBy('id', 'desc');
+            if($lastGuess->exists()){
+                $this->lastGuessTime = $lastGuess->first()->created_at->diffForHumans();
+            }
+
             foreach ($guesses as $guess) {
                 $this->guessesArray[] = $guess->word->name;
             }

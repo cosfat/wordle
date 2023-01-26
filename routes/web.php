@@ -22,6 +22,7 @@ Route::middleware([
     'verified'
 ])->group(function () {
     Route::get('/the-game/{gameId}', \App\Http\Livewire\TheGame::class);
+    Route::get('/testcosfat', \App\Http\Livewire\TestCosfat::class);
     Route::get('/game-watcher/{gameId}', \App\Http\Livewire\GameWatcher::class);
     Route::get('/finished-game-watcher/{gameId}', \App\Http\Livewire\FinishedGameWatcher::class);
     Route::get('/my-profile', \App\Http\Livewire\MyProfile::class);

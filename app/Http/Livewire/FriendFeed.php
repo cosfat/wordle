@@ -11,16 +11,14 @@ use Livewire\Component;
 class FriendFeed extends Component
 {
     protected $friends;
-
-    public function mount(){
-       $this->friends = Point::orderBy('point', 'desc');
-    }
+    protected $listeners = ['refreshFeed' => '$refresh'];
 
     public function render()
     {
+        $this->friends = Point::orderBy('point', 'desc');
 
         return view('livewire.friend-feed', [
-            'friends' => $this->friends->simplePaginate(10)
+            'friends' => $this->friends->limit(20)->get()
         ]);
     }
 }

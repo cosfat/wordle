@@ -42,8 +42,6 @@ class CreateGame extends Component
 
     public function mount($length = 5){
         $this->length = $length;
-
-
     }
 
     public function suggestFriend()
@@ -52,10 +50,16 @@ class CreateGame extends Component
         $games = Game::where('user_id', Auth::id())->orWhere('opponent_id', Auth::id())->get();
         foreach ($games as $game) {
             if($game->opponent_id == Auth::id()){
-                $gamesArray[$game->user_id] = User::whereId($game->user_id)->first()->name;
+                $user = User::whereId($game->user_id)->first();
+                if(Game::where('user_id', Auth::id())->where('opponent_id', $user->id)->where('winner_id', null)->doesntExist()){
+                    $gamesArray[$game->user_id] = User::whereId($game->user_id)->first()->name;
+                }
             }
             else{
-                $gamesArray[$game->opponent_id] = User::whereId($game->opponent_id)->first()->name;
+                $user = User::whereId($game->opponent_id)->first();
+                if(Game::where('user_id', Auth::id())->where('opponent_id', $user->id)->where('winner_id', null)->doesntExist()){
+                    $gamesArray[$game->opponent_id] = User::whereId($game->opponent_id)->first()->name;
+                }
             }
         }
 

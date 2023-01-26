@@ -57,7 +57,7 @@
                             Rakip</h2>
                     </div>
                     <div class="flex justify-center mt-3">
-                        <h2>Arkadaşlarımdan seç</h2>
+                        <h2>Benden oyun bekleyen arkadaşlarım</h2>
                     </div>
                     <div class="flex justify-center flex-wrap  mt-3">
                         @foreach($suggestFriend as $friend)
@@ -71,7 +71,7 @@
                     </div>
 
                     <div class="flex justify-center mt-6">
-                        <h2>Kullanıcı adıyla bul</h2>
+                        <h2>Başka bir kullanıcı bul</h2>
                     </div>
                     <div class="flex justify-center mt-3">
                         <x-jet-input wire:model.defer="opponentUserName" placeholder="Kullanıcı adı"

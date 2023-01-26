@@ -27,7 +27,10 @@
                 .listen('GuessTyped', (e) => {
                     console.log(e)
                     notifyGame("Tahminde bulunuldu!", "my-games");
-                    refreshWatcher();
+
+                    Livewire.emit('refreshLogs');
+                    Livewire.emit('refreshFeed');
+                    Livewire.emit('refreshGameWatcher');
                 });
         </script>
         <script>
@@ -60,7 +63,7 @@
         <div id="notifyBar"></div>
     </head>
     <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100">
+        <div class="min-h-screen bg-gray-100 dark:bg-gray-100">
             @auth
                 <div name="welcome" class="max-w-7xl mx-auto">
                     <div>
