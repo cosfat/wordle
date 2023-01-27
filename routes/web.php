@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', \App\Http\Livewire\Welcome::class);
+Route::get('/status', 'UserController@userOnlineStatus');
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),

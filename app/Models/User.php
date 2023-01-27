@@ -78,4 +78,5 @@ class User extends Authenticatable
     public function point(){
         return $this->hasOne(Point::class);
     }
+
 }
