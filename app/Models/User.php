@@ -75,6 +75,10 @@ class User extends Authenticatable
         return $this->hasMany(Game::class);
     }
 
+    public function opponentGames(){
+        return $this->hasMany(Game::class, 'opponent_id')->orderBy('id', 'desc');
+    }
+
     public function point(){
         return $this->hasOne(Point::class);
     }

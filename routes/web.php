@@ -30,5 +30,6 @@ Route::middleware([
     Route::get('/my-games', \App\Http\Livewire\MyGames::class);
     Route::get('/create-game', \App\Http\Livewire\CreateGame::class);
     Route::get('/create-game/{length}', \App\Http\Livewire\CreateGame::class);
+    Route::get('/user-summary/{user}', \App\Http\Livewire\UserSummary::class);
 });
 

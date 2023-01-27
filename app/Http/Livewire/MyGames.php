@@ -6,11 +6,9 @@ use App\Models\Game;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
-use Livewire\WithPagination;
 
 class MyGames extends Component
 {
-    use WithPagination;
     public $gameId;
 
     protected $listeners = ['MyGames' => 'getGames'];

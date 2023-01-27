@@ -6,6 +6,7 @@
         <div class="flow-root">
             <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">
                 @foreach($friends as $friend)
+                    <a href="/user-summary/{{ $friend->user->id }}">
                     <li class="py-3 sm:py-2">
                         <div class="flex items-center space-x-4">
 
@@ -33,6 +34,7 @@
                             </div>
                         </div>
                     </li>
+                    </a>
                 @endforeach
             </ul>
         </div>
