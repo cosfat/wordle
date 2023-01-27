@@ -63,7 +63,7 @@
                                         @if($game->winner_id == $user->id)
                                             <span class="font-medium">{{ $game->degree }}</span>
                                         @else
-                                            <span class="font-medium">{{ $game->degree }}</span>
+                                            <span class="font-medium">0</span>
                                         @endif
                                     </div>
                                 </td>
