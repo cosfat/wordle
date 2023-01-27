@@ -14,7 +14,7 @@
                     <div class="p-10 flex flex-col  items-center text-center group hover:bg-slate-50 cursor-pointer">
                         @if($game->seen == 0)
                             <div
-                                class="absolute inline-flex items-center justify-center p-2 text-xs font-bold text-white bg-red-500 border-2 border-white rounded-full">
+                                class="absolute mt-6 inline-flex items-center justify-center p-2 text-xs font-bold text-white bg-red-500 border-2 border-white rounded-full">
                                 Yeni oyun
                             </div>
                         @endif
@@ -26,11 +26,12 @@
                         </span>
 
                         <p class="text-xl font-medium text-slate-700 mt-3">
-                            {{ substr($game->user->name, 0, 9)}}
-                        </p>
-
-                        <p class="mt-2 text-sm text-slate-500">
-                            *****
+                            @if($game->seen == 0)<strong>
+                                {{ substr($game->user->name, 0, 9)}}
+                            </strong>
+                            @else
+                                {{ substr($game->user->name, 0, 9)}}
+                            @endif
                         </p>
                     </div>
                 </a>

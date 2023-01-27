@@ -57,7 +57,7 @@
                             Rakip</h2>
                     </div>
                     <div class="flex justify-center mt-3">
-                        <h2>Benden oyun bekleyen arkadaşlarım</h2>
+                        <h2>Arkadaş önerileri</h2>
                     </div>
                     <div class="flex justify-center flex-wrap  mt-3">
                         @foreach($suggestFriend as $friend)

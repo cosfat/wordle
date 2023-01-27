@@ -1,6 +1,5 @@
 <div class="p-5 gap-2 border-b-2">
-    <div>
-        <div class="max-w-md bg-white rounded-lg border shadow-md p-4 dark:bg-gray-800 dark:border-gray-700">
+        <div class="rounded-lg border shadow-md p-4 bg-gray-800 border-gray-700">
             <div class="flex justify-between items-center mb-4">
                 <h3 class="text-xl font-bold leading-none text-gray-900 dark:text-white">Skor tablosu</h3>
             </div>
@@ -24,5 +23,4 @@
                 </ul>
             </div>
         </div>
-    </div>
 </div>

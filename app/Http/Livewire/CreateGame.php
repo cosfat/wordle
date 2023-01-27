@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Events\GameNotification;
 use App\Events\GuessTyped;
+use App\Models\Point;
 use App\Models\User;
 use App\Models\Word;
 use App\Models\Game;
@@ -59,6 +60,17 @@ class CreateGame extends Component
                 $user = User::whereId($game->opponent_id)->first();
                 if(Game::where('user_id', Auth::id())->where('opponent_id', $user->id)->where('winner_id', null)->doesntExist()){
                     $gamesArray[$game->opponent_id] = User::whereId($game->opponent_id)->first()->name;
+                }
+            }
+        }
+
+        if(count($gamesArray) < 3){
+            $points = Point::orderBy('point', 'desc')->get();
+            $x = 0;
+            foreach ($points as $point) {
+                if(!isset($gamesArray[$point->user_id]) AND $x < 4){
+                    $gamesArray[$point->user_id] = User::whereId($point->user_id)->first()->name;
+                    $x += 1;
                 }
             }
         }

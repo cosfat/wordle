@@ -19,6 +19,7 @@
         <script type="module">
             window.Echo.private(`game-channel.{{ \Illuminate\Support\Facades\Auth::id() }}`)
                 .listen('GameNotification', (e) => {
+                    Livewire.emit('MyGames');
                     notifyGame("Yeni oyun isteği geldi!", "my-games");
                     notifyIcon();
                 });
@@ -30,6 +31,7 @@
 
                     Livewire.emit('refreshLogs');
                     Livewire.emit('refreshFeed');
+                    Livewire.emit('MyGames');
                     Livewire.emit('refreshGameWatcher');
                 });
         </script>
@@ -65,7 +67,7 @@
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100 dark:bg-gray-100">
             @auth
-                <div name="welcome" class="max-w-7xl mx-auto">
+                <div name="welcome" class="mx-auto">
                     <div>
                         <div name="menu-bar" class="overflow-hidden shadow-xl">
                             <div class="bg-indigo-600 py-10 shadow-xl shadow-indigo-200 flex justify-center items-center">
