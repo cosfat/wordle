@@ -1,9 +1,6 @@
 <div>
         <x-guest-layout>
             <x-jet-authentication-card>
-                <x-slot name="logo">
-                    <x-jet-authentication-card-logo/>
-                </x-slot>
 
                 <x-jet-validation-errors class="mb-4"/>
 
@@ -12,7 +9,11 @@
                         {{ session('status') }}
                     </div>
                 @endif
+                <div class="flex justify-center">
+                <h2 class="text-2xl font-bold tracking-tight sm:text-center sm:text-4xl text-indigo-500">
+                    Yemi Adresimiz kelimeo.com</h2></div>
 
+                <div class="flex justify-center"><h2>Lütfen mevcut şifrenizle giriş yapın</h2></div>
                 <form method="POST" action="{{ route('login') }}">
                     @csrf
 

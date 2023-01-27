@@ -74,7 +74,7 @@
 
                                 <a href="/"
                                    class="px-2 py-3 text-indigo-500 font-medium font-bold shadow-xl hover:bg-gray-100 duration-150 bg-white">
-                                    WORDLE
+                                    KELİMEO
                                 </a>
                                 <a href="/create-game" class="px-2 py-3  font-medium  shadow-xl hover:bg-white duration-150 bg-yellow-400">
                                     BAŞLA
@@ -117,7 +117,12 @@
                 <x-guest-layout>
                     <x-jet-authentication-card>
                         <x-slot name="logo">
-                            <x-jet-authentication-card-logo/>
+
+                            <div class="flex justify-center">
+                                <h2 class="text-2xl font-bold tracking-tight sm:text-center sm:text-4xl text-indigo-500">
+                                    Yeni Adresimiz kelimeo.com</h2></div>
+
+                            <div class="flex justify-center"><h2>Lütfen mevcut şifrenizle giriş yapın</h2></div>
                         </x-slot>
 
                         <x-jet-validation-errors class="mb-4"/>
