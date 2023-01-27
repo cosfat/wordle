@@ -1,6 +1,6 @@
 <div name="finished-game-watcher">
-    <div class="flex justify-center mt-4 mb-4">
-        <h2 class="text-2xl font-bold tracking-tight sm:text-center sm:text-4xl text-indigo-500">{{ $opponentName }}: </h2>
+    <div class="flex justify-center mt-4 mb-4"><a href="/user-summary/{{ \App\Models\User::where('username', $opponentName)->first()->id }}">
+            <h2 class="text-2xl font-bold tracking-tight sm:text-center sm:text-4xl text-indigo-500">{{ $opponentName }}: </h2></a>
         <h2 class="text-2xl font-bold tracking-tight sm:text-center sm:text-4xl text-red-600"> {{ $wordName }}</h2>
 
     </div>

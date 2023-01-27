@@ -26,7 +26,7 @@ class TheGame extends Component
     {
         $game = Game::whereId($this->gameId)->first();
         $game->winner_id = $game->user_id;
-        $game->degree = (9 - $game->length);
+        $game->degree = (8 - $game->length);
         $game->save();
 
         $point = Point::whereUser_id($game->user_id);

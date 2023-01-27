@@ -1,7 +1,8 @@
 <div name="the-game">
 
     <div class="flex justify-center mt-4 mb-4">
-        <h2 class="text-2xl font-bold tracking-tight sm:text-center sm:text-4xl text-indigo-500">{{ $opponentName }}</h2>
+        <a href="/user-summary/{{ \App\Models\User::where('username', $opponentName)->first()->id }}">
+            <h2 class="text-2xl font-bold tracking-tight sm:text-center sm:text-4xl text-indigo-500">{{ $opponentName }}</h2></a>
     </div>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <style>
