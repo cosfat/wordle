@@ -90,7 +90,7 @@
             <button class="keyboard-button">i</button>
         </div>
         <div class="third-row">
-            <button class="keyboard-button">Del</button>
+            <button class="keyboard-button">SİL</button>
             <button class="keyboard-button">z</button>
             <button class="keyboard-button">c</button>
             <button class="keyboard-button">v</button>
@@ -99,7 +99,10 @@
             <button class="keyboard-button">m</button>
             <button class="keyboard-button">ö</button>
             <button class="keyboard-button">ç</button>
-            <button class="keyboard-button">Enter</button>
+            <button class="keyboard-button">GÖNDER</button>
+        </div>
+        <div class="fourth-row">
+            <button class="keyboard-button bg-red-500 text-white">TEMİZLE</button>
         </div>
     </div>
     <script>
@@ -380,6 +383,12 @@
 
             if (key === "Del") {
                 key = "Backspace"
+            }
+            if (key === "TEMİZLE") {
+                key = "Backspace";
+                for(x=0; x<8; x++){
+                    document.dispatchEvent(new KeyboardEvent("keyup", {'key': key}))
+                }
             }
 
             document.dispatchEvent(new KeyboardEvent("keyup", {'key': key}))
