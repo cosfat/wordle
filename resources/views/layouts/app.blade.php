@@ -65,7 +65,7 @@
     <div id="notifyBar"></div>
 </head>
 <body class="font-sans antialiased">
-<div class="min-h-screen bg-gray-100 dark:bg-gray-100">
+<div class="min-h-screen bg-gray-100 dark:bg-gray-100 pt-4">
     @auth
         <div name="welcome" class="mx-auto">
             <div>
