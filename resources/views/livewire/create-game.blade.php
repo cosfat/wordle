@@ -4,6 +4,10 @@
         <form method="POST" action="#" wire:submit.prevent="test">
             <div class="p-5 border-b-2">
                 <div class="flex justify-center">
+                <h2 class="text-2xl font-bold tracking-tight sm:text-center sm:text-4xl text-indigo-500">
+                    Oyun başlat</h2>
+                </div>
+                <div class="flex justify-center">
                     <h2>Kelimen kaç harfli olsun?</h2>
                 </div>
                 <div class="flex justify-center mt-3">

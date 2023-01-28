@@ -1,12 +1,13 @@
 /* The snackbar - position it at the bottom and in the middle of the screen */
 #notifyBar {
     visibility: hidden; /* Hidden by default. Visible on click */
+    font-weight: bold;
     min-width: 250px; /* Set a default minimum width */
     margin-left: -125px; /* Divide value of min-width by 2 */
-    background-color: rgb(79, 70, 229); /* Black background color */
-    color: #fff; /* White text color */
+    background-color: #FACC15; /* Black background color */
+    color: rgb(79, 70, 229); /* White text color */
     text-align: center; /* Centered text */
-    border-radius: 2px; /* Rounded borders */
+    border-radius: 5px; /* Rounded borders */
     padding: 16px; /* Padding */
     position: fixed; /* Sit on top of the screen */
     z-index: 1; /* Add a z-index if needed */
