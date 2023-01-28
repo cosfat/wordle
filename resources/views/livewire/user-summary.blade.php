@@ -24,10 +24,12 @@
                     @endif
                     </div>
                 </div>
+                @if($user->id != \Illuminate\Support\Facades\Auth::id())
                 @if($all == true)
                     <a href="/user-summary/{{ $user->id }}/{{ \Illuminate\Support\Facades\Auth::id() }}"><span class="text-sm">Benimle olan oyunlarını gör</span></a>
                 @else
                     <a href="/user-summary/{{ $user->id }}"><span class="text-sm">Tüm oyunlarını gör</span></a>
+                @endif
                 @endif
 
                 <table class="min-w-max w-full table-auto">
