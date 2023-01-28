@@ -1,6 +1,4 @@
 <div class="flex justify-center">
-    <div class="min-w-screen bg-gray-100 flex items-center justify-center bg-gray-100 font-sans overflow-hidden">
-        <div>
             <div class="bg-white shadow-md rounded my-6 p-4">
                 <div class="p-4">
                     <a href="/user-summary/{{ $user->id }}">
@@ -86,8 +84,4 @@
                 </table>
             </div>
         </div>
-    </div>
-
-</div>
-
 
