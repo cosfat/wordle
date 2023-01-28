@@ -3,10 +3,25 @@
         <div>
             <div class="bg-white shadow-md rounded my-6 p-4">
                 <div class="p-4">
+                    <a href="/user-summary/{{ $user->id }}">
                     <h2 class="text-2xl font-bold tracking-tight sm:text-center sm:text-4xl text-indigo-500">
                         {{ $user->username }}</h2>
                     <h2 class="text-2xl font-bold tracking-tight sm:text-center sm:text-4xl text-red-500">
-                        {{ $user->point->point }} puan</h2></div>
+                        {{ $user->point->point }} puan</h2></a>
+                    <div class="flex justify-center">
+                    @if(\Illuminate\Support\Facades\Cache::has('user-is-online-' . $user->id))
+                        <span class="mt-2 ml-2" style="background-color: chartreuse; height: 25px;
+  width: 25px;
+  border-radius: 50%;
+  display: inline-block;">&nbsp;</span>
+                    @else
+                        <span class="mt-2 ml-2" style="background-color: #494949 ; height: 25px;
+  width: 25px;
+  border-radius: 50%;
+  display: inline-block;">&nbsp;</span>
+                    @endif
+                    </div>
+                </div>
                 <table class="min-w-max w-full table-auto">
                     <thead>
                     <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
