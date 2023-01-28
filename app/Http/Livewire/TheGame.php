@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Models\Word;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
+use Carbon\Carbon;
 
 class TheGame extends Component
 {
@@ -46,7 +47,7 @@ class TheGame extends Component
             $point->save();
 
         }
-        return redirect('/the-game/'.$this->gameId);
+        return redirect('/finished-game-watcher/'.$this->gameId);
     }
 
 
@@ -54,16 +55,22 @@ class TheGame extends Component
     {
         $game = Game::whereId($this->gameId)->first();
         $game->winner_id = $game->opponent_id;
+        $prevOneShots = Game::where('opponent_id', $game->opponent_id)->where('winner_id', $game->opponent_id)->orderBy('id', 'desc')->get();
+        foreach ($prevOneShots as $prevOneShot) {
+            if($prevOneShot->guesses()->count() == 1){
+                if($prevOneShot->updated_at->diffInMinutes(Carbon::now())<1440){
+                    $game->delete();
+                    return redirect('/');
+                }
+            }
+        }
         $game->degree = ($game->length - Guess::whereGame_id($this->gameId)->count() + 1) * 5;
         $game->save();
 
         $point = Point::whereUser_id($game->winner_id);
         if($point->exists()){
             $point = $point->first();
-            $previous = $point->point;
-            $new = $game->degree;
-            $total = $previous + $new;
-            $point->point = $total;
+            $point->point = $point->point + $game->degree;
             $point->save();
         }
         else {
@@ -72,7 +79,7 @@ class TheGame extends Component
             $point->point = $game->degree;;
             $point->save();
         }
-        return redirect('/the-game/'.$this->gameId);
+        return redirect('/finished-game-watcher/'.$this->gameId);
     }
 
     public function mount($gameId)

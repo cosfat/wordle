@@ -42,6 +42,7 @@ class CreateGame extends Component
     }
 
     public function mount($length = 5){
+
         if($length > 7){
             $this->length = 6;
         }

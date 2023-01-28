@@ -16,6 +16,7 @@ class FinishedGameWatcher extends Component
     public $wordName;
     public $opponentName;
     public $userName;
+    public $meaning;
 
     public $guessesCount;
     public $guessesArray;
@@ -35,6 +36,18 @@ class FinishedGameWatcher extends Component
             $this->wordName = $game->word->name;
             $this->opponentName = User::find($game->user_id)->name;
             $this->userName = User::find($game->opponent_id)->name;
+
+            $url = "https://sozluk.gov.tr/gts?ara=".$this->wordName;
+
+            $json = json_decode(file_get_contents($url), true);
+
+            if(isset($json["error"])){
+                $this->meaning = 0;
+            }
+            else{
+
+                $this->meaning = $json[0]['anlamlarListe'][0]['anlam'];
+            }
         } else {
             session()->flash('message', 'Bu oyunu görme yetkiniz yok.');
             return redirect()->to('/create-game');
