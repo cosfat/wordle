@@ -1,8 +1,24 @@
 <div name="the-game">
 
     <div class="flex justify-center mb-4">
+        <svg class="text-left" width="64px" height="34px" viewBox="0 0 24 24"
+             xmlns="http://www.w3.org/2000/svg">
+            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+            <g id="SVGRepo_iconCarrier">
+                <path d="M6 13C6.55 13 7 12.55 7 12C7 11.45 6.55 11 6 11C5.45 11 5 11.45 5 12C5 12.55 5.45 13 6 13Z"
+                      stroke="#FACC15" stroke-width="2"></path>
+                <path
+                    d="M12 13C12.55 13 13 12.55 13 12C13 11.45 12.55 11 12 11C11.45 11 11 11.45 11 12C11 12.55 11.45 13 12 13Z"
+                    stroke="#FACC15" stroke-width="2"></path>
+                <path
+                    d="M18 13C18.55 13 19 12.55 19 12C19 11.45 18.55 11 18 11C17.45 11 17 11.45 17 12C17 12.55 17.45 13 18 13Z"
+                    stroke="#FACC15" stroke-width="2"></path>
+            </g>
+        </svg>
         <a href="/user-summary/{{ \App\Models\User::where('username', $opponentName)->first()->id }}">
-            <h2 class="text-2xl font-bold tracking-tight sm:text-center sm:text-4xl text-indigo-500">{{ $opponentName }}</h2></a>
+            <h2 class="text-2xl font-bold tracking-tight sm:text-center sm:text-4xl text-indigo-500">{{ $opponentName }}</h2>
+        </a>
         @if(\Illuminate\Support\Facades\Cache::has('user-is-online-' . \App\Models\User::where('username', $opponentName)->first()->id))
             <span class="mt-2 ml-2" style="background-color: chartreuse; height: 25px;
   width: 25px;
@@ -13,13 +29,14 @@
   width: 25px;
   border-radius: 50%;
   display: inline-block;">&nbsp;</span>
-            @endif
+        @endif
     </div>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <style>
         h1 {
             text-align: center;
         }
+
         #game-board {
             display: flex;
             align-items: center;
@@ -175,10 +192,10 @@
         let addedGuessesCount = 0;
         let nextAddedLetter = 0;
         let addedRow = {{ $length + 1 }};
-        if(guesses !== null){
+        if (guesses !== null) {
 
-            guesses.forEach(function (k){
-                Array.from(k).forEach(function (m){
+            guesses.forEach(function (k) {
+                Array.from(k).forEach(function (m) {
                     addedLetter = String(m);
                     insertAddedLetter(addedLetter, k);
                 })
@@ -186,13 +203,13 @@
         }
 
 
-        function insertAddedLetter (addedLetter, k) {
+        function insertAddedLetter(addedLetter, k) {
 
             let row = document.getElementsByClassName("letter-row")[addedGuessesCount]
             let box = row.children[nextAddedLetter];
 
             currentGuess.push(addedLetter)
-            if (nextAddedLetter === {{ $length }} - 1){
+            if (nextAddedLetter === {{ $length }} - 1) {
                 checkAddedGuess(addedRow);
                 nextAddedLetter = -1;
                 addedGuessesCount += 1;
@@ -208,7 +225,7 @@
         }
 
 
-        function checkAddedGuess (a) {
+        function checkAddedGuess(a) {
 
 
             let row = document.getElementsByClassName("letter-row")[{{ $length + 1 }} - a]
@@ -264,7 +281,7 @@
             }
         }
 
-        function insertLetter (pressedKey) {
+        function insertLetter(pressedKey) {
             if (nextLetter === {{ $length }}) {
                 return
             }
@@ -279,7 +296,7 @@
             nextLetter += 1
         }
 
-        function deleteLetter () {
+        function deleteLetter() {
             let row = document.getElementsByClassName("letter-row")[{{ $length + 1 }} - guessesRemaining]
             let box = row.children[nextLetter - 1]
             box.textContent = ""
@@ -287,7 +304,8 @@
             currentGuess.pop()
             nextLetter -= 1
         }
-        function checkGuess () {
+
+        function checkGuess() {
             let row = document.getElementsByClassName("letter-row")[{{ $length + 1 }} - guessesRemaining]
             let guessString = ''
             let rightGuess = Array.from(rightGuessString)
@@ -305,7 +323,6 @@
                 notifyGame("Bu kelime veritabanımızda yok")
                 return
             }
-
 
 
             for (let i = 0; i < {{ $length }}; i++) {
@@ -336,14 +353,13 @@
 
 
                 let delay = 250 * i
-                setTimeout(()=> {
+                setTimeout(() => {
                     animateCSS(box, 'flipInX')
                     //shade box
                     box.style.backgroundColor = letterColor
                     shadeKeyBoard(letter, letterColor)
                 }, delay)
             }
-
 
 
             var wordNumber = {{ $length + 1 }} - guessesRemaining;
@@ -397,7 +413,7 @@
             }
             if (key === "TEMİZLE") {
                 key = "Backspace";
-                for(x=0; x<8; x++){
+                for (x = 0; x < 8; x++) {
                     document.dispatchEvent(new KeyboardEvent("keyup", {'key': key}))
                 }
             }
@@ -431,5 +447,6 @@
         </script>
     @endif
     <livewire:guess-recorder></livewire:guess-recorder>
-    <script   src="https://code.jquery.com/jquery-3.6.3.min.js"   integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU="   crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js"
+            integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
 </div>
