@@ -1,6 +1,6 @@
 <div class="flex justify-center mt-6">
     <div
-        class="min-w-screen bg-gray-100 flex items-center justify-center border border-gray-300 bg-gray-100 font-sans overflow-hidden">
+        class="min-w-screen bg-gray-100 flex items-center justify-center bg-gray-100 font-sans overflow-hidden">
         <div class="w-full lg:w-5/6">
             <div class="bg-white shadow-md rounded my-6 p-4">
                 <div class="p-4">
