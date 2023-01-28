@@ -122,6 +122,9 @@
             <x-jet-authentication-card>
                 <x-slot name="logo">
 
+                    <x-slot name="logo">
+                        <x-jet-authentication-card-logo/>
+                    </x-slot>
                     <div class="flex justify-center">
                         <h2 class="text-2xl font-bold tracking-tight sm:text-center sm:text-4xl text-indigo-500">
                             Yeni Adresimiz kelimeo.com</h2></div>
