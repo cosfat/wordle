@@ -57,9 +57,7 @@
         }
 
         function notifyIcon() {
-            document.getElementById('games').classList.add("font-bold");
-            document.getElementById('games').classList.add("bg-red-500");
-            document.getElementById('games').classList.add("text-white");
+            document.getElementById('games').setAttribute('fill', '#EF4444');
         }
     </script>
     <div id="notifyBar"></div>
