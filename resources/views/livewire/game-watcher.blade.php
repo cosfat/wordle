@@ -3,6 +3,17 @@
         <a href="/user-summary/{{ \App\Models\User::where('username', $opponentName)->first()->id }}">
         <h2 class="text-2xl font-bold tracking-tight sm:text-center sm:text-4xl text-indigo-500">{{ $opponentName }}: </h2></a>
         <h2 class="text-2xl font-bold tracking-tight sm:text-center sm:text-4xl text-red-600"> {{ $wordName }}</h2>
+        @if(\Illuminate\Support\Facades\Cache::has('user-is-online-' . \App\Models\User::where('username', $opponentName)->first()->id))
+            <span style="background-color: chartreuse; height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  display: inline-block;">&nbsp;</span>
+        @else
+            <span style="background-color: #494949 ; height: 25px;
+  width: 25px;
+  border-radius: 50%;
+  display: inline-block;">&nbsp;</span>
+        @endif
     </div>
     <div class="flex justify-center">
         <h2>Son tahmin: {{ $lastGuessTime }}</h2>
