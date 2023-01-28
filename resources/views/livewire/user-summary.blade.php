@@ -1,7 +1,6 @@
-<div class="flex justify-center mt-6">
-    <div
-        class="min-w-screen bg-gray-100 flex items-center justify-center bg-gray-100 font-sans overflow-hidden">
-        <div class="w-full lg:w-5/6">
+<div class="flex justify-center">
+    <div class="min-w-screen bg-gray-100 flex items-center justify-center bg-gray-100 font-sans overflow-hidden">
+        <div>
             <div class="bg-white shadow-md rounded my-6 p-4">
                 <div class="p-4">
                     <h2 class="text-2xl font-bold tracking-tight sm:text-center sm:text-4xl text-indigo-500">
@@ -56,7 +55,7 @@
                                         @endif
                                     </div>
                                 </td>
-                                <td class="py-3  text-center whitespace-nowrap">
+                                    <td class="py-3 text-center whitespace-nowrap">
                                     <div class="flex items-center">
                                         @if($game->winner_id == $user->id)
                                             <span class="font-medium">{{ $game->degree }}</span>
