@@ -31,5 +31,6 @@ Route::middleware([
     Route::get('/leaderboard', \App\Http\Livewire\FriendFeed::class);
     Route::get('/create-game/{length}', \App\Http\Livewire\CreateGame::class);
     Route::get('/user-summary/{user}', \App\Http\Livewire\UserSummary::class);
+    Route::get('/user-summary/{user}/{o}', \App\Http\Livewire\UserSummary::class);
 });
 

@@ -5,7 +5,11 @@
                     <h2 class="text-2xl font-bold tracking-tight text-center sm:text-4xl text-indigo-500">
                         {{ $user->username }}</h2>
                     <h2 class="text-2xl font-bold tracking-tight text-center sm:text-4xl text-red-500">
-                        {{ $user->point->point }} puan</h2></a>
+                        @if($user->point != null)
+                        {{ $user->point->point }} puan @endif</h2></a>
+
+                    <h2 class="text-2xl font-bold tracking-tight text-center sm:text-4xl text-red-500">
+                       % {{ $ratio }} başarı</h2>
                     <div class="flex justify-center">
                     @if(\Illuminate\Support\Facades\Cache::has('user-is-online-' . $user->id))
                         <span class="mt-2 ml-2" style="background-color: chartreuse; height: 25px;
@@ -20,6 +24,12 @@
                     @endif
                     </div>
                 </div>
+                @if($all == true)
+                    <a href="/user-summary/{{ $user->id }}/{{ \Illuminate\Support\Facades\Auth::id() }}"><span class="text-sm">Benimle olan oyunlarını gör</span></a>
+                @else
+                    <a href="/user-summary/{{ $user->id }}"><span class="text-sm">Tüm oyunlarını gör</span></a>
+                @endif
+
                 <table class="min-w-max w-full table-auto">
                     <thead>
                     <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
