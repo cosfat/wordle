@@ -50,14 +50,16 @@
                                     <div class="flex items-center">
                                         <div class="mr-2">
                                         </div>
-                                        <span class="font-medium">{{ $game->user->username }}</span>
+                                        <a href="/user-summary/{{ $game->user->id }}">
+                                        <span class="font-medium">{{ $game->user->username }}</span></a>
                                     </div>
                                 </td>
                                 <td class="py-3  text-center whitespace-nowrap">
                                     <div class="flex items-center">
                                         <div class="mr-2">
                                         </div>
-                                        <span class="font-medium">{{ $game->word->name }}</span>
+                                        <a href="/finished-game-watcher/{{ $game->id }}">
+                                        <span class="font-medium">{{ $game->word->name }}</span></a>
                                     </div>
                                 </td>
                                 <td class="py-3  text-center whitespace-nowrap">

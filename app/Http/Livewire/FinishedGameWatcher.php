@@ -15,13 +15,14 @@ class FinishedGameWatcher extends Component
     public $word;
     public $wordName;
     public $opponentName;
+    public $userName;
 
     public $guessesCount;
     public $guessesArray;
 
     public function mount($gameId)
     {
-        $game = Game::whereId($gameId)->where('opponent_id', Auth::id())->where('winner_id', '!=', null);
+        $game = Game::whereId($gameId)->where('winner_id', '!=', null);
         if ($game->exists()) {
             $game = $game->first();
             $guesses = $game->guesses()->get();
@@ -33,6 +34,7 @@ class FinishedGameWatcher extends Component
             $this->gameId = $gameId;
             $this->wordName = $game->word->name;
             $this->opponentName = User::find($game->user_id)->name;
+            $this->userName = User::find($game->opponent_id)->name;
         } else {
             session()->flash('message', 'Bu oyunu görme yetkiniz yok.');
             return redirect()->to('/create-game');

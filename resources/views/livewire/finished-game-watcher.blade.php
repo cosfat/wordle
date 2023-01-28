@@ -1,7 +1,13 @@
 <div name="finished-game-watcher">
-    <div class="flex justify-center mb-4"><a href="/user-summary/{{ \App\Models\User::where('username', $opponentName)->first()->id }}">
-            <h2 class="text-2xl font-bold tracking-tight sm:text-center sm:text-4xl text-indigo-500">{{ $opponentName }}: </h2></a>
-        <h2 class="ml-3 text-2xl font-bold tracking-tight sm:text-center sm:text-4xl text-red-600"> {{ $wordName }}</h2>
+        <div class="flex justify-center">
+        <a href="/user-summary/{{ \App\Models\User::where('username', $opponentName)->first()->id }}">
+            <h2 class="text-2xl font-bold tracking-tight sm:text-center sm:text-4xl text-indigo-500">{{ $opponentName }}</h2></a>
+        <svg version="1.1" id="Uploaded to svgrepo.com" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="48px" height="48px" viewBox="0 0 32 32" xml:space="preserve" fill="#FACC15"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <style type="text/css"> .linesandangles_een{fill:#FACC15;} </style> <path class="linesandangles_een" d="M28.414,24l-3-3l2.293-2.293l-1.414-1.414l-2.236,2.236l-3.588-4.186L25,11.46V6h-5.46L16,10.13 L12.46,6H7v5.46l4.531,3.884l-3.588,4.186l-2.236-2.236l-1.414,1.414L6.586,21l-3,3L7,27.414l3-3l2.293,2.293l1.414-1.414 l-2.237-2.237L16,19.174l4.53,3.882l-2.237,2.237l1.414,1.414L22,24.414l3,3L28.414,24z M6.414,24L8,22.414L8.586,23L7,24.586 L6.414,24z M9,10.54V8h2.54l3.143,3.667l-1.85,2.159L9,10.54z M20.46,8H23v2.54L10.053,21.638l-0.69-0.69L20.46,8z M18.95,16.645 l3.688,4.302l-0.69,0.69l-4.411-3.781L18.95,16.645z M25,24.586L23.414,23L24,22.414L25.586,24L25,24.586z"></path> </g></svg>
+        <h2 class="text-2xl font-bold tracking-tight sm:text-center sm:text-4xl text-indigo-500">
+            <a href="/user-summary/{{ \App\Models\User::where('username', $userName)->first()->id }}">{{ $userName }}</a></h2>
+        </div>
+        <div class="flex justify-center">
+        <h2 class="text-2xl font-bold tracking-tight sm:text-center sm:text-4xl text-red-600">{{ $wordName }}</h2>
         @if(\Illuminate\Support\Facades\Cache::has('user-is-online-' . \App\Models\User::where('username', $opponentName)->first()->id))
             <span class="mt-2 ml-2" style="background-color: chartreuse; height: 25px;
   width: 25px;
@@ -227,7 +233,7 @@
 
 
             if (guessString === rightGuessString) {
-                notifyGame("Bravo! Kelimeyi bildin!")
+                notifyGame("{{ $userName }} kelimeyi bildi!")
                 guessesRemaining = 0
                 return
             } else {
@@ -236,7 +242,7 @@
                 nextLetter = 0;
 
                 if (guessesRemaining === 0) {
-                    notifyGame(`Malesef kelimeyi bilemedin: ${rightGuessString}`)
+                    notifyGame(`{{ $userName }} kelimeyi bilemedi: ${rightGuessString}`)
                 }
             }
         }

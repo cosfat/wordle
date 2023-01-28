@@ -3,7 +3,7 @@
         <h2>Sizin sorduklarınız</h2>
         <ul class="text-sm font-medium bg-white text-white rounded-lg">
             @foreach($notes as $note)
-                <a href="/game-watcher/{{ $note['link'] }}">
+                <a href="/finished-game-watcher/{{ $note['link'] }}">
                 @if($note['status'] == 1)
                 <li class="w-full px-4 py-2 text-white-500 bg-indigo-500">{{ $note['user'] }}
                     <strong>{{ $note['word'] }}</strong> kelimesini
