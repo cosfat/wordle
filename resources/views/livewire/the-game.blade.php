@@ -99,7 +99,7 @@
             <button class="keyboard-button">m</button>
             <button class="keyboard-button">ö</button>
             <button class="keyboard-button">ç</button>
-            <button class="keyboard-button">ENTER</button>
+            <button class="keyboard-button">Enter</button>
         </div>
         <div class="fourth-row mt-2">
             <button class="keyboard-button bg-red-500 text-white">TEMİZLE</button>
