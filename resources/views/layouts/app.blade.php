@@ -75,7 +75,7 @@
                     <a href="/my-games">
                     <svg id="games" width="64px" height="64px" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"
                          @if(\App\Models\Game::where('opponent_id', \Illuminate\Support\Facades\Auth::id())->where('seen', 0)->exists())
-                         fill="red"
+                         fill="#EF4444"
                     @else
                              fill="#FACC15"
                         @endif
