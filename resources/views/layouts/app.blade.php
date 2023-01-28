@@ -69,7 +69,7 @@
     @auth
         <div name="welcome" class="mx-auto">
             <div>
-                <div class="bg-indigo-600 shadow-xl shadow-indigo-800 flex items-center p-6"
+                <div class="bg-indigo-600 shadow-xl shadow-indigo-800 flex items-center px-2 py-4"
                      style="position:  fixed; bottom: 0; width: 100%; justify-content: space-evenly">
 
                     <a href="/"
