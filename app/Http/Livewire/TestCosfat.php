@@ -12,18 +12,14 @@ class TestCosfat extends Component
     {
 
 
-        //$turkler = array("'");
-        //$turkler2 = array("");
+        $turkler = array(":");
+        $turkler2 = array("");
 
-        DB::table('words')->chunkById(100, function ($words) // use ($turkler, $turkler2)
-        {
+        DB::table('words')->chunkById(100, function ($words) use ($turkler, $turkler2){
             foreach ($words as $word) {
                 $name = $word->name;
-                // $name2 = str_replace($turkler, $turkler2, $name);
-                if(strpos($name, '.') != false)
-                {
-                    DB::table('words')->where('id', $word->id)->delete();
-                }
+                $name2 = str_replace($turkler, $turkler2, $name);
+                DB::table('words')->where('id', $word->id)->update(['name'=> $name2]);
 
             }
         });

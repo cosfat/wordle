@@ -59,27 +59,25 @@ class CreateGame extends Component
             if($game->opponent_id == Auth::id()){
                 $user = User::whereId($game->user_id)->first();
                 if(Game::where('user_id', Auth::id())->where('opponent_id', $user->id)->where('winner_id', null)->doesntExist()){
-                    $gamesArray[$game->user_id] = User::whereId($game->user_id)->first()->name;
+                    $gamesArray[] = User::whereId($game->user_id)->first()->name;
                 }
             }
             else{
                 $user = User::whereId($game->opponent_id)->first();
                 if(Game::where('user_id', Auth::id())->where('opponent_id', $user->id)->where('winner_id', null)->doesntExist()){
-                    $gamesArray[$game->opponent_id] = User::whereId($game->opponent_id)->first()->name;
+                    $gamesArray[] = User::whereId($game->opponent_id)->first()->name;
                 }
             }
         }
 
-        if(count($gamesArray) < 3){
-            $points = Point::orderBy('point', 'desc')->get();
-            $x = 0;
-            foreach ($points as $point) {
-                if(!isset($gamesArray[$point->user_id]) AND $x < 4){
-                    $gamesArray[$point->user_id] = User::whereId($point->user_id)->first()->name;
-                    $x += 1;
-                }
-            }
+        if(count($gamesArray) < 1){
+           $users = User::where('id', '!=', Auth::id())->inRandomOrder()->limit(5)->pluck('username');
+
+            foreach ($users as $user) {
+                $gamesArray[] = $user;
+           }
         }
+        $gamesArray = array_unique($gamesArray);
 
         $this->suggestFriend = $gamesArray;
     }
