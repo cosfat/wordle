@@ -21,7 +21,7 @@
     <div class="flex justify-center">
         <h2 class="text-2xl font-bold tracking-tight sm:text-center sm:text-4xl text-red-600">{{ $wordName }}</h2>
     </div>
-    <div class="flex justify-center">
+    <div class="flex justify-center px-4">
         <span class="text-sm">{{ $meaning }}</span>
     </div>
 

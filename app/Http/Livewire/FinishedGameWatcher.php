@@ -42,7 +42,7 @@ class FinishedGameWatcher extends Component
             $json = json_decode(file_get_contents($url), true);
 
             if(isset($json["error"])){
-                $this->meaning = 0;
+                $this->meaning = null;
             }
             else{
 
