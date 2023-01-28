@@ -1,10 +1,12 @@
 <x-jet-form-section submit="updateProfileInformation">
     <x-slot name="title">
         {{ __('Profi bilgilerim') }}
-    </x-slot>
-
     <x-slot name="description">
         {{ __('Kullanıcı adınızı veya emailinizi değiştirin') }}
+
+        <br>
+        <a class="font-bold" href="/user-summary/{{ \Illuminate\Support\Facades\Auth::id() }}">Skor durumumu gör</a>
+    </x-slot>
     </x-slot>
 
     <x-slot name="form">
