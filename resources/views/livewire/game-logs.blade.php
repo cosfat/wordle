@@ -1,6 +1,6 @@
 <div class="p-5 gap-2 container mx-auto rounded-lg">
     <div>
-        <h2>Sizin sorduklarınız</h2>
+        <h2>Son meydan okumalar</h2>
         <ul class="text-sm font-medium bg-white text-white rounded-lg">
             @foreach($notes as $note)
                 <a href="/finished-game-watcher/{{ $note['link'] }}">

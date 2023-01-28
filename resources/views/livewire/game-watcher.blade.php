@@ -1,5 +1,5 @@
 <div name="the-game">
-    <div class="flex justify-center mb-4">
+    <div class="flex justify-center">
         <a href="/user-summary/{{ \App\Models\User::where('username', $opponentName)->first()->id }}">
         <h2 class="text-2xl font-bold tracking-tight sm:text-center sm:text-4xl text-indigo-500">{{ $opponentName }}: </h2></a>
         <h2 class="ml-3 text-2xl font-bold tracking-tight sm:text-center sm:text-4xl text-red-600"> {{ $wordName }}</h2>
@@ -15,7 +15,12 @@
   display: inline-block;">&nbsp;</span>
         @endif
     </div>
-    <div class="flex justify-center">
+
+    <div class="flex justify-center px-4 mt-2">
+        <span class="text-sm text-gray-600">"{{ $meaning }}"</span>
+    </div>
+
+    <div class="flex justify-center mt-2">
         <h2>Son tahmin: {{ $lastGuessTime }}</h2>
     </div>
 

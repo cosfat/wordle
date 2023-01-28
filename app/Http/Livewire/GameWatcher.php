@@ -15,7 +15,8 @@ class GameWatcher extends Component
     public $word;
     public $wordName;
     public $opponentName;
-    public $lastGuessTime = "Tahmin yok";
+    public $lastGuessTime = "tahmin yok";
+    public $meaning;
 
     public $guessesCount;
     public $guessesArray;
@@ -44,6 +45,19 @@ class GameWatcher extends Component
             $this->gameId = $gameId;
             $this->wordName = $game->word->name;
             $this->opponentName = User::find($game->opponent_id)->name;
+
+
+            $url = "https://sozluk.gov.tr/gts?ara=".$this->wordName;
+
+            $json = json_decode(file_get_contents($url), true);
+
+            if(isset($json["error"])){
+                $this->meaning = null;
+            }
+            else{
+
+                $this->meaning = $json[0]['anlamlarListe'][0]['anlam'];
+            }
         } else {
             session()->flash('message', 'Bu oyunu görme yetkiniz yok.');
             return redirect()->to('/create-game');
