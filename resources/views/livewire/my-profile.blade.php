@@ -14,7 +14,7 @@
                 <x-jet-section-border />
             @endif
 
-                <form method="POST" action="{{ route('logout') }}" x-data>
+                <form class="mt-4" method="POST" action="{{ route('logout') }}" x-data>
                     @csrf
 
                     <x-jet-danger-button class="ml-2"  href="{{ route('logout') }}"
