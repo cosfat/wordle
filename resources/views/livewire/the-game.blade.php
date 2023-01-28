@@ -99,9 +99,9 @@
             <button class="keyboard-button">m</button>
             <button class="keyboard-button">ö</button>
             <button class="keyboard-button">ç</button>
-            <button class="keyboard-button">GÖNDER</button>
+            <button class="keyboard-button">ENTER</button>
         </div>
-        <div class="fourth-row">
+        <div class="fourth-row mt-2">
             <button class="keyboard-button bg-red-500 text-white">TEMİZLE</button>
         </div>
     </div>
@@ -381,7 +381,7 @@
             }
             let key = target.textContent
 
-            if (key === "Del") {
+            if (key === "SİL") {
                 key = "Backspace"
             }
             if (key === "TEMİZLE") {
