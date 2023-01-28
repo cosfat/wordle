@@ -4,9 +4,9 @@
             <div class="bg-white shadow-md rounded my-6 p-4">
                 <div class="p-4">
                     <a href="/user-summary/{{ $user->id }}">
-                    <h2 class="text-2xl font-bold tracking-tight sm:text-center sm:text-4xl text-indigo-500">
+                    <h2 class="text-2xl font-bold tracking-tight text-center sm:text-4xl text-indigo-500">
                         {{ $user->username }}</h2>
-                    <h2 class="text-2xl font-bold tracking-tight sm:text-center sm:text-4xl text-red-500">
+                    <h2 class="text-2xl font-bold tracking-tight text-center sm:text-4xl text-red-500">
                         {{ $user->point->point }} puan</h2></a>
                     <div class="flex justify-center">
                     @if(\Illuminate\Support\Facades\Cache::has('user-is-online-' . $user->id))

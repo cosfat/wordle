@@ -42,7 +42,13 @@ class CreateGame extends Component
     }
 
     public function mount($length = 5){
-        $this->length = $length;
+        if($length > 7){
+            $this->length = 6;
+        }
+        else {
+
+            $this->length = $length;
+        }
     }
 
     public function suggestFriend()

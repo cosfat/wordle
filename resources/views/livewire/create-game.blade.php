@@ -15,7 +15,6 @@
                     <h2 wire:click="changeLength(5)" class="border-2 px-4 py-2 cursor-pointer text-2xl font-bold tracking-tight sm:text-4xl sm:text-center text-indigo-500 ml-3" style="border-color: rgb(250, 204, 21);">5</h2>
                     <h2 wire:click="changeLength(6)" class="border-2 px-4 py-2 cursor-pointer text-2xl font-bold tracking-tight sm:text-4xl sm:text-center text-indigo-500 ml-3" style="border-color: rgb(250, 204, 21);">6</h2>
                     <h2 wire:click="changeLength(7)" class="border-2 px-4 py-2 cursor-pointer text-2xl font-bold tracking-tight sm:text-4xl sm:text-center text-indigo-500 ml-3" style="border-color: rgb(250, 204, 21);">7</h2>
-                    <h2 wire:click="changeLength(8)" class="border-2 px-4 py-2 cursor-pointer text-2xl font-bold tracking-tight sm:text-4xl sm:text-center text-indigo-500 ml-3" style="border-color: rgb(250, 204, 21);">8</h2>
                 </div>
                 <div class="flex justify-center mt-3">
                     <x-jet-input wire:model.defer="word"
