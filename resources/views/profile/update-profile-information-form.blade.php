@@ -92,4 +92,8 @@
             {{ __('Kaydet') }}
         </x-jet-button>
     </x-slot>
+
+
+
+
 </x-jet-form-section>

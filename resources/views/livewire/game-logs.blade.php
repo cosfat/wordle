@@ -1,7 +1,7 @@
-<div class="p-5 gap-2 border-b-2">
+<div class="p-5 gap-2 border-b-2 container mx-auto">
     <div>
         <h2>Sizin sorduklarınız</h2>
-        <ul class="text-sm font-medium bg-white text-gray-900 border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+        <ul class="text-sm font-medium bg-white text-white-500 border border-gray-200 rounded-lg">
             @foreach($notes as $note)
                 <a href="/game-watcher/{{ $note['link'] }}">
                 @if($note['status'] == 1)
@@ -18,7 +18,7 @@
             @endforeach
         </ul>
         <h2 class="mt-3">Size sorulanlar</h2>
-        <ul class="text-sm font-medium bg-white text-gray-900 border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+        <ul class="text-sm font-medium bg-white text-white-500 border border-gray-200 rounded-lg">
             @foreach($notesMe as $note)
                 <a href="/finished-game-watcher/{{ $note['link'] }}">
                     @if($note['status'] == 1)
