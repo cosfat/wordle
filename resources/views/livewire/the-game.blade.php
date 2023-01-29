@@ -347,7 +347,7 @@
                         letterColor = 'yellow'
                     }
 
-                    // rightGuess[letterPosition] = "#"
+                    rightGuess[letterPosition] = "#"
                 }
 
 
