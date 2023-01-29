@@ -326,7 +326,6 @@
 
 
             for (let i = 0; i < {{ $length }}; i++) {
-                console.log(currentGuess[i] + " - " + rightGuess[i])
 
                 let letterColor = ''
                 let box = row.children[i]
@@ -348,7 +347,7 @@
                         letterColor = 'yellow'
                     }
 
-                    rightGuess[letterPosition] = "#"
+                    // rightGuess[letterPosition] = "#"
                 }
 
 

@@ -26,13 +26,15 @@
                         </span>
 
                         <p class="text-xl font-medium text-slate-700 mt-3">
-                            @if($game->seen == 0)<strong>
+                            @if($game->seen == 0)
+                                <strong>
                                 {{ substr($game->user->name, 0, 9)}}
-                            </strong>
+                                </strong>
                             @else
                                 {{ substr($game->user->name, 0, 9)}}
                             @endif
                         </p>
+                        <p class="text-sm text-gray-600">{{ $game->created_at->diffForHumans(\Carbon\Carbon::now()) }}</p>
                     </div>
                 </a>
             @endforeach
@@ -67,6 +69,7 @@
                         <p class="mt-2 text-sm text-slate-500">
                             {{ $game->word->name }}
                         </p>
+                        <p class="text-sm text-gray-600">{{ $game->created_at->diffForHumans(\Carbon\Carbon::now()) }}</p>
                     </div>
                 </a>
             @endforeach
