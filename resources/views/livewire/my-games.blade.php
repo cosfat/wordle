@@ -11,7 +11,7 @@
                 @endif
             @foreach($gamesOp as $game)
                 <a href="/the-game/{{ $game->id }}">
-                    <div class="p-10 flex flex-col  items-center text-center group hover:bg-slate-50 cursor-pointer">
+                    <div class="p-6 flex flex-col  items-center text-center group hover:bg-slate-50 cursor-pointer">
                         @if($game->seen == 0)
                             <div
                                 class="absolute mt-6 inline-flex items-center justify-center p-2 text-xs font-bold text-white bg-red-500 border-2 border-white rounded-full">
@@ -56,7 +56,7 @@
             @foreach($gamesMe as $game)
 
                 <a href="/game-watcher/{{ $game->id }}">
-                    <div class="p-10 flex flex-col items-center text-center group hover:bg-slate-50 cursor-pointer">
+                    <div class="p-6 flex flex-col items-center text-center group hover:bg-slate-50 cursor-pointer">
                         <span class="p-5 rounded-full bg-indigo-500 text-white shadow-lg shadow-indigo-200">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24"
                                  stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round"
