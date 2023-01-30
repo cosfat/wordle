@@ -23,4 +23,9 @@ class Challenge extends Model
     {
         return $this->belongsTo(Word::class);
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

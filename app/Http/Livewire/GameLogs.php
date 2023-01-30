@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Challenge;
+use App\Models\Chguess;
 use App\Models\Chuser;
 use App\Models\Game;
 use App\Models\User;
@@ -21,8 +22,13 @@ class GameLogs extends Component
         $chusers = Chuser::where('user_id', Auth::id())->get();
         $x = 0;
         foreach ($chusers as $chuser) {
-            if(Challenge::whereId($chuser->challenge_id)->where('winner_id', '!=', null)->exists()){
-                $challenge = Challenge::whereId($chuser->challenge_id)->first();
+
+            $challenge = Challenge::whereId($chuser->challenge_id)->first();
+            $guessesCount = Chguess::where('challenge_id', $chuser->challenge_id)->count();
+            $length = $chuser->challenge->length;
+            $userCount = Chuser::where('challenge_id', $chuser->challenge_id)->count();
+            $shouldTotal = $userCount * ($length + 1);
+            if(Challenge::whereId($chuser->challenge_id)->first()->winner_id != null){
                 $this->notesCh[$x]['user'] = User::whereId($challenge->winner_id)->first()->username;
                 $this->notesCh[$x]['word'] = $challenge->word->name;
                 $this->notesCh[$x]['link'] = $challenge->id;
@@ -33,8 +39,15 @@ class GameLogs extends Component
                     $this->notesCh[$x]['status'] = 0;
                 }
 
-                $x += 1;
             }
+            elseif($guessesCount == $shouldTotal){
+                $this->notesCh[$x]['user'] = "Kimse bilemedi";
+                $this->notesCh[$x]['word'] = $challenge->word->name;
+                $this->notesCh[$x]['link'] = $challenge->id;
+                $this->notesCh[$x]['status'] = 3;
+            }
+
+            $x += 1;
         }
 
 

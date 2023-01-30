@@ -8,15 +8,19 @@
                         <li class="w-full px-4 py-2 text-white-500 bg-red-500">{{ $note['user'] }}
                             <strong>{{ $note['word'] }}</strong> kelimesiyle kazandı
                         </li>
-                    @else
+                    @elseif($note['status']==2)
                         <li class="w-full px-4 py-2 text-white-500 bg-indigo-500">
                             <strong>{{ $note['word'] }}</strong> kelimesiyle kazandın
+                        </li>
+                    @else
+                        <li class="w-full px-4 py-2 text-white-500 bg-red-500">{{ $note['user'] }}:
+                            <strong>{{ $note['word'] }}</strong>
                         </li>
                     @endif
                 </a>
             @endforeach
         </ul>
-        <h2>Gönderdiğim oyunlar</h2>
+        <h2 class="mt-3">Gönderdiğim oyunlar</h2>
         <ul class="text-sm font-medium bg-white text-white rounded-lg">
             @foreach($notes as $note)
                 <a href="/finished-game-watcher/{{ $note['link'] }}">

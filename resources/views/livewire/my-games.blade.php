@@ -48,11 +48,18 @@
         </div>
         <div class="flex flex-wrap">
             @if($gamesCh->count() == 0)
-                <p>Hiç rekabet oyunun yok, <a href="/create-game">şimdi oyun başlat!</a></p>
+                <p>Hiç rekabet oyunun yok, <a href="/create-game" class="text-indigo-500">şimdi oyun başlat!</a></p>
 
             @endif
             @foreach($gamesCh as $game)
-                @if($game->challenge->winner_id == null)
+                @php
+                 $guessesCount = \App\Models\Chguess::where('challenge_id', $game->challenge_id)->count();
+                 $userCount = \App\Models\Chuser::where('challenge_id', $game->challenge_id)->count();
+                 $length = $game->challenge->length;
+                 $shouldTotal = $userCount * ($length + 1);
+                @endphp
+
+                @if($game->challenge->winner_id == null AND $shouldTotal != $guessesCount)
                         <a href="@if($game->challenge->chguesses->where('user_id', \Illuminate\Support\Facades\Auth::id())->count() > $game->challenge->length)/finished-challenge-game-watcher/@else/the-challenge-game/@endif{{ $game->challenge_id }}">
                     <div class="p-4 flex flex-col  items-center text-center group hover:bg-slate-50 cursor-pointer">
                         @if($game->seen == 0)
@@ -71,10 +78,10 @@
                         <p class="text-xl font-medium text-slate-700 mt-3">
                             @if($game->seen == 0)
                                 <strong>
-                                    {{ substr($game->user->name, 0, 9)}}
+                                    {{ substr($game->challenge->user->name, 0, 9)}}
                                 </strong>
                             @else
-                                {{ substr($game->user->name, 0, 9)}}
+                                {{ substr($game->challenge->user->name, 0, 9)}}
                             @endif
                         </p>
                             <p>{{ $game->challenge->chusers->count() }} kişi</p>
