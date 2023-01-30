@@ -100,7 +100,7 @@
             @foreach($gamesMe as $game)
 
                 <a href="/game-watcher/{{ $game->id }}">
-                    <div class="p-6 flex flex-col items-center text-center group hover:bg-slate-50 cursor-pointer">
+                    <div class="p-4 flex flex-col items-center text-center group hover:bg-slate-50 cursor-pointer">
                         <span class="p-2 rounded-full bg-indigo-500 text-white shadow-lg shadow-indigo-200">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24"
                                  stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round"
