@@ -125,10 +125,24 @@
                         <x-jet-authentication-card-logo/>
                     </x-slot>
                     <div class="flex justify-center">
-                        <h2 class="text-2xl font-bold tracking-tight sm:text-center sm:text-4xl text-indigo-500">
-                            Yeni Adresimiz kelimeo.com</h2></div>
-
-                    <div class="flex justify-center"><h2>Lütfen mevcut şifrenizle giriş yapın</h2></div>
+                        <div class="mt-32">
+                            <div class="px-4 sm:px-8 max-w-5xl m-auto">
+                                <h1 class="text-center font-semibold text-sm">Nasıl oynanır?</h1>
+                                <p class="mt-2 text-center text-sm mb-4 text-gray-500">Size verilen kelimeyi tahmin etmeye çalışırsınız</p>
+                                <ul class="border border-gray-200 rounded overflow-hidden shadow-md">
+                                    <li class="px-4 py-2 bg-white hover:bg-sky-100 hover:text-sky-900 border-b last:border-none border-gray-200 transition-all duration-300 ease-in-out">Harfler kelimedeki yerlerinin doğruluğuna göre renk alır </li>
+                                    <li class="px-4 py-2 bg-white hover:bg-sky-100 hover:text-sky-900 border-b last:border-none border-gray-200 transition-all duration-300 ease-in-out">Örnek kelimemiz "DÜNYA" olsun</li>
+                                    <li class="px-4 py-2 bg-white hover:bg-sky-100 hover:text-sky-900 border-b last:border-none border-gray-200 transition-all duration-300 ease-in-out">"KOLYE" yazarsanız "Y" harfi doğru yerde olacağı için yeşil yanar</li>
+                                    <li class="px-4 py-2 bg-white hover:bg-sky-100 hover:text-sky-900 border-b last:border-none border-gray-200 transition-all duration-300 ease-in-out">"ARMUT" yazarsanız A harfi yanlış yerde olduğu için sarı yanar.</li>
+                                    <li class="px-4 py-2 bg-white hover:bg-sky-100 hover:text-sky-900 border-b last:border-none border-gray-200 transition-all duration-300 ease-in-out">Kelimede olmayan diğer harfler gri yanar.</li>
+                                    <li class="px-4 py-2 bg-white hover:bg-sky-100 hover:text-sky-900 border-b last:border-none border-gray-200 transition-all duration-300 ease-in-out">Oyunun 2 modu var. Klasik mod ve rekabet modu </li>
+                                    <li class="px-4 py-2 bg-white hover:bg-sky-100 hover:text-sky-900 border-b last:border-none border-gray-200 transition-all duration-300 ease-in-out">Klasik mod: Arkadaşınıza kelime sorarsınız, bulmaya çalışır.</li>
+                                    <li class="px-4 py-2 bg-white hover:bg-sky-100 hover:text-sky-900 border-b last:border-none border-gray-200 transition-all duration-300 ease-in-out">Rekabet modu: Arkadaşınızla beraber bilgisayarın seçtiği bir kelimeyi bulmaya çalışırsınız.</li>
+                                </ul>
+                                <a href="mailto:hello@kelimeo.com" class="text-xs text-center block mt-4 hover:underline">Sorularınız için: hello@kelimeo.com</a>
+                            </div>
+                        </div>
+                    </div>
                 </x-slot>
 
                 <x-jet-validation-errors class="mb-4"/>
