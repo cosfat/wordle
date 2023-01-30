@@ -31,8 +31,7 @@ class FinishedChallengeGameWatcher extends Component
 
             $game = $game->first();
             $myGuesses = Chguess::where('user_id', Auth::id())->where('challenge_id', $game->id)->count();
-
-            if($myGuesses > $game->length){
+            if($myGuesses > $game->length OR $game->winner_id != null){
             if ($userId == null) {
                 if($game->winner_id == null){
                     $userId = Auth::id();
