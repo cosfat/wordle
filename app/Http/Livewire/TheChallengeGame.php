@@ -65,29 +65,7 @@ class TheChallengeGame extends Component
 
     public function chLoser()
     {
-        $game = Game::whereId($this->gameId)->first();
-        $game->winner_id = $game->user_id;
-        $game->degree = (8 - $game->length);
-        $game->save();
-
-        $point = Point::whereUser_id($game->user_id);
-        if($point->exists())
-        {
-            $point = $point->first();
-            $previous = $point->point;
-            $new = $game->degree;
-            $total = $previous + $new;
-            $point->point = $total;
-            $point->save();
-        }
-        else {
-            $point = new Point;
-            $point->user_id = $game->user_id;
-            $point->point = $game->degree;;
-            $point->save();
-
-        }
-        return redirect('/finished-game-watcher/'.$this->gameId);
+        return redirect('/finished-challenge-game-watcher/'.$this->gameId);
     }
 
 

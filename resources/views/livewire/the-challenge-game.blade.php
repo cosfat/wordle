@@ -365,6 +365,7 @@
 
                 if (guessesRemaining === 0) {
                     notifyGame(`Kaybettin! Doğru kelime: ${rightGuessString}`);
+                    Livewire.emit('chLoser');
                 }
             }
         }
