@@ -37,8 +37,7 @@ class FinishedChallengeGameWatcher extends Component
                     $userId = Auth::id();
                 }
                 else{
-                    dd($game->first());
-                    $userId = $game->first()->winner_id;
+                    $userId = $game->winner_id;
                 }
             }
             $length = $game->length;
