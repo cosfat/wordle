@@ -1,21 +1,6 @@
 <div name="the-game">
 
     <div class="flex justify-center mb-4">
-        <svg class="text-left" width="64px" height="34px" viewBox="0 0 24 24"
-             xmlns="http://www.w3.org/2000/svg">
-            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-            <g id="SVGRepo_iconCarrier">
-                <path d="M6 13C6.55 13 7 12.55 7 12C7 11.45 6.55 11 6 11C5.45 11 5 11.45 5 12C5 12.55 5.45 13 6 13Z"
-                      stroke="#FACC15" stroke-width="2"></path>
-                <path
-                    d="M12 13C12.55 13 13 12.55 13 12C13 11.45 12.55 11 12 11C11.45 11 11 11.45 11 12C11 12.55 11.45 13 12 13Z"
-                    stroke="#FACC15" stroke-width="2"></path>
-                <path
-                    d="M18 13C18.55 13 19 12.55 19 12C19 11.45 18.55 11 18 11C17.45 11 17 11.45 17 12C17 12.55 17.45 13 18 13Z"
-                    stroke="#FACC15" stroke-width="2"></path>
-            </g>
-        </svg>
         <a href="/user-summary/{{ \App\Models\User::where('username', $opponentName)->first()->id }}">
             <h2 class="text-2xl font-bold tracking-tight sm:text-center sm:text-4xl text-indigo-500">{{ $opponentName }}</h2>
         </a>
