@@ -139,8 +139,10 @@ class CreateGame extends Component
     public function changeLength($length)
     {
         $this->length = $length;
+        $this->word = "";
         $this->opponentUserName = null;
         $this->hideOpponent = true;
+        $this->autoWord();
     }
 
     public function checkWord()
@@ -223,30 +225,19 @@ class CreateGame extends Component
         } else {
             $user = User::where('username', $username)->where('id', '!=', Auth::id());
 
-            $existing = false;
 
             if ($user->exists()) {
-                $existingGames = Challenge::where('user_id', Auth::id())->where('winner_id', null)->get();
-                foreach ($existingGames as $existingGame) {
-                    if(Chuser::where('challenge_id', $existingGame->id)->where('user_id', $user->id)->exists())
-                    {
-                        $existing = true;
-                        break;
-                    }
-                }
 
-                if ($existing == false) {
                     $this->chOpponentError = false;
                     $this->chExistingGameError = false;
                     $this->suggestChFriend[] = $user->first()->name;
                     $this->suggestChFriend = array_unique($this->suggestChFriend);
                     $this->addChallengeFriend($user->first()->name);
-                } else {
-                    $this->chOpponentError = true;
-                    $this->chExistingGameError = true;
-                }
 
-            } else {
+
+
+            }
+            else {
                 $this->chOpponentError = true;
                 $this->chExistingGameError = false;
             }
