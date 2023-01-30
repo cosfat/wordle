@@ -85,45 +85,6 @@
     </style>
     <div id="game-board">
     </div>
-    <div id="keyboard-cont">
-        <div class="first-row">
-            <button class="keyboard-button">e</button>
-            <button class="keyboard-button">r</button>
-            <button class="keyboard-button">t</button>
-            <button class="keyboard-button">y</button>
-            <button class="keyboard-button">u</button>
-            <button class="keyboard-button">ı</button>
-            <button class="keyboard-button">o</button>
-            <button class="keyboard-button">p</button>
-            <button class="keyboard-button">ğ</button>
-            <button class="keyboard-button">ü</button>
-        </div>
-        <div class="second-row">
-            <button class="keyboard-button">a</button>
-            <button class="keyboard-button">s</button>
-            <button class="keyboard-button">d</button>
-            <button class="keyboard-button">f</button>
-            <button class="keyboard-button">g</button>
-            <button class="keyboard-button">h</button>
-            <button class="keyboard-button">j</button>
-            <button class="keyboard-button">k</button>
-            <button class="keyboard-button">l</button>
-            <button class="keyboard-button">ş</button>
-            <button class="keyboard-button">i</button>
-        </div>
-        <div class="third-row">
-            <button class="keyboard-button">Del</button>
-            <button class="keyboard-button">z</button>
-            <button class="keyboard-button">c</button>
-            <button class="keyboard-button">v</button>
-            <button class="keyboard-button">b</button>
-            <button class="keyboard-button">n</button>
-            <button class="keyboard-button">m</button>
-            <button class="keyboard-button">ö</button>
-            <button class="keyboard-button">ç</button>
-            <button class="keyboard-button">Enter</button>
-        </div>
-    </div>
     <script>
         let words = JSON.parse({!! json_encode(\App\Models\Word::pluck('name')->toJSON()) !!})
         const NUMBER_OF_GUESSES = {{ $length + 1}};

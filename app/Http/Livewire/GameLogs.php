@@ -2,6 +2,8 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Challenge;
+use App\Models\Chuser;
 use App\Models\Game;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -11,10 +13,32 @@ class GameLogs extends Component
 {
     public $notes = array();
     public $notesMe = array();
+    public $notesCh = array();
     protected $listeners = ['refreshLogs' => '$refresh'];
 
     public function render()
     {
+        $chusers = Chuser::where('user_id', Auth::id())->get();
+        $x = 0;
+        foreach ($chusers as $chuser) {
+            if(Challenge::whereId($chuser->challenge_id)->where('winner_id', '!=', null)->exists()){
+                $challenge = Challenge::whereId($chuser->challenge_id)->first();
+                $this->notesCh[$x]['user'] = User::whereId($challenge->winner_id)->first()->username;
+                $this->notesCh[$x]['word'] = $challenge->word->name;
+                $this->notesCh[$x]['link'] = $challenge->id;
+
+                if($challenge->winner_id != Auth::id()){
+                    $this->notesCh[$x]['status'] = 1;
+                }else {
+                    $this->notesCh[$x]['status'] = 0;
+                }
+
+                $x += 1;
+            }
+        }
+
+
+
         $finished = Game::where('user_id', Auth::id())->where('winner_id', '!=', null)->orderBy('updated_at', 'desc')->limit(10)->get();
         $x = 0;
         foreach ($finished as $game) {

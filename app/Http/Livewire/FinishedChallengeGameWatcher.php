@@ -2,32 +2,38 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Challenge;
+use App\Models\Chguess;
+use App\Models\Chuser;
 use App\Models\Game;
-use App\Models\Guess;
 use App\Models\User;
 use App\Models\Word;
-use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
-class FinishedGameWatcher extends Component
+class FinishedChallengeGameWatcher extends Component
 {
     public $length;
     public $gameId;
     public $word;
     public $wordName;
-    public $opponentName;
     public $userName;
+    public $userId;
     public $meaning;
 
     public $guessesCount;
     public $guessesArray;
 
-    public function mount($gameId)
+    public function mount($gameId, $userId = null)
     {
-        $game = Game::whereId($gameId)->where('winner_id', '!=', null);
+        $game = Challenge::whereId($gameId)->where('winner_id', '!=', null);
         if ($game->exists()) {
+
+            if($userId == null){
+                $userId = User::whereId(Challenge::whereId($gameId)->first()->winner_id)->first()->id;
+            }
+            $this->userId = $userId;
             $game = $game->first();
-            $guesses = $game->guesses()->get();
+            $guesses = $game->chguesses()->where('user_id', $userId)->get();
             foreach ($guesses as $guess) {
                 $this->guessesArray[] = $guess->word->name;
             }
@@ -35,12 +41,11 @@ class FinishedGameWatcher extends Component
             $this->length = $game->length;
             $this->gameId = $gameId;
             $this->wordName = $game->word->name;
-            $this->opponentName = User::find($game->user_id)->name;
-            $this->userName = User::find($game->opponent_id)->name;
+            $this->userName = User::find($userId)->name;
 
             $this->meaning = null;
 
-            if(Word::tdk($this->wordName)){
+            if (Word::tdk($this->wordName)) {
                 $this->meaning = Word::tdk($this->wordName);
             }
         } else {
@@ -50,9 +55,8 @@ class FinishedGameWatcher extends Component
 
     }
 
-
     public function render()
     {
-        return view('livewire.finished-game-watcher');
+        return view('livewire.finished-challenge-game-watcher');
     }
 }

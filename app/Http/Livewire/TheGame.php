@@ -55,16 +55,7 @@ class TheGame extends Component
     {
         $game = Game::whereId($this->gameId)->first();
         $game->winner_id = $game->opponent_id;
-        $prevOneShots = Game::where('opponent_id', $game->opponent_id)->where('winner_id', $game->opponent_id)->orderBy('id', 'desc')->get();
-        foreach ($prevOneShots as $prevOneShot) {
-            if($prevOneShot->guesses()->count() == 1){
-                if($prevOneShot->updated_at->diffInMinutes(Carbon::now())<1440){
-                    $game->delete();
-                    return redirect('/');
-                }
-            }
-        }
-        $game->degree = ($game->length - Guess::whereGame_id($this->gameId)->count() + 1) * 5;
+        $game->degree = ($game->length - Guess::whereGame_id($this->gameId)->count() + 3) * 5;
         $game->save();
 
         $point = Point::whereUser_id($game->winner_id);

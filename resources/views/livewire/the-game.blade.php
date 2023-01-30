@@ -315,7 +315,7 @@
             }
 
             if (guessString.length != {{ $length }}) {
-                notifyGame("5 harfli kelime yazmalısın")
+                notifyGame("{{ $length }} harfli kelime yazmalısın")
                 return
             }
 

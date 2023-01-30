@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Broadcast;
 use App\Models\Game;
+use App\Models\Chuser;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,11 +17,10 @@ use App\Models\Game;
 */
 Broadcast::channel('game-channel.{opp}', function ($user, $opp) {
 
-    if(Game::whereOpponent_id($opp)->exists()){
+    if (Game::whereOpponent_id($opp)->exists()) {
         $game = Game::whereOpponent_id($opp)->first();
         return $user->id === $game->opponent_id;
-    }
-    else{
+    } else {
         return true;
     }
 
@@ -28,11 +28,10 @@ Broadcast::channel('game-channel.{opp}', function ($user, $opp) {
 
 Broadcast::channel('guesses-channel.{opp}', function ($user, $opp) {
 
-    if(Game::whereOpponent_id($opp)->exists()){
+    if (Game::whereOpponent_id($opp)->exists()) {
         $game = Game::whereOpponent_id($opp)->first();
         return $user->id === $game->opponent_id;
-    }
-    else{
+    } else {
         return true;
     }
 
