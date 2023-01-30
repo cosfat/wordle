@@ -93,6 +93,7 @@
                             {{ __('Hazırsanız başlayalım!') }}
                         </button>
                     </div>
+                    <div class="flex justify-center mt-3"><p>(Arkadaşlarına başlattığını haber vermeyi unutma!)</p></div>
                 </div>
 
             </form>
