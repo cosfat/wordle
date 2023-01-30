@@ -92,7 +92,7 @@
                 <h2 class="text-2xl font-bold tracking-tight sm:text-center sm:text-4xl text-indigo-500">
                     Gönderdiğim oyunlar</h2>
             </div>
-            <div class="flex flex-wrap">
+            <div class="flex flex-wrap columns-3">
 
                 @if($gamesMe->count() == 0)
                     <p>Hiç oyun göndermediniz, yeni oyun <a href="/create-game" class="text-indigo-500">başlatmak için tıkla!</a></p>
