@@ -8,6 +8,7 @@ use App\Models\Chuser;
 use App\Models\Game;
 use App\Models\User;
 use App\Models\Word;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class FinishedChallengeGameWatcher extends Component
@@ -25,28 +26,43 @@ class FinishedChallengeGameWatcher extends Component
 
     public function mount($gameId, $userId = null)
     {
-        $game = Challenge::whereId($gameId)->where('winner_id', '!=', null);
+        $game = Challenge::whereId($gameId);
         if ($game->exists()) {
 
-            if($userId == null){
-                $userId = User::whereId(Challenge::whereId($gameId)->first()->winner_id)->first()->id;
-            }
-            $this->userId = $userId;
             $game = $game->first();
-            $guesses = $game->chguesses()->where('user_id', $userId)->get();
-            foreach ($guesses as $guess) {
-                $this->guessesArray[] = $guess->word->name;
+            $myGuesses = Chguess::where('user_id', Auth::id())->where('challenge_id', $game->id)->count();
+
+            if($myGuesses > $game->length){
+            if ($userId == null) {
+                if($game->winner_id == null){
+                    $userId = Auth::id();
+                }
+                else{
+                    $userId = User::whereId($game->first()->winner_id)->first()->id;
+                }
             }
-            $this->guessesCount = $guesses->count();
-            $this->length = $game->length;
-            $this->gameId = $gameId;
-            $this->wordName = $game->word->name;
-            $this->userName = User::find($userId)->name;
+            $length = $game->length;
+            $guesses = $game->chguesses()->where('user_id', $userId)->get();
 
-            $this->meaning = null;
 
-            if (Word::tdk($this->wordName)) {
-                $this->meaning = Word::tdk($this->wordName);
+                $this->userId = $userId;
+                foreach ($guesses as $guess) {
+                    $this->guessesArray[] = $guess->word->name;
+                }
+                $this->guessesCount = $guesses->count();
+                $this->length = $length;
+                $this->gameId = $gameId;
+                $this->wordName = $game->word->name;
+                $this->userName = User::find($userId)->name;
+
+                $this->meaning = null;
+
+                if (Word::tdk($this->wordName)) {
+                    $this->meaning = Word::tdk($this->wordName);
+                }
+            } else {
+                session()->flash('message', 'Önce oyunu bitirmeniz gerekir');
+                return redirect()->to('/create-game');
             }
         } else {
             session()->flash('message', 'Bu oyunu görme yetkiniz yok.');

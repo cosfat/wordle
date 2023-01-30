@@ -53,7 +53,7 @@
             @endif
             @foreach($gamesCh as $game)
                 @if($game->challenge->winner_id == null)
-                <a href="/the-challenge-game/{{ $game->challenge_id }}">
+                        <a href="@if($game->challenge->chguesses->where('user_id', \Illuminate\Support\Facades\Auth::id())->count() > $game->challenge->length)/finished-challenge-game-watcher/@else/the-challenge-game/@endif{{ $game->challenge_id }}">
                     <div class="p-4 flex flex-col  items-center text-center group hover:bg-slate-50 cursor-pointer">
                         @if($game->seen == 0)
                             <div
@@ -61,7 +61,7 @@
                                 Yeni oyun
                             </div>
                         @endif
-                        <span class="p-2 rounded-full bg-yellow-400 text-white shadow-lg shadow-red-200">
+                        <span class="p-2 rounded-full bg-yellow-400 text-white shadow-lg">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24"
                                  stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round"
                                                                                 stroke-linejoin="round"
