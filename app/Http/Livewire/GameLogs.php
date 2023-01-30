@@ -36,7 +36,7 @@ class GameLogs extends Component
                 if($challenge->winner_id != Auth::id()){
                     $this->notesCh[$x]['status'] = 1;
                 }else {
-                    $this->notesCh[$x]['status'] = 0;
+                    $this->notesCh[$x]['status'] = 2;
                 }
 
             }
