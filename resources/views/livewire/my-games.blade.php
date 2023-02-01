@@ -115,7 +115,7 @@
                 <a href="/game-watcher/{{ $game[0]->id }}">
                     <div
                         class="p-4 flex flex-col items-center text-center group hover:bg-slate-50 cursor-pointer">
-                        @if($game[0]->seen == 0)
+                        @if($game[0]->guesses()->where('seen', 0)->exists())
                             <div
                                 class="absolute mt-3 inline-flex items-center justify-center p-2 text-xs font-bold text-white bg-red-500 border-2 border-white rounded-full">
                                 Yeni hamle
