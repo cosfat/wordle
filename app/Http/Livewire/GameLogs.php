@@ -19,18 +19,6 @@ class GameLogs extends Component
 
     public function render()
     {
-        $k = Challenge::all();
-        foreach ($k as $m) {
-            $g=$m->chusers()->count();
-            $m->usercount = $g;
-            $m->save();
-
-        }
-
-
-
-
-
         $chusers = Chuser::where('user_id', Auth::id())->orderBy('id', 'desc')->limit(10)->get();
         $x = 0;
         foreach ($chusers as $chuser) {
