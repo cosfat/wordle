@@ -54,7 +54,7 @@ class CreateGame extends Component
         if (($key = array_search($friend, $this->challengeFriends)) !== false) {
             unset($this->challengeFriends[$key]);
         } else {
-            if(count($this->challengeFriends) < 5){
+            if(count($this->challengeFriends) < 10){
                 $this->challengeFriends[] = $friend;
             }
         }

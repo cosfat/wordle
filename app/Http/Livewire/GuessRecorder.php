@@ -22,6 +22,7 @@ class GuessRecorder extends Component
         $guess = new Guess();
         $guess->word_id = $wordId;
         $guess->game_id = $gameId;
+        $guess->seen = 0;
         $guess->save();
 
         $game = Game::find($gameId);

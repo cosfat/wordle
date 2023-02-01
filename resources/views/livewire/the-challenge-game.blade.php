@@ -354,9 +354,9 @@
             Livewire.emit('addChGuess', guessString, {{ $gameId }});
 
             if (guessString === rightGuessString) {
+                Livewire.emit('chWinner');
                 notifyGame("Tebrikler!")
                 guessesRemaining = 0;
-                Livewire.emit('chWinner');
                 return
             } else {
                 guessesRemaining -= 1;

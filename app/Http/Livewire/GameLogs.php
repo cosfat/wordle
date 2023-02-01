@@ -19,7 +19,7 @@ class GameLogs extends Component
 
     public function render()
     {
-        $chusers = Chuser::where('user_id', Auth::id())->orderBy('id', 'desc')->get();
+        $chusers = Chuser::where('user_id', Auth::id())->orderBy('id', 'desc')->limit(10)->get();
         $x = 0;
         foreach ($chusers as $chuser) {
 

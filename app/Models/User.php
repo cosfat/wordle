@@ -75,8 +75,13 @@ class User extends Authenticatable
         return $this->hasMany(Game::class);
     }
 
+    public function challenges()
+    {
+        return $this->hasMany(Chuser::class);
+    }
+
     public function opponentGames(){
-        return $this->hasMany(Game::class, 'opponent_id')->orderBy('id', 'desc');
+        return $this->hasMany(Game::class, 'opponent_id');
     }
 
     public function point(){
