@@ -55,7 +55,7 @@ class GameLogs extends Component
         $finished = Game::where('user_id', Auth::id())->where('winner_id', '!=', null)->orderBy('updated_at', 'desc')->limit(10)->get();
         $x = 0;
         foreach ($finished as $game) {
-/*            $guesses = $game->guesses();
+            $guesses = $game->guesses();
             $username = User::whereId($game->opponent_id)->first()->username;
             $count = $guesses->count();
             $word = $game->word->name;
@@ -70,14 +70,14 @@ class GameLogs extends Component
             } else {
                 $this->notes[$x]['status'] = 0;
             }
-            $x += 1;*/
+            $x += 1;
         }
 
 
         $finishedMe = Game::where('opponent_id', Auth::id())->where('winner_id', '!=', null)->orderBy('updated_at', 'desc')->limit(10)->get();
         $x = 0;
         foreach ($finishedMe as $game) {
-/*            $guesses = $game->guesses();
+           $guesses = $game->guesses();
             $username = User::whereId($game->user_id)->first()->username;
             $count = $guesses->count();
             $word = $game->word->name;
@@ -92,7 +92,7 @@ class GameLogs extends Component
             } else {
                 $this->notesMe[$x]['status'] = 0;
             }
-            $x += 1;*/
+            $x += 1;
         }
         return view('livewire.game-logs');
     }

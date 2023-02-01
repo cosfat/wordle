@@ -16,9 +16,10 @@ class FriendFeed extends Component
 
     public function render()
     {
+        $user = Auth::user();
         $usersMyAll = array();
-        $gamesMe = Auth::user()->games();
-        $gamesMyAll = Auth::user()->opponentGames()->union($gamesMe)->get();
+        $gamesMe = $user->games();
+        $gamesMyAll = $user->opponentGames()->union($gamesMe)->get();
 
         foreach ($gamesMyAll as $item) {
             $usersMyAll[$item->user_id] = $item->user();
@@ -26,7 +27,7 @@ class FriendFeed extends Component
         }
 
 
-        $this->all = Point::orderBy('point', 'desc');
+        $this->all = Point::orderBy('point', 'desc')->limit(20);
 
         foreach ($this->all->get() as $point) {
             if(isset($usersMyAll[$point->user_id]))
