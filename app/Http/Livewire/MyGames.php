@@ -51,8 +51,8 @@ class MyGames extends Component
 
 
         foreach ($games as $game) {
-            $guesses = $game->challenge->chguesses->count();
-            $userCount = $game->challenge->chusers()->count();
+            $guesses = $game->challenge->guesscount;
+            $userCount = $game->challenge->usercount;
             $length = $game->challenge->length + 1;
             $totalHak = $length * $userCount;
             if ($guesses < $totalHak) {

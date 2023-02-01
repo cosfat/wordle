@@ -24,7 +24,7 @@ class GameLogs extends Component
         foreach ($chusers as $chuser) {
 
             $challenge = $chuser->challenge()->first();
-            $guessesCount = Chguess::where('challenge_id', $chuser->challenge_id)->count();
+            $guessesCount =$challenge->guesscount;
             $length = $challenge->length;
             $userCount = $challenge->usercount;
             $shouldTotal = $userCount * ($length + 1);
