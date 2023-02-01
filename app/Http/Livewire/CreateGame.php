@@ -320,6 +320,7 @@ class CreateGame extends Component
         $game->user_id = Auth::id();
         $game->word_id = $wordId;
         $game->length = $this->length;
+        $game->usercount = count($this->challengeFriends);
         $game->save();
 
         foreach ($this->challengeFriends as $challengeFriend) {
