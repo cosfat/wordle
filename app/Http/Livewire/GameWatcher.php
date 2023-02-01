@@ -32,6 +32,10 @@ class GameWatcher extends Component
         if ($game->exists()) {
             $game = $game->first();
             $guesses = $game->guesses()->get();
+            foreach ($guesses as $guess) {
+                $guess->seen = 1;
+                $guess->save();
+            }
             $lastGuess = $game->guesses()->orderBy('id', 'desc');
             if($lastGuess->exists()){
                 $this->lastGuessTime = $lastGuess->first()->created_at->diffForHumans();
