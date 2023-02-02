@@ -79,6 +79,7 @@
     </style>
     <div id="game-board">
     </div>
+
     <div id="keyboard-cont">
         <div class="first-row">
             <button class="keyboard-button">e</button>
@@ -121,6 +122,7 @@
             <button class="keyboard-button bg-red-500 text-white">TEMİZLE</button>
         </div>
     </div>
+    <livewire:smiley :gameId="$gameId" />
     <script>
         let words = JSON.parse({!! json_encode(\App\Models\Word::pluck('name')->toJSON()) !!})
         let guesses = @json($guessesArray);

@@ -110,6 +110,7 @@
     </style>
     <div id="game-board">
     </div>
+    <livewire:smiley :gameId="$gameId" />
     <script>
         let words = JSON.parse({!! json_encode(\App\Models\Word::pluck('name')->toJSON()) !!})
         const NUMBER_OF_GUESSES = {{ $length + 1}};

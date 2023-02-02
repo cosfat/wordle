@@ -35,6 +35,7 @@ class GuessRecorder extends Component
         if (Chuser::where('user_id', Auth::id())->where('challenge_id', $gameId)->exists()) {
             $challenge = Challenge::whereId($gameId)->where('winner_id', null);
             if ($challenge->exists()) {
+                dd($challenge);
                 $wordId = Word::whereName($word)->first()->id;
                 $guess = new Chguess();
                 $guess->word_id = $wordId;
