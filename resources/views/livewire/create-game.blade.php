@@ -18,7 +18,7 @@
                 OYUN MODU</h2>
         </div>
 
-        <div class="flex justify-center mt-3">
+        <div class="flex justify-center mt-3 border-b pb-4">
             <button
                 class="px-3 py-3 font-medium text-slate-700 shadow-xl @if($mode == 3) bg-white @else bg-yellow-400 @endif hover:bg-white bg- duration-150"
                 type="button" wire:click="$set('mode', 3)">

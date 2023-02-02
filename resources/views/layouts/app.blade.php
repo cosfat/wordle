@@ -69,23 +69,26 @@
             <div>
                 <div class="bg-indigo-600 shadow-xl shadow-indigo-800 flex items-center px-2 py-4"
                      style="position:  fixed; bottom: 0; width: 100%; justify-content: space-evenly">
+
+
+                    <a href="/game-logs">
+                        <svg fill="#facc15" width="54px" height="54px" viewBox="0 0 96 96" xmlns="http://www.w3.org/2000/svg" stroke="#facc15"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <title></title> <g> <path d="M58.3945,32.1563,42.9961,50.625l-5.3906-6.4629a5.995,5.995,0,1,0-9.211,7.6758l9.9961,12a5.9914,5.9914,0,0,0,9.211.0059l20.0039-24a5.9988,5.9988,0,1,0-9.211-7.6875Z"></path> <path d="M48,0A48,48,0,1,0,96,48,48.0512,48.0512,0,0,0,48,0Zm0,84A36,36,0,1,1,84,48,36.0393,36.0393,0,0,1,48,84Z"></path> </g> </g></svg>
+                    </a>
+
                     <a href="/create-game">
                         <svg fill="#FACC15" width="64px" height="64px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <title>plus</title> <path d="M15.5 29.5c-7.18 0-13-5.82-13-13s5.82-13 13-13 13 5.82 13 13-5.82 13-13 13zM21.938 15.938c0-0.552-0.448-1-1-1h-4v-4c0-0.552-0.447-1-1-1h-1c-0.553 0-1 0.448-1 1v4h-4c-0.553 0-1 0.448-1 1v1c0 0.553 0.447 1 1 1h4v4c0 0.553 0.447 1 1 1h1c0.553 0 1-0.447 1-1v-4h4c0.552 0 1-0.447 1-1v-1z"></path> </g></svg>
                     </a>
+
+
+
                     <a href="/my-games">
-                    <svg id="games" width="64px" height="64px" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"
-                         @if(\App\Models\Game::where('opponent_id', \Illuminate\Support\Facades\Auth::id())->where('seen', 0)->exists())
-                         fill="#EF4444"
-                    @else
-                             fill="#FACC15"
-                        @endif
-                    ><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M0 0h48v48H0z" fill="none"></path> <g id="Shopicon"> <path d="M24,44c11.046,0,20-8.954,20-20S35.046,4,24,4S4,12.954,4,24S12.954,44,24,44z M24,12c3.309,0,6,2.691,6,6 c0,2.642-1.331,3.938-2.302,4.885C26.712,23.846,26,24.54,26,26.999h-4c0-4.146,1.68-5.783,2.906-6.979 C25.702,19.244,26,18.954,26,18c0-1.103-0.897-2-2-2s-2,0.897-2,2h-4C18,14.691,20.691,12,24,12z M24,36c-1.105,0-2-0.895-2-2 c0-1.105,0.895-2,2-2c1.105,0,2,0.895,2,2C26,35.105,25.105,36,24,36z"></path> </g> </g></svg>
-                    </a>
-
-
-                    <a href="/"
-                       class="px-2 py-3 text-indigo-500 font-medium font-bold shadow-xl hover:bg-gray-100 duration-150 bg-white" style="border-radius: 20px">
-                        KELİMEO
+                        <svg id="games" width="68px" height="68px" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"
+                             @if(\App\Models\Game::where('opponent_id', \Illuminate\Support\Facades\Auth::id())->where('seen', 0)->exists())
+                                 fill="#EF4444"
+                             @else
+                                 fill="#FACC15"
+                            @endif
+                        ><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M0 0h48v48H0z" fill="none"></path> <g id="Shopicon"> <path d="M24,44c11.046,0,20-8.954,20-20S35.046,4,24,4S4,12.954,4,24S12.954,44,24,44z M24,12c3.309,0,6,2.691,6,6 c0,2.642-1.331,3.938-2.302,4.885C26.712,23.846,26,24.54,26,26.999h-4c0-4.146,1.68-5.783,2.906-6.979 C25.702,19.244,26,18.954,26,18c0-1.103-0.897-2-2-2s-2,0.897-2,2h-4C18,14.691,20.691,12,24,12z M24,36c-1.105,0-2-0.895-2-2 c0-1.105,0.895-2,2-2c1.105,0,2,0.895,2,2C26,35.105,25.105,36,24,36z"></path> </g> </g></svg>
                     </a>
 
                     <a href="/leaderboard">
@@ -109,9 +112,6 @@
         <main>
             {{ $slot }}
         </main>
-        <div class="flex flex-wrap">
-            <livewire:game-logs></livewire:game-logs>
-        </div>
         <div class="flex justify-center p-10">
             <h2 class="text-2xl font-bold tracking-tight sm:text-center sm:text-4xl text-indigo-500">
                 KELİMEO</h2>
