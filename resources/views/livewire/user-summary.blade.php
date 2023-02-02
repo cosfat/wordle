@@ -104,7 +104,7 @@
                             <div class="flex items-center">
                                 <div class="mr-2">
                                 </div>
-                                    <span class="font-medium">{{ $game->created_et->diffForHumans() }}</span>
+                                    <span class="font-medium">{{ $game->created_at->diffForHumans() }}</span>
                             </div>
                         </td>
                     </tr>
