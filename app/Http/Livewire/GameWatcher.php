@@ -42,7 +42,7 @@ class GameWatcher extends Component
             foreach ($guesses as $guess) {
                 $this->guessesArray[] = $guess->word->name;
             }
-            $this->guessesCount = $guesses->count();
+            $this->guessesCount = $game->guesscount;
             $this->length = $game->length;
             $this->gameId = $gameId;
             $this->wordName = $game->word->name;

@@ -55,7 +55,7 @@ class TheGame extends Component
     {
         $game = Game::whereId($this->gameId)->first();
         $game->winner_id = $game->opponent_id;
-        $game->degree = ($game->length - Guess::whereGame_id($this->gameId)->count() + 3) * 5;
+        $game->degree = ($game->length - $game->guesscount + 3) * 5;
         $game->save();
 
         $point = Point::whereUser_id($game->winner_id);
@@ -82,7 +82,7 @@ class TheGame extends Component
             foreach ($guesses as $guess) {
                 $this->guessesArray[] = $guess->word->name;
             }
-            $this->guessesCount = $guesses->count();
+            $this->guessesCount = $game->guesscount;
 
             $this->gameId = $gameId;
             $this->length = $game->length;

@@ -105,6 +105,7 @@ class CreateGame extends Component
     {
         $gamesArray = array();
         $games = Game::where('user_id', Auth::id())->orWhere('opponent_id', Auth::id())->get();
+        $chGames = Auth::user()->challenges()->orderBy('id', 'desc')->get();
         foreach ($games as $game) {
             if ($game->opponent_id == Auth::id()) {
                 $user = User::whereId($game->user_id)->first();

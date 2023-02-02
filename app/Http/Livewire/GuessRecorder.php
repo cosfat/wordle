@@ -26,6 +26,7 @@ class GuessRecorder extends Component
 
         $game = Game::find($gameId);
         $game->seen2 = 0;
+        $game->guesscount += 1;
         $game->save();
         GuessTyped::dispatch($game->user_id);
     }
