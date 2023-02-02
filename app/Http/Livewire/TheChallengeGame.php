@@ -71,22 +71,27 @@ class TheChallengeGame extends Component
 
     public function mount($gameId)
     {
-        if(Chuser::where('user_id', Auth::id())->where('challenge_id', $gameId)->exists() AND
-            Challenge::whereId($gameId)->where('winner_id', null)->exists())
+        if(Chuser::where('user_id', Auth::id())->where('challenge_id', $gameId)->exists())
         {
-            $game = Challenge::whereId($gameId)->first();
+            if(Challenge::whereId($gameId)->where('winner_id', null)->exists()){
 
-            $guesses = Chguess::where('challenge_id', $game->id)->where('user_id', Auth::id())->get();
-            foreach ($guesses as $guess) {
-                $this->guessesArray[] = $guess->word->name;
+                $game = Challenge::whereId($gameId)->first();
+
+                $guesses = Chguess::where('challenge_id', $game->id)->where('user_id', Auth::id())->get();
+                foreach ($guesses as $guess) {
+                    $this->guessesArray[] = $guess->word->name;
+                }
+
+                $this->guessesCount = $guesses->count();
+
+                $this->gameId = $gameId;
+                $this->length = $game->length;
+                foreach ($game->chusers as $chuser) {
+                    $this->opponents[] = User::whereId($chuser->user_id)->first()->name;
+                }
             }
-
-            $this->guessesCount = $guesses->count();
-
-            $this->gameId = $gameId;
-            $this->length = $game->length;
-            foreach ($game->chusers as $chuser) {
-                $this->opponents[] = User::whereId($chuser->user_id)->first()->name;
+            else{
+                return redirect('/finished-challenge-game-watcher/'.$this->gameId);
             }
 
         } else {

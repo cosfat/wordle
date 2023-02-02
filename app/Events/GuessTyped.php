@@ -22,10 +22,9 @@ class GuessTyped implements ShouldBroadcast
      *
      * @return void
      */
-    public function __construct($opp, $game)
+    public function __construct($opp)
     {
         $this->opp = $opp;
-        $this->game = $game;
     }
 
     /**
@@ -35,6 +34,6 @@ class GuessTyped implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('guesses-channel.'.$this->opp."-".$this->game);
+        return new PrivateChannel('guesses-channel.'.$this->opp);
     }
 }
