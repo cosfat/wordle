@@ -43,7 +43,8 @@
                 <th class="py-3">Kelime</th>
                 <th class="py-3">Tahmin</th>
                 <th class="py-3">Sonuç</th>
-                <th class="py-3 pr-4">Puan</th>
+                <th class="py-3">Puan</th>
+                <th class="py-3 pr-4">Tarih</th>
             </tr>
             </thead>
             <tbody class="text-gray-600 text-sm font-light">
@@ -90,8 +91,6 @@
                         </td>
                         <td class="py-3  text-center whitespace-nowrap">
                             <div class="flex items-center">
-                                <div class="mr-2">
-                                </div>
                                 @if($game->winner_id == $user->id)
                                     <span
                                         class="bg-green-200 text-green-600 py-1 px-3 rounded-full text-xs">Kazandı</span>
@@ -103,11 +102,9 @@
                         </td>
                         <td class="py-3 text-center whitespace-nowrap">
                             <div class="flex items-center">
-                                @if($game->winner_id == $user->id)
-                                    <span class="font-medium">{{ $game->degree }}</span>
-                                @else
-                                    <span class="font-medium">0</span>
-                                @endif
+                                <div class="mr-2">
+                                </div>
+                                    <span class="font-medium">{{ $game->created_et->diffForHumans() }}</span>
                             </div>
                         </td>
                     </tr>
