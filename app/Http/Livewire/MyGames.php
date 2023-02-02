@@ -29,7 +29,6 @@ class MyGames extends Component
     protected $user;
 
 
-
     public function new()
     {
         return Auth::user()->opponentGames()->where('seen', 0)->orderBy('id', 'desc')->get();
@@ -37,7 +36,10 @@ class MyGames extends Component
 
     public function newChallenges()
     {
-        return Auth::user()->challenges()->where('seen', 0)->get();
+        return Auth::user()->challenges()->select(['chusers.*'])
+            ->join('challenges', 'challenges.id', '=', 'chusers.challenge_id')
+            ->where('challenges.winner_id', '=', null)
+            ->where('seen', 0)->orderBy('id', 'desc')->get();
     }
 
     public function activeChallenges()
@@ -76,7 +78,7 @@ class MyGames extends Component
 
     public function render()
     {
-        $gamesMe = Auth::user()->games()->select(['games.*', 'guesses.created_at as guess_date', 'guesses.seen as seen'])
+        $gamesMe = Auth::user()->games()->select(['games.*'])
             ->leftJoin('guesses', 'games.id', '=', 'guesses.game_id')
             ->where('winner_id', null)
             ->orderBy('guesses.created_at', 'desc')->get();
@@ -84,7 +86,7 @@ class MyGames extends Component
         $this->gamesMe = $gamesMe->groupBy('id');
 
 
-        $gamesOpp = Auth::user()->opponentGames()->select(['games.*', 'guesses.created_at as guess_date', 'guesses.seen as seen'])
+        $gamesOpp = Auth::user()->opponentGames()->select(['games.*'])
             ->leftJoin('guesses', 'games.id', '=', 'guesses.game_id')
             ->where('winner_id', null)
             ->orderBy('guesses.created_at', 'desc')->get();

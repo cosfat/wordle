@@ -1,5 +1,5 @@
 <div name="the-challenge-game">
-
+    @include('loading')
     <div class="flex justify-center mb-4">
         @foreach($opponents as $opponent)
         <a href="/user-summary/{{ \App\Models\User::where('username', $opponent)->first()->id }}">

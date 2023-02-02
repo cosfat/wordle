@@ -54,7 +54,7 @@ class CreateGame extends Component
         if (($key = array_search($friend, $this->challengeFriends)) !== false) {
             unset($this->challengeFriends[$key]);
         } else {
-            if(count($this->challengeFriends) < 10){
+            if (count($this->challengeFriends) < 10) {
                 $this->challengeFriends[] = $friend;
             }
         }
@@ -77,30 +77,25 @@ class CreateGame extends Component
     public function suggestChFriend()
     {
         $gamesArray = array();
-        $games = Game::where('user_id', Auth::id())->orWhere('opponent_id', Auth::id())->get();
-        foreach ($games as $game) {
-            if ($game->opponent_id == Auth::id()) {
-                $user = User::whereId($game->user_id)->first();
-                if (Game::where('user_id', Auth::id())->where('opponent_id', $user->id)->where('winner_id', null)->doesntExist()) {
-                    $gamesArray[] = User::whereId($game->user_id)->first()->name;
-                }
-            } else {
-                $user = User::whereId($game->opponent_id)->first();
-                if (Game::where('user_id', Auth::id())->where('opponent_id', $user->id)->where('winner_id', null)->doesntExist()) {
-                    $gamesArray[] = User::whereId($game->opponent_id)->first()->name;
-                }
-            }
+        $gamesMe = Game::where('user_id', Auth::id())->orderBy('id', 'desc')->limit(5)->get();
+        $gamesOp = Game::where('opponent_id', Auth::id())->orderBy('id', 'desc')->limit(5)->get();
+        foreach ($gamesMe as $game) {
+            $gamesArray[] = User::whereId($game->opponent_id)->first()->name;
         }
+
+        foreach ($gamesOp as $game) {
+            $gamesArray[] = User::whereId($game->user_id)->first()->name;
+        }
+        $gamesArray = array_unique($gamesArray);
 
         if (count($gamesArray) < 1) {
             $users = User::where('id', '!=', Auth::id())->inRandomOrder()->limit(5)->pluck('username');
-
             foreach ($users as $user) {
                 $gamesArray[] = $user;
             }
         }
-        $gamesArray = array_unique($gamesArray);
 
+        $gamesArray = array_unique($gamesArray);
         $this->suggestChFriend = $gamesArray;
 
         $this->suggestChFriend = array_unique($this->suggestChFriend);
@@ -149,7 +144,7 @@ class CreateGame extends Component
     {
         $word = $this->word;
 
-        if (Word::where('name', $word)->exists() and Str::length($word) == $this->length AND Word::tdk($word)) {
+        if (Word::where('name', $word)->exists() and Str::length($word) == $this->length and Word::tdk($word)) {
             $wordRow = Word::where('name', $word)->first();
             $this->wordError = false;
             $this->hideOpponent = false;
@@ -181,7 +176,7 @@ class CreateGame extends Component
         $suggestQuery = DB::select(DB::raw("SELECT id, name, CHAR_LENGTH(name) AS 'chrlen' FROM words WHERE CHAR_LENGTH(name) = $this->length ORDER BY RAND() LIMIT $this->suggetNumber"));
 
         foreach ($suggestQuery as $item) {
-            if(Word::tdk($item->name)){
+            if (Word::tdk($item->name)) {
                 $this->suggests[] = $item->name;
             }
         }
@@ -228,16 +223,14 @@ class CreateGame extends Component
 
             if ($user->exists()) {
 
-                    $this->chOpponentError = false;
-                    $this->chExistingGameError = false;
-                    $this->suggestChFriend[] = $user->first()->name;
-                    $this->suggestChFriend = array_unique($this->suggestChFriend);
-                    $this->addChallengeFriend($user->first()->name);
+                $this->chOpponentError = false;
+                $this->chExistingGameError = false;
+                $this->suggestChFriend[] = $user->first()->name;
+                $this->suggestChFriend = array_unique($this->suggestChFriend);
+                $this->addChallengeFriend($user->first()->name);
 
 
-
-            }
-            else {
+            } else {
                 $this->chOpponentError = true;
                 $this->chExistingGameError = false;
             }
@@ -302,14 +295,11 @@ class CreateGame extends Component
     }
 
 
-
     public function startChallengeGame()
     {
         $suggestQuery = DB::select(DB::raw("SELECT id, name, CHAR_LENGTH(name) AS 'chrlen' FROM words WHERE CHAR_LENGTH(name) = $this->length ORDER BY RAND() LIMIT 100"));
-        foreach ($suggestQuery as $item)
-        {
-            if(Word::tdk($item->name))
-            {
+        foreach ($suggestQuery as $item) {
+            if (Word::tdk($item->name)) {
                 $word = $item->name;
                 $wordId = $item->id;
                 break;
@@ -329,7 +319,7 @@ class CreateGame extends Component
             $team->user_id = User::where('username', $challengeFriend)->first()->id;
             $team->save();
 
-            if($team->user_id != Auth::id()){
+            if ($team->user_id != Auth::id()) {
                 GameNotification::dispatch($team->user_id);
             }
         }

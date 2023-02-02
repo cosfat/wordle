@@ -1,4 +1,5 @@
 <div class="p-5 gap-2 container mx-auto rounded-lg">
+    @include('loading')
     <div>
         <h2>Rekabet oyunları</h2>
         <ul class="text-sm font-medium bg-white text-white rounded-lg">

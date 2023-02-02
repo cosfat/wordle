@@ -1,4 +1,5 @@
 <div name="finished-game-watcher">
+    @include('loading')
     <div class="flex justify-center flex-wrap">
         @foreach(\App\Models\Challenge::whereId($gameId)->first()->chusers()->get() as $user)
             <a href="/finished-challenge-game-watcher/{{ $gameId }}/{{ $user->user_id }}">

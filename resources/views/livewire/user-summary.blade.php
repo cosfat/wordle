@@ -1,4 +1,5 @@
 <div class="flex justify-center">
+    @include('loading')
             <div class="bg-white shadow-md rounded my-6 p-4">
                 <div class="p-4">
                     <a href="/user-summary/{{ $user->id }}">

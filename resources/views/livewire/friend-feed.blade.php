@@ -1,4 +1,5 @@
 <div class="p-5 border-b-2 container mx-auto">
+    @include('loading')
     <div class="p-6 rounded-lg shadow-md p-4 dark:bg-gray-900 dark:border-gray-600 dark:text-white">
         <div class="flex justify-between items-center mb-4">
             <h3 class="text-xl font-bold leading-none text-gray-900 dark:text-white">Skor tablosu (her hafta yenilenir)</h3>

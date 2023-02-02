@@ -1,5 +1,5 @@
 <div name="the-game">
-
+    @include('loading')
     <div class="flex justify-center mb-4">
         <a href="/user-summary/{{ \App\Models\User::where('username', $opponentName)->first()->id }}">
             <h2 class="text-2xl font-bold tracking-tight sm:text-center sm:text-4xl text-indigo-500">{{ $opponentName }}</h2>

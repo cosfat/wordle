@@ -1,4 +1,5 @@
 <div>
+    @include('loading')
     @if($startGame == false)
         <div class="flex justify-center">
             <h2 class="text-2xl font-bold tracking-tight sm:text-center sm:text-4xl text-indigo-500">
@@ -19,7 +20,7 @@
 
         <div class="flex justify-center mt-3">
             <button
-                class="px-3 py-3 font-medium text-slate-700 shadow-xl @if($mode == 3) bg-white @else bg-yellow-400 @endif hover:bg-white duration-150"
+                class="px-3 py-3 font-medium text-slate-700 shadow-xl @if($mode == 3) bg-white @else bg-yellow-400 @endif hover:bg-white bg- duration-150"
                 type="button" wire:click="$set('mode', 3)">
                 Oyun gönder
             </button>
@@ -35,8 +36,8 @@
         @if($mode == 2)
 
             <form method="POST" action="#" wire:submit.prevent="test">
+                <x-honeypot />
                 <div class="p-5 gap-2 border-b-2">
-
                     <div class="flex justify-center mt-3">
                         <h2>Seçtiğin arkadaşlarınla aynı kelimeyi bulmaya çalış</h2>
                     </div>
@@ -102,6 +103,7 @@
 
 
             <form method="POST" action="#" wire:submit.prevent="test">
+                <x-honeypot />
                 <div class="p-5 border-b-2">
                     <div class="flex justify-center mt-3">
                         <x-jet-input wire:model.defer="word"
@@ -145,6 +147,7 @@
 
         @if($hideOpponent == false)
             <form method="POST" action="#" wire:submit.prevent="test">
+                <x-honeypot />
                 <div class="p-5 gap-2 border-b-2">
                     <div class="flex justify-center">
                         <h2 class="text-2xl font-bold tracking-tight sm:text-center sm:text-4xl text-indigo-500">

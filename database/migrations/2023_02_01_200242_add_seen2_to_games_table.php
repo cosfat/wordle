@@ -13,8 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('guesses', function (Blueprint $table) {
-            $table->integer('seen')->default(null);
+        Schema::table('games', function (Blueprint $table) {
+            $table->integer('seen2')->default(0);
         });
     }
 
@@ -25,7 +25,7 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('guesses', function (Blueprint $table) {
+        Schema::table('games', function (Blueprint $table) {
             //
         });
     }

@@ -31,18 +31,12 @@ class GameWatcher extends Component
         $game = Game::whereId($gameId)->where('user_id', Auth::id());
         if ($game->exists()) {
             $game = $game->first();
+            $game->seen2 = 1;
+            $game->save();
             $guesses = $game->guesses()->get();
-            foreach ($guesses as $guess) {
-                $guess->seen = 1;
-                $guess->save();
-            }
             $lastGuess = $game->guesses()->orderBy('id', 'desc');
             if($lastGuess->exists()){
                 $this->lastGuessTime = $lastGuess->first()->created_at->diffForHumans();
-                $last = $lastGuess->first();
-                $last->seen = 1;
-                $last->save();
-
             }
 
             foreach ($guesses as $guess) {

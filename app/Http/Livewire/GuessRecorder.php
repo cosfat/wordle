@@ -22,10 +22,11 @@ class GuessRecorder extends Component
         $guess = new Guess();
         $guess->word_id = $wordId;
         $guess->game_id = $gameId;
-        $guess->seen = 0;
         $guess->save();
 
         $game = Game::find($gameId);
+        $game->seen2 = 0;
+        $game->save();
         GuessTyped::dispatch($game->user_id);
     }
 
