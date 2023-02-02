@@ -22,6 +22,7 @@
                 Livewire.emit('MyGames');
                 notifyGame("Yeni oyun isteği geldi!", "my-games");
                 notifyIcon();
+                document.title="Kelimeo (1)"
             });
 
         window.Echo.private(`guesses-channel.{{ \Illuminate\Support\Facades\Auth::id() }}`)
@@ -32,6 +33,8 @@
                 Livewire.emit('refreshLogs');
                 Livewire.emit('MyGames');
                 Livewire.emit('refreshGameWatcher');
+
+                document.title="Kelimeo (1)"
             });
     </script>
     <script>
