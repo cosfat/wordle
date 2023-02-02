@@ -33,7 +33,9 @@ class Game extends Model
 		'user_id' => 'required',
 		'opponent_id' => 'required',
 		'word' => 'required',
-		'seen' => 'required',
+		'seen' => '',
+		'seen2' => '',
+		'smiley' => '',
     ];
 
     protected $perPage = 20;
@@ -43,7 +45,7 @@ class Game extends Model
      *
      * @var array
      */
-    protected $fillable = ['user_id','opponent_id','word','seen','winner_id','degree'];
+    protected $fillable = ['user_id','opponent_id','word','seen','winner_id','degree', 'seen2', 'smiley'];
 
 
     public function user(){
