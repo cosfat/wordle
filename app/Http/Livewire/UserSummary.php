@@ -31,7 +31,7 @@ class UserSummary extends Component
 
 
 
-            usort($challengeGames, fn($a, $b) => $a['crated_at'] <=> $b['created_at']);
+            usort($challengeGames, fn($a, $b) => $a['created_at'] <=> $b['created_at']);
 
             foreach ($challengeGames as $challengeGame) {
                 $this->games[] = $challengeGame;
