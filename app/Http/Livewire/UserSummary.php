@@ -16,11 +16,11 @@ class UserSummary extends Component
     public $all = true;
     public function mount($user, $o = "all")
     {
-       /* $games = Game::all();
+       $games = Game::all();
         foreach ($games as $game) {
             $game->guesscount = $game->guesses->count();
             $game->save();
-        }*/
+        }
 
 
 
