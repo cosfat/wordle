@@ -70,7 +70,11 @@
                 </p>
             @endif
             @foreach($activeChallenges as $game)
-                <a href="/the-challenge-game/{{ $game->challenge_id }}">
+                @if(\App\Models\Chguess::where('challenge_id', $game->challenge_id)->where('user_id', \Illuminate\Support\Facades\Auth::id())->count() == $game->challenge->length)
+                <a href="/finished-challenge-game-watcher/{{ $game->challenge_id }}">
+                    @else
+                        <a href="/the-challenge-game/{{ $game->challenge_id }}">
+                    @endif
                     <div class="p-4 flex flex-col  items-center text-center group hover:bg-slate-50 cursor-pointer">
                                                 <span class="p-2 rounded-full bg-yellow-400 text-white shadow-lg">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24"
