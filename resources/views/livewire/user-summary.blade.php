@@ -91,6 +91,8 @@
                         </td>
                         <td class="py-3  text-center whitespace-nowrap">
                             <div class="flex items-center">
+                                <div class="mr-2">
+                                </div>
                                 @if($game->winner_id == $user->id)
                                     <span
                                         class="bg-green-200 text-green-600 py-1 px-3 rounded-full text-xs">Kazandı</span>
@@ -102,9 +104,11 @@
                         </td>
                         <td class="py-3 text-center whitespace-nowrap">
                             <div class="flex items-center">
-                                <div class="mr-2">
-                                </div>
-                                    <span class="font-medium">{{ $game->created_at->diffForHumans() }}</span>
+                                @if($game->winner_id == $user->id)
+                                    <span class="font-medium">{{ $game->degree }}</span>
+                                @else
+                                    <span class="font-medium">0</span>
+                                @endif
                             </div>
                         </td>
                     </tr>
