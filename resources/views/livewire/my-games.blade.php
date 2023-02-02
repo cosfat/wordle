@@ -70,7 +70,7 @@
                 </p>
             @endif
             @foreach($activeChallenges as $game)
-                @if(\App\Models\Chguess::where('challenge_id', $game->challenge_id)->where('user_id', \Illuminate\Support\Facades\Auth::id())->count() == $game->challenge->length)
+                @if(\App\Models\Chguess::where('challenge_id', $game->challenge_id)->where('user_id', \Illuminate\Support\Facades\Auth::id())->count() == $game->challenge->length + 1)
                 <a href="/finished-challenge-game-watcher/{{ $game->challenge_id }}">
                     @else
                         <a href="/the-challenge-game/{{ $game->challenge_id }}">
