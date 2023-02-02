@@ -13,37 +13,28 @@ class UserSummary extends Component
     protected $games;
     protected $user;
     public $ratio;
-    public $all = true;
-    public function mount($user, $o = "all")
+    public function mount($user)
     {
         $challengeGames = array();
         $this->user = User::findOrFail($user);
-        if($o == "all"){
             $ngames = User::find($user)->opponentGames()->orderBy('id', 'desc')->limit(20)->pluck('id');
             $chgames = User::find($user)->challenges()->orderBy('id', 'desc')->limit(20)->pluck('challenge_id');
 
             foreach ($ngames as $game) {
                 $this->games[] = Game::find($game);
             }
+
             foreach ($chgames as $chgame){
                 $challengeGames[] = Challenge::find($chgame);
             }
 
-
-
-            usort($challengeGames, fn($a, $b) => $a['created_at'] <=> $b['created_at']);
+            usort($challengeGames, fn($a, $b) => $b['created_at'] <=> $a['created_at']);
 
             foreach ($challengeGames as $challengeGame) {
                 $this->games[] = $challengeGame;
             }
 
-
-        }
-        else{
-            $this->all = false;
-            $this->games = $this->user->opponentGames->where('user_id', Auth::id());
-        }
-        usort($this->games, fn($a, $b) => $a['crated_at'] <=> $b['created_at']);
+        usort($this->games, fn($a, $b) => $b['crated_at'] <=> $a['created_at']);
 
         $winGames = Game::where('winner_id', $this->user->id)->count() + Challenge::where('winner_id', $this->user->id)->count();
         $lostGames = Game::where('opponent_id', $this->user->id)->where('winner_id', '!=', $this->user->id)->where('winner_id', '!=', null)->count();

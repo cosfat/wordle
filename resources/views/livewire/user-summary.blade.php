@@ -26,15 +26,6 @@
                 @endif
             </div>
         </div>
-        @if($user->id != \Illuminate\Support\Facades\Auth::id())
-            @if($all == true)
-                <a href="/user-summary/{{ $user->id }}/{{ \Illuminate\Support\Facades\Auth::id() }}"><span
-                        class="text-sm">Benimle olan oyunlarını gör</span></a>
-            @else
-                <a href="/user-summary/{{ $user->id }}"><span class="text-sm">Tüm oyunlarını gör</span></a>
-            @endif
-        @endif
-
         <table class="min-w-max w-full table-auto">
             <thead>
             <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
@@ -44,7 +35,7 @@
                 <th class="py-3">Tahmin</th>
                 <th class="py-3">Sonuç</th>
                 <th class="py-3">Puan</th>
-                <th class="py-3 pr-4">Tarih</th>
+                <th class="py-3 pr-4 pl-3">Oluşturulma</th>
             </tr>
             </thead>
             <tbody class="text-gray-600 text-sm font-light">
