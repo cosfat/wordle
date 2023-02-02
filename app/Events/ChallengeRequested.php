@@ -10,22 +10,18 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class GuessTyped implements ShouldBroadcast
+class ChallengeRequested
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
-
-    public $opp;
-    public $game;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($opp, $game)
+    public function __construct()
     {
-        $this->opp = $opp;
-        $this->game = $game;
+        //
     }
 
     /**
@@ -35,6 +31,6 @@ class GuessTyped implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('guesses-channel.'.$this->opp."-".$this->game);
+        return new PrivateChannel('channel-name');
     }
 }
