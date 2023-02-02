@@ -19,7 +19,7 @@
             </button>
         </div>
         @if($mode == 1)
-        <h2>Rekabet oyunları</h2>
+        <h2 class="mt-3">Rekabet oyunları</h2>
         <ul class="text-sm font-medium bg-white text-white rounded-lg">
             @foreach($notesCh as $note)
                 <a href="/finished-challenge-game-watcher/{{ $note['link'] }}">
