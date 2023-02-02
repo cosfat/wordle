@@ -46,8 +46,7 @@ class UserSummary extends Component
         usort($this->games, fn($a, $b) => $a['crated_at'] <=> $b['created_at']);
 
         $winGames = Game::where('winner_id', $this->user->id)->count() + Challenge::where('winner_id', $this->user->id)->count();
-        $lostGames = Game::where('winner_id', '!=', $this->user->id)->where('winner_id', '!=', null)->count() +
-            Challenge::where('winner_id', '!=', $this->user->id)->where('winner_id', '!=', null)->count();
+        $lostGames = Game::where('winner_id', '!=', $this->user->id)->where('winner_id', '!=', null)->count();
 
         if($winGames + $lostGames == 0){
             $this->ratio = 0;
