@@ -16,6 +16,7 @@ class UserSummary extends Component
     public $all = true;
     public function mount($user, $o = "all")
     {
+        $challengeGames = array();
         $this->user = User::findOrFail($user);
         if($o == "all"){
             $ngames = User::find($user)->opponentGames()->orderBy('id', 'desc')->limit(20)->pluck('id');
@@ -25,11 +26,16 @@ class UserSummary extends Component
                 $this->games[] = Game::find($game);
             }
             foreach ($chgames as $chgame){
-                $this->games[] = Challenge::find($chgame);
+                $challengeGames[] = Challenge::find($chgame);
             }
 
 
 
+            usort($challengeGames, fn($a, $b) => $a['crated_at'] <=> $b['created_at']);
+
+            foreach ($challengeGames as $challengeGame) {
+                $this->games[] = $challengeGame;
+            }
 
 
         }
