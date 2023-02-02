@@ -16,14 +16,6 @@ class UserSummary extends Component
     public $all = true;
     public function mount($user, $o = "all")
     {
-       $games = Game::all();
-        foreach ($games as $game) {
-            $game->guesscount = $game->guesses->count();
-            $game->save();
-        }
-
-
-
         $this->user = User::findOrFail($user);
         if($o == "all"){
             $ngames = User::find($user)->opponentGames()->orderBy('id', 'desc')->limit(20)->pluck('id');
