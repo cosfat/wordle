@@ -292,7 +292,7 @@ class CreateGame extends Component
         $game->word_id = $word;
         $game->length = $this->length;
         $game->save();
-        GameNotification::dispatch($opp);
+        GameNotification::dispatch($opp, $game->id, Auth::user()->username);
         session()->flash('message', 'Oyun başarıyla oluşturuldu.');
         return redirect()->to('/game-watcher/' . $game->id);
     }

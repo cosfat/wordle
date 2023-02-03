@@ -19,8 +19,9 @@
     <script type="module">
         window.Echo.private(`game-channel.{{ \Illuminate\Support\Facades\Auth::id() }}`)
             .listen('GameNotification', (e) => {
+                console.log(e)
                 Livewire.emit('MyGames');
-                notifyGame("Yeni oyun isteği geldi!", "my-games");
+                notifyGame(e.username + " yeni oyun isteği gönderdi!", "the-game/" + e.game);
                 notifyIcon();
                 document.title="Kelimeo (1)"
             });
@@ -28,11 +29,11 @@
         window.Echo.private(`guesses-channel.{{ \Illuminate\Support\Facades\Auth::id() }}`)
             .listen('GuessTyped', (e) => {
                 console.log(e)
-                notifyGame("Tahminde bulunuldu!", "my-games");
+                notifyGame(e.username + " tahminde bulundu!", "game-watcher/" + e.game);
 
                 Livewire.emit('refreshLogs');
                 Livewire.emit('MyGames');
-                Livewire.emit('refreshGameWatcher');
+                /*Livewire.emit('refreshGameWatcher');*/
 
                 document.title="Kelimeo (1)"
             });

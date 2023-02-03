@@ -13,15 +13,19 @@ class GameNotification implements ShouldBroadcast
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public $opp;
+    public $game;
+    public $username;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($opp)
+    public function __construct($opp, $game, $username)
     {
         $this->opp = $opp;
+        $this->game = $game;
+        $this->username = $username;
 
     }
 
