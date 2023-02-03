@@ -58,7 +58,7 @@
                                 @if($game->usercount)
                                     <span class="font-medium" style="color: #facc15; font-weight: bold">Rekabet</span>
                                 @else
-                                    <span class="font-medium">Klasik</span>
+                                    <span class="font-medium" style="color: #4F46E5; font-weight: bold">Klasik</span>
                                 @endif
                             </div>
                         </td>
