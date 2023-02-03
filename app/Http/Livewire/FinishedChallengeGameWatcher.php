@@ -24,6 +24,13 @@ class FinishedChallengeGameWatcher extends Component
     public $guessesCount;
     public $guessesArray;
 
+
+    protected $listeners = ['refreshChallengeGameWatcher'];
+
+    public function refreshChallengeGameWatcher(){
+        return redirect(request()->header('Referer'));
+    }
+
     public function mount($gameId, $userId = null)
     {
         $game = Challenge::whereId($gameId);

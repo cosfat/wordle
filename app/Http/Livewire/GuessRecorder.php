@@ -28,7 +28,7 @@ class GuessRecorder extends Component
         $game->seen2 = 0;
         $game->guesscount += 1;
         $game->save();
-        GuessTyped::dispatch($game->user_id, $gameId, $game->user->name);
+        GuessTyped::dispatch($game->user_id, $gameId, $game->user->name, 1);
     }
 
     public function addChGuess($word, $gameId)
@@ -40,7 +40,8 @@ class GuessRecorder extends Component
                 $guess = new Chguess();
                 $guess->word_id = $wordId;
                 $guess->challenge_id = $gameId;
-                $guess->user_id = Auth::id();
+                $user = Auth::user();
+                $guess->user_id = $user->id;
                 $guess->save();
                 $c = $challenge->first();
                 if($c == null){
@@ -48,8 +49,11 @@ class GuessRecorder extends Component
                 }
                 $c->guesscount = $c->guesscount + 1;
                 $c->save();
-                //$game = Game::find($gameId);
-                //GuessTyped::dispatch($game->user_id);
+                foreach ($c->chusers as $chuser) {
+                    if($chuser->user_id != Auth::id()){
+                        GuessTyped::dispatch($chuser->user_id, $c->id, $user->username, 2);
+                    }
+                }
             } else {
                 return redirect('/finished-challenge-game-watcher/' . $gameId);
             }

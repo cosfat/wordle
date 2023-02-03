@@ -16,7 +16,7 @@ class Chuser extends Model
 
     public function chguesses()
     {
-        return $this->hasMany(Chguess::class);
+        return $this->hasMany(Chguess::class, 'user_id');
     }
 
     public function user()

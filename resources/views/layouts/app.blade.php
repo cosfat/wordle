@@ -19,7 +19,6 @@
     <script type="module">
         window.Echo.private(`game-channel.{{ \Illuminate\Support\Facades\Auth::id() }}`)
             .listen('GameNotification', (e) => {
-                console.log(e)
                 Livewire.emit('MyGames');
                 notifyIcon();
                 document.title="Kelimeo (1)"
@@ -35,11 +34,21 @@
         window.Echo.private(`guesses-channel.{{ \Illuminate\Support\Facades\Auth::id() }}`)
             .listen('GuessTyped', (e) => {
                 console.log(e)
-                notifyGame(e.username + " tahminde bulundu!", "game-watcher/" + e.game);
+                if(e.type === 1){
+                    notifyGame(e.username + " tahminde bulundu!", "game-watcher/" + e.game);
 
-                Livewire.emit('refreshLogs');
-                Livewire.emit('MyGames');
-                /*Livewire.emit('refreshGameWatcher');*/
+                    Livewire.emit('refreshLogs');
+                    Livewire.emit('MyGames');
+                    Livewire.emit('refreshGameWatcher');
+                }
+                else if(e.type === 2){
+                    notifyGame(e.username + " rekabet tahmininde bulundu!", "the-challenge-game/" + e.game);
+                    Livewire.emit('refreshChallengeGameWatcher');
+                }
+                else{
+                    notifyGame(e.username + " rekabeti kazandı!", "finished-challenge-game-watcher/" + e.game);
+                    window.location.href = "/finished-challenge-game-watcher/" + e.game;
+                }
 
                 document.title="Kelimeo (1)"
             });

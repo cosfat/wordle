@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Events\GuessTyped;
 use App\Models\Challenge;
 use App\Models\Chguess;
 use App\Models\Chuser;
@@ -50,6 +51,11 @@ class TheChallengeGame extends Component
                     $point->point = $game->point;;
                     $point->save();
                 }
+                foreach ($game->chusers as $chuser) {
+                    if($chuser->user_id != Auth::id()){
+                        GuessTyped::dispatch($chuser->user_id, $game->id, Auth::user()->username, 3);
+                    }
+                }
                 return redirect('/finished-challenge-game-watcher/'.$this->gameId);
             }
             else{
@@ -76,18 +82,24 @@ class TheChallengeGame extends Component
             if(Challenge::whereId($gameId)->where('winner_id', null)->exists()){
 
                 $game = Challenge::whereId($gameId)->first();
+                if(Chguess::where('challenge_id', $gameId)->where('user_id', Auth::id())->count() == $game->length + 1){
 
-                $guesses = Chguess::where('challenge_id', $game->id)->where('user_id', Auth::id())->get();
-                foreach ($guesses as $guess) {
-                    $this->guessesArray[] = $guess->word->name;
+                    return redirect('/finished-challenge-game-watcher/'.$this->gameId);
                 }
+                else {
+                    $guesses = Chguess::where('challenge_id', $game->id)->where('user_id', Auth::id())->get();
+                    foreach ($guesses as $guess) {
+                        $this->guessesArray[] = $guess->word->name;
+                    }
 
-                $this->guessesCount = $guesses->count();
+                    $this->guessesCount = $guesses->count();
 
-                $this->gameId = $gameId;
-                $this->length = $game->length;
-                foreach ($game->chusers as $chuser) {
-                    $this->opponents[] = User::whereId($chuser->user_id)->first()->name;
+                    $this->gameId = $gameId;
+                    $this->length = $game->length;
+                    foreach ($game->chusers as $chuser) {
+                        $this->opponents[] = User::whereId($chuser->user_id)->first()->name;
+                    }
+
                 }
             }
             else{
