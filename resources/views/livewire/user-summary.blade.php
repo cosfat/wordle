@@ -39,6 +39,7 @@
             </tr>
             </thead>
             <tbody class="text-gray-600 text-sm font-light">
+            @if(count($games != 0))
             @foreach($games as $game)
                 @if($game->winner_id != null)
                     <tr class="border-b border-gray-200 @if($game->usercount) bg-yellow-300 @endif hover:bg-gray-100">
@@ -118,6 +119,9 @@
                     </tr>
                 @endif
             @endforeach
+            @else
+            Hiç oyun yok
+            @endif
             </tbody>
         </table>
     </div>
