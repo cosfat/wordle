@@ -64,4 +64,9 @@ class Game extends Model
     public function opponent(){
         return $this->belongsTo(Opponent::class);
     }
+
+    public function chats()
+    {
+        return $this->hasMany(Chat::class);
+    }
 }

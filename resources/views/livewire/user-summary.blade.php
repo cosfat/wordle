@@ -32,7 +32,6 @@
                 <th class="py-3 pl-3 text-left">Rakip</th>
                 <th class="py-3">Tür</th>
                 <th class="py-3">Kelime</th>
-                <th class="py-3">Tahmin</th>
                 <th class="py-3">Sonuç</th>
                 <th class="py-3">Puan</th>
                 <th class="py-3 pr-4 pl-3">Oluşturulma</th>
@@ -72,13 +71,6 @@
                                             <a href="/finished-game-watcher/{{ $game->id }}">
                                                 @endif
                                                 <span class="font-medium">{{ $game->word->name }}</span></a>
-                            </div>
-                        </td>
-                        <td class="py-3  text-center whitespace-nowrap">
-                            <div class="flex items-center">
-                                <div class="mr-2">
-                                </div>
-                                <span class="font-medium">{{ $game->guesscount }}</span>
                             </div>
                         </td>
                         <td class="py-3  text-center whitespace-nowrap">
