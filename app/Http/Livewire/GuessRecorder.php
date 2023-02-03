@@ -28,7 +28,7 @@ class GuessRecorder extends Component
         $game->seen2 = 0;
         $game->guesscount += 1;
         $game->save();
-        GuessTyped::dispatch($game->user_id, $gameId, $game->user->name, 1);
+        GuessTyped::dispatch($game->user_id, $gameId, Auth::user()->username, 1);
     }
 
     public function addChGuess($word, $gameId)
