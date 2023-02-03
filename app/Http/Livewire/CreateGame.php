@@ -324,7 +324,7 @@ class CreateGame extends Component
             $team->save();
 
             if ($team->user_id != Auth::id()) {
-                GameNotification::dispatch($team->user_id, $game->id, $user->username, 2);
+                GameNotification::dispatch($team->user_id, $game->id, Auth::user()->username, 2);
             }
         }
         session()->flash('message', 'Oyun başarıyla oluşturuldu.');
