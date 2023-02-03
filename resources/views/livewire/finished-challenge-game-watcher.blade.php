@@ -50,7 +50,7 @@
         <span class="text-sm">"{{ $meaning }}"</span>
     </div>
     <div class="flex justify-center px-4">
-        <span class="text-sm">"{{ \App\Models\Challenge::find($gameId)->created_at->diffForHumans() }}"</span>
+        <span class="text-sm text-gray-400">{{ \App\Models\Challenge::find($gameId)->created_at->diffForHumans() }}</span>
     </div>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
