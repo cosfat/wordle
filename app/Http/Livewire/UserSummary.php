@@ -17,8 +17,8 @@ class UserSummary extends Component
     {
         $challengeGames = array();
         $this->user = User::findOrFail($user);
-            $ngames = User::find($user)->opponentGames()->orderBy('id', 'desc')->limit(20)->pluck('id');
-            $chgames = User::find($user)->challenges()->orderBy('id', 'desc')->limit(20)->pluck('challenge_id');
+            $ngames = User::find($user)->opponentGames()->orderBy('id', 'desc')->limit(10)->pluck('id');
+            $chgames = User::find($user)->challenges()->orderBy('id', 'desc')->limit(10)->pluck('challenge_id');
 
             foreach ($ngames as $game) {
                 $this->games[] = Game::find($game);
