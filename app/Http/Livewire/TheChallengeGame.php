@@ -41,9 +41,11 @@ class TheChallengeGame extends Component
                         $user->delete();
                     }
                 }
+                $userCount = $game->chusers()->count();
+
 
                 $game->winner_id = $userId;
-                $game->point = ($game->length - Chguess::whereChallenge_id($this->gameId)->where('user_id', $userId)->count() + 2) * 10;
+                $game->point = ($game->length - Chguess::whereChallenge_id($this->gameId)->where('user_id', $userId)->count() + 2) * $userCount * 2;
                 $game->save();
 
                 $point = Point::whereUser_id($userId);
