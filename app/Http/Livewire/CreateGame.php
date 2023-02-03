@@ -76,6 +76,7 @@ class CreateGame extends Component
 
     public function suggestChFriend()
     {
+
         $gamesArray = array();
         $gamesMe = Game::where('user_id', Auth::id())->orderBy('id', 'desc')->limit(5)->get();
         $gamesOp = Game::where('opponent_id', Auth::id())->orderBy('id', 'desc')->limit(5)->get();
@@ -104,8 +105,8 @@ class CreateGame extends Component
     public function suggestFriend()
     {
         $gamesArray = array();
-        $games = Game::where('user_id', Auth::id())->orWhere('opponent_id', Auth::id())->get();
-        $chGames = Auth::user()->challenges()->orderBy('id', 'desc')->get();
+
+        $games = Game::where('user_id', Auth::id())->orWhere('opponent_id', Auth::id())->where('winner_id', '!=', null)->orderBy('id', 'desc')->limit(10)->get();
         foreach ($games as $game) {
             if ($game->opponent_id == Auth::id()) {
                 $user = User::whereId($game->user_id)->first();
@@ -119,6 +120,7 @@ class CreateGame extends Component
                 }
             }
         }
+
 
         if (count($gamesArray) < 1) {
             $users = User::where('id', '!=', Auth::id())->inRandomOrder()->limit(5)->pluck('username');
@@ -298,7 +300,7 @@ class CreateGame extends Component
 
     public function startChallengeGame()
     {
-        $suggestQuery = DB::select(DB::raw("SELECT id, name, CHAR_LENGTH(name) AS 'chrlen' FROM words WHERE CHAR_LENGTH(name) = $this->length ORDER BY RAND() LIMIT 100"));
+        $suggestQuery = DB::select(DB::raw("SELECT id, name, CHAR_LENGTH(name) AS 'chrlen' FROM words WHERE CHAR_LENGTH(name) = $this->length ORDER BY RAND() LIMIT 20"));
         foreach ($suggestQuery as $item) {
             if (Word::tdk($item->name)) {
                 $word = $item->name;
