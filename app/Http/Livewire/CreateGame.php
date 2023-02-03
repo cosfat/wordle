@@ -292,7 +292,7 @@ class CreateGame extends Component
         $game->word_id = $word;
         $game->length = $this->length;
         $game->save();
-        GameNotification::dispatch($opp, $game->id, Auth::user()->username);
+        GameNotification::dispatch($opp, $game->id, Auth::user()->username, 1);
         session()->flash('message', 'Oyun başarıyla oluşturuldu.');
         return redirect()->to('/game-watcher/' . $game->id);
     }
@@ -319,11 +319,12 @@ class CreateGame extends Component
         foreach ($this->challengeFriends as $challengeFriend) {
             $team = new Chuser;
             $team->challenge_id = $game->id;
-            $team->user_id = User::where('username', $challengeFriend)->first()->id;
+            $user = User::where('username', $challengeFriend)->first();
+            $team->user_id = $user->id;
             $team->save();
 
             if ($team->user_id != Auth::id()) {
-                GameNotification::dispatch($team->user_id);
+                GameNotification::dispatch($team->user_id, $game->id, $user->username, 2);
             }
         }
         session()->flash('message', 'Oyun başarıyla oluşturuldu.');

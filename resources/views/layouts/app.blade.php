@@ -21,9 +21,15 @@
             .listen('GameNotification', (e) => {
                 console.log(e)
                 Livewire.emit('MyGames');
-                notifyGame(e.username + " yeni oyun isteği gönderdi!", "the-game/" + e.game);
                 notifyIcon();
                 document.title="Kelimeo (1)"
+                if(e.type === 1){
+                    notifyGame(e.username + " yeni oyun isteği gönderdi!", "the-game/" + e.game);
+                }
+                else{
+                    notifyGame(e.username + " yeni rekabet isteği gönderdi!", "the-challenge-game/" + e.game);
+                }
+
             });
 
         window.Echo.private(`guesses-channel.{{ \Illuminate\Support\Facades\Auth::id() }}`)
