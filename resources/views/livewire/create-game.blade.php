@@ -22,13 +22,13 @@
             <button
                 class="px-3 py-3 font-medium text-slate-700 shadow-xl @if($mode == 3) bg-white @else bg-yellow-400 @endif hover:bg-white bg- duration-150"
                 type="button" wire:click="$set('mode', 3)">
-                Oyun gönder
+                Klasik
             </button>
 
             <button
                 class="px-3 py-3 font-medium text-slate-700 shadow-xl @if($mode == 2) bg-white @else bg-yellow-400 @endif hover:bg-white duration-150"
                 type="button" wire:click="$set('mode', 2)">
-                Rekabet modu
+                Rekabet
             </button>
         </div>
 
@@ -101,7 +101,6 @@
 
         @elseif($mode == 3)
 
-
             <form method="POST" action="#" wire:submit.prevent="test">
                 <x-honeypot />
                 <div class="p-5 border-b-2">
@@ -143,66 +142,66 @@
                     </div>
                 </div>
             </form>
-        @endif
 
-        @if($hideOpponent == false)
-            <form method="POST" action="#" wire:submit.prevent="test">
-                <x-honeypot />
-                <div class="p-5 gap-2 border-b-2">
-                    <div class="flex justify-center">
-                        <h2 class="text-2xl font-bold tracking-tight sm:text-center sm:text-4xl text-indigo-500">
-                            Rakip</h2>
-                    </div>
-                    <div class="flex justify-center mt-3">
-                        <h2>Arkadaş önerileri</h2>
-                    </div>
-                    <div class="flex justify-center flex-wrap  mt-3">
-                        @foreach($suggestFriend as $friend)
+            @if($hideOpponent == false)
+                <form method="POST" action="#" wire:submit.prevent="test">
+                    <x-honeypot />
+                    <div class="p-5 gap-2 border-b-2">
+                        <div class="flex justify-center">
+                            <h2 class="text-2xl font-bold tracking-tight sm:text-center sm:text-4xl text-indigo-500">
+                                Rakip</h2>
+                        </div>
+                        <div class="flex justify-center mt-3">
+                            <h2>Arkadaş önerileri</h2>
+                        </div>
+                        <div class="flex justify-center flex-wrap  mt-3">
+                            @foreach($suggestFriend as $friend)
+                                <button type="button"
+                                        class="mt-1 px-5 py-3 font-medium text-slate-700 shadow-xl hover:bg-white duration-150 bg-yellow-400"
+                                        wire:click="$set('opponentUserName', '{{ $friend }}')" class="ml-4">
+                                    {{ $friend }}
+
+                                </button>
+                            @endforeach
+                        </div>
+
+                        <div class="flex justify-center mt-6">
+                            <h2>Başka bir kullanıcı bul</h2>
+                        </div>
+                        <div class="flex justify-center mt-3">
+                            <x-jet-input wire:model.defer="opponentUserName" placeholder="Kullanıcı adı"
+                                         id="opponentUserName"
+                                         class="mt-1"
+                                         type="text" name="opponentUserName" value="{{ $opponentUserName }}"/>
+                            <button type="button"
+                                    class="ml-2 px-5 py-3 font-medium text-slate-700 shadow-xl hover:bg-white duration-150 bg-yellow-400"
+                                    wire:click="checkEmail()" class="ml-4">
+                                {{ __('Gönder') }}
+                            </button>
+
+                            @if($opponentError)
+                                @if($existingGameError)
+                                    <script>notifyGame('Bu kullanıcıya zaten oyun gönderdiniz')</script>
+                                @else
+                                    <script>notifyGame('Geçersiz kullanıcı')</script>
+                                @endif
+                            @endif
+                        </div>
+
+                        <div class="flex justify-center mt-6">
+                            <h2>Rasgele oyuncu bul</h2>
+                        </div>
+                        <div class="flex justify-center mt-3">
                             <button type="button"
                                     class="mt-1 px-5 py-3 font-medium text-slate-700 shadow-xl hover:bg-white duration-150 bg-yellow-400"
-                                    wire:click="$set('opponentUserName', '{{ $friend }}')" class="ml-4">
-                                {{ $friend }}
-
+                                    wire:click="autoOpp()" class="ml-4">
+                                {{ __('Rasgele rakip') }}
                             </button>
-                        @endforeach
+                        </div>
                     </div>
 
-                    <div class="flex justify-center mt-6">
-                        <h2>Başka bir kullanıcı bul</h2>
-                    </div>
-                    <div class="flex justify-center mt-3">
-                        <x-jet-input wire:model.defer="opponentUserName" placeholder="Kullanıcı adı"
-                                     id="opponentUserName"
-                                     class="mt-1"
-                                     type="text" name="opponentUserName" value="{{ $opponentUserName }}"/>
-                        <button type="button"
-                                class="ml-2 px-5 py-3 font-medium text-slate-700 shadow-xl hover:bg-white duration-150 bg-yellow-400"
-                                wire:click="checkEmail()" class="ml-4">
-                            {{ __('Gönder') }}
-                        </button>
-
-                        @if($opponentError)
-                            @if($existingGameError)
-                                <script>notifyGame('Bu kullanıcıya zaten oyun gönderdiniz')</script>
-                            @else
-                                <script>notifyGame('Geçersiz kullanıcı')</script>
-                            @endif
-                        @endif
-                    </div>
-
-                    <div class="flex justify-center mt-6">
-                        <h2>Rasgele oyuncu bul</h2>
-                    </div>
-                    <div class="flex justify-center mt-3">
-                        <button type="button"
-                                class="mt-1 px-5 py-3 font-medium text-slate-700 shadow-xl hover:bg-white duration-150 bg-yellow-400"
-                                wire:click="autoOpp()" class="ml-4">
-                            {{ __('Rasgele rakip') }}
-                        </button>
-                    </div>
-                </div>
-
-            </form>
+                </form>
+            @endif
         @endif
     @endif
 
