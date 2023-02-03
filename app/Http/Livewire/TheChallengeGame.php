@@ -34,6 +34,13 @@ class TheChallengeGame extends Component
 
         if (Chuser::where('user_id', Auth::id())->where('challenge_id', $this->gameId)->exists()) {
             if (Challenge::whereId($this->gameId)->where('winner_id', null)->exists()) {
+                $users = $game->chusers()->get();
+                foreach ($users as $user) {
+                    $guesscount = Chguess::where('challenge_id', $game->id)->where('user_id', $user->user_id)->count();
+                    if($guesscount == 0){
+                        $user->delete();
+                    }
+                }
 
                 $game->winner_id = $userId;
                 $game->point = ($game->length - Chguess::whereChallenge_id($this->gameId)->where('user_id', $userId)->count() + 2) * 10;
