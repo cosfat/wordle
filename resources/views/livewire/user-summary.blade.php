@@ -30,6 +30,7 @@
             <thead>
             <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
                 <th class="py-3 pl-3 text-left">Rakip</th>
+                <th class="py-3">id</th>
                 <th class="py-3">Tür</th>
                 <th class="py-3">Kelime</th>
                 <th class="py-3">Tahmin</th>
@@ -48,6 +49,13 @@
                                 </div>
                                 <a href="/user-summary/{{ $game->user->id }}">
                                     <span class="font-medium">{{ $game->user->username }}</span></a>
+                            </div>
+                        </td>
+                        <td class="py-3  text-center whitespace-nowrap">
+                            <div class="flex items-center">
+                                <div class="mr-2">
+                                </div>
+                                {{ $game->created_at }}
                             </div>
                         </td>
                         <td class="py-3  text-center whitespace-nowrap">
