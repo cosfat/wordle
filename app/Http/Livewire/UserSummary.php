@@ -34,7 +34,10 @@ class UserSummary extends Component
                 $this->games[] = $challengeGame;
             }
 
-        usort($this->games, fn($a, $b) => $b['created_at'] <=> $a['created_at']);
+            if($this->games != null){
+
+                usort($this->games, fn($a, $b) => $b['created_at'] <=> $a['created_at']);
+            }
 
         $winGames = Game::where('winner_id', $this->user->id)->count() + Challenge::where('winner_id', $this->user->id)->count();
         $lostGames = Game::where('opponent_id', $this->user->id)->where('winner_id', '!=', $this->user->id)->where('winner_id', '!=', null)->count();
