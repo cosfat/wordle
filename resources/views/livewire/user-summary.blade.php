@@ -56,7 +56,7 @@
                                 <div class="mr-2">
                                 </div>
                                 @if($game->usercount)
-                                    <span class="font-medium text-yellow-600">Rekabet</span>
+                                    <span class="font-medium" style="color: #facc15; font-weight: bold">Rekabet</span>
                                 @else
                                     <span class="font-medium">Klasik</span>
                                 @endif
