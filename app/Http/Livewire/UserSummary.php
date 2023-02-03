@@ -28,8 +28,6 @@ class UserSummary extends Component
                 $challengeGames[] = Challenge::find($chgame);
             }
 
-            usort($challengeGames, fn($a, $b) => $b['created_at'] <=> $a['created_at']);
-
             foreach ($challengeGames as $challengeGame) {
                 $this->games[] = $challengeGame;
             }
