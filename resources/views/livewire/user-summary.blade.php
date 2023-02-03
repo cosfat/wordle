@@ -42,7 +42,7 @@
             @if($games)
             @foreach($games as $game)
                 @if($game->winner_id != null)
-                    <tr class="border-b border-gray-200 @if($game->usercount) bg-yellow-300 @endif hover:bg-gray-100">
+                    <tr class="border-b border-gray-200 hover:bg-gray-100">
                         <td class="py-3  text-center whitespace-nowrap">
                             <div class="flex items-center">
                                 <div class="mr-2">
@@ -56,7 +56,7 @@
                                 <div class="mr-2">
                                 </div>
                                 @if($game->usercount)
-                                    <span class="font-medium">Rekabet</span>
+                                    <span class="font-medium text-yellow-600">Rekabet</span>
                                 @else
                                     <span class="font-medium">Klasik</span>
                                 @endif
