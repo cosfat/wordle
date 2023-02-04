@@ -1,6 +1,6 @@
 <div>
     <!-- component -->
-    <div class="flex-1 p:2 sm:p-6 justify-between flex flex-col h-screen pt-8" style="max-height: 20rem;">
+    <div class="mt-4 flex-1 p:2 sm:p-6 justify-between flex flex-col h-screen pt-8" style="max-height: 20rem;">
         <div id="messages" style="min-height: 2rem"
              class="flex flex-col space-y-4 p-3 overflow-y-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch">
             @foreach($messages as $message)
@@ -75,6 +75,8 @@
         });
 </script>
     <script>
+        window.addEventListener('keydown',function(e){if(e.keyIdentifier=='U+000A'||e.keyIdentifier=='Enter'||e.keyCode==13){if(e.target.nodeName=='INPUT'&&e.target.type=='text'){e.preventDefault();return false;}}},true);
+
         const el = document.getElementById('messages')
         el.scrollTop = el.scrollHeight
     </script>
