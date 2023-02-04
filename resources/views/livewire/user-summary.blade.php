@@ -1,4 +1,4 @@
-<div class="flex justify-center">
+<div class="flex flex-wrap">
     @include('loading')
     <div class="bg-white shadow-md rounded my-6 p-4">
         <div class="p-4">
@@ -26,7 +26,7 @@
                 @endif
             </div>
         </div>
-        <table">
+        <table class="min-w-max w-full table-auto">
             <thead>
             <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
                 <th class="py-3 pl-3 text-left">Rakip</th>
