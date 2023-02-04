@@ -118,6 +118,7 @@
             <button class="keyboard-button bg-red-500 text-white">TEMİZLE</button>
         </div>
     </div>
+    <livewire:chat-wire :gameId="$gameId" :gameType="1" />
     <script>
         let words = JSON.parse({!! json_encode(\App\Models\Word::pluck('name')->toJSON()) !!})
         let guesses = @json($guessesArray);

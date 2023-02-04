@@ -26,6 +26,16 @@ Broadcast::channel('game-channel.{opp}', function ($user, $opp) {
 
 });
 
+Broadcast::channel('chat-channel.{game}', function ($user, $game) {
+
+        return Game::where('id', $game)->where('user_id', $user->id)->exists() OR
+            Game::where('id', $game)->where('opponent_id', $user->id)->exists()
+
+   OR Chuser::where('challenge_id', $game)->where('user_id', $user->id)->exists();
+
+
+});
+
 Broadcast::channel('guesses-channel.{opp}', function ($user, $opp) {
 
     if (Game::whereOpponent_id($opp)->exists()) {
