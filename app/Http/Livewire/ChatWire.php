@@ -22,16 +22,18 @@ class ChatWire extends Component
 
     public function sendMessage(){
         $msg = $this->msg;
-        $chat = new Chat();
-        $chat->game_id = $this->gameId;
-        $chat->game_type = $this->gameType;
-        $chat->user_id = Auth::id();
-        $chat->message = $msg;
-        $chat->save();
+        if($msg!=null){
+            $chat = new Chat();
+            $chat->game_id = $this->gameId;
+            $chat->game_type = $this->gameType;
+            $chat->user_id = Auth::id();
+            $chat->message = $msg;
+            $chat->save();
 
-        ChatMessaged::dispatch($this->gameId, $this->gameType);
-        $this->emit('refreshChat');
-        $this->msg = "";
+            ChatMessaged::dispatch($this->gameId, $this->gameType);
+            $this->emit('refreshChat');
+            $this->msg = "";
+        }
 
     }
 
