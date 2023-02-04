@@ -28,11 +28,11 @@
         </div>
         <div class="border-t-2 border-gray-200 px-4 pt-4 mb-2 sm:mb-0">
             <div class="relative flex" style="z-index: 1 !important;">
-                <input type="text" placeholder="Mesajınızı yazın!" wire:model="msg"
+                <input id="chatInput" type="text" placeholder="Mesajınızı yazın!" wire:model="msg"
                        class="w-full focus:outline-none focus:placeholder-gray-400 text-gray-600 placeholder-gray-600 pl-12 bg-gray-200 rounded-md py-3 ">
                 <div class="absolute right-0 items-center inset-y-0 sm:flex">
                     <button type="button" wire:click="sendMessage"
-                            class="inline-flex items-center justify-center rounded-lg px-4 py-3 transition duration-500 ease-in-out text-green-600 bg-blue-500 hover:bg-blue-400 focus:outline-none">
+                            class="inline-flex items-center justify-center rounded-lg px-4 py-3 transition duration-500 ease-in-out text-indigo-700 bg-blue-500 hover:bg-blue-400 focus:outline-none">
                         <span class="font-bold">Gönder</span>
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
                              class="h-6 w-6 ml-2 transform rotate-90">
@@ -53,14 +53,12 @@
 
         .scrollbar-track-blue-lighter::-webkit-scrollbar-track {
             --bg-opacity: 1;
-            background-color: #f7fafc;
-            background-color: rgba(247, 250, 252, var(--bg-opacity));
+            background-color: #3730a3;
         }
 
         .scrollbar-thumb-blue::-webkit-scrollbar-thumb {
             --bg-opacity: 1;
-            background-color: #edf2f7;
-            background-color: rgba(237, 242, 247, var(--bg-opacity));
+            background-color: #facc15;
         }
 
         .scrollbar-thumb-rounded::-webkit-scrollbar-thumb {
