@@ -78,8 +78,8 @@ class CreateGame extends Component
     {
 
         $gamesArray = array();
-        $gamesMe = Game::where('user_id', Auth::id())->orderBy('id', 'desc')->limit(20)->get();
-        $gamesOp = Game::where('opponent_id', Auth::id())->orderBy('id', 'desc')->limit(20)->get();
+        $gamesMe = Game::where('user_id', Auth::id())->orderBy('id', 'desc')->limit(40)->get();
+        $gamesOp = Game::where('opponent_id', Auth::id())->orderBy('id', 'desc')->limit(40)->get();
         foreach ($gamesMe as $game) {
             $gamesArray[] = User::whereId($game->opponent_id)->first()->name;
         }
