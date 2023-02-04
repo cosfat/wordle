@@ -37,6 +37,10 @@ class ChatWire extends Component
 
     }
 
+    public function refreshC(){
+
+    }
+
     public function render()
     {
         $this->messages = Chat::where('game_id', $this->gameId)->where('game_type', $this->gameType)->orderBy('id', 'desc')->limit(30);

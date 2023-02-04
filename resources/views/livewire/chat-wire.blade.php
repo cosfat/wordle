@@ -70,13 +70,11 @@
         .listen('ChatMessaged', (e) => {
             console.log(e.type)
             Livewire.emit('refreshChat');
-
-            const el = document.getElementById('messages')
-            el.scrollTop = el.scrollHeight
+            document.getElementById('messages').scrollTop =  document.getElementById('messages').scrollHeight;
         });
 
-    const el = document.getElementById('messages')
-    el.scrollTop = el.scrollHeight
+   document.getElementById('messages').scrollTop =  document.getElementById('messages').scrollHeight;
+
 </script>
     <script>
     </script>
