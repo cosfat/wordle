@@ -162,7 +162,6 @@
             }
 
             if (pressedKey === "Enter") {
-                checkGuess()
                 return
             }
 
