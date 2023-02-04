@@ -26,7 +26,7 @@
                 @endif
             </div>
         </div>
-        <table class="min-w-max w-full table-auto">
+        <table">
             <thead>
             <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
                 <th class="py-3 pl-3 text-left">Rakip</th>
