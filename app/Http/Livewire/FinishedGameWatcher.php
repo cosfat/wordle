@@ -21,12 +21,16 @@ class FinishedGameWatcher extends Component
 
     public $guessesCount;
     public $guessesArray;
+    public $chat = false;
 
     public function mount($gameId)
     {
         $game = Game::whereId($gameId)->where('winner_id', '!=', null);
         if ($game->exists()) {
             $game = $game->first();
+            if($game->user_id == Auth::id() OR $game->opponent_id == Auth::id()){
+                $this->chat = true;
+            }
             $guesses = $game->guesses()->get();
             foreach ($guesses as $guess) {
                 $this->guessesArray[] = $guess->word->name;

@@ -78,28 +78,34 @@ class CreateGame extends Component
     {
 
         $gamesArray = array();
-        $gamesMe = Game::where('user_id', Auth::id())->orderBy('id', 'desc')->limit(100)->get();
-        $gamesOp = Game::where('opponent_id', Auth::id())->orderBy('id', 'desc')->limit(100)->get();
-        foreach ($gamesMe as $game) {
-            $gamesArray[] = User::whereId($game->opponent_id)->first()->name;
-        }
-
-        foreach ($gamesOp as $game) {
-            $gamesArray[] = User::whereId($game->user_id)->first()->name;
-        }
-        $gamesArray = array_unique($gamesArray);
-
-        if (count($gamesArray) < 1) {
-            $users = User::where('id', '!=', Auth::id())->inRandomOrder()->limit(5)->pluck('username');
-            foreach ($users as $user) {
-                $gamesArray[] = $user;
+        $chGames = Chuser::where('user_id', Auth::id())->orderBy('id', 'desc')->limit(5)->get();
+        foreach ($chGames as $chGame) {
+            $chid = $chGame->challenge_id;
+            $chusers = Chuser::where('user_id', '!=', Auth::id())->where('challenge_id', $chid)->pluck('user_id');
+            foreach ($chusers as $chuser) {
+                $gamesArray[] = User::find($chuser)->username;
             }
         }
-
         $gamesArray = array_unique($gamesArray);
+        if(count($gamesArray) < 1){
+            $gamesMe = Game::where('user_id', Auth::id())->orderBy('id', 'desc')->limit(100)->get();
+            $gamesOp = Game::where('opponent_id', Auth::id())->orderBy('id', 'desc')->limit(100)->get();
+            foreach ($gamesMe as $game) {
+                $gamesArray[] = User::whereId($game->opponent_id)->first()->name;
+            }
+            foreach ($gamesOp as $game) {
+                $gamesArray[] = User::whereId($game->user_id)->first()->name;
+            }
+            $gamesArray = array_unique($gamesArray);
+            if (count($gamesArray) < 1) {
+                $users = User::where('id', '!=', Auth::id())->inRandomOrder()->limit(5)->pluck('username');
+                foreach ($users as $user) {
+                    $gamesArray[] = $user;
+                }
+                $gamesArray = array_unique($gamesArray);
+            }
+        }
         $this->suggestChFriend = $gamesArray;
-
-        $this->suggestChFriend = array_unique($this->suggestChFriend);
     }
 
     public function suggestFriend()

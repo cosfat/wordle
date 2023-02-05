@@ -127,6 +127,15 @@
         let words = JSON.parse({!! json_encode(\App\Models\Word::pluck('name')->toJSON()) !!})
         let guesses = @json($guessesArray);
 
+        let chatMode = false;
+
+        document.getElementById('chatInput').onfocus = function (){
+            chatMode = true
+        }
+
+        document.getElementById('chatInput').onblur = function (){
+            chatMode = false;
+        }
         const NUMBER_OF_GUESSES = {{ $length + 1 }};
         let guessesRemaining = NUMBER_OF_GUESSES;
         let currentGuess = [];
@@ -154,27 +163,28 @@
 
 
         document.addEventListener("keyup", (e) => {
+            if(chatMode === false) {
+                if (guessesRemaining === 0) {
+                    return
+                }
 
-            if (guessesRemaining === 0) {
-                return
-            }
+                let pressedKey = String(e.key)
+                if (pressedKey === "Backspace" && nextLetter !== 0) {
+                    deleteLetter()
+                    return
+                }
 
-            let pressedKey = String(e.key)
-            if (pressedKey === "Backspace" && nextLetter !== 0) {
-                deleteLetter()
-                return
-            }
+                if (pressedKey === "Enter") {
+                    checkGuess()
+                    return
+                }
 
-            if (pressedKey === "Enter") {
-                checkGuess()
-                return
-            }
-
-            let found = pressedKey.match(/[a-zöçşığü]/gi)
-            if (!found || found.length > 1) {
-                return
-            } else {
-                insertLetter(pressedKey)
+                let found = pressedKey.match(/[a-zöçşığü]/gi)
+                if (!found || found.length > 1) {
+                    return
+                } else {
+                    insertLetter(pressedKey)
+                }
             }
         })
 

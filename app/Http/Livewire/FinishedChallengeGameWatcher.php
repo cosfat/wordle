@@ -24,6 +24,7 @@ class FinishedChallengeGameWatcher extends Component
     public $guessesCount;
     public $guessesArray;
 
+    public $chat = false;
 
     protected $listeners = ['refreshChallengeGameWatcher'];
 
@@ -35,6 +36,9 @@ class FinishedChallengeGameWatcher extends Component
     {
         $game = Challenge::whereId($gameId);
         if ($game->exists()) {
+            if(Chuser::where('challenge_id', $gameId)->where('user_id', Auth::id())->exists()){
+                $this->chat = true;
+            }
 
             $game = $game->first();
             $myGuesses = Chguess::where('user_id', Auth::id())->where('challenge_id', $game->id)->count();
