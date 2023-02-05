@@ -1,6 +1,6 @@
 <div>
     <!-- component -->
-    <div class="border-t mt-4 flex-1 p:2 sm:p-6 justify-between flex flex-col h-screen pt-8" style="max-height: 20rem; min-height: 2rem">
+    <div class="border-t mt-4 flex-1 p:2 sm:p-6 justify-between flex flex-col h-screen pt-8" style="max-height: 20rem; min-height: 1rem">
         <div id="messages"
              class="flex flex-col space-y-4 overflow-y-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch">
             @foreach($messages as $message)
