@@ -5,20 +5,19 @@
              class="flex flex-col space-y-4 overflow-y-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch">
             @foreach($messages as $message)
                 @if($message->user_id == \Illuminate\Support\Facades\Auth::id())
-                    <div class="chat-message">
+                    <div class="chat-message p-4">
                         <div class="flex items-end justify-end">
                             <div class="flex flex-col space-y-2 text-xs max-w-xs mx-2 order-1 items-end">
-                                <div><span class="px-4 py-2 rounded-lg inline-block rounded-br-none text-gray-500 ">{{ $message->message }}</span>
+                                <div><span class="px-4 py-2 rounded-lg inline-block rounded-br-none bg-green-200 text-gray-500 ">{{ $message->message }}</span>
                                 </div>
                             </div>
                         </div>
                     </div>
                 @else
-                    <div class="chat-message">
+                    <div class="chat-message p-4">
                         <div class="flex items-end">
                             <div class="flex flex-col space-y-2 text-xs max-w-xs mx-2 order-2 items-start">
-                                <div><span
-                                        class="px-4 py-2 rounded-lg inline-block rounded-bl-none bg-gray-300 text-indigo-700"><strong>{{ \App\Models\User::find($message->user_id)->username }}:</strong> {{ $message->message }}</span>
+                                <div><span class="px-4 py-2 rounded-lg inline-block rounded-bl-none bg-indigo-600 text-white"><strong>{{ \App\Models\User::find($message->user_id)->username }}:</strong> {{ $message->message }}</span>
                                 </div>
                             </div>
                         </div>
