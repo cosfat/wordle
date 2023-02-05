@@ -15,7 +15,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', \App\Http\Livewire\Welcome::class);
-Route::get('/cosfat', \App\Http\Cosfat::class);
 
 Route::get('/status', 'UserController@userOnlineStatus');
 Route::middleware([
