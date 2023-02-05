@@ -102,6 +102,8 @@
 
 
 
+
+
         @elseif($mode == 3)
 
             <form method="POST" action="#" wire:submit.prevent="test">
@@ -140,7 +142,7 @@
                         <button
                             class="mt-3 px-5 py-3 font-medium text-slate-700 shadow-xl hover:bg-white duration-150 bg-yellow-400"
                             type="button" wire:click="autoWord()">
-                            {{ __('Kelime öner') }}
+                            {{ __('Bana kelime öner') }}
                         </button>
                     </div>
                 </div>

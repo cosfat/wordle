@@ -1,23 +1,24 @@
 <div class="p-5 gap-2 container mx-auto rounded-lg">
     @include('loading')
+
+    <div class="flex justify-center">
+        <button
+            class="px-3 py-3 font-medium text-slate-700 shadow-xl @if($mode == 1) bg-white @else bg-yellow-400 @endif hover:bg-white bg- duration-150"
+            type="button" wire:click="$set('mode', 1)">
+            Rekabet
+        </button>
+        <button
+            class="px-3 py-3 font-medium text-slate-700 shadow-xl @if($mode == 2) bg-white @else bg-yellow-400 @endif hover:bg-white bg- duration-150"
+            type="button" wire:click="$set('mode', 2)">
+            Gönderdiklerim
+        </button>
+        <button
+            class="px-3 py-3 font-medium text-slate-700 shadow-xl @if($mode == 3) bg-white @else bg-yellow-400 @endif hover:bg-white bg- duration-150"
+            type="button" wire:click="$set('mode', 3)">
+            Bana sorulanlar
+        </button>
+    </div>
     <div>
-        <div class="flex justify-center">
-            <button
-                class="px-3 py-3 font-medium text-slate-700 shadow-xl @if($mode == 1) bg-white @else bg-yellow-400 @endif hover:bg-white bg- duration-150"
-                type="button" wire:click="$set('mode', 1)">
-                Rekabet
-            </button>
-            <button
-                class="px-3 py-3 font-medium text-slate-700 shadow-xl @if($mode == 2) bg-white @else bg-yellow-400 @endif hover:bg-white bg- duration-150"
-                type="button" wire:click="$set('mode', 2)">
-                Gönderdiklerim
-            </button>
-            <button
-                class="px-3 py-3 font-medium text-slate-700 shadow-xl @if($mode == 3) bg-white @else bg-yellow-400 @endif hover:bg-white bg- duration-150"
-                type="button" wire:click="$set('mode', 3)">
-                Bana sorulanlar
-            </button>
-        </div>
         @if($mode == 1)
         <h2 class="mt-3">Rekabet oyunları</h2>
         <ul class="text-sm font-medium bg-white text-white rounded-lg">
