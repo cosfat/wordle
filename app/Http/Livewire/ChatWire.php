@@ -19,6 +19,16 @@ class ChatWire extends Component
     public $gameId;
     public $gameType;
     public $userName;
+    public $game;
+
+    public function mount(){
+        if($this->gameType == 1){
+            $this->game = Game::find($this->gameId);
+        }
+        else{
+            $this->game = Challenge::find($this->gameId);
+        }
+    }
 
     public function sendMessage(){
         $msg = $this->msg;
@@ -39,10 +49,13 @@ class ChatWire extends Component
 
     public function render()
     {
-        $this->messages = Chat::where('game_id', $this->gameId)->where('game_type', $this->gameType)->orderBy('id', 'desc')->limit(30);
-        $this->messages = $this->messages->reOrder('id', 'asc')->get();
-
-
+        $chats = $this->game->chats();
+        $this->messages = $chats->orderBy('id', 'desc')->limit(30)->reOrder('id', 'asc')->get();
+        $myChats = $chats->where('user_id', '!=', Auth::id())->where('seen', 0)->get();
+        foreach ($myChats as $chat) {
+            $chat->seen = 1;
+            $chat->save();
+        }
         return view('livewire.chat-wire', [
             'messages' => $this->messages
         ]);
