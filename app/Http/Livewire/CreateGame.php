@@ -237,6 +237,7 @@ class CreateGame extends Component
                 $this->suggestChFriend[] = $user->first()->name;
                 $this->suggestChFriend = array_unique($this->suggestChFriend);
                 $this->addChallengeFriend($user->first()->name);
+                $this->challengeUserName = "";
 
 
             } else {

@@ -1,6 +1,7 @@
 <div>
     <!-- component -->
-    <div class="bg-gray-50 border-t mt-4 flex-1 p:2 sm:p-6 justify-between flex flex-col pt-8" style="max-height: 20rem; min-height: 2rem">
+    <div class="bg-gray-50 border-t mt-4 flex-1 p:2 sm:p-6 justify-between flex flex-col pt-8"
+         style="max-height: 20rem; min-height: 2rem">
         <div id="messages"
              class="flex flex-col space-y-4 overflow-y-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch">
             @foreach($messages as $message)
@@ -8,7 +9,8 @@
                     <div class="chat-message">
                         <div class="flex items-end justify-end">
                             <div class="flex flex-col space-y-2 text-xs max-w-xs mx-2 order-1 items-end">
-                                <div><span class="px-4 py-2 rounded-lg inline-block rounded-br-none bg-green-600 text-white">{{ $message->message }}</span>
+                                <div><span
+                                        class="px-4 py-2 rounded-lg inline-block rounded-br-none bg-green-600 text-white">{{ $message->message }}</span>
                                 </div>
                             </div>
                         </div>
@@ -17,7 +19,8 @@
                     <div class="chat-message">
                         <div class="flex items-end">
                             <div class="flex flex-col space-y-2 text-xs max-w-xs mx-2 order-2 items-start">
-                                <div><span class="px-4 py-2 rounded-lg inline-block rounded-bl-none bg-indigo-600 text-white"><strong>{{ \App\Models\User::find($message->user_id)->username }}:</strong> {{ $message->message }}</span>
+                                <div><span
+                                        class="px-4 py-2 rounded-lg inline-block rounded-bl-none bg-indigo-600 text-white"><strong>{{ \App\Models\User::find($message->user_id)->username }}:</strong> {{ $message->message }}</span>
                                 </div>
                             </div>
                         </div>
@@ -28,17 +31,30 @@
         <div class="border-t-2 border-gray-200 px-4 pt-4 mb-2 mt-2 sm:mb-0">
             <div class="relative flex" style="z-index: 1 !important;">
                 <input id="chatInput" type="text" placeholder="Mesajınızı yazın!" wire:model="msg"
-                       class="w-full focus:outline-none focus:placeholder-gray-400 text-gray-600 placeholder-gray-600 pl-3 bg-gray-200 rounded-md py-3 ">
+                       class="w-full focus:outline-none focus:placeholder-gray-400 border-gray-200 text-gray-600 placeholder-gray-600 pl-3 bg-gray-200 rounded-md py-3 overflow-hidden">
                 <div class="absolute right-0 items-center inset-y-0 sm:flex">
-                    <button type="button" wire:click="sendMessage"
-                            class="inline-flex items-center justify-center rounded-lg px-4 py-3 transition duration-500 ease-in-out text-green-600 focus:outline-none">
-                        <span class="font-bold">Gönder</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
-                             class="h-6 w-6 ml-2 transform rotate-90">
-                            <path
-                                d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z"></path>
-                        </svg>
-                    </button>
+                    <div wire:loading.remove wire:target="sendMessage">
+                        <button type="button" wire:click="sendMessage"
+                                class="inline-flex items-center justify-center bg-gray-200 rounded-lg px-4 py-3 text-green-600 focus:outline-none">
+                            <span class="font-bold">Gönder</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                                 class="h-6 w-6 ml-2 transform rotate-90">
+                                <path
+                                    d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z"></path>
+                            </svg>
+                        </button>
+                    </div>
+                    <div wire:loading wire:target="sendMessage">
+                        <button type="button"
+                                class="inline-flex items-center justify-center rounded-lg px-4 py-3 text-white bg-gray-500 focus:outline-none">
+                            <span class="font-bold">Yükleniyor</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                                 class="h-6 w-6 ml-2 transform rotate-90">
+                                <path
+                                    d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z"></path>
+                            </svg>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -64,17 +80,17 @@
             border-radius: 0.25rem;
         }
     </style>
-<script type="module">
-    window.Echo.private(`chat-channel.{{ $gameId }}`)
-        .listen('ChatMessaged', (e) => {
-            console.log(e.type)
-            Livewire.emit('refreshChat');
-            document.getElementById('messages').scrollTop =  document.getElementById('messages').scrollHeight;
-        });
+    <script type="module">
+        window.Echo.private(`chat-channel.{{ $gameId }}`)
+            .listen('ChatMessaged', (e) => {
+                console.log(e.type)
+                Livewire.emit('refreshChat');
+                document.getElementById('messages').scrollTop = document.getElementById('messages').scrollHeight;
+            });
 
-   document.getElementById('messages').scrollTop =  document.getElementById('messages').scrollHeight;
+        document.getElementById('messages').scrollTop = document.getElementById('messages').scrollHeight;
 
-</script>
+    </script>
     <script>
     </script>
 </div>
