@@ -26,7 +26,7 @@ class GameLogs extends Component
     {
 
         if($this->mode == 1){
-            $chusers = Chuser::where('user_id', Auth::id())->orderBy('id', 'desc')->limit(10)->get();
+            $chusers = Chuser::where('user_id', Auth::id())->orderBy('id', 'desc')->limit(20)->get();
             $x = 0;
             foreach ($chusers as $chuser) {
                 $challenge = $chuser->challenge()->first();
@@ -70,7 +70,7 @@ class GameLogs extends Component
             }
         }
         elseif($this->mode == 2){
-            $finished = Game::where('user_id', Auth::id())->where('winner_id', '!=', null)->orderBy('updated_at', 'desc')->limit(10)->get();
+            $finished = Game::where('user_id', Auth::id())->where('winner_id', '!=', null)->orderBy('updated_at', 'desc')->limit(20)->get();
             $x = 0;
             foreach ($finished as $game) {
                 $guesses = $game->guesses();
@@ -100,7 +100,7 @@ class GameLogs extends Component
             }
         }
         else {
-            $finishedMe = Game::where('opponent_id', Auth::id())->where('winner_id', '!=', null)->orderBy('updated_at', 'desc')->limit(10)->get();
+            $finishedMe = Game::where('opponent_id', Auth::id())->where('winner_id', '!=', null)->orderBy('updated_at', 'desc')->limit(20)->get();
             $x = 0;
             foreach ($finishedMe as $game) {
                 $guesses = $game->guesses();
