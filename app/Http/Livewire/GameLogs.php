@@ -29,7 +29,6 @@ class GameLogs extends Component
             $chusers = Chuser::where('user_id', Auth::id())->orderBy('id', 'desc')->limit(10)->get();
             $x = 0;
             foreach ($chusers as $chuser) {
-
                 $challenge = $chuser->challenge()->first();
                 $guessesCount =$challenge->guesscount;
                 $length = $challenge->length;
@@ -39,7 +38,7 @@ class GameLogs extends Component
                     $this->notesCh[$x]['user'] = User::whereId($challenge->winner_id)->first()->username;
                     $this->notesCh[$x]['word'] = $challenge->word->name;
                     $this->notesCh[$x]['link'] = $challenge->id;
-
+                    $this->notesCh[$x]['chat'] = false;
                     if($challenge->winner_id != Auth::id()){
                         $this->notesCh[$x]['status'] = 1;
                     }else {
@@ -52,6 +51,7 @@ class GameLogs extends Component
                     $this->notesCh[$x]['word'] = $challenge->word->name;
                     $this->notesCh[$x]['link'] = $challenge->id;
                     $this->notesCh[$x]['status'] = 3;
+                    $this->notesCh[$x]['chat'] = false;
                 }
 
                 $x += 1;
@@ -65,6 +65,14 @@ class GameLogs extends Component
                 $username = User::whereId($game->opponent_id)->first()->username;
                 $count = $guesses->count();
                 $word = $game->word->name;
+
+                if($game->chats()->where('user_id', '!=', Auth::id())->where('seen', 0)->exists())
+                {
+                    $this->notes[$x]['chat'] = true;
+                }
+                else{
+                    $this->notes[$x]['chat'] = false;
+                }
 
                 $this->notes[$x]['user'] = $username;
                 $this->notes[$x]['word'] = $word;
@@ -88,6 +96,14 @@ class GameLogs extends Component
                 $count = $guesses->count();
                 $word = $game->word->name;
 
+                if($game->chats()->where('user_id', '!=', Auth::id())->where('seen', 0)->exists())
+                {
+                    $this->notesMe[$x]['chat'] = true;
+                }
+                else{
+                    $this->notesMe[$x]['chat'] = false;
+                }
+
                 $this->notesMe[$x]['user'] = $username;
                 $this->notesMe[$x]['word'] = $word;
                 $this->notesMe[$x]['link'] = $game->id;
@@ -99,6 +115,7 @@ class GameLogs extends Component
                     $this->notesMe[$x]['status'] = 0;
                 }
                 $x += 1;
+
             }
 
         }
