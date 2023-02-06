@@ -34,11 +34,13 @@ class Kernel extends ConsoleKernel
             }
         })->hourly();
 
+
         $schedule->call(function () {
             $challenges = Challenge::all();
             foreach ($challenges as $challenge) {
                 if($challenge->chguesses()->count() == 0 AND $challenge->created_at < Carbon::now()->subDay()){
                     $challenge->chats()->where('game_type', 2)->delete();
+                    $challenge->chusers()->delete();
                     $challenge->delete();
                 }
             }
