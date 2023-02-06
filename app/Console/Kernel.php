@@ -17,8 +17,8 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->call(function () {
-            DB::table('tests')->delete();
-        })->weeklyOn(1, '14:23');
+            DB::table('points')->delete();
+        })->weeklyOn(1, '08:00');
     }
 
     /**
