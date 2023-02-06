@@ -38,6 +38,7 @@ class GameLogs extends Component
                     $this->notesCh[$x]['user'] = User::whereId($challenge->winner_id)->first()->username;
                     $this->notesCh[$x]['word'] = $challenge->word->name;
                     $this->notesCh[$x]['link'] = $challenge->id;
+                    $this->notesCh[$x]['point'] = $challenge->point;
                     if($challenge->chats()->where('user_id', '!=', Auth::id())->where('game_type', 2)->where('seen', 0)->exists())
                     {
                         $this->notesCh[$x]['chat'] = true;
@@ -56,6 +57,7 @@ class GameLogs extends Component
                     $this->notesCh[$x]['user'] = "Kimse bilemedi";
                     $this->notesCh[$x]['word'] = $challenge->word->name;
                     $this->notesCh[$x]['link'] = $challenge->id;
+                    $this->notesCh[$x]['point'] = 0;
                     $this->notesCh[$x]['status'] = 3;
                     if($challenge->chats()->where('user_id', '!=', Auth::id())->where('game_type', 2)->where('seen', 0)->exists())
                     {
@@ -89,6 +91,7 @@ class GameLogs extends Component
                 $this->notes[$x]['user'] = $username;
                 $this->notes[$x]['word'] = $word;
                 $this->notes[$x]['link'] = $game->id;
+                $this->notes[$x]['point'] = $game->degree;
 
                 if ($game->winner_id != Auth::id()) {
                     $this->notes[$x]['status'] = 1;
@@ -119,6 +122,7 @@ class GameLogs extends Component
                 $this->notesMe[$x]['user'] = $username;
                 $this->notesMe[$x]['word'] = $word;
                 $this->notesMe[$x]['link'] = $game->id;
+                $this->notesMe[$x]['point'] = $game->degree;
 
                 if ($game->winner_id == Auth::id()) {
                     $this->notesMe[$x]['status'] = 1;

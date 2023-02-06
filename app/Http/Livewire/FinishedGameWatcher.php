@@ -18,6 +18,7 @@ class FinishedGameWatcher extends Component
     public $opponentName;
     public $userName;
     public $meaning;
+    public $point;
 
     public $guessesCount;
     public $guessesArray;
@@ -35,6 +36,7 @@ class FinishedGameWatcher extends Component
             foreach ($guesses as $guess) {
                 $this->guessesArray[] = $guess->word->name;
             }
+            $this->point = $game->degree;
             $this->guessesCount = $game->guesscount;
             $this->length = $game->length;
             $this->gameId = $gameId;

@@ -20,6 +20,7 @@ class FinishedChallengeGameWatcher extends Component
     public $userName;
     public $userId;
     public $meaning;
+    public $point;
 
     public $guessesCount;
     public $guessesArray;
@@ -53,6 +54,7 @@ class FinishedChallengeGameWatcher extends Component
             }
             $length = $game->length;
             $guesses = $game->chguesses()->where('user_id', $userId)->get();
+            $this->point = $game->point;
 
 
                 $this->userId = $userId;

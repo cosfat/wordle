@@ -25,16 +25,16 @@
                 @foreach($notesCh as $note)
                     <a href="/finished-challenge-game-watcher/{{ $note['link'] }}">
                         @if($note['status'] == 1)
-                            <li class="w-full px-4 py-2 text-white-500 bg-red-500">{{ $note['user'] }}
-                                <strong>{{ $note['word'] }}</strong> kelimesiyle kazandı
+                            <li class="w-full px-4 py-2 text-white-500 bg-red-500">{{ $note['user'] }} kazandı:
+                                <strong>{{ $note['word'] }}</strong>
                         @elseif($note['status']==2)
-                            <li class="w-full px-4 py-2 text-white-500 bg-indigo-500">
-                                <strong>{{ $note['word'] }}</strong> kelimesiyle kazandın
+                            <li class="w-full px-4 py-2 text-white-500 bg-indigo-500">Kazandın:
+                                <strong>{{ $note['word'] }}</strong>
                         @else
                             <li class="w-full px-4 py-2 text-white-500 bg-red-500">{{ $note['user'] }}:
                                 <strong>{{ $note['word'] }}</strong>
                         @endif
-
+                                <strong>{{ $note['point'] }} puan</strong>
                                 @if($note['chat'])
                                     <svg class="float-right" width="24px" height="24px" viewBox="0 0 24 24" fill="none"
                                          xmlns="http://www.w3.org/2000/svg" stroke="#EF4444">
@@ -60,13 +60,14 @@
                 @foreach($notes as $note)
                     <a href="/finished-game-watcher/{{ $note['link'] }}">
                         @if($note['status'] == 1)
-                            <li class="w-full px-4 py-2 text-white-500 bg-indigo-500">{{ $note['user'] }}
-                                <strong>{{ $note['word'] }}</strong> kelimesini
-                                <strong>{{ $note['count'] }}</strong> denemede bildi
+                            <li class="w-full px-4 py-2 text-white-500 bg-indigo-500">{{ $note['user'] }} bildi:
+                                <strong>{{ $note['word'] }}</strong>,
+                                <strong>{{ $note['count'] }}</strong> tahmin
                         @else
-                            <li class="w-full px-4 py-2 text-white-500 bg-red-500">{{ $note['user'] }}
-                                <strong>{{ $note['word'] }}</strong> kelimesini bilemedi
+                            <li class="w-full px-4 py-2 text-white-500 bg-red-500">{{ $note['user'] }} bilemedi:
+                                <strong>{{ $note['word'] }}</strong>
                         @endif
+                                <strong>{{ $note['point'] }} puan</strong>
                                 @if($note['chat'])
                                     <svg class="float-right" width="24px" height="24px" viewBox="0 0 24 24" fill="none"
                                          xmlns="http://www.w3.org/2000/svg" stroke="#EF4444">
@@ -92,13 +93,14 @@
                 @foreach($notesMe as $note)
                     <a href="/finished-game-watcher/{{ $note['link'] }}">
                         @if($note['status'] == 1)
-                            <li class="w-full px-4 py-2 text-white-500 bg-indigo-500">{{ $note['user'] }} ile
-                                <strong>{{ $note['word'] }}</strong> kelimesini
-                                <strong>{{ $note['count'] }}</strong> denemede bildin
+                            <li class="w-full px-4 py-2 text-white-500 bg-indigo-500">{{ $note['user'] }}:
+                                <strong>{{ $note['word'] }}</strong>,
+                                <strong>{{ $note['count'] }}</strong> tahminde bildin
                         @else
-                            <li class="w-full px-4 py-2 text-white-500 bg-red-500">{{ $note['user'] }} ile
-                                <strong>{{ $note['word'] }}</strong> kelimesini bilemedin
+                            <li class="w-full px-4 py-2 text-white-500 bg-red-500">{{ $note['user'] }}:
+                                <strong>{{ $note['word'] }}</strong>, bilemedin
                         @endif
+                                <strong>{{ $note['point'] }} puan</strong>
                                 @if($note['chat'])
                                     <svg class="float-right" width="24px" height="24px" viewBox="0 0 24 24" fill="none"
                                          xmlns="http://www.w3.org/2000/svg" stroke="#EF4444">
