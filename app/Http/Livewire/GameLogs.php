@@ -38,7 +38,13 @@ class GameLogs extends Component
                     $this->notesCh[$x]['user'] = User::whereId($challenge->winner_id)->first()->username;
                     $this->notesCh[$x]['word'] = $challenge->word->name;
                     $this->notesCh[$x]['link'] = $challenge->id;
-                    $this->notesCh[$x]['chat'] = false;
+                    if($challenge->chats()->where('user_id', '!=', Auth::id())->where('game_type', 2)->where('seen', 0)->exists())
+                    {
+                        $this->notesCh[$x]['chat'] = true;
+                    }
+                    else{
+                        $this->notesCh[$x]['chat'] = false;
+                    }
                     if($challenge->winner_id != Auth::id()){
                         $this->notesCh[$x]['status'] = 1;
                     }else {
@@ -51,7 +57,13 @@ class GameLogs extends Component
                     $this->notesCh[$x]['word'] = $challenge->word->name;
                     $this->notesCh[$x]['link'] = $challenge->id;
                     $this->notesCh[$x]['status'] = 3;
-                    $this->notesCh[$x]['chat'] = false;
+                    if($challenge->chats()->where('user_id', '!=', Auth::id())->where('game_type', 2)->where('seen', 0)->exists())
+                    {
+                        $this->notesCh[$x]['chat'] = true;
+                    }
+                    else{
+                        $this->notesCh[$x]['chat'] = false;
+                    }
                 }
 
                 $x += 1;
@@ -66,7 +78,7 @@ class GameLogs extends Component
                 $count = $guesses->count();
                 $word = $game->word->name;
 
-                if($game->chats()->where('user_id', '!=', Auth::id())->where('seen', 0)->exists())
+                if($game->chats()->where('user_id', '!=', Auth::id())->where('game_type', 1)->where('seen', 0)->exists())
                 {
                     $this->notes[$x]['chat'] = true;
                 }
@@ -96,7 +108,7 @@ class GameLogs extends Component
                 $count = $guesses->count();
                 $word = $game->word->name;
 
-                if($game->chats()->where('user_id', '!=', Auth::id())->where('seen', 0)->exists())
+                if($game->chats()->where('user_id', '!=', Auth::id())->where('game_type', 1)->where('seen', 0)->exists())
                 {
                     $this->notesMe[$x]['chat'] = true;
                 }

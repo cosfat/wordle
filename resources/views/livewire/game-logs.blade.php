@@ -27,16 +27,30 @@
                         @if($note['status'] == 1)
                             <li class="w-full px-4 py-2 text-white-500 bg-red-500">{{ $note['user'] }}
                                 <strong>{{ $note['word'] }}</strong> kelimesiyle kazandı
-                            </li>
                         @elseif($note['status']==2)
                             <li class="w-full px-4 py-2 text-white-500 bg-indigo-500">
                                 <strong>{{ $note['word'] }}</strong> kelimesiyle kazandın
-                            </li>
                         @else
                             <li class="w-full px-4 py-2 text-white-500 bg-red-500">{{ $note['user'] }}:
                                 <strong>{{ $note['word'] }}</strong>
-                            </li>
                         @endif
+
+                                @if($note['chat'])
+                                    <svg class="float-right" width="24px" height="24px" viewBox="0 0 24 24" fill="none"
+                                         xmlns="http://www.w3.org/2000/svg" stroke="#EF4444">
+                                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                                        <g id="SVGRepo_iconCarrier">
+                                            <path opacity="0.4" d="M8.5 10.5H15.5" stroke="#ffffff" stroke-width="1.5"
+                                                  stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"></path>
+                                            <path
+                                                d="M7 18.4302H11L15.45 21.3902C16.11 21.8302 17 21.3602 17 20.5602V18.4302C20 18.4302 22 16.4302 22 13.4302V7.43018C22 4.43018 20 2.43018 17 2.43018H7C4 2.43018 2 4.43018 2 7.43018V13.4302C2 16.4302 4 18.4302 7 18.4302Z"
+                                                stroke="#ffffff" stroke-width="1.5" stroke-miterlimit="10"
+                                                stroke-linecap="round" stroke-linejoin="round"></path>
+                                        </g>
+                                    </svg>
+                        @endif
+                            </li>
                     </a>
                 @endforeach
             </ul>
