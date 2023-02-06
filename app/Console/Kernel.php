@@ -19,26 +19,40 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
+        // Her hafta puanları sıfırla
         $schedule->call(function () {
             DB::table('points')->delete();
         })->weeklyOn(1, '08:00');
 
-
+        // 1 haftadır tahmini veya galibi olmayan klasik oyunları sil
         $schedule->call(function () {
             $games = Game::all();
             foreach ($games as $game) {
-                if($game->guesses()->count() == 0 AND $game->created_at < Carbon::now()->subWeek()){
+                if(($game->guesses()->count() == 0 OR $game->winner_id == null) AND $game->created_at < Carbon::now()->subWeek()){
                     $game->chats()->where('game_type', 1)->delete();
                     $game->delete();
                 }
             }
         })->hourly();
 
-
+        // 1 gündür tahmini olmayan Rekabet oyunlarını sil
         $schedule->call(function () {
             $challenges = Challenge::all();
             foreach ($challenges as $challenge) {
                 if($challenge->chguesses()->count() == 0 AND $challenge->created_at < Carbon::now()->subDay()){
+                    $challenge->chats()->where('game_type', 2)->delete();
+                    $challenge->chusers()->delete();
+                    $challenge->delete();
+                }
+            }
+        })->hourly();
+
+
+        // 1 haftadır galibi olmayan Rekabet oyunlarını sil
+        $schedule->call(function () {
+            $challenges = Challenge::all();
+            foreach ($challenges as $challenge) {
+                if($challenge->created_at < Carbon::now()->subWeek() AND $challenge->winner_id == null){
                     $challenge->chats()->where('game_type', 2)->delete();
                     $challenge->chusers()->delete();
                     $challenge->delete();
