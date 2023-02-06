@@ -31,7 +31,7 @@
         <div class="border-t-2 border-gray-200 px-4 pt-4 mb-2 mt-2 sm:mb-0">
             <div class="relative flex" style="z-index: 1 !important;">
                 <input id="chatInput" type="text" placeholder="Mesajınızı yazın!" wire:model="msg"
-                       class="w-full focus:outline-none focus:placeholder-gray-400 border-gray-200 text-gray-600 placeholder-gray-600 pl-3 bg-gray-200 rounded-md py-3 overflow-hidden">
+                       class="w-full focus:placeholder-gray-400 border-gray-200 text-gray-600 placeholder-gray-600 p-4 bg-gray-200 rounded-md overflow-hidden">
                 <div class="absolute right-0 items-center inset-y-0 sm:flex">
                     <div wire:loading.remove wire:target="sendMessage">
                         <button type="button" wire:click="sendMessage"
