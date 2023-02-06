@@ -28,14 +28,14 @@
                 @endif
             @endforeach
         </div>
-        <div class="border-t-2 border-gray-200 px-4 pt-4 mb-2 mt-2 sm:mb-0">
+        <div class="border-t-2 border-gray-200 px-4 pt-4 sm:mb-0">
             <div class="relative flex" style="z-index: 1 !important;">
                 <input id="chatInput" type="text" placeholder="Mesajınızı yazın!" wire:model="msg"
                        class="w-full focus:placeholder-gray-400 border-gray-200 text-gray-600 placeholder-gray-600 p-4 bg-gray-200 rounded-md overflow-hidden">
-                <div class="absolute right-0 items-center inset-y-0 sm:flex">
+                <div class="absolute right-0 items-center sm:flex">
                     <div wire:loading.remove wire:target="sendMessage">
                         <button type="button" wire:click="sendMessage"
-                                class="inline-flex items-center justify-center bg-gray-200 rounded-lg px-4 py-3 text-green-600 focus:outline-none">
+                                class="inline-flex items-center justify-center bg-gray-200 rounded-lg px-4 py-4 text-green-600 focus:outline-none">
                             <span class="font-bold">Gönder</span>
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
                                  class="h-6 w-6 ml-2 transform rotate-90">
