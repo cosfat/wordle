@@ -8,6 +8,7 @@ use App\Models\Chuser;
 use App\Models\Game;
 use App\Models\User;
 use App\Models\Word;
+use Carbon\CarbonInterval;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
@@ -21,6 +22,7 @@ class FinishedChallengeGameWatcher extends Component
     public $userId;
     public $meaning;
     public $point;
+    public $duration;
 
     public $guessesCount;
     public $guessesArray;
@@ -55,6 +57,7 @@ class FinishedChallengeGameWatcher extends Component
             $length = $game->length;
             $guesses = $game->chguesses()->where('user_id', $userId)->get();
             $this->point = $game->point;
+            $this->duration = str_replace('dakika', 'dk', str_replace('saniye', 'sn', CarbonInterval::seconds($game->duration)->cascade()->forHumans()));
 
 
                 $this->userId = $userId;

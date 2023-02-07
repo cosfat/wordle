@@ -6,6 +6,7 @@ use App\Models\Game;
 use App\Models\Guess;
 use App\Models\User;
 use App\Models\Word;
+use Carbon\CarbonInterval;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
@@ -43,6 +44,7 @@ class FinishedGameWatcher extends Component
             $this->wordName = $game->word->name;
             $this->opponentName = User::find($game->user_id)->name;
             $this->userName = User::find($game->opponent_id)->name;
+            $this->duration = str_replace('dakika', 'dk', str_replace('saniye', 'sn', CarbonInterval::seconds($game->duration)->cascade()->forHumans()));
 
             $this->meaning = null;
 
