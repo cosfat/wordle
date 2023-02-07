@@ -27,11 +27,11 @@
                         @if($note['status'] == 1)
                                 <strong>{{ $note['word'] }}</strong>
                                 <span class="bg-red-600 text-white text-xs font-medium px-2 py-1 rounded">{{ $note['duration'] }}</span>
-                                <span class="bg-green-600 text-white text-xs font-medium mr-2 px-2 py-1 rounded">{{ $note['point'] }} p</span>
+                                <span class="bg-green-600 text-white text-xs font-medium  px-2 py-1 rounded">{{ $note['point'] }} p</span>
                         @elseif($note['status']==2)
                                 <strong>{{ $note['word'] }}</strong>
                                 <span class="bg-red-600 text-white text-xs font-medium px-2 py-1 rounded">{{ $note['duration'] }}</span>
-                                <span class="bg-green-600 text-white text-xs font-medium mr-2 px-2 py-1 rounded">{{ $note['point'] }} p</span>
+                                <span class="bg-green-600 text-white text-xs font-medium  px-2 py-1 rounded">{{ $note['point'] }} p</span>
                         @else
                             <li class="w-full px-4 py-2 text-white-500 bg-gray-800">{{ $note['user'] }}:
                                 <strong>{{ $note['word'] }}</strong>
@@ -63,17 +63,17 @@
                         <li class="w-full px-4 py-2 text-gray-600 bg-gray-200">{{ $note['user'] }}
                         @if($note['status'] == 1)
                                 <strong>{{ $note['word'] }}</strong>
-                                <span class="bg-red-600 text-white text-xs font-medium mr-2 px-2 py-1 rounded">{{ $note['duration'] }}</span>
-                                <span class="bg-yellow-400 text-indigo-700 text-xs font-medium mr-2 px-2 py-1 rounded"><strong>{{ $note['count'] }}</strong> tahmin</span>
+                                <span class="bg-red-600 text-white text-xs font-medium  px-2 py-1 rounded">{{ $note['duration'] }}</span>
+                                <span class="bg-yellow-400 text-indigo-700 text-xs font-medium  px-2 py-1 rounded"><strong>{{ $note['count'] }}</strong> tahmin</span>
                         @else
                             {{ $note['user'] }}
                                 <strong>{{ $note['word'] }}</strong>
-                                <span class="bg-red-600 text-white text-xs font-medium mr-2 px-2 py-1 rounded">{{ $note['duration'] }}</span>
+                                <span class="bg-red-600 text-white text-xs font-medium  px-2 py-1 rounded">{{ $note['duration'] }}</span>
                         @endif
                                 @if($note['status'] == 1)
-                                <span class="bg-green-600 text-white text-xs font-medium mr-2 px-2 py-1 rounded">{{ $note['point'] }} p</span>
+                                <span class="bg-green-600 text-white text-xs font-medium  px-2 py-1 rounded">{{ $note['point'] }} p</span>
                                 @else
-                                    <span class="bg-gray-800 text-white text-xs font-medium mr-2 px-2 py-1 rounded">Kaybetti</span>
+                                    <span class="bg-gray-800 text-white text-xs font-medium  px-2 py-1 rounded">Kaybetti</span>
                                 @endif
                                 @if($note['chat'])
                                     <svg class="float-right" width="24px" height="24px" viewBox="0 0 24 24" fill="none"
@@ -101,12 +101,12 @@
                         <li class="w-full px-4 py-2 text-gray-600 bg-gray-200">{{ $note['user'] }}:
                         @if($note['status'] == 1)
                                 <strong>{{ $note['word'] }}</strong>
-                                <span class="bg-red-600 text-white text-xs font-medium mr-2 px-2 py-1 rounded">{{ $note['duration'] }}</span>
-                                <span class="bg-yellow-400 text-indigo-700 text-xs font-medium mr-2 px-2 py-1 rounded"><strong>{{ $note['count'] }}</strong> tahmin</span>
-                                <span class="bg-green-600 text-white text-xs font-medium mr-2 px-2 py-1 rounded">{{ $note['point'] }} p</span>
+                                <span class="bg-red-600 text-white text-xs font-medium  px-2 py-1 rounded">{{ $note['duration'] }}</span>
+                                <span class="bg-yellow-400 text-indigo-700 text-xs font-medium  px-2 py-1 rounded"><strong>{{ $note['count'] }}</strong> tahmin</span>
+                                <span class="bg-green-600 text-white text-xs font-medium  px-2 py-1 rounded">{{ $note['point'] }} p</span>
                         @else
                                 <strong>{{ $note['word'] }}</strong>
-                                <span class="bg-gray-800 text-white text-xs font-medium mr-2 px-2 py-1 rounded">Bilemedin</span>
+                                <span class="bg-gray-800 text-white text-xs font-medium  px-2 py-1 rounded">Bilemedin</span>
                         @endif
                                 @if($note['chat'])
                                     <svg class="float-right" width="24px" height="24px" viewBox="0 0 24 24" fill="none"
