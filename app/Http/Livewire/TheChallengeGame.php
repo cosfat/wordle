@@ -46,6 +46,14 @@ class TheChallengeGame extends Component
 
                 $game->winner_id = $userId;
                 $game->point = ($game->length - Chguess::whereChallenge_id($this->gameId)->where('user_id', $userId)->count() + 2) * $userCount * 2;
+                if(Chguess::where('user_id', $game->winner_id)->where('challenge_id', $game->id)->count() == 1){
+                    $game->duration = $game->created_at->diffInSeconds(Chguess::where('user_id', $game->winner_id)->where('challenge_id', $game->id)->first()->created_at);
+                }
+                else{
+                    $first = Chguess::where('user_id', $game->winner_id)->where('challenge_id', $game->id)->orderBy('id', 'asc')->first()->created_at;
+                    $last = Chguess::where('user_id', $game->winner_id)->where('challenge_id', $game->id)->orderBy('id', 'desc')->first()->created_at;
+                    $game->duration = $first->diffInSeconds($last);
+                }
                 $game->save();
 
                 $point = Point::whereUser_id($userId);

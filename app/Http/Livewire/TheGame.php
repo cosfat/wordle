@@ -56,6 +56,14 @@ class TheGame extends Component
         $game = Game::whereId($this->gameId)->first();
         $game->winner_id = $game->opponent_id;
         $game->degree = ($game->length - $game->guesscount + 3) * 5;
+        if($game->guesses()->count() == 1){
+            $game->duration = $game->created_at->diffInSeconds($game->guesses()->first()->created_at);
+        }
+        else{
+            $first = $game->guesses()->orderBy('id', 'asc')->first()->created_at;
+            $last = $game->guesses()->orderBy('id', 'desc')->first()->created_at;
+            $game->duration = $first->diffInSeconds($last);
+        }
         $game->save();
 
         $point = Point::whereUser_id($game->winner_id);
