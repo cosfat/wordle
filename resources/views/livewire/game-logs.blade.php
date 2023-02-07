@@ -66,7 +66,6 @@
                                 <span class="bg-red-600 text-white text-xs font-medium  px-2 py-1 rounded">{{ $note['duration'] }}</span>
                                 <span class="bg-yellow-400 text-indigo-700 text-xs font-medium  px-2 py-1 rounded"><strong>{{ $note['count'] }}</strong> t</span>
                         @else
-                            {{ $note['user'] }}
                                 <strong>{{ $note['word'] }}</strong>
                                 <span class="bg-red-600 text-white text-xs font-medium  px-2 py-1 rounded">{{ $note['duration'] }}</span>
                         @endif

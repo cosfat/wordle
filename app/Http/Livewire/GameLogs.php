@@ -66,7 +66,7 @@ class GameLogs extends Component
                     $this->notesCh[$x]['word'] = $challenge->word->name;
                     $this->notesCh[$x]['link'] = $challenge->id;
                     $this->notesCh[$x]['point'] = $challenge->point;
-                    $this->notesCh[$x]['duration'] = CarbonInterval::seconds($challenge->duration)->cascade()->forHumans();
+                    $this->notesCh[$x]['duration'] = str_replace('dakika', 'dk', str_replace('saniye', 'sn', CarbonInterval::seconds($challenge->duration)->cascade()->forHumans()));
                     if($challenge->chats()->where('user_id', '!=', Auth::id())->where('game_type', 2)->where('seen', 0)->exists())
                     {
                         $this->notesCh[$x]['chat'] = true;
@@ -121,7 +121,7 @@ class GameLogs extends Component
                 $this->notes[$x]['word'] = $word;
                 $this->notes[$x]['link'] = $game->id;
                 $this->notes[$x]['point'] = $game->degree;
-                $this->notes[$x]['duration'] = CarbonInterval::seconds($game->duration)->cascade()->forHumans();
+                $this->notes[$x]['duration'] = str_replace('dakika', 'dk', str_replace('saniye', 'sn', CarbonInterval::seconds($game->duration)->cascade()->forHumans()));
 
                 if ($game->winner_id != Auth::id()) {
                     $this->notes[$x]['status'] = 1;
@@ -153,7 +153,7 @@ class GameLogs extends Component
                 $this->notesMe[$x]['word'] = $word;
                 $this->notesMe[$x]['link'] = $game->id;
                 $this->notesMe[$x]['point'] = $game->degree;
-                $this->notesMe[$x]['duration'] = CarbonInterval::seconds($game->duration)->cascade()->forHumans();
+                $this->notesMe[$x]['duration'] = str_replace('dakika', 'dk', str_replace('saniye', 'sn', CarbonInterval::seconds($game->duration)->cascade()->forHumans()));
 
                 if ($game->winner_id == Auth::id()) {
                     $this->notesMe[$x]['status'] = 1;
