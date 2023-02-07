@@ -1,7 +1,7 @@
 <div class="p-5 gap-2 container mx-auto rounded-lg">
     @include('loading')
 
-    <div class="flex justify-center">
+    <div class="flex justify-center ">
         <button
             class="px-3 py-3 font-medium text-slate-700 shadow-xl @if($mode == 1) bg-white @else bg-yellow-400 @endif hover:bg-white bg- duration-150"
             type="button" wire:click="$set('mode', 1)">
@@ -57,7 +57,6 @@
                 @endforeach
             </ul>
         @elseif($mode == 2)
-            <h2 class="mt-3">Gönderdiğim oyunlar</h2>
             <ul class="text-sm font-medium bg-white text-white rounded-lg">
                 @foreach($notes as $note)
                     <a href="/finished-game-watcher/{{ $note['link'] }}">
@@ -96,7 +95,6 @@
                 @endforeach
             </ul>
         @else
-            <h2 class="mt-3">Bana sorulanlar</h2>
             <ul class="text-sm font-medium bg-white text-white rounded-lg">
                 @foreach($notesMe as $note)
                     <a href="/finished-game-watcher/{{ $note['link'] }}">
