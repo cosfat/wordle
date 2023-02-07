@@ -64,7 +64,7 @@
                         @if($note['status'] == 1)
                                 <strong>{{ $note['word'] }}</strong>
                                 <span class="bg-red-600 text-white text-xs font-medium  px-2 py-1 rounded">{{ $note['duration'] }}</span>
-                                <span class="bg-yellow-400 text-indigo-700 text-xs font-medium  px-2 py-1 rounded"><strong>{{ $note['count'] }}</strong> tahmin</span>
+                                <span class="bg-yellow-400 text-indigo-700 text-xs font-medium  px-2 py-1 rounded"><strong>{{ $note['count'] }}</strong> t</span>
                         @else
                             {{ $note['user'] }}
                                 <strong>{{ $note['word'] }}</strong>
@@ -102,7 +102,7 @@
                         @if($note['status'] == 1)
                                 <strong>{{ $note['word'] }}</strong>
                                 <span class="bg-red-600 text-white text-xs font-medium  px-2 py-1 rounded">{{ $note['duration'] }}</span>
-                                <span class="bg-yellow-400 text-indigo-700 text-xs font-medium  px-2 py-1 rounded"><strong>{{ $note['count'] }}</strong> tahmin</span>
+                                <span class="bg-yellow-400 text-indigo-700 text-xs font-medium  px-2 py-1 rounded"><strong>{{ $note['count'] }}</strong> t</span>
                                 <span class="bg-green-600 text-white text-xs font-medium  px-2 py-1 rounded">{{ $note['point'] }} p</span>
                         @else
                                 <strong>{{ $note['word'] }}</strong>
