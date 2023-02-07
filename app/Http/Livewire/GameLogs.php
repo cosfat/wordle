@@ -26,7 +26,7 @@ class GameLogs extends Component
 
     public function render()
     {
-        $games = Game::where('winner_id', '!=', null)->get();
+        /*$games = Game::where('winner_id', '!=', null)->get();
         foreach ($games as $game) {
             if($game->guesses()->count() == 1){
                 $game->duration = $game->created_at->diffInSeconds($game->guesses()->first()->created_at);
@@ -50,7 +50,7 @@ class GameLogs extends Component
                 $game->duration = $first->diffInSeconds($last);
             }
             $game->save();
-        }
+        }*/
 
         if($this->mode == 1){
             $chusers = Chuser::where('user_id', Auth::id())->orderBy('id', 'desc')->limit(20)->get();
