@@ -7,6 +7,8 @@ use App\Models\Chguess;
 use App\Models\Chuser;
 use App\Models\Game;
 use App\Models\User;
+use Carbon\Carbon;
+use Carbon\CarbonInterval;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
@@ -24,6 +26,31 @@ class GameLogs extends Component
 
     public function render()
     {
+        /*$games = Game::where('winner_id', '!=', null)->get();
+        foreach ($games as $game) {
+            if($game->guesses()->count() == 1){
+                $game->duration = $game->created_at->diffInSeconds($game->guesses()->first()->created_at);
+            }
+            else{
+                $first = $game->guesses()->orderBy('id', 'asc')->first()->created_at;
+                $last = $game->guesses()->orderBy('id', 'desc')->first()->created_at;
+                $game->duration = $first->diffInSeconds($last);
+            }
+            $game->save();
+        }*/
+
+/*        $games = Challenge::where('winner_id', '!=', null)->get();
+        foreach ($games as $game) {
+            if(Chguess::where('user_id', $game->winner_id)->where('challenge_id', $game->id)->count() == 1){
+                $game->duration = $game->created_at->diffInSeconds(Chguess::where('user_id', $game->winner_id)->where('challenge_id', $game->id)->first()->created_at);
+            }
+            else{
+                $first = Chguess::where('user_id', $game->winner_id)->where('challenge_id', $game->id)->orderBy('id', 'asc')->first()->created_at;
+                $last = Chguess::where('user_id', $game->winner_id)->where('challenge_id', $game->id)->orderBy('id', 'desc')->first()->created_at;
+                $game->duration = $first->diffInSeconds($last);
+            }
+            $game->save();
+        }*/
 
         if($this->mode == 1){
             $chusers = Chuser::where('user_id', Auth::id())->orderBy('id', 'desc')->limit(20)->get();
@@ -39,6 +66,7 @@ class GameLogs extends Component
                     $this->notesCh[$x]['word'] = $challenge->word->name;
                     $this->notesCh[$x]['link'] = $challenge->id;
                     $this->notesCh[$x]['point'] = $challenge->point;
+                    $this->notesCh[$x]['duration'] = CarbonInterval::seconds($challenge->duration)->cascade()->forHumans();
                     if($challenge->chats()->where('user_id', '!=', Auth::id())->where('game_type', 2)->where('seen', 0)->exists())
                     {
                         $this->notesCh[$x]['chat'] = true;
@@ -59,6 +87,7 @@ class GameLogs extends Component
                     $this->notesCh[$x]['link'] = $challenge->id;
                     $this->notesCh[$x]['point'] = 0;
                     $this->notesCh[$x]['status'] = 3;
+                    $this->notesCh[$x]['duration'] = 0;
                     if($challenge->chats()->where('user_id', '!=', Auth::id())->where('game_type', 2)->where('seen', 0)->exists())
                     {
                         $this->notesCh[$x]['chat'] = true;
@@ -92,6 +121,7 @@ class GameLogs extends Component
                 $this->notes[$x]['word'] = $word;
                 $this->notes[$x]['link'] = $game->id;
                 $this->notes[$x]['point'] = $game->degree;
+                $this->notes[$x]['duration'] = CarbonInterval::seconds($game->duration)->cascade()->forHumans();
 
                 if ($game->winner_id != Auth::id()) {
                     $this->notes[$x]['status'] = 1;
@@ -123,6 +153,7 @@ class GameLogs extends Component
                 $this->notesMe[$x]['word'] = $word;
                 $this->notesMe[$x]['link'] = $game->id;
                 $this->notesMe[$x]['point'] = $game->degree;
+                $this->notesMe[$x]['duration'] = CarbonInterval::seconds($game->duration)->cascade()->forHumans();
 
                 if ($game->winner_id == Auth::id()) {
                     $this->notesMe[$x]['status'] = 1;
