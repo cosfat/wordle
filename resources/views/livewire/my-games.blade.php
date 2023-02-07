@@ -1,4 +1,8 @@
-<div name="my-games" class="py-4">
+<div class="py-4">
+    <div class="flex justify-center">
+        <h2 class="text-2xl font-bold tracking-tight sm:text-center sm:text-4xl text-indigo-500">
+            DEVAM EDEN OYUNLAR</h2>
+    </div>
     @include('loading')
     <div class="p-5 gap-2 border-b-2">
         <div class="flex flex-wrap">

@@ -1,12 +1,13 @@
 <div>
     @include('loading')
+    <div class="flex justify-center">
+        <h2 class="text-2xl font-bold tracking-tight sm:text-center sm:text-4xl text-indigo-500">
+            YENİ OYUN BAŞLAT</h2>
+    </div>
     @if($startGame == false)
-        <div class="flex justify-center">
-            <h2 class="text-2xl font-bold tracking-tight sm:text-center sm:text-4xl text-indigo-500">
-                ZORLUK DERECESİ</h2>
-        </div>
-
-        <div class="flex justify-center mt-3">
+<div class="flex justify-center mt-2">
+    <h3><strong>Kaç harfli olsun?</strong></h3></div>
+        <div class="flex justify-center mt-2">
             <h2 wire:click="changeLength(4)" class="@if($length == 4) bg-yellow-400 @else bg-gray-100 @endif border-2 px-4 py-2 cursor-pointer text-2xl font-bold tracking-tight sm:text-4xl sm:text-center text-indigo-500 ml-3" style="border-color: rgb(250, 204, 21);">4</h2>
             <h2 wire:click="changeLength(5)" class="@if($length == 5) bg-yellow-400 @else bg-gray-100 @endif border-2 px-4 py-2 cursor-pointer text-2xl font-bold tracking-tight sm:text-4xl sm:text-center text-indigo-500 ml-3" style="border-color: rgb(250, 204, 21);">5</h2>
             <h2 wire:click="changeLength(6)" class="@if($length == 6) bg-yellow-400 @else bg-gray-100 @endif border-2 px-4 py-2 cursor-pointer text-2xl font-bold tracking-tight sm:text-4xl sm:text-center text-indigo-500 ml-3" style="border-color: rgb(250, 204, 21);">6</h2>
