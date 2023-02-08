@@ -15,6 +15,7 @@
             @endif
 
             @foreach($newChallenges as $game)
+                    <div style="width: 33%">
                 <a href="/the-challenge-game/{{ $game->challenge_id }}">
                     <div class="p-4 flex flex-col  items-center text-center group hover:bg-slate-50 cursor-pointer">
                         <div
@@ -37,8 +38,10 @@
                         <p class="text-sm text-gray-600">{{ $game->created_at->diffForHumans(\Carbon\Carbon::now()) }}</p>
                     </div>
                 </a>
+                    </div>
             @endforeach
             @foreach($new as $game)
+                    <div style="width: 33%">
                 <a href="/the-game/{{ $game->id }}">
                     <div class="p-4 flex flex-col  items-center text-center group hover:bg-slate-50 cursor-pointer">
                         <div
@@ -60,6 +63,7 @@
                         <p class="text-sm text-gray-600">{{ $game->created_at->diffForHumans(\Carbon\Carbon::now()) }}</p>
                     </div>
                 </a>
+                    </div>
             @endforeach
         </div>
     </div>
@@ -74,6 +78,8 @@
                 </p>
             @endif
             @foreach($activeChallenges as $game)
+
+                    <div style="width: 33%">
                 @if(\App\Models\Chguess::where('challenge_id', $game->challenge_id)->where('user_id', \Illuminate\Support\Facades\Auth::id())->count() == $game->challenge->length + 1)
                     <a href="/finished-challenge-game-watcher/{{ $game->challenge_id }}">
                         @else
@@ -97,6 +103,8 @@
                                     <p class="text-sm text-gray-600">{{ $game->created_at->diffForHumans(\Carbon\Carbon::now()) }}</p>
                                 </div>
                             </a>
+
+                    </div>
                     @endforeach
         </div>
     </div>
@@ -113,6 +121,7 @@
                 </p>
             @endif
             @foreach($gamesOpp as $game)
+                    <div style="width: 33%">
                 <a href="/the-game/{{ $game[0]->id }}">
                     @if($game[0]->chats()->where('user_id', '!=', \Illuminate\Support\Facades\Auth::id())->where('seen', 0)->exists())
                         <div
@@ -148,6 +157,7 @@
                         <p class="text-sm text-gray-600">{{ $game[0]->created_at->diffForHumans(\Carbon\Carbon::now()) }}</p>
                     </div>
                 </a>
+                    </div>
             @endforeach
         </div>
     </div>
@@ -162,6 +172,7 @@
                 </p>
             @endif
             @foreach($gamesMe as $game)
+                    <div style="width: 33%">
                 <a href="/game-watcher/{{ $game[0]->id }}">
                     @if($game[0]->chats()->where('user_id', '!=', \Illuminate\Support\Facades\Auth::id())->where('seen', 0)->exists())
                         <div
@@ -219,6 +230,7 @@
                         <p class="text-sm text-gray-600">{{ $game[0]->created_at->diffForHumans(\Carbon\Carbon::now()) }}</p>
                     </div>
                 </a>
+                    </div>
             @endforeach
         </div>
     </div>

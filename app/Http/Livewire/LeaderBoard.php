@@ -18,8 +18,8 @@ class LeaderBoard extends Component
     {
         $user = Auth::user();
         $usersMyAll = array();
-        $gamesMe = $user->games()->limit(10);
-        $gamesMyAll = $user->opponentGames()->limit(10)->union($gamesMe)->get();
+        $gamesMe = $user->games()->limit(20);
+        $gamesMyAll = $user->opponentGames()->limit(20)->union($gamesMe)->get();
 
         foreach ($gamesMyAll as $item) {
             $usersMyAll[$item->user_id] = $item->user();

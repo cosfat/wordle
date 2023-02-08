@@ -68,16 +68,17 @@ class CreateGame extends Component
         if ($length > 7) {
             $this->length = 6;
         } else {
-
             $this->length = $length;
         }
+    }
 
+    public function makeMode2(){
+        $this->mode = 2;
         $this->suggestChFriend();
     }
 
     public function suggestChFriend()
     {
-
         $gamesArray = array();
         $chGames = Chuser::where('user_id', Auth::id())->orderBy('id', 'desc')->limit(5)->get();
         foreach ($chGames as $chGame) {

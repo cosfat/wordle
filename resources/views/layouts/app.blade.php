@@ -84,7 +84,7 @@
 <body class="font-sans antialiased">
 @php
     $unit=array('b','kb','mb','gb','tb','pb');
-    echo @round(memory_get_usage()/pow(1024,($i=floor(log(memory_get_usage(),1024)))),2).' '.$unit[$i];
+  //  echo @round(memory_get_usage()/pow(1024,($i=floor(log(memory_get_usage(),1024)))),2).' '.$unit[$i];
 @endphp
 <div class="min-h-screen bg-gray-100 dark:bg-gray-100 pt-4">
     @auth

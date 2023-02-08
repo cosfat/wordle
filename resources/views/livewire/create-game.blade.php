@@ -28,14 +28,13 @@
 
             <button
                 class="px-3 py-3 font-medium text-slate-700 shadow-xl @if($mode == 2) bg-white @else bg-yellow-400 @endif hover:bg-white duration-150"
-                type="button" wire:click="$set('mode', 2)">
+                type="button" wire:click="makeMode2">
                 Rekabet
             </button>
         </div>
 
 
         @if($mode == 2)
-
             <form method="POST" action="#" wire:submit.prevent="test">
                 <x-honeypot />
                 <div class="p-5 gap-2 border-b-2">
