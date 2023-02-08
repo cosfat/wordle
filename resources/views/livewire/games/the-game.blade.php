@@ -105,7 +105,6 @@
             <button class="keyboard-button">i</button>
         </div>
         <div class="third-row">
-            <button class="keyboard-button">SİL</button>
             <button class="keyboard-button">z</button>
             <button class="keyboard-button">c</button>
             <button class="keyboard-button">v</button>
@@ -114,10 +113,9 @@
             <button class="keyboard-button">m</button>
             <button class="keyboard-button">ö</button>
             <button class="keyboard-button">ç</button>
-            <button class="keyboard-button">Enter</button>
         </div>
         <div class="fourth-row mt-2">
-            <button class="keyboard-button bg-red-500 text-white">TEMİZLE</button>
+            <button class="keyboard-button">SİL</button><button class="keyboard-button bg-red-500 text-white">TEMİZLE</button><button class="keyboard-button">Enter</button>
         </div>
     </div>
     <livewire:chat-wire :gameId="$gameId" :gameType="1" />
