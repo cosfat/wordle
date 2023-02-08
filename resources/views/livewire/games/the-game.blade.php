@@ -68,7 +68,7 @@
         .keyboard-button {
             font-size: 1rem;
             font-weight: 700;
-            padding: 0.8rem;
+            padding: 0.7rem;
             margin: 0 2px;
             cursor: pointer;
             text-transform: uppercase;
