@@ -42,8 +42,6 @@ class TheChallengeGame extends Component
                     }
                 }
                 $userCount = $game->chusers()->count();
-
-
                 $game->winner_id = $userId;
 
                 if(Chguess::where('user_id', $game->winner_id)->where('challenge_id', $game->id)->count() == 1){
