@@ -72,13 +72,16 @@
             margin: 0 2px;
             cursor: pointer;
             text-transform: uppercase;
-            border: 1px solid #7e7e7e;
+            border: 1px solid #969696;
         }
     </style>
     <livewire:live-counter :start="$start" :firstGuess="$firstGuess"></livewire:live-counter>
     <div id="game-board">
     </div>
     <div id="keyboard-cont">
+        <div class="fourth-row mb-2">
+            <button class="keyboard-button">SİL</button><button class="keyboard-button bg-red-500 text-white">TEMİZLE</button><button class="keyboard-button">Enter</button>
+        </div>
         <div class="first-row">
             <button class="keyboard-button">e</button>
             <button class="keyboard-button">r</button>
@@ -113,9 +116,6 @@
             <button class="keyboard-button">m</button>
             <button class="keyboard-button">ö</button>
             <button class="keyboard-button">ç</button>
-        </div>
-        <div class="fourth-row mt-2">
-            <button class="keyboard-button">SİL</button><button class="keyboard-button bg-red-500 text-white">TEMİZLE</button><button class="keyboard-button">Enter</button>
         </div>
     </div>
     <livewire:chat-wire :gameId="$gameId" :gameType="1" />
