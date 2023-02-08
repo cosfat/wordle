@@ -6,7 +6,7 @@
                     showTime();
                 }, 1000)
             </script>
-            <span id="timer" class="bg-red-600 text-white text-xs font-medium px-2 py-1 rounded">ZAMAN</span>
+            <span id="timer" class="bg-red-600 text-white font-medium px-2 py-1 rounded">ZAMAN</span>
         @endif
     </div>
 

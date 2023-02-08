@@ -26,14 +26,14 @@ class Kernel extends ConsoleKernel
 
         // 1 haftadır tahmini veya galibi olmayan klasik oyunları sil
         $schedule->call(function () {
-            $games = Game::all();
+            $games = Game::where('created_at', '<', Carbon::now()->subWeek())->get();
             foreach ($games as $game) {
-                if(($game->guesses()->count() == 0 OR $game->winner_id == null) AND $game->created_at < Carbon::now()->subWeek()){
+                if(($game->guesscount == 0 OR $game->winner_id == null)){
                     $game->chats()->where('game_type', 1)->delete();
                     $game->delete();
                 }
             }
-        })->hourly();
+        })->everyMinute();
 
         // 1 gündür tahmini olmayan Rekabet oyunlarını sil
         $schedule->call(function () {
