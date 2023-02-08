@@ -56,9 +56,14 @@ class FinishedChallengeGameWatcher extends Component
             }
             $length = $game->length;
             $guesses = $game->chguesses()->where('user_id', $userId)->get();
-            $this->point = $game->point;
-            $this->duration = str_replace('dakika', 'dk', str_replace('saniye', 'sn', CarbonInterval::seconds($game->duration)->cascade()->forHumans()));
-
+            if($game->winner_id == $userId){
+                $this->point = $game->point;
+                $this->duration = str_replace('dakika', 'dk', str_replace('saniye', 'sn', CarbonInterval::seconds($game->duration)->cascade()->forHumans()));
+            }
+            else{
+                $this->point = 0;
+                $this->duration = "";
+            }
 
                 $this->userId = $userId;
                 foreach ($guesses as $guess) {
