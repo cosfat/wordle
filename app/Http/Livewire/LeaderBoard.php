@@ -8,7 +8,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
-class FriendFeed extends Component
+class LeaderBoard extends Component
 {
     protected $all;
     protected $friends = array();
@@ -18,8 +18,8 @@ class FriendFeed extends Component
     {
         $user = Auth::user();
         $usersMyAll = array();
-        $gamesMe = $user->games();
-        $gamesMyAll = $user->opponentGames()->union($gamesMe)->get();
+        $gamesMe = $user->games()->limit(10);
+        $gamesMyAll = $user->opponentGames()->limit(10)->union($gamesMe)->get();
 
         foreach ($gamesMyAll as $item) {
             $usersMyAll[$item->user_id] = $item->user();
@@ -36,7 +36,7 @@ class FriendFeed extends Component
             }
         }
 
-        return view('livewire.friend-feed', [
+        return view('livewire.leader-board', [
             'all' => $this->all->limit(20)->get(),
             'friends' => $this->friends
         ]);

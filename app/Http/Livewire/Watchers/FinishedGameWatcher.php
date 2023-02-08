@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Watchers;
 
 use App\Models\Game;
 use App\Models\Guess;
@@ -61,6 +61,6 @@ class FinishedGameWatcher extends Component
 
     public function render()
     {
-        return view('livewire.finished-game-watcher');
+        return view('livewire.watchers.finished-game-watcher');
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Watchers;
 
 use App\Models\Challenge;
 use App\Models\Chguess;
@@ -88,6 +88,6 @@ class FinishedChallengeGameWatcher extends Component
 
     public function render()
     {
-        return view('livewire.finished-challenge-game-watcher');
+        return view('livewire.watchers.finished-challenge-game-watcher');
     }
 }

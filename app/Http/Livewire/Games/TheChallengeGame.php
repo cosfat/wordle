@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Games;
 
 use App\Events\GuessTyped;
 use App\Models\Challenge;
@@ -135,6 +135,6 @@ class TheChallengeGame extends Component
         $chuser = Chuser::where('challenge_id', $this->gameId)->where('user_id', Auth::id())->first();
         $chuser->seen = 1;
         $chuser->save();
-        return view('livewire.the-challenge-game');
+        return view('livewire.games.the-challenge-game');
     }
 }

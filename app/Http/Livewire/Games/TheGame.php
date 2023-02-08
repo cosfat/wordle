@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Games;
 
 use App\Models\Game;
 use App\Models\Guess;
@@ -107,6 +107,6 @@ class TheGame extends Component
         $game = Game::find($this->gameId);
         $game->seen = 1;
         $game->save();
-        return view('livewire.the-game');
+        return view('livewire.games.the-game');
     }
 }

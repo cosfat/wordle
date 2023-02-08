@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Games;
 
 use App\Events\GuessTyped;
 use App\Models\Challenge;
@@ -66,6 +66,6 @@ class GuessRecorder extends Component
 
     public function render()
     {
-        return view('livewire.guess-recorder');
+        return view('livewire.games.guess-recorder');
     }
 }

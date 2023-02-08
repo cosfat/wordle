@@ -104,9 +104,8 @@ class GameLogs extends Component
             $finished = Game::where('user_id', Auth::id())->where('winner_id', '!=', null)->orderBy('updated_at', 'desc')->limit(20)->get();
             $x = 0;
             foreach ($finished as $game) {
-                $guesses = $game->guesses();
+                $count = $game->guesses()->count();
                 $username = User::whereId($game->opponent_id)->first()->username;
-                $count = $guesses->count();
                 $word = $game->word->name;
 
                 if($game->chats()->where('user_id', '!=', Auth::id())->where('game_type', 1)->where('seen', 0)->exists())
@@ -136,9 +135,8 @@ class GameLogs extends Component
             $finishedMe = Game::where('opponent_id', Auth::id())->where('winner_id', '!=', null)->orderBy('updated_at', 'desc')->limit(20)->get();
             $x = 0;
             foreach ($finishedMe as $game) {
-                $guesses = $game->guesses();
+                $count = $game->guesses()->count();
                 $username = User::whereId($game->user_id)->first()->username;
-                $count = $guesses->count();
                 $word = $game->word->name;
 
                 if($game->chats()->where('user_id', '!=', Auth::id())->where('game_type', 1)->where('seen', 0)->exists())
