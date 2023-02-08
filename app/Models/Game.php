@@ -19,6 +19,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property $word_6
  * @property $seen
  * @property $winner_id
+ * @property $guesscount
  * @property $degree
  * @property $created_at
  * @property $updated_at

@@ -14,7 +14,7 @@ class Kernel extends ConsoleKernel
     /**
      * Define the application's command schedule.
      *
-     * @param  \Illuminate\Console\Scheduling\Schedule  $schedule
+     * @param \Illuminate\Console\Scheduling\Schedule $schedule
      * @return void
      */
     protected function schedule(Schedule $schedule)
@@ -24,39 +24,44 @@ class Kernel extends ConsoleKernel
             DB::table('points')->delete();
         })->weeklyOn(1, '08:00');
 
-        // 1 haftadır tahmini veya galibi olmayan klasik oyunları sil
+        // 1 haftadır galibi olmayan klasik oyunları sil
         $schedule->call(function () {
-            $games = Game::where('created_at', '<', Carbon::now()->subWeek())->get();
+            $games = Game::where('created_at', '<', Carbon::now()->subWeek())
+                ->whereNull('winner_id')->get();
             foreach ($games as $game) {
-                if(($game->guesscount == 0 OR $game->winner_id == null)){
-                    $game->chats()->where('game_type', 1)->delete();
-                    $game->delete();
-                }
+                $game->chats()->where('game_type', 1)->delete();
+                $game->delete();
             }
-        })->everyMinute();
+        })->hourly();
+
+        // 1 gündür tahmini olmayan klasik oyunları sil
+        $schedule->call(function () {
+            $games = Game::where('created_at', '<', Carbon::now()->subDay())
+                ->where('guesscount', 0)->get();
+            foreach ($games as $game) {
+                $game->chats()->where('game_type', 1)->delete();
+                $game->delete();
+            }
+        })->hourly();
 
         // 1 gündür tahmini olmayan Rekabet oyunlarını sil
         $schedule->call(function () {
-            $challenges = Challenge::all();
+            $challenges = Challenge::where('guesscount', 0)->where('created_at', '<', Carbon::now()->subDay())->get();
             foreach ($challenges as $challenge) {
-                if($challenge->chguesses()->count() == 0 AND $challenge->created_at < Carbon::now()->subDay()){
-                    $challenge->chats()->where('game_type', 2)->delete();
-                    $challenge->chusers()->delete();
-                    $challenge->delete();
-                }
+                $challenge->chats()->where('game_type', 2)->delete();
+                $challenge->chusers()->delete();
+                $challenge->delete();
             }
         })->hourly();
 
 
         // 1 haftadır galibi olmayan Rekabet oyunlarını sil
         $schedule->call(function () {
-            $challenges = Challenge::all();
+            $challenges = Challenge::where('created_at', '<', Carbon::now()->subWeek())->whereNull('winner_id')->get();
             foreach ($challenges as $challenge) {
-                if($challenge->created_at < Carbon::now()->subWeek() AND $challenge->winner_id == null){
-                    $challenge->chats()->where('game_type', 2)->delete();
-                    $challenge->chusers()->delete();
-                    $challenge->delete();
-                }
+                $challenge->chats()->where('game_type', 2)->delete();
+                $challenge->chusers()->delete();
+                $challenge->delete();
             }
         })->hourly();
 
@@ -69,7 +74,7 @@ class Kernel extends ConsoleKernel
      */
     protected function commands()
     {
-        $this->load(__DIR__.'/Commands');
+        $this->load(__DIR__ . '/Commands');
 
         require base_path('routes/console.php');
     }
