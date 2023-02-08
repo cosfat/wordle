@@ -68,7 +68,7 @@
         .keyboard-button {
             font-size: 1rem;
             font-weight: 700;
-            padding: 0.7rem;
+            padding: 0.5rem;
             margin: 0 2px;
             cursor: pointer;
             text-transform: uppercase;
@@ -333,7 +333,7 @@ if(chatMode === false){
                 let letterPosition = rightGuess.indexOf(currentGuess[i])
                 // is letter in the correct guess
                 if (letterPosition === -1) {
-                    letterColor = '#e3e3e3'
+                    letterColor = '#656565'
                 } else {
                     // now, letter is definitely in word
                     // if letter index and right guess index are the same
