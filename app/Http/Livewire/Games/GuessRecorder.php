@@ -28,6 +28,9 @@ class GuessRecorder extends Component
         $game->seen2 = 0;
         $game->guesscount += 1;
         $game->save();
+        if($game->guesscount == 1){
+            $this->emit('startCounterFirstTime');
+        }
         GuessTyped::dispatch($game->user_id, $gameId, Auth::user()->username, 1);
     }
 

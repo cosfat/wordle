@@ -17,6 +17,8 @@ class TheGame extends Component
     public $gameId;
     public $word;
     public $opponentName;
+    public $start;
+    public $firstGuess = false;
 
     public $guessesCount;
     public $guessesArray;
@@ -90,6 +92,9 @@ class TheGame extends Component
         if ($game->exists()) {
             $game = $game->first();
             $guesses = $game->guesses()->get();
+            if($guesses->count() == 0){
+                $this->firstGuess = true;
+            }
             foreach ($guesses as $guess) {
                 $this->guessesArray[] = $guess->word->name;
             }
@@ -108,6 +113,13 @@ class TheGame extends Component
     public function render()
     {
         $game = Game::find($this->gameId);
+        $first = $game->guesses()->first();
+        if($first != null){
+            $this->start = $first->created_at->diffInSeconds(Carbon::now());
+        }
+        else{
+            $this->start = 0;
+        }
         $game->seen = 1;
         $game->save();
         return view('livewire.games.the-game');

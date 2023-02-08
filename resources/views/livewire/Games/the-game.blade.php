@@ -74,6 +74,7 @@
             text-transform: uppercase;
         }
     </style>
+    <livewire:live-counter :start="$start" :firstGuess="$firstGuess"></livewire:live-counter>
     <div id="game-board">
     </div>
     <div id="keyboard-cont">
