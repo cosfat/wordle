@@ -43,9 +43,6 @@ class TheChallengeGame extends Component
                 }
                 $userCount = $game->chusers()->count();
 
-
-                $game->winner_id = $userId;
-                $game->point = ($game->length - Chguess::whereChallenge_id($this->gameId)->where('user_id', $userId)->count() + 2) * $userCount * 2;
                 if(Chguess::where('user_id', $game->winner_id)->where('challenge_id', $game->id)->count() == 1){
                     $game->duration = $game->created_at->diffInSeconds(Chguess::where('user_id', $game->winner_id)->where('challenge_id', $game->id)->first()->created_at);
                 }
@@ -54,20 +51,24 @@ class TheChallengeGame extends Component
                     $last = Chguess::where('user_id', $game->winner_id)->where('challenge_id', $game->id)->orderBy('id', 'desc')->first()->created_at;
                     $game->duration = $first->diffInSeconds($last);
                 }
-                $game->save();
 
                 $durationPoint = round(500 / $game->duration);
+                $game->winner_id = $userId;
+                $game->point = ($game->length - Chguess::whereChallenge_id($this->gameId)->where('user_id', $userId)->count() + 2) * $userCount * 2 + $durationPoint;
+
+                $game->save();
+
 
                 $point = Point::whereUser_id($userId);
                 if($point->exists()){
                     $point = $point->first();
-                    $point->point = $point->point + $game->point + $durationPoint;
+                    $point->point = $point->point + $game->point;
                     $point->save();
                 }
                 else {
                     $point = new Point;
                     $point->user_id = $userId;
-                    $point->point = $game->point + $durationPoint;
+                    $point->point = $game->point;
                     $point->save();
                 }
                 foreach ($game->chusers as $chuser) {
