@@ -68,11 +68,11 @@
         .keyboard-button {
             font-size: 1rem;
             font-weight: 700;
-            padding: 0.5rem;
+            padding: 10px;
             margin: 0 2px;
             cursor: pointer;
             text-transform: uppercase;
-            border: 1px solid #969696;
+            border: 1px solid #ccc9c9;
         }
     </style>
     <livewire:live-counter :start="$start" :firstGuess="$firstGuess"></livewire:live-counter>
@@ -244,7 +244,7 @@ if(chatMode === false){
 
                 // is letter in the correct guess?
                 if (letterPosition === -1) {
-                    letterColor = '#656565'
+                    letterColor = '#a2a2a2'
                 } else {
                     // now, letter is definitely in word
                     // if letter index and right guess index are the same
