@@ -68,10 +68,11 @@
         .keyboard-button {
             font-size: 1rem;
             font-weight: 700;
-            padding: 0.5rem;
+            padding: 0.8rem;
             margin: 0 2px;
             cursor: pointer;
             text-transform: uppercase;
+            border: 1px solid #7e7e7e;
         }
     </style>
     <livewire:live-counter :start="$start" :firstGuess="$firstGuess"></livewire:live-counter>
