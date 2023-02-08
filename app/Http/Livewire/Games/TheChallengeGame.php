@@ -56,16 +56,18 @@ class TheChallengeGame extends Component
                 }
                 $game->save();
 
+                $durationPoint = round(500 / $game->duration);
+
                 $point = Point::whereUser_id($userId);
                 if($point->exists()){
                     $point = $point->first();
-                    $point->point = $point->point + $game->point;
+                    $point->point = $point->point + $game->point + $durationPoint;
                     $point->save();
                 }
                 else {
                     $point = new Point;
                     $point->user_id = $userId;
-                    $point->point = $game->point;;
+                    $point->point = $game->point + $durationPoint;
                     $point->save();
                 }
                 foreach ($game->chusers as $chuser) {

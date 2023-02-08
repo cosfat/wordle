@@ -67,17 +67,17 @@ class TheGame extends Component
         $game->save();
 
         $point = Point::whereUser_id($game->winner_id);
+        $durationPoint = round(500 / $game->duration);
         if($point->exists()){
             $point = $point->first();
-            $point->point = $point->point + $game->degree;
-            $point->save();
+            $point->point = $point->point + $game->degree + $durationPoint;
         }
         else {
             $point = new Point;
             $point->user_id = $game->winner_id;
-            $point->point = $game->degree;;
-            $point->save();
+            $point->point = $game->degree + $durationPoint;
         }
+        $point->save();
         return redirect('/finished-game-watcher/'.$this->gameId);
     }
 

@@ -26,12 +26,15 @@
             <ul class="text-sm font-medium bg-white text-white rounded-lg">
                 @foreach($notesCh as $note)
                     <a href="/finished-challenge-game-watcher/{{ $note['link'] }}">
-                        <li class="w-full px-4 py-2 bg-gray-200 text-gray-600"><strong>{{ $note['user'] }}</strong>
                         @if($note['status'] == 1)
+
+                            <li class="w-full px-4 py-2 bg-gray-200 text-gray-600"><strong>{{ $note['user'] }}</strong>
                                 <strong>{{ $note['word'] }}</strong>
                                 <span class="bg-red-600 text-white text-xs font-medium px-2 py-1 rounded">{{ $note['duration'] }}</span>
                                 <span class="bg-green-600 text-white text-xs font-medium  px-2 py-1 rounded">{{ $note['point'] }} p</span>
                         @elseif($note['status']==2)
+
+                            <li class="w-full px-4 py-2 bg-gray-200 text-gray-600"><strong>{{ $note['user'] }}</strong>
                                 <strong>{{ $note['word'] }}</strong>
                                 <span class="bg-red-600 text-white text-xs font-medium px-2 py-1 rounded">{{ $note['duration'] }}</span>
                                 <span class="bg-green-600 text-white text-xs font-medium  px-2 py-1 rounded">{{ $note['point'] }} p</span>
