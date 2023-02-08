@@ -111,6 +111,7 @@
                                 <span class="bg-green-600 text-white text-xs font-medium  px-2 py-1 rounded">{{ $note['point'] }} p</span>
                         @else
                                 <strong>{{ $note['word'] }}</strong>
+                                <span class="bg-red-600 text-white text-xs font-medium  px-2 py-1 rounded">{{ $note['duration'] }}</span>
                                 <span class="bg-gray-800 text-white text-xs font-medium  px-2 py-1 rounded">Bilemedin</span>
                         @endif
                                 @if($note['chat'])

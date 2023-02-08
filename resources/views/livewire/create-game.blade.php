@@ -49,6 +49,18 @@
                             <button type="button"
                                     class="mt-1 px-5 py-3 font-medium text-slate-700 shadow-xl duration-150 @if(array_search($friend, $challengeFriends)) bg-white @else bg-yellow-400 @endif"
                                     wire:click="addChallengeFriend('{{ $friend }}')" class="ml-4">
+
+                                @if(\Illuminate\Support\Facades\Cache::has('user-is-online-' . \App\Models\User::where('username', $friend)->first()->id))
+                                    <span style="background-color: chartreuse; height: 25px;
+  width: 25px;
+  border-radius: 50%;
+  display: inline-block;">&nbsp;</span>
+                                @else
+                                    <span style="background-color: #494949 ; height: 25px;
+  width: 25px;
+  border-radius: 50%;
+  display: inline-block;">&nbsp;</span>
+                                @endif
                                 {{ $friend }}
                             </button>
                         @endforeach
