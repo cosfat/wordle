@@ -244,7 +244,7 @@ if(chatMode === false){
 
                 // is letter in the correct guess?
                 if (letterPosition === -1) {
-                    letterColor = '#e3e3e3'
+                    letterColor = '#656565'
                 } else {
                     // now, letter is definitely in word
                     // if letter index and right guess index are the same
