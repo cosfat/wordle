@@ -28,6 +28,9 @@ class TheGame extends Component
         $game = Game::whereId($this->gameId)->first();
         $game->winner_id = $game->user_id;
         $game->degree = (8 - $game->length);
+        $first = $game->guesses()->orderBy('id', 'asc')->first()->created_at;
+        $last = $game->guesses()->orderBy('id', 'desc')->first()->created_at;
+        $game->duration = $first->diffInSeconds($last);
         $game->save();
 
         $point = Point::whereUser_id($game->user_id);
