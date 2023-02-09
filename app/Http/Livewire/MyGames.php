@@ -80,7 +80,7 @@ class MyGames extends Component
     {
         $gamesMe = Auth::user()->games()->select(['games.*'])
             ->leftJoin('guesses', 'games.id', '=', 'guesses.game_id')
-            ->where('winner_id', null)
+            ->whereNull('winner_id')
             ->orderBy('guesses.created_at', 'desc')->get();
 
         $this->gamesMe = $gamesMe->groupBy('id');
@@ -88,7 +88,7 @@ class MyGames extends Component
 
         $gamesOpp = Auth::user()->opponentGames()->select(['games.*'])
             ->leftJoin('guesses', 'games.id', '=', 'guesses.game_id')
-            ->where('winner_id', null)
+            ->whereNull('winner_id')
             ->orderBy('guesses.created_at', 'desc')->get();
 
         $this->gamesOpp = $gamesOpp->groupBy('id');

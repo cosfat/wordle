@@ -35,7 +35,7 @@ class TheChallengeGame extends Component
         $game = Challenge::whereId($this->gameId)->first();
 
         if (Chuser::where('user_id', Auth::id())->where('challenge_id', $this->gameId)->exists()) {
-            if (Challenge::whereId($this->gameId)->where('winner_id', null)->exists()) {
+            if (Challenge::whereId($this->gameId)->whereNull('winner_id')->exists()) {
                 $users = $game->chusers()->get();
                 foreach ($users as $user) {
                     $guesscount = Chguess::where('challenge_id', $game->id)->where('user_id', $user->user_id)->count();
@@ -99,7 +99,7 @@ class TheChallengeGame extends Component
     {
         if(Chuser::where('user_id', Auth::id())->where('challenge_id', $gameId)->exists())
         {
-            if(Challenge::whereId($gameId)->where('winner_id', null)->exists()){
+            if(Challenge::whereId($gameId)->whereNull('winner_id')->exists()){
 
                 $game = Challenge::whereId($gameId)->first();
                 if(Chguess::where('challenge_id', $gameId)->where('user_id', Auth::id())->count() == $game->length + 1){

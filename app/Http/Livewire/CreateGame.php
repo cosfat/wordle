@@ -118,12 +118,12 @@ class CreateGame extends Component
         foreach ($games as $game) {
             if ($game->opponent_id == Auth::id()) {
                 $user = User::whereId($game->user_id)->first();
-                if (Game::where('user_id', Auth::id())->where('opponent_id', $user->id)->where('winner_id', null)->doesntExist()) {
+                if (Game::where('user_id', Auth::id())->where('opponent_id', $user->id)->whereNull('winner_id')->doesntExist()) {
                     $gamesArray[] = User::whereId($game->user_id)->first()->name;
                 }
             } else {
                 $user = User::whereId($game->opponent_id)->first();
-                if (Game::where('user_id', Auth::id())->where('opponent_id', $user->id)->where('winner_id', null)->doesntExist()) {
+                if (Game::where('user_id', Auth::id())->where('opponent_id', $user->id)->whereNull('winner_id')->doesntExist()) {
                     $gamesArray[] = User::whereId($game->opponent_id)->first()->name;
                 }
             }
@@ -258,7 +258,7 @@ class CreateGame extends Component
         $existing = false;
 
         if ($user->exists()) {
-            $existingGames = Game::where('user_id', Auth::id())->where('opponent_id', $user->first()->id)->where('winner_id', null)->get();
+            $existingGames = Game::where('user_id', Auth::id())->where('opponent_id', $user->first()->id)->whereNull('winner_id')->get();
             foreach ($existingGames as $existingGame) {
                 $guessCount = $existingGame->guesses()->count();
                 if ($guessCount < 6) {
