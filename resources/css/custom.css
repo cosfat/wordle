@@ -2,7 +2,7 @@
 #notifyBar {
     visibility: hidden; /* Hidden by default. Visible on click */
     font-weight: bold;
-    min-width: 250px; /* Set a default minimum width */
+    width: 250px; /* Set a default minimum width */
     margin-left: -125px; /* Divide value of min-width by 2 */
     background-color: #FACC15; /* Black background color */
     color: rgb(79, 70, 229); /* White text color */
@@ -12,7 +12,7 @@
     position: fixed; /* Sit on top of the screen */
     z-index: 9999; /* Add a z-index if needed */
     left: 50%; /* Center the snackbar */
-    bottom: 30px; /* 30px from the bottom */
+    top: 30px; /* 30px from the bottom */
     box-shadow: 0 3px 5px 0 rgb(0, 0, 0), 0 3px 10px 0 rgb(0, 0, 0);
 }
 
@@ -27,23 +27,23 @@
 
 /* Animations to fade the snackbar in and out */
 @-webkit-keyframes fadein {
-    from {bottom: 0; opacity: 0;}
-    to {bottom: 30px; opacity: 1;}
+    from {top: 0; opacity: 0;}
+    to {top: 30px; opacity: 1;}
 }
 
 @keyframes fadein {
-    from {bottom: 0; opacity: 0;}
-    to {bottom: 30px; opacity: 1;}
+    from {top: 0; opacity: 0;}
+    to {top: 30px; opacity: 1;}
 }
 
 @-webkit-keyframes fadeout {
-    from {bottom: 30px; opacity: 1;}
-    to {bottom: 0; opacity: 0;}
+    from {top: 30px; opacity: 1;}
+    to {top: 0; opacity: 0;}
 }
 
 @keyframes fadeout {
-    from {bottom: 30px; opacity: 1;}
-    to {bottom: 0; opacity: 0;}
+    from {top: 30px; opacity: 1;}
+    to {top: 0; opacity: 0;}
 }
 #notifyIconText {
     color: red;

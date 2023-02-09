@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Games;
 
+use App\Events\GuessTyped;
 use App\Models\Game;
 use App\Models\Guess;
 use App\Models\Point;
@@ -83,6 +84,8 @@ class TheGame extends Component
             $point->point = $game->degree + $durationPoint;
         }
         $point->save();
+
+        GuessTyped::dispatch($game->user_id, $game->id, Auth::user()->username, 3);
         return redirect('/finished-game-watcher/'.$this->gameId);
     }
 

@@ -43,7 +43,11 @@
                 } else if (e.type === 2) {
                     notifyGame(e.username + " rekabet tahmininde bulundu!", "the-challenge-game/" + e.game);
                     Livewire.emit('refreshChallengeGameWatcher');
-                } else {
+                }else if (e.type === 3) {
+                    notifyGame(e.username + " oyunu kazandı!", "finished-game-watcher/" + e.game);
+                }
+
+                else if (e.type === 4) {
                     notifyGame(e.username + " rekabeti kazandı!", "finished-challenge-game-watcher/" + e.game);
                     window.location.href = "/finished-challenge-game-watcher/" + e.game;
                 }
