@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Games;
 
 use Livewire\Component;
 
@@ -57,6 +57,6 @@ class LiveCounter extends Component
             $this->s = $this->start % 60;
         }
 
-        return view('livewire.live-counter');
+        return view('livewire.games.live-counter');
     }
 }
