@@ -124,7 +124,7 @@
                         <svg id="games" width="68px" height="68px" viewBox="0 0 48 48"
                              xmlns="http://www.w3.org/2000/svg"
                              @if(\App\Models\Game::where('opponent_id', \Illuminate\Support\Facades\Auth::id())->where('seen', 0)->exists() OR
-                            App\Models\Game::where('user_id', \Illuminate\Support\Facades\Auth::id())->where('seen2', 0)->exists())
+                            App\Models\Game::where('user_id', \Illuminate\Support\Facades\Auth::id())->whereNull('winner_id')->where('seen2', 0)->exists())
                              fill="#EF4444"
                              @else
                              fill="#FACC15"
