@@ -245,7 +245,7 @@ if(chatMode === false){
 
                 // is letter in the correct guess?
                 if (letterPosition === -1) {
-                    letterColor = '#a2a2a2'
+                    letterColor = '#e3e3e3'
                 } else {
                     // now, letter is definitely in word
                     // if letter index and right guess index are the same
@@ -334,7 +334,7 @@ if(chatMode === false){
                 let letterPosition = rightGuess.indexOf(currentGuess[i])
                 // is letter in the correct guess
                 if (letterPosition === -1) {
-                    letterColor = '#656565'
+                    letterColor = '#e3e3e3'
                 } else {
                     // now, letter is definitely in word
                     // if letter index and right guess index are the same
