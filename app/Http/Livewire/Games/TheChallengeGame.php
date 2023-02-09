@@ -23,6 +23,8 @@ class TheChallengeGame extends Component
 
     public $guessesCount;
     public $guessesArray;
+    public $start;
+    public $firstGuess = false;
 
     protected $listeners = ['chWinner', 'chLoser'];
 
@@ -111,6 +113,9 @@ class TheChallengeGame extends Component
                     }
 
                     $this->guessesCount = $guesses->count();
+                    if($guesses->count() == 0){
+                        $this->firstGuess = true;
+                    }
 
                     $this->gameId = $gameId;
                     $this->length = $game->length;
@@ -136,6 +141,13 @@ class TheChallengeGame extends Component
         $chuser = Chuser::where('challenge_id', $this->gameId)->where('user_id', Auth::id())->first();
         $chuser->seen = 1;
         $chuser->save();
+        $first = Auth::user()->chguesses()->where('challenge_id', $this->gameId)->first();
+        if($first != null){
+            $this->start = $first->created_at->diffInSeconds(Carbon::now());
+        }
+        else{
+            $this->start = 0;
+        }
         return view('livewire.games.the-challenge-game');
     }
 }

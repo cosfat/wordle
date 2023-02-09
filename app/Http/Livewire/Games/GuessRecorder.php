@@ -46,6 +46,9 @@ class GuessRecorder extends Component
                 $user = Auth::user();
                 $guess->user_id = $user->id;
                 $guess->save();
+                if($user->chguesses()->where('challenge_id', $gameId)->count() == 1){
+                    $this->emit('startCounterFirstTime');
+                }
                 $c = $challenge->first();
                 if($c == null){
                     $c = Challenge::find($gameId);

@@ -88,6 +88,10 @@ class User extends Authenticatable
         return $this->hasOne(Point::class);
     }
 
+    public function chguesses(){
+        return $this->hasMany(Chguess::class);
+    }
+
     public function isSpamming($user, $opp){
         if(Game::where('user_id', $user)->where('opponent_id', $opp)->where('winner_id', null)->exists()){
             return true;
