@@ -39,7 +39,6 @@ class MyGames extends Component
         $todayId = Today::orderBy('id', 'desc')->first()->id;
         $fastest = Game::where('today_id', $todayId)->where('winner_id', '!=', 2)->where('winner_id', '!=', null)->orderBy('duration', 'asc')->first();
         if($fastest != null){
-            echo $fastest->opponent_id;
             $this->fastName = User::find($fastest->opponent_id)->username;
             $this->fastValue = $fastest->duration;
         }
