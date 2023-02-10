@@ -8,17 +8,17 @@
         <div class="flex flex-wrap">
             <h2 class="text-2xl font-bold tracking-tight sm:text-center sm:text-4xl text-indigo-500">Günün kelimesi</h2>
         </div>
-        <div class="flex flex-wrap">
-           Her 4 saatte 1 yeni kelime gelir
+        <div class="flex flex-wrap text-sm">
+           Her 4 saatte bir yeni kelime gelir
         </div>
         @if($fastName != null)
         <div class="flex flex-wrap">
-            <p>En hızlı çözen: {{ $fastName }} : {{ $fastValue }} sn</p>
+            <p class="text-red-600">En hızlı çözen: <strong>{{ $fastName }} : {{ $fastValue }} sn </strong></p>
         </div>
         @endif
         @if($shortName != null)
         <div class="flex flex-wrap">
-            <p>En az tahminde çözen: {{ $shortName }} : {{ $shortValue }} tahmin</p>
+            <p class="text-red-600">En az tahminde çözen: <strong>{{ $shortName }} : {{ $shortValue }} tahmin </strong></p>
         </div>
         @endif
 
@@ -26,7 +26,7 @@
             @if($today == 0)
                 <p>Günün yeni kelimesi geldi!</p>
             @elseif($today == 2)
-                <p>Günün kelimesini doğru tahmin ettin!</p>
+                <p class="text-green-600">Günün kelimesini doğru tahmin ettin!</p>
             @elseif($today == 3)
                 <p>Günün kelimesini bilemedin :( Yarın yine gel.</p>
             @elseif($today == 1)
