@@ -39,12 +39,12 @@ class MyGames extends Component
         $todayId = Today::orderBy('id', 'desc')->first()->id;
         $fastest = Game::where('today_id', $todayId)->where('winner_id', '!=', 2)->where('winner_id', '!=', null)->orderBy('duration', 'asc')->first();
         if($fastest != null){
-            $this->fastName = $fastest->user()->username;
+            $this->fastName = User::find($fastest->opponent_id)->first()->username;
             $this->fastValue = $fastest->duration;
         }
         $shortest = Game::where('today_id', $todayId)->where('winner_id', '!=', 2)->where('winner_id', '!=', null)->orderBy('guesscount', 'asc')->orderBy('duration', 'asc')->first();
         if($shortest != null){
-            $this->shortName = $shortest->user()->username;
+            $this->shortName = User::find($shortest->opponent_id)->first()->username;
             $this->shortValue = $shortest->guesscount;
         }
 
