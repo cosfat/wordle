@@ -4,6 +4,9 @@ namespace App\Console;
 
 use App\Models\Challenge;
 use App\Models\Game;
+use App\Models\Today;
+use App\Models\User;
+use App\Models\Word;
 use Carbon\Carbon;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
@@ -23,6 +26,39 @@ class Kernel extends ConsoleKernel
         $schedule->call(function () {
             DB::table('points')->delete();
         })->weeklyOn(1, '08:00');
+
+        // Todays Word
+        $schedule->call(function () {
+            $array = [4, 5, 6, 7];
+            $length =  array_rand(array_flip($array), 1);
+            $suggestQuery = DB::select(DB::raw("SELECT id, name, CHAR_LENGTH(name) AS 'chrlen' FROM words WHERE CHAR_LENGTH(name) = $length ORDER BY RAND() LIMIT 10"));
+            foreach ($suggestQuery as $item) {
+                if (Word::tdk($item->name)) {
+                    $wordId = $item->id;
+                    $today = new Today();
+                    $today->word_id = $wordId;
+                    $today->save();
+                    break;
+                }
+            }
+
+            $users = User::all();
+            foreach ($users as $user) {
+                $game = new Game();
+                $game->opponent_id = $user->id;
+                $game->word_id = $wordId;
+                $game->today_id = $today->id;
+                $game->user_id = 2;
+                $game->length = $length;
+                $game->save();
+            }
+
+            $exgames = Game::where('today_id', '!=', $today->id)->get();
+            foreach ($exgames as $exgame) {
+                $exgame->guesses()->delete();
+                $exgame->delete();
+            }
+        })->hourly();
 
         // 1 haftadır galibi olmayan klasik oyunları sil
         $schedule->call(function () {

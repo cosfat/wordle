@@ -15,8 +15,9 @@ class UserSummary extends Component
     public $ratio;
     public function mount($user)
     {
-        $challengeGames = array();
-        $this->user = User::findOrFail($user);
+        if($user != 2){
+            $challengeGames = array();
+            $this->user = User::findOrFail($user);
             $ngames = User::find($user)->opponentGames()->orderBy('id', 'desc')->limit(10)->pluck('id');
             $chgames = User::find($user)->challenges()->orderBy('id', 'desc')->limit(10)->pluck('challenge_id');
 
@@ -37,14 +38,18 @@ class UserSummary extends Component
                 usort($this->games, fn($a, $b) => $b['created_at'] <=> $a['created_at']);
             }
 
-        $winGames = Game::where('winner_id', $this->user->id)->count() + Challenge::where('winner_id', $this->user->id)->count();
-        $lostGames = Game::where('opponent_id', $this->user->id)->where('winner_id', '!=', $this->user->id)->where('winner_id', '!=', null)->count();
+            $winGames = Game::where('winner_id', $this->user->id)->count() + Challenge::where('winner_id', $this->user->id)->count();
+            $lostGames = Game::where('opponent_id', $this->user->id)->where('winner_id', '!=', $this->user->id)->where('winner_id', '!=', null)->count();
 
-        if($winGames + $lostGames == 0){
-            $this->ratio = 0;
+            if($winGames + $lostGames == 0){
+                $this->ratio = 0;
+            }
+            else{
+                $this->ratio = round(($winGames / ($winGames + $lostGames)) * 100, 1);
+            }
         }
         else{
-            $this->ratio = round(($winGames / ($winGames + $lostGames)) * 100, 1);
+            return redirect('/my-games');
         }
 
     }

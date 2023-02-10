@@ -7,6 +7,7 @@ use App\Events\GuessTyped;
 use App\Models\Challenge;
 use App\Models\Chuser;
 use App\Models\Point;
+use App\Models\Today;
 use App\Models\User;
 use App\Models\Word;
 use App\Models\Game;
@@ -83,7 +84,7 @@ class CreateGame extends Component
         $chGames = Chuser::where('user_id', Auth::id())->orderBy('id', 'desc')->limit(5)->get();
         foreach ($chGames as $chGame) {
             $chid = $chGame->challenge_id;
-            $chusers = Chuser::where('user_id', '!=', Auth::id())->where('challenge_id', $chid)->pluck('user_id');
+            $chusers = Chuser::where('user_id', '!=', Auth::id())->where('user_id', '!=', 2)->where('challenge_id', $chid)->pluck('user_id');
             foreach ($chusers as $chuser) {
                 $gamesArray[] = User::find($chuser)->username;
             }
@@ -91,7 +92,7 @@ class CreateGame extends Component
         $gamesArray = array_unique($gamesArray);
         if(count($gamesArray) < 1){
             $gamesMe = Game::where('user_id', Auth::id())->orderBy('id', 'desc')->limit(100)->get();
-            $gamesOp = Game::where('opponent_id', Auth::id())->orderBy('id', 'desc')->limit(100)->get();
+            $gamesOp = Game::where('opponent_id', Auth::id())->where('user_id', '!=', 2)->orderBy('id', 'desc')->limit(100)->get();
             foreach ($gamesMe as $game) {
                 $gamesArray[] = User::whereId($game->opponent_id)->first()->name;
             }
@@ -114,7 +115,7 @@ class CreateGame extends Component
     {
         $gamesArray = array();
 
-        $games = Game::where('user_id', Auth::id())->orWhere('opponent_id', Auth::id())->where('winner_id', '!=', null)->orderBy('id', 'desc')->limit(10)->get();
+        $games = Game::where('user_id', Auth::id())->orWhere('opponent_id', Auth::id())->where('user_id', '!=', 2)->where('winner_id', '!=', null)->orderBy('id', 'desc')->limit(10)->get();
         foreach ($games as $game) {
             if ($game->opponent_id == Auth::id()) {
                 $user = User::whereId($game->user_id)->first();
@@ -203,7 +204,7 @@ class CreateGame extends Component
         } else {
             $this->hideOpponent = false;
         }
-        $opponent = User::where('id', '!=', Auth::id())->inRandomOrder()->first();
+        $opponent = User::where('id', '!=', Auth::id())->where('id', '!=', 2)->inRandomOrder()->first();
         $this->opponent = $opponent->name;
         $this->opponentId = $opponent->id;
         $this->startGame = true;
@@ -214,7 +215,7 @@ class CreateGame extends Component
 
     public function autoChOpp()
     {
-        $opponent = User::where('id', '!=', Auth::id())->inRandomOrder()->first()->name;
+        $opponent = User::where('id', '!=', Auth::id())->where('id', '!=', 2)->inRandomOrder()->first()->name;
 
         $this->suggestChFriend[] = $opponent;
         $this->suggestChFriend = array_unique($this->suggestChFriend);
@@ -253,7 +254,7 @@ class CreateGame extends Component
     public function checkEmail()
     {
         $username = $this->opponentUserName;
-        $user = User::where('username', $username)->where('id', '!=', Auth::id());
+        $user = User::where('username', $username)->where('id', '!=', Auth::id())->where('id', '!=', 2);
 
         $existing = false;
 

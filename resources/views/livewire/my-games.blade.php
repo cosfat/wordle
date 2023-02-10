@@ -4,6 +4,71 @@
             DEVAM EDEN OYUNLAR</h2>
     </div>
     @include('loading')
+    <div class="p-5 gap-2 border-b-2">   <div class="flex flex-wrap">
+            <h2 class="text-2xl font-bold tracking-tight sm:text-center sm:text-4xl text-indigo-500">
+                Günün kelimesi</h2>
+        </div>
+        @if($fastName != null)
+        <div class="flex flex-wrap">
+            <p>En hızlı çözen: {{ $fastName }} : {{ $fastValue }} sn</p>
+        </div>
+        @endif
+        @if($shortName != null)
+        <div class="flex flex-wrap">
+            <p>En az tahminde çözen: {{ $shortName }} : {{ $shortValue }} tahmin</p>
+        </div>
+        @endif
+
+        <div class="flex flex-wrap">
+            @if($today == 0)
+                <p>Günün yeni kelimesi geldi!</p>
+            @elseif($today == 2)
+                <p>Günün kelimesini doğru tahmin ettin!</p>
+            @elseif($today == 3)
+                <p>Günün kelimesini bilemedin :( Yarın yine gel.</p>
+            @elseif($today == 1)
+                <p>Günün kelimesini çözmeye devam et!</p>
+            @endif
+        </div>
+        <div class="flex flex-wrap">
+            <div style="width: 33%">
+                <a href="/the-game/{{ $todayGame->id }}">
+                    @if($todayGame->chats()->where('user_id', '!=', \Illuminate\Support\Facades\Auth::id())->where('seen', 0)->exists())
+                        <div
+                            class="absolute mr-12 inline-flex items-center justify-center">
+                            <svg width="24px" height="24px" viewBox="0 0 24 24" fill="none"
+                                 xmlns="http://www.w3.org/2000/svg" stroke="#EF4444">
+                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                                <g id="SVGRepo_iconCarrier">
+                                    <path opacity="0.4" d="M8.5 10.5H15.5" stroke="#EF4444" stroke-width="1.5"
+                                          stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"></path>
+                                    <path
+                                        d="M7 18.4302H11L15.45 21.3902C16.11 21.8302 17 21.3602 17 20.5602V18.4302C20 18.4302 22 16.4302 22 13.4302V7.43018C22 4.43018 20 2.43018 17 2.43018H7C4 2.43018 2 4.43018 2 7.43018V13.4302C2 16.4302 4 18.4302 7 18.4302Z"
+                                        stroke="#EF4444" stroke-width="1.5" stroke-miterlimit="10"
+                                        stroke-linecap="round" stroke-linejoin="round"></path>
+                                </g>
+                            </svg>
+                        </div>
+                    @endif
+                    <div
+                        class="p-4 flex flex-col items-center text-center group hover:bg-slate-50 cursor-pointer">
+                        <span class="p-2 rounded-full
+                        bg-red-500 shadow-red-200
+                        text-white shadow-lg">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24"
+                                 stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round"
+                                                                                stroke-linejoin="round"
+                                                                                d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+                        </span>
+                        <p class="text-xl font-medium text-slate-700 mt-3">
+                            {{ \App\Models\User::whereId($todayGame->user_id)->first()->username }}
+                        </p>
+                        <p class="text-sm text-gray-600">{{ $todayGame->created_at->diffForHumans(\Carbon\Carbon::now()) }}</p>
+                    </div>
+                </a>
+            </div>
+        </div></div>
     <div class="p-5 gap-2 border-b-2">
         <div class="flex flex-wrap">
             <h2 class="text-2xl font-bold tracking-tight sm:text-center sm:text-4xl text-indigo-500">
@@ -57,7 +122,7 @@
 
                         <p class="text-xl font-medium text-slate-700 mt-3">
                             <strong>
-                                {{ substr($game->user->name, 0, 9)}}
+                                {{ $game->user->name }}
                             </strong>
                         </p>
                         <p class="text-sm text-gray-600">{{ $game->created_at->diffForHumans(\Carbon\Carbon::now()) }}</p>
@@ -152,7 +217,7 @@
                                                                                 d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
                         </span>
                         <p class="text-xl font-medium text-slate-700 mt-3">
-                            {{ substr(\App\Models\User::whereId($game[0]->user_id)->first()->username, 0, 9) }}
+                            {{ \App\Models\User::whereId($game[0]->user_id)->first()->username }}
                         </p>
                         <p class="text-sm text-gray-600">{{ $game[0]->created_at->diffForHumans(\Carbon\Carbon::now()) }}</p>
                     </div>
@@ -222,7 +287,7 @@
                                                                                 d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
                         </span>
                         <p class="text-xl font-medium text-slate-700 mt-3">
-                            {{ substr(\App\Models\User::whereId($game[0]->opponent_id)->first()->username, 0, 9) }}
+                            {{ \App\Models\User::whereId($game[0]->opponent_id)->first()->username }}
                         </p>
                         <p class="mt-2 text-sm text-slate-500">
                             {{ $game[0]->word->name }}

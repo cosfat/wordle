@@ -46,7 +46,8 @@
                                 <div class="flex items-center">
                                     <div class="mr-2">
                                     </div>
-                                    <a href="/user-summary/{{ $game->user->id }}">
+                                    @if($game->user->id != 2)
+                                    <a href="/user-summary/{{ $game->user->id }}">@endif
                                         <span class="font-medium">{{ $game->user->username }}</span></a>
                                 </div>
                             </td>

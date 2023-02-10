@@ -19,7 +19,7 @@ class LeaderBoard extends Component
         $user = Auth::user();
         $usersMyAll = array();
         $gamesMe = $user->games()->limit(20);
-        $gamesMyAll = $user->opponentGames()->limit(20)->union($gamesMe)->get();
+        $gamesMyAll = $user->opponentGames()->where('user_id', '!=', 2)->limit(20)->union($gamesMe)->get();
 
         foreach ($gamesMyAll as $item) {
             $usersMyAll[$item->user_id] = $item->user();
@@ -27,7 +27,7 @@ class LeaderBoard extends Component
         }
 
 
-        $this->all = Point::orderBy('point', 'desc')->limit(20);
+        $this->all = Point::orderBy('point', 'desc')->where('user_id', '!=', 2)->limit(20);
 
         foreach ($this->all->get() as $point) {
             if(isset($usersMyAll[$point->user_id]))

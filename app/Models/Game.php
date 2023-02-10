@@ -10,17 +10,12 @@ use Illuminate\Database\Eloquent\Model;
  * @property $id
  * @property $user_id
  * @property $opponent_id
- * @property $word
- * @property $word_1
- * @property $word_2
- * @property $word_3
- * @property $word_4
- * @property $word_5
- * @property $word_6
+ * @property $word_id
  * @property $seen
  * @property $winner_id
  * @property $guesscount
  * @property $degree
+ * @property $length
  * @property $today_id
  * @property $created_at
  * @property $updated_at
@@ -34,7 +29,7 @@ class Game extends Model
     static $rules = [
 		'user_id' => 'required',
 		'opponent_id' => 'required',
-		'word' => 'required',
+		'word_id' => 'required',
 		'seen' => '',
 		'seen2' => '',
 		'smiley' => '',

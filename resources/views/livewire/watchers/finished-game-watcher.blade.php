@@ -1,9 +1,13 @@
 <div name="finished-game-watcher">
     @include('loading')
     <div class="flex justify-center">
-        <a href="/user-summary/{{ \App\Models\User::where('username', $opponentName)->first()->id }}">
+        @if($opponentName == "Günün Kelimesi")
             <h2 class="text-2xl font-bold tracking-tight sm:text-center sm:text-4xl text-indigo-500">{{ $opponentName }}</h2>
-        </a>
+        @else
+            <a href="/user-summary/{{ \App\Models\User::where('username', $opponentName)->first()->id }}">
+                <h2 class="text-2xl font-bold tracking-tight sm:text-center sm:text-4xl text-indigo-500">{{ $opponentName }}</h2>
+            </a>
+        @endif
         <svg version="1.1" id="Uploaded to svgrepo.com" xmlns="http://www.w3.org/2000/svg"
              xmlns:xlink="http://www.w3.org/1999/xlink" width="48px" height="48px" viewBox="0 0 32 32"
              xml:space="preserve" fill="#FACC15"><g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -92,8 +96,10 @@
     </style>
     <div id="game-board">
     </div>
+    @if($opponentName != "Günün Kelimesi")
     @if($chat)
         <livewire:chat-wire :gameId="$gameId" :gameType="1" />
+    @endif
     @endif
     <script>
         let words = JSON.parse({!! json_encode(\App\Models\Word::pluck('name')->toJSON()) !!})

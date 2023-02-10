@@ -1,19 +1,24 @@
 <div name="the-game">
     @include('loading')
     <div class="flex justify-center mb-4">
-        <a href="/user-summary/{{ \App\Models\User::where('username', $opponentName)->first()->id }}">
+        @if($opponentName == "Günün Kelimesi")
             <h2 class="text-2xl font-bold tracking-tight sm:text-center sm:text-4xl text-indigo-500">{{ $opponentName }}</h2>
-        </a>
-        @if(\Illuminate\Support\Facades\Cache::has('user-is-online-' . \App\Models\User::where('username', $opponentName)->first()->id))
-            <span class="mt-2 ml-2" style="background-color: chartreuse; height: 25px;
-  width: 25px;
-  border-radius: 50%;
-  display: inline-block;">&nbsp;</span>
         @else
-            <span class="mt-2 ml-2" style="background-color: #494949 ; height: 25px;
+
+            <a href="/user-summary/{{ \App\Models\User::where('username', $opponentName)->first()->id }}">
+                <h2 class="text-2xl font-bold tracking-tight sm:text-center sm:text-4xl text-indigo-500">{{ $opponentName }}</h2>
+            </a>
+            @if(\Illuminate\Support\Facades\Cache::has('user-is-online-' . \App\Models\User::where('username', $opponentName)->first()->id))
+                <span class="mt-2 ml-2" style="background-color: chartreuse; height: 25px;
   width: 25px;
   border-radius: 50%;
   display: inline-block;">&nbsp;</span>
+            @else
+                <span class="mt-2 ml-2" style="background-color: #494949 ; height: 25px;
+  width: 25px;
+  border-radius: 50%;
+  display: inline-block;">&nbsp;</span>
+            @endif
         @endif
     </div>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
@@ -119,19 +124,24 @@
             <button class="keyboard-button bg-red-500 text-white">TEMİZLE</button>
         </div>
     </div>
+    @if($opponentName != "Günün Kelimesi")
     <livewire:chat-wire :gameId="$gameId" :gameType="1" />
+    @endif
     <script>
         let words = JSON.parse({!! json_encode(\App\Models\Word::pluck('name')->toJSON()) !!})
         let guesses = @json($guessesArray);
 
         let chatMode = false;
 
-        document.getElementById('chatInput').onfocus = function (){
-            chatMode = true
-        }
+        if(document.getElementById('chatInput')){
 
-        document.getElementById('chatInput').onblur = function (){
-            chatMode = false;
+            document.getElementById('chatInput').onfocus = function (){
+                chatMode = true
+            }
+
+            document.getElementById('chatInput').onblur = function (){
+                chatMode = false;
+            }
         }
 
         const NUMBER_OF_GUESSES = {{ $length + 1 }};

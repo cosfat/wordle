@@ -7,6 +7,7 @@ use App\Models\Chguess;
 use App\Models\Chuser;
 use App\Models\Game;
 use App\Models\Guess;
+use App\Models\Today;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
@@ -14,6 +15,12 @@ use Livewire\Component;
 class MyGames extends Component
 {
     public $gameId;
+    public $today = 0;
+    public $todayGame;
+    public $shortName = null;
+    public $fastName = null;
+    public $shortValue = null;
+    public $fastValue = null;
 
     protected $listeners = ['MyGames' => '$refresh'];
 
@@ -28,10 +35,41 @@ class MyGames extends Component
 
     protected $user;
 
+    public function mount(){
+        $todayId = Today::orderBy('id', 'desc')->first()->id;
+        $fastest = Game::where('today_id', $todayId)->where('winner_id', '!=', 2)->where('winner_id', '!=', null)->orderBy('duration', 'asc')->first();
+        if($fastest != null){
+            $this->fastName = $fastest->user()->username;
+            $this->fastValue = $fastest->duration;
+        }
+        $shortest = Game::where('today_id', $todayId)->where('winner_id', '!=', 2)->where('winner_id', '!=', null)->orderBy('guesscount', 'asc')->orderBy('duration', 'asc')->first();
+        if($shortest != null){
+            $this->shortName = $shortest->user()->username;
+            $this->shortValue = $shortest->guesscount;
+        }
+
+
+        $game = Auth::user()->opponentGames()->where('today_id', $todayId)->first();
+        if($game->seen == 0){
+            $this->today = 0;
+        }
+        elseif ($game->winner_id == Auth::id()){
+            $this->today = 2;
+        }
+        elseif ($game->winner_id == 2){
+            $this->today = 3;
+        }
+        else{
+            $this->today = 1;
+        }
+
+        $this->todayGame = $game;
+    }
+
 
     public function new()
     {
-        return Auth::user()->opponentGames()->where('seen', 0)->orderBy('id', 'desc')->get();
+        return Auth::user()->opponentGames()->where('seen', 0)->where('user_id', '!=', 2)->orderBy('id', 'desc')->get();
     }
 
     public function newChallenges()
@@ -86,7 +124,7 @@ class MyGames extends Component
         $this->gamesMe = $gamesMe->groupBy('id');
 
 
-        $gamesOpp = Auth::user()->opponentGames()->select(['games.*'])
+        $gamesOpp = Auth::user()->opponentGames()->where('user_id', '!=', 2)->select(['games.*'])
             ->leftJoin('guesses', 'games.id', '=', 'guesses.game_id')
             ->whereNull('winner_id')
             ->orderBy('guesses.created_at', 'desc')->get();
