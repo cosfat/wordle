@@ -15,7 +15,7 @@ use Livewire\Component;
 class MyGames extends Component
 {
     public $gameId;
-    public $today = 1;
+    public $today = 0;
     public $todayGame;
     public $shortName = null;
     public $fastName = null;
@@ -36,37 +36,34 @@ class MyGames extends Component
     protected $user;
 
     public function mount(){
-        if($todayId = Today::orderBy('id', 'desc')->first() != null){
-
-            $todayId = Today::orderBy('id', 'desc')->first()->id;
-            $fastest = Game::where('today_id', $todayId)->where('winner_id', '!=', 2)->where('winner_id', '!=', null)->orderBy('duration', 'asc')->first();
-            if($fastest != null){
-                $this->fastName = $fastest->user()->username;
-                $this->fastValue = $fastest->duration;
-            }
-            $shortest = Game::where('today_id', $todayId)->where('winner_id', '!=', 2)->where('winner_id', '!=', null)->orderBy('guesscount', 'asc')->orderBy('duration', 'asc')->first();
-            if($shortest != null){
-                $this->shortName = $shortest->user()->username;
-                $this->shortValue = $shortest->guesscount;
-            }
-
-
-            $game = Auth::user()->opponentGames()->where('today_id', $todayId)->first();
-            if($game->seen == 0){
-                $this->today = 0;
-            }
-            elseif ($game->winner_id == Auth::id()){
-                $this->today = 2;
-            }
-            elseif ($game->winner_id == 2){
-                $this->today = 3;
-            }
-            else{
-                $this->today = 1;
-            }
-
-            $this->todayGame = $game;
+        $todayId = Today::orderBy('id', 'desc')->first()->id;
+        $fastest = Game::where('today_id', $todayId)->where('winner_id', '!=', 2)->where('winner_id', '!=', null)->orderBy('duration', 'asc')->first();
+        if($fastest != null){
+            $this->fastName = $fastest->user()->username;
+            $this->fastValue = $fastest->duration;
         }
+        $shortest = Game::where('today_id', $todayId)->where('winner_id', '!=', 2)->where('winner_id', '!=', null)->orderBy('guesscount', 'asc')->orderBy('duration', 'asc')->first();
+        if($shortest != null){
+            $this->shortName = $shortest->user()->username;
+            $this->shortValue = $shortest->guesscount;
+        }
+
+
+        $game = Auth::user()->opponentGames()->where('today_id', $todayId)->first();
+        if($game->seen == 0){
+            $this->today = 0;
+        }
+        elseif ($game->winner_id == Auth::id()){
+            $this->today = 2;
+        }
+        elseif ($game->winner_id == 2){
+            $this->today = 3;
+        }
+        else{
+            $this->today = 1;
+        }
+
+        $this->todayGame = $game;
     }
 
 
