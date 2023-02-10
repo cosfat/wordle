@@ -59,7 +59,7 @@ class MyGames extends Component
         elseif ($game->winner_id == 2){
             $this->today = 3;
         }
-        else{
+        elseif($game->winner_id == null){
             $this->today = 1;
         }
 

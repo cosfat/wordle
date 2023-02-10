@@ -52,12 +52,12 @@ class Kernel extends ConsoleKernel
                 $game->length = $length;
                 $game->save();
             }
-
+/*
             $exgames = Game::where('today_id', '!=', $today->id)->where('today_id', '!=', null)->get();
             foreach ($exgames as $exgame) {
                 $exgame->guesses()->delete();
                 $exgame->delete();
-            }
+            }*/
         })->everyFourHours();
 
         // 1 haftadır galibi olmayan klasik oyunları sil
