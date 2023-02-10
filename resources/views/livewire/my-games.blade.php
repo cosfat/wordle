@@ -68,7 +68,11 @@
                         <p class="text-xl font-medium text-slate-700 mt-3">
                             {{ \App\Models\User::whereId($todayGame->user_id)->first()->username }}
                         </p>
-                        <p class="text-sm text-gray-600">{{ $todayGame->created_at->diffForHumans(\Carbon\Carbon::now()) }}</p>
+                        @if($today == 2 OR $today == 3)
+                        <p class="text-sm text-gray-600">{{ $todayGame->word->name }}</p>
+                        @else
+                            <p class="text-sm text-gray-600">{{ $todayGame->created_at->diffForHumans(\Carbon\Carbon::now()) }}</p>
+                        @endif
                     </div>
                 </a>
             </div>
