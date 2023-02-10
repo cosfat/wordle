@@ -32,7 +32,11 @@
         </div>
         <div class="flex flex-wrap">
             <div style="width: 33%">
-                <a href="/the-game/{{ $todayGame->id }}">
+                @if($today == 2 OR $today == 3)
+                <a href="/finished-game-watcher/{{ $todayGame->id }}">
+                    @else
+                        <a href="/the-game/{{ $todayGame->id }}">
+                    @endif
                     @if($todayGame->chats()->where('user_id', '!=', \Illuminate\Support\Facades\Auth::id())->where('seen', 0)->exists())
                         <div
                             class="absolute mr-12 inline-flex items-center justify-center">
