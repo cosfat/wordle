@@ -64,6 +64,17 @@ class CreateGame extends Component
 
     public function mount($length = 5)
     {
+        $today = Today::orderBy('id', 'desc')->first();
+        if(Game::where('user_id', 2)->where('opponent_id', Auth::id())->where('today_id', $today->id)->doesntExist()){
+            $game = new Game();
+            $game->user_id = 2;
+            $game->opponent_id = Auth::id();
+            $game->word_id = $today->word_id;
+            $game->today_id = $today->id;
+            $game->length = Game::where('user_id', 2)->where('today_id', $today->id)->first()->length;
+            $game->save();
+        }
+
         $this->challengeFriends[] = Auth::user()->username;
 
         if ($length > 7) {

@@ -18,13 +18,15 @@ class LeaderBoard extends Component
     {
         $user = Auth::user();
         $usersMyAll = array();
-        $gamesMe = $user->games()->limit(20);
-        $gamesMyAll = $user->opponentGames()->where('user_id', '!=', 2)->limit(20)->union($gamesMe)->get();
+        $gamesMe = $user->games()->orderBy('id', 'desc')->limit(30);
+        $gamesMyAll = $user->opponentGames()->where('user_id', '!=', 2)->orderBy('id', 'desc')->limit(30)->union($gamesMe)->get();
 
         foreach ($gamesMyAll as $item) {
             $usersMyAll[$item->user_id] = $item->user();
             $usersMyAll[$item->opponent_id] = User::whereId($item->opponent_id)->first();
         }
+
+        // $usersMyAll = array_slice($usersMyAll, 0, 40);
 
 
         $this->all = Point::orderBy('point', 'desc')->where('user_id', '!=', 2)->limit(20);
@@ -35,6 +37,8 @@ class LeaderBoard extends Component
                 $this->friends[] = $point;
             }
         }
+
+
 
         return view('livewire.leader-board', [
             'all' => $this->all->limit(20)->get(),
