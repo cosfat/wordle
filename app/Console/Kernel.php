@@ -58,7 +58,7 @@ class Kernel extends ConsoleKernel
                 $exgame->guesses()->delete();
                 $exgame->delete();
             }
-        })->hourly();
+        })->everyFourHours();
 
         // 1 haftadır galibi olmayan klasik oyunları sil
         $schedule->call(function () {
