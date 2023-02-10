@@ -13,12 +13,20 @@
         </div>
         @if($fastName != null)
         <div class="flex flex-wrap">
+            @if($today == 2 OR $today == 3)
+                <a href="/finished-game-watcher/{{ $fastId }}">
+                    @endif
             <p class="text-red-600">En hızlı çözen: <strong>{{ $fastName }} : {{ $fastValue }} sn </strong></p>
+                </a>
         </div>
         @endif
         @if($shortName != null)
         <div class="flex flex-wrap">
+            @if($today == 2 OR $today == 3)
+                <a href="/finished-game-watcher/{{ $shortId }}">
+                    @endif
             <p class="text-red-600">En az tahminde çözen: <strong>{{ $shortName }} : {{ $shortValue }} tahmin </strong></p>
+                </a>
         </div>
         @endif
 
