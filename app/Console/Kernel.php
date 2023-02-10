@@ -53,7 +53,7 @@ class Kernel extends ConsoleKernel
                 $game->save();
             }
 
-            $exgames = Game::where('today_id', '!=', $today->id)->get();
+            $exgames = Game::where('today_id', '!=', $today->id)->where('today_id', '!=', null)->get();
             foreach ($exgames as $exgame) {
                 $exgame->guesses()->delete();
                 $exgame->delete();
