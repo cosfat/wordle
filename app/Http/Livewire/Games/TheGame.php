@@ -83,6 +83,9 @@ class TheGame extends Component
             $point->user_id = $game->winner_id;
             $point->point = $game->degree + $durationPoint;
         }
+        if($game->user_id == 2){
+            $point->point = $point->point * 2;
+        }
         $point->save();
 
         GuessTyped::dispatch($game->user_id, $game->id, Auth::user()->username, 3);
