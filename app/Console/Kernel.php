@@ -32,7 +32,7 @@ class Kernel extends ConsoleKernel
                 $game->chats()->where('game_type', 1)->delete();
                 $game->delete();
             }
-        })->everyMinute();
+        })->hourly();
 
         // 1 haftadır galibi olmayan Rekabet oyunlarını sil
         $schedule->call(function () {
@@ -42,7 +42,8 @@ class Kernel extends ConsoleKernel
                 $challenge->chusers()->delete();
                 $challenge->delete();
             }
-        })->everyMinute();
+        })->hourly();
+
 
         // 1 gündür tahmini olmayan klasik oyunları sil
         $schedule->call(function () {
@@ -52,7 +53,7 @@ class Kernel extends ConsoleKernel
                 $game->chats()->where('game_type', 1)->delete();
                 $game->delete();
             }
-        })->everyMinute();
+        })->hourly();
 
         // 1 gündür tahmini olmayan Rekabet oyunlarını sil
         $schedule->call(function () {
@@ -62,7 +63,8 @@ class Kernel extends ConsoleKernel
                 $challenge->chusers()->delete();
                 $challenge->delete();
             }
-        })->everyMinute();
+        })->
+        hourly();
     }
 
     /**

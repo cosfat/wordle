@@ -21,6 +21,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property $winner_id
  * @property $guesscount
  * @property $degree
+ * @property $today_id
  * @property $created_at
  * @property $updated_at
  *
