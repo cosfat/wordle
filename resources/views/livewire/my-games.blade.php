@@ -58,7 +58,11 @@
                     <div
                         class="p-4 flex flex-col items-center text-center group hover:bg-slate-50 cursor-pointer">
                         <span class="p-2 rounded-full
-                        bg-red-500 shadow-red-200
+                        @if($today == 2 OR $today == 3)
+                        bg-indigo-500 shadow-indigo-200
+                        @else
+                            bg-red-500 shadow-red-200
+                            @endif
                         text-white shadow-lg">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24"
                                  stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round"
