@@ -197,7 +197,7 @@
         </div>
         <div class="flex flex-wrap">
             @if($gamesOpp->count() == 0)
-                <p>Hiç oyunun yok, yeni oyun <a href="/create-game" class="text-indigo-500">başlatmak için tıkla!</a>
+                <p>Hiç oyunun yok, oyunu arkadaşlarına tavsiye edebilirsin!
                 </p>
             @endif
             @foreach($gamesOpp as $game)

@@ -2,8 +2,8 @@
 #notifyBar {
     visibility: hidden; /* Hidden by default. Visible on click */
     font-weight: bold;
-    width: 250px; /* Set a default minimum width */
-    margin-left: -125px; /* Divide value of min-width by 2 */
+    width: 300px; /* Set a default minimum width */
+    margin-left: -150px; /* Divide value of min-width by 2 */
     background-color: #FACC15; /* Black background color */
     color: rgb(79, 70, 229); /* White text color */
     text-align: center; /* Centered text */
