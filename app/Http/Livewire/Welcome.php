@@ -11,14 +11,7 @@ class Welcome extends Component
     {
         if(Auth::check())
         {
-            if(Auth::user()->games()->count() > 0)
-            {
-                return redirect()->to('/my-games');
-            }
-            else
-            {
-                return redirect()->to('/create-game');
-            }
+            return redirect()->to('/create-game');
         }
         else{
             return view('livewire.welcome');
