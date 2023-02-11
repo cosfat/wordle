@@ -48,9 +48,9 @@ class MyGames extends Component
         }
         $shortest = Game::where('today_id', $todayId)->where('winner_id', '!=', 2)->where('winner_id', '!=', null)->orderBy('guesscount', 'asc')->orderBy('duration', 'asc')->first();
         if($shortest != null){
-            $sechortName = User::find($shortest->opponent_id)->username;
-            $sechortId = $shortest->id;
-            $sechortValue = $shortest->guesscount;
+            $this->shortName = User::find($shortest->opponent_id)->username;
+            $this->shortId = $shortest->id;
+            $this->shortValue = $shortest->guesscount;
         }
 
 
