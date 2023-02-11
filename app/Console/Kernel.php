@@ -53,7 +53,10 @@ class Kernel extends ConsoleKernel
                 $game->save();
             }
 
-            $exTodays = Game::where('today_id', '!=', null)->where('today_id', '!=', $today->id)->get();
+            $exTodays = Game::where('today_id', '!=', null)
+                ->where('today_id', '!=', $today->id)
+                ->where('today_id', '!=', 0)
+                ->get();
             foreach ($exTodays as $exToday) {
                 $exToday->seen = 1;
                 $exToday->seen2 = 1;
