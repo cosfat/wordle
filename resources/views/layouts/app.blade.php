@@ -122,7 +122,7 @@
                              width="48px" height="48px"
                              @else
                              width="44px" height="44px"
-                             @endif viewBox="0 0 32 32" version="1.1"
+                             @endif viewBox="0 0 30 30" version="1.1"
                              xmlns="http://www.w3.org/2000/svg">
                             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                             <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -139,7 +139,7 @@
                              width="48px" height="48px"
                              @else
                              width="38px" height="38px"
-                             @endif viewBox="0 0 48 48"
+                             @endif viewBox="0 0 44 44"
                              xmlns="http://www.w3.org/2000/svg"
                              @if(\App\Models\Game::where('opponent_id', \Illuminate\Support\Facades\Auth::id())->where('seen', 0)->exists() OR
                             App\Models\Game::where('user_id', \Illuminate\Support\Facades\Auth::id())->whereNull('winner_id')->where('seen2', 0)->exists())
