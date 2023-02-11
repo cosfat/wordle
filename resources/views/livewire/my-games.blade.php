@@ -16,7 +16,7 @@
             @if($today == 2 OR $today == 3)
                 <a href="/finished-game-watcher/{{ $fastId }}">
                     @endif
-            <p class="text-red-600">En hızlı çözen: <strong>{{ $fastName }} : {{ $fastValue }} sn </strong></p>
+            <p class="text-red-600">En hızlı çözen: <strong>{{ $fastName }} : {{ $fastValue }}</strong></p>
                 </a>
         </div>
         @endif

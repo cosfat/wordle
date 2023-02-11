@@ -43,13 +43,13 @@ class MyGames extends Component
         if($fastest != null){
             $this->fastName = User::find($fastest->opponent_id)->username;
             $this->fastId = $fastest->id;
-            $this->fastValue = $fastest->duration;
+            $this->fastValue = $this->secondHuman($fastest->duration);
         }
         $shortest = Game::where('today_id', $todayId)->where('winner_id', '!=', 2)->where('winner_id', '!=', null)->orderBy('guesscount', 'asc')->orderBy('duration', 'asc')->first();
         if($shortest != null){
-            $this->shortName = User::find($shortest->opponent_id)->username;
-            $this->shortId = $shortest->id;
-            $this->shortValue = $shortest->guesscount;
+            $sechortName = User::find($shortest->opponent_id)->username;
+            $sechortId = $shortest->id;
+            $sechortValue = $shortest->guesscount;
         }
 
 
@@ -142,5 +142,45 @@ class MyGames extends Component
             'newChallenges' => $this->newChallenges(),
             'activeChallenges' => $this->activeChallenges()
         ]);
+    }
+
+    public function secondHuman($second)
+    {
+        if ($second < 60) {
+            $day = 0;
+            $hour = 0;
+            $min = 0;
+            $sec = $second;
+        } elseif ($second >= 60 and $second < 3600) {
+            $day = 0;
+            $hour = 0;
+            $min = floor($second / 60);
+            $sec = $second % 60;
+        } elseif ($second >= 3600 and $second < 86400) {
+            $day = 0;
+            $hour = floor($second / 3600);
+            $min = floor($second / 60);
+            $sec = $second % 60;
+        } elseif ($second >= 86400) {
+            $day = floor($second / 86400);;
+            $hour = floor($second / 3600);
+            $min = floor($second / 60);
+            $sec = $second % 60;
+        }
+
+        if ($sec < 10) {
+            $sec = "0" . $sec;
+        }
+        if ($min < 10) {
+            $min = "0" . $min;
+        }
+        if($min == "00"){
+
+            return $sec." sn";
+        }
+        else{
+
+            return $min." dk ".$sec." sn";
+        }
     }
 }
