@@ -90,7 +90,7 @@
                     </div>
                 </a>
             </div>
-            <div style="width: 66%">
+            <div style="width: 66%" class="mt2">
                 @if(count($todays) > 0)
                     @php($x = 1)
                     @foreach($todays as $todayUser)
