@@ -11,6 +11,17 @@
         <div class="flex flex-wrap text-sm">
            Her 4 saatte bir yeni kelime gelir
         </div>
+        <div class="flex flex-wrap">
+            @if($today == 0)
+                <p>Günün yeni kelimesi geldi!</p>
+            @elseif($today == 2)
+                <p class="text-green-600">Günün kelimesini doğru tahmin ettin!</p>
+            @elseif($today == 3)
+                <p>Günün kelimesini bilemedin :( Yeni kelime 4 saat içinde!</p>
+            @elseif($today == 1)
+                <p>Günün kelimesini çözmeye devam et!</p>
+            @endif
+        </div>
         @if($fastName != null)
         <div class="flex flex-wrap">
             @if($today == 2 OR $today == 3)
@@ -29,18 +40,6 @@
                 </a>
         </div>
         @endif
-
-        <div class="flex flex-wrap">
-            @if($today == 0)
-                <p>Günün yeni kelimesi geldi!</p>
-            @elseif($today == 2)
-                <p class="text-green-600">Günün kelimesini doğru tahmin ettin!</p>
-            @elseif($today == 3)
-                <p>Günün kelimesini bilemedin :( Yeni kelime 4 saat içinde!</p>
-            @elseif($today == 1)
-                <p>Günün kelimesini çözmeye devam et!</p>
-            @endif
-        </div>
         <div class="flex flex-wrap">
             <div style="width: 33%">
                 @if($today == 2 OR $today == 3)
