@@ -24,8 +24,8 @@
         <div class="flex flex-wrap">
             @if($today == 2 OR $today == 3)
                 <a href="/finished-game-watcher/{{ $shortId }}">
-                    @endif
-            <p class="text-red-600">En az tahminde çözen: <strong>{{ $shortName }} : {{ $shortValue }} tahmin </strong></p>
+            @endif
+                    <p class="text-red-600">En az tahminde çözen: <strong>{{ $shortName }} : {{ $shortValue }} tahmin </strong></p>
                 </a>
         </div>
         @endif
@@ -90,6 +90,15 @@
                         @endif
                     </div>
                 </a>
+            </div>
+            <div style="width: 66%">
+                @if(count($todays) > 0)
+                    @foreach($todays as $todayUser)
+                        @if($today == 2 OR $today == 3)
+                        <a href="/finished-game-watcher/{{ $todayUser[0] }}">@endif
+                            <span class="text-sm border-b">{{ key($todayUser) + 1 }} - {{ $todayUser[1] }}: {{ $todayUser[2] }}, {{ $todayUser[3] }} tahmin</span></a><br>
+                            @endforeach
+                    @endif
             </div>
         </div></div>
     <div class="p-5 gap-2 border-b-2">

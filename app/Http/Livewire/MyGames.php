@@ -16,6 +16,7 @@ class MyGames extends Component
 {
     public $gameId;
     public $today = 0;
+    public $todays = array();
     public $todayGame;
     public $shortName = null;
     public $shortId = null;
@@ -68,6 +69,11 @@ class MyGames extends Component
         }
 
         $this->todayGame = $game;
+
+        $todayScores = Game::where('user_id', 2)->where('today_id', $todayId)->where('winner_id', '!=', null)->orderBy('degree', 'desc')->limit(5)->get();
+        foreach ($todayScores as $todayScore) {
+            $this->todays[] = array($todayScore->opponent_id, User::find($todayScore->opponent_id)->username, $this->secondHuman($todayScore->duration), $todayScore->guesscount);
+        }
     }
 
 
