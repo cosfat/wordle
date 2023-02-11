@@ -61,31 +61,36 @@ class TheGame extends Component
     {
         $game = Game::whereId($this->gameId)->first();
         $game->winner_id = $game->opponent_id;
-        $game->degree = ($game->length - $game->guesscount + 3) * 5;
+        $degree = ($game->length - $game->guesscount + 3) * 5;
+
+        if($game->user_id == 2){
+            $degree = $degree * 2;
+        }
         if($game->guesses()->count() == 1){
-            $game->duration = $game->created_at->diffInSeconds($game->guesses()->first()->created_at);
+            $duration = $game->created_at->diffInSeconds($game->guesses()->first()->created_at);
         }
         else{
             $first = $game->guesses()->orderBy('id', 'asc')->first()->created_at;
             $last = $game->guesses()->orderBy('id', 'desc')->first()->created_at;
-            $game->duration = $first->diffInSeconds($last);
-        }
-        $game->save();
+            $duration = $first->diffInSeconds($last);
 
-        $point = Point::whereUser_id($game->winner_id);
-        $durationPoint = round(500 / $game->duration);
+        }
+        $durationPoint = round(500 / $duration);
+        $point = Point::whereUser_id($game->opponent_id);
         if($point->exists()){
             $point = $point->first();
-            $point->point = $point->point + $game->degree + $durationPoint;
+            $point->point = $point->point + $degree + $durationPoint;
         }
         else {
             $point = new Point;
             $point->user_id = $game->winner_id;
-            $point->point = $game->degree + $durationPoint;
+            $point->point = $degree + $durationPoint;
         }
-        if($game->user_id == 2){
-            $point->point = $point->point * 2;
-        }
+
+
+        $game->degree = $degree + $durationPoint;
+        $game->duration = $duration;
+        $game->save();
         $point->save();
 
         GuessTyped::dispatch($game->user_id, $game->id, Auth::user()->username, 3);
