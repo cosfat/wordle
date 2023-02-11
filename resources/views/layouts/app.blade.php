@@ -119,7 +119,7 @@
                     <a href="/create-game">
                         <svg fill="#FACC15"
                              @if(strpos(url()->current(), 'create-game'))
-                             width="52px" height="52px"
+                             width="48px" height="48px"
                              @else
                              width="44px" height="44px"
                              @endif viewBox="0 0 32 32" version="1.1"
@@ -136,7 +136,7 @@
                     <a href="/my-games">
                         <svg id="games"
                              @if(strpos(url()->current(), 'my-games'))
-                             width="52px" height="52px"
+                             width="48px" height="48px"
                              @else
                              width="38px" height="38px"
                              @endif viewBox="0 0 48 48"
