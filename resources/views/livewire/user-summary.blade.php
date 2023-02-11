@@ -48,7 +48,13 @@
                                     </div>
                                     @if($game->user->id != 2)
                                     <a href="/user-summary/{{ $game->user->id }}">@endif
-                                        <span class="font-medium">{{ $game->user->username }}</span></a>
+                                        @if($game->user->id == 2)
+                                            <span class="font-medium font-bold text-red-600">{{ $game->user->username }}</span>
+                                        @else
+
+                                            <span class="font-medium">{{ $game->user->username }}</span>
+                                        @endif
+                                    </a>
                                 </div>
                             </td>
                             <td class="py-3  text-center whitespace-nowrap">
