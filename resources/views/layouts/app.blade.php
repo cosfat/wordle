@@ -43,11 +43,9 @@
                 } else if (e.type === 2) {
                     notifyGame(e.username + " rekabet tahmininde bulundu!", "the-challenge-game/" + e.game);
                     Livewire.emit('refreshChallengeGameWatcher');
-                }else if (e.type === 3) {
+                } else if (e.type === 3) {
                     notifyGame(e.username + " oyunu kazandı!", "finished-game-watcher/" + e.game);
-                }
-
-                else if (e.type === 4) {
+                } else if (e.type === 4) {
                     notifyGame(e.username + " rekabeti kazandı!", "finished-challenge-game-watcher/" + e.game);
                     window.location.href = "/finished-challenge-game-watcher/" + e.game;
                 }
@@ -97,7 +95,13 @@
 
 
                     <a href="/game-logs">
-                        <svg fill="#facc15" width="54px" height="54px" viewBox="0 0 96 96"
+                        <svg fill="#facc15"
+                             @if(strpos(url()->current(), 'game-logs'))
+                             width="48px" height="48px"
+                             @else
+                             width="34px" height="34px"
+                             @endif
+                             viewBox="0 0 96 96"
                              xmlns="http://www.w3.org/2000/svg" stroke="#facc15">
                             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                             <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -113,7 +117,12 @@
                     </a>
 
                     <a href="/create-game">
-                        <svg fill="#FACC15" width="64px" height="64px" viewBox="0 0 32 32" version="1.1"
+                        <svg fill="#FACC15"
+                             @if(strpos(url()->current(), 'create-game'))
+                             width="58px" height="58px"
+                             @else
+                             width="44px" height="44px"
+                             @endif viewBox="0 0 32 32" version="1.1"
                              xmlns="http://www.w3.org/2000/svg">
                             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                             <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -125,7 +134,12 @@
                     </a>
 
                     <a href="/my-games">
-                        <svg id="games" width="68px" height="68px" viewBox="0 0 48 48"
+                        <svg id="games"
+                             @if(strpos(url()->current(), 'my-games'))
+                             width="60px" height="60px"
+                             @else
+                             width="38px" height="38px"
+                             @endif viewBox="0 0 48 48"
                              xmlns="http://www.w3.org/2000/svg"
                              @if(\App\Models\Game::where('opponent_id', \Illuminate\Support\Facades\Auth::id())->where('seen', 0)->exists() OR
                             App\Models\Game::where('user_id', \Illuminate\Support\Facades\Auth::id())->whereNull('winner_id')->where('seen2', 0)->exists())
@@ -147,7 +161,12 @@
                     </a>
 
                     <a href="/leader-board">
-                        <svg width="54px" height="54px" viewBox="0 0 6.3500002 6.3500002" id="svg1976" version="1.1"
+                        <svg
+                            @if(strpos(url()->current(), 'leader-board'))
+                            width="48px" height="48px"
+                            @else
+                            width="34px" height="34px"
+                            @endif viewBox="0 0 6.3500002 6.3500002" id="svg1976" version="1.1"
                              xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#"
                              xmlns:dc="http://purl.org/dc/elements/1.1/"
                              xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
@@ -184,7 +203,12 @@
                     @else
 
                         <a href="/my-profile">
-                            <svg width="54px" height="54px" viewBox="0 0 24 24" fill="none"
+                            <svg
+                                @if(strpos(url()->current(), 'my-profile'))
+                                width="48px" height="48px"
+                                @else
+                                width="34px" height="34px"
+                                @endif viewBox="0 0 24 24" fill="none"
                                  xmlns="http://www.w3.org/2000/svg">
                                 <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                                 <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
