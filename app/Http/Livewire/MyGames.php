@@ -41,15 +41,6 @@ class MyGames extends Component
     public function mount(){
 
         $todayId = Today::orderBy('id', 'desc')->first()->id;
-        $exTodays = Game::where('today_id', '!=', null)->where('today_id', '!=', $todayId)->where('today_id', '!=', 0)->get();
-
-        foreach ($exTodays as $exToday) {
-            $exToday->seen = 1;
-            $exToday->seen2 = 1;
-            $exToday->save();
-        }
-
-
 
         $fastest = Game::where('today_id', $todayId)->where('winner_id', '!=', 2)->where('winner_id', '!=', null)->orderBy('duration', 'asc')->first();
         if($fastest != null){
