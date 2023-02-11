@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property $opponent_id
  * @property $word_id
  * @property $seen
+ * @property $seen2
  * @property $winner_id
  * @property $guesscount
  * @property $degree
