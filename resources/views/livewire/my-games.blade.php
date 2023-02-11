@@ -96,7 +96,7 @@
                     @foreach($todays as $todayUser)
                         @if($today == 2 OR $today == 3)
                         <a href="/finished-game-watcher/{{ $todayUser[0] }}">@endif
-                            <span class="text-sm border-b">{{ $x }} - {{ ucfirst($todayUser[1]) }}: {{ $todayUser[2] }}, {{ $todayUser[3] }} tahmin</span></a><br>
+                            <span class="text-sm border-b text-indigo-500">{{ $x }} - {{ ucfirst($todayUser[1]) }}: {{ $todayUser[2] }}, {{ $todayUser[3] }} tahmin</span></a><br>
                         @php($x+=1)
                             @endforeach
                     @endif
