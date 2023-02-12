@@ -63,7 +63,7 @@ class ChatWire extends Component
     public function render()
     {
         if($this->gameType == 1 OR $this->gameType == 2){
-            $chats = $this->game->chats();
+            $chats = $this->game->chats()->where('game_type', $this->gameType);
         }
         else{
             $chats = Chat::where('game_type', $this->today);
