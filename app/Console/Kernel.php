@@ -25,7 +25,7 @@ class Kernel extends ConsoleKernel
         // Her hafta puanları sıfırla
         $schedule->call(function () {
             DB::table('points')->delete();
-        })->weeklyOn(1, '08:00');
+        })->weeklyOn(1, '00:00');
 
         // Todays Word
         $schedule->call(function () {
