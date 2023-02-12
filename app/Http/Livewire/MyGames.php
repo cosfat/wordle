@@ -51,13 +51,13 @@ class MyGames extends Component
         }
         $todayId = $today->id;
 
-        $fastest = Game::where('today_id', $todayId)->where('winner_id', '!=', 2)->where('winner_id', '!=', null)->orderBy('duration', 'asc')->first();
+        $fastest = Game::where('opponent_id', '!=', 15)->where('opponent_id', '!=', 14)->where('today_id', $todayId)->where('winner_id', '!=', 2)->where('winner_id', '!=', null)->orderBy('duration', 'asc')->first();
         if($fastest != null){
             $this->fastName = User::find($fastest->opponent_id)->username;
             $this->fastId = $fastest->id;
             $this->fastValue = $this->secondHuman($fastest->duration);
         }
-        $shortest = Game::where('today_id', $todayId)->where('winner_id', '!=', 2)->where('winner_id', '!=', null)->orderBy('guesscount', 'asc')->orderBy('duration', 'asc')->first();
+        $shortest = Game::where('opponent_id', '!=', 15)->where('opponent_id', '!=', 14)->where('today_id', $todayId)->where('winner_id', '!=', 2)->where('winner_id', '!=', null)->orderBy('guesscount', 'asc')->orderBy('duration', 'asc')->first();
         if($shortest != null){
             $this->shortName = User::find($shortest->opponent_id)->username;
             $this->shortId = $shortest->id;
@@ -82,12 +82,13 @@ class MyGames extends Component
         $this->todayGame = $game;
 
         $todayScores = Game::where('user_id', 2)
+            ->where('opponent_id', '!=', 15)->where('opponent_id', '!=', 14)
             ->where('today_id', $todayId)
             ->where('winner_id', '!=', null)
             ->where('winner_id', '!=', 2)
             ->orderBy('duration', 'asc')
             ->orderBy('guesscount', 'asc')
-            ->limit(5)->get();
+            ->limit(7)->get();
         foreach ($todayScores as $todayScore) {
             $this->todays[] = array($todayScore->id, User::find($todayScore->opponent_id)->username, $this->secondHuman($todayScore->duration), $todayScore->guesscount);
         }
