@@ -96,10 +96,8 @@
     </style>
     <div id="game-board">
     </div>
-    @if($opponentName != "Günün Kelimesi")
     @if($chat)
-        <livewire:chat-wire :gameId="$gameId" :gameType="1" />
-    @endif
+        <livewire:chat-wire :gameId="$gameId" :gameType="$gameType"/>
     @endif
     <script>
         let words = JSON.parse({!! json_encode(\App\Models\Word::pluck('name')->toJSON()) !!})

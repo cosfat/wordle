@@ -39,8 +39,17 @@ class MyGames extends Component
     protected $user;
 
     public function mount(){
-
-        $todayId = Today::orderBy('id', 'desc')->first()->id;
+        $today = Today::orderBy('id', 'desc')->first();
+        if(Game::where('user_id', 2)->where('opponent_id', Auth::id())->where('today_id', $today->id)->doesntExist()){
+            $game = new Game();
+            $game->user_id = 2;
+            $game->opponent_id = Auth::id();
+            $game->word_id = $today->word_id;
+            $game->today_id = $today->id;
+            $game->length = Game::where('user_id', 2)->where('today_id', $today->id)->first()->length;
+            $game->save();
+        }
+        $todayId = $today->id;
 
         $fastest = Game::where('today_id', $todayId)->where('winner_id', '!=', 2)->where('winner_id', '!=', null)->orderBy('duration', 'asc')->first();
         if($fastest != null){

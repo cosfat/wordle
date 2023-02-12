@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Watchers;
 
 use App\Models\Game;
 use App\Models\Guess;
+use App\Models\Today;
 use App\Models\User;
 use App\Models\Word;
 use Carbon\CarbonInterval;
@@ -13,6 +14,7 @@ use Livewire\Component;
 class FinishedGameWatcher extends Component
 {
     public $length;
+    public $gameType;
     public $gameId;
     public $word;
     public $wordName;
@@ -32,6 +34,12 @@ class FinishedGameWatcher extends Component
             $game = $game->first();
             if($game->user_id == Auth::id() OR $game->opponent_id == Auth::id()){
                 $this->chat = true;
+            }
+            if($game->user_id == 2){
+                $this->gameType = Today::orderBy('id', 'desc')->first()->id;
+            }
+            else{
+                $this->gameType = 1;
             }
             $guesses = $game->guesses()->get();
             foreach ($guesses as $guess) {

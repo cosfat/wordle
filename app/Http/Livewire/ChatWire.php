@@ -6,6 +6,7 @@ use App\Events\ChatMessaged;
 use App\Models\Challenge;
 use App\Models\Game;
 use App\Models\Chat;
+use App\Models\Today;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
@@ -16,17 +17,23 @@ class ChatWire extends Component
     protected $listeners = ['refreshChat' => '$refresh'];
 
     public $msg;
+    public $today;
     public $gameId;
     public $gameType;
     public $userName;
     public $game;
 
     public function mount(){
+
         if($this->gameType == 1){
             $this->game = Game::find($this->gameId);
         }
-        else{
+        elseif($this->gameType == 2){
             $this->game = Challenge::find($this->gameId);
+        }
+        else{
+            $this->gameId = Game::find($this->gameId)->id;
+            $this->today = Today::orderBy('id', 'desc')->first()->id;
         }
     }
 
@@ -35,12 +42,18 @@ class ChatWire extends Component
         if($msg!=null){
             $chat = new Chat();
             $chat->game_id = $this->gameId;
-            $chat->game_type = $this->gameType;
             $chat->user_id = Auth::id();
             $chat->message = $msg;
+            if($this->gameType == 1 OR $this->gameType == 2){
+                $chat->game_type = $this->gameType;
+                ChatMessaged::dispatch($this->gameId, $this->gameType);
+            }
+            else{
+                $chat->seen = 1;
+                $chat->game_type = $this->today;
+            }
+            $chat->user_id = Auth::id();
             $chat->save();
-
-            ChatMessaged::dispatch($this->gameId, $this->gameType);
             $this->emit('refreshChat');
             $this->msg = "";
         }
@@ -49,12 +62,19 @@ class ChatWire extends Component
 
     public function render()
     {
-        $chats = $this->game->chats();
+        if($this->gameType == 1 OR $this->gameType == 2){
+            $chats = $this->game->chats();
+        }
+        else{
+            $chats = Chat::where('game_type', $this->today);
+        }
         $this->messages = $chats->orderBy('id', 'desc')->limit(30)->reOrder('id', 'asc')->get();
         $myChats = $chats->where('user_id', '!=', Auth::id())->where('seen', 0)->get();
-        foreach ($myChats as $chat) {
-            $chat->seen = 1;
-            $chat->save();
+        if($this->gameType == 1 OR $this->gameType == 2){
+            foreach ($myChats as $chat) {
+                $chat->seen = 1;
+                $chat->save();
+            }
         }
         return view('livewire.chat-wire', [
             'messages' => $this->messages
