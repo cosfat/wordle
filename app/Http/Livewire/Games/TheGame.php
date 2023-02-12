@@ -93,7 +93,7 @@ class TheGame extends Component
         $game->save();
         $point->save();
 
-        GuessTyped::dispatch($game->user_id, $game->id, Auth::user()->username, 3);
+        GuessTyped::dispatch($game->user_id, $game->id, Auth::user()->username, 3, Auth::id());
         return redirect('/finished-game-watcher/'.$this->gameId);
     }
 
