@@ -35,7 +35,9 @@ class FinishedGameWatcher extends Component
             if($game->user_id == Auth::id() OR $game->opponent_id == Auth::id()){
                 $this->chat = true;
             }
+
             if($game->user_id == 2){
+                $this->chat = true;
                 $this->gameType = Today::orderBy('id', 'desc')->first()->id;
             }
             else{
