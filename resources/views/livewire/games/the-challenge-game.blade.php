@@ -1,8 +1,8 @@
 <div name="the-challenge-game">
     @include('loading')
     <div class="flex justify-center mb-4">
-        @foreach($opponents as $opponent)
-        <a href="/user-summary/{{ \App\Models\User::where('username', $opponent)->first()->id }}">
+        @foreach($opponents as $key => $opponent)
+        <a id="{{ $key }}" href="/user-summary/{{ \App\Models\User::where('username', $opponent)->first()->id }}">
             <h2 class="text-sm font-bold tracking-tight sm:text-center sm:text-4xl text-indigo-500">{{ $opponent }}</h2>
         </a>
             @if(\Illuminate\Support\Facades\Cache::has('user-is-online-' . \App\Models\User::where('username', $opponent)->first()->id))

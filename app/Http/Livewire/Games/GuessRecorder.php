@@ -57,7 +57,7 @@ class GuessRecorder extends Component
                 $c->save();
                 foreach ($c->chusers as $chuser) {
                     if($chuser->user_id != Auth::id()){
-                        GuessTyped::dispatch($chuser->user_id, $c->id, $user->username, 2);
+                        GuessTyped::dispatch($chuser->user_id, $c->id, $user->username, 2, $user->id);
                     }
                 }
             } else {

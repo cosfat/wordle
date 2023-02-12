@@ -120,7 +120,7 @@ class TheChallengeGame extends Component
                     $this->gameId = $gameId;
                     $this->length = $game->length;
                     foreach ($game->chusers as $chuser) {
-                        $this->opponents[] = User::whereId($chuser->user_id)->first()->name;
+                        $this->opponents[$chuser->user_id] = User::whereId($chuser->user_id)->first()->name;
                     }
 
                 }
