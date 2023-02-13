@@ -364,21 +364,23 @@
 
             Livewire.emit('addChGuess', guessString, {{ $gameId }});
 
-            if (guessString === rightGuessString) {
-                Livewire.emit('chWinner');
-                notifyGame("Tebrikler!")
-                guessesRemaining = 0;
-                return
-            } else {
-                guessesRemaining -= 1;
-                currentGuess = [];
-                nextLetter = 0;
+            setTimeout(function (){
+                if (guessString === rightGuessString) {
+                    Livewire.emit('chWinner');
+                    notifyGame("Tebrikler!")
+                    guessesRemaining = 0;
+                    return
+                } else {
+                    guessesRemaining -= 1;
+                    currentGuess = [];
+                    nextLetter = 0;
 
-                if (guessesRemaining === 0) {
-                    notifyGame(`Kaybettin! Doğru kelime: ${rightGuessString}`);
-                    Livewire.emit('chLoser');
+                    if (guessesRemaining === 0) {
+                        notifyGame(`Kaybettin! Doğru kelime: ${rightGuessString}`);
+                        Livewire.emit('chLoser');
+                    }
                 }
-            }
+            }, 1000)
         }
 
         function shadeKeyBoard(letter, color) {

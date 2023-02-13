@@ -374,21 +374,23 @@ if(chatMode === false){
             var wordNumber = {{ $length + 1 }} - guessesRemaining;
 
             Livewire.emit('addGuess', guessString, {{ $gameId }});
-            if (guessString === rightGuessString) {
-                notifyGame("Tebrikler!")
-                guessesRemaining = 0;
-                Livewire.emit('winner');
-                return
-            } else {
-                guessesRemaining -= 1;
-                currentGuess = [];
-                nextLetter = 0;
+            setTimeout(function (){
+                if (guessString === rightGuessString) {
+                    notifyGame("Tebrikler!")
+                    guessesRemaining = 0;
+                    Livewire.emit('winner');
+                    return
+                } else {
+                    guessesRemaining -= 1;
+                    currentGuess = [];
+                    nextLetter = 0;
 
-                if (guessesRemaining === 0) {
-                    notifyGame(`Kaybettin! Doğru kelime: ${rightGuessString}`);
-                    Livewire.emit('loser');
+                    if (guessesRemaining === 0) {
+                        notifyGame(`Kaybettin! Doğru kelime: ${rightGuessString}`);
+                        Livewire.emit('loser');
+                    }
                 }
-            }
+            }, 1000)
         }
 
         function shadeKeyBoard(letter, color) {

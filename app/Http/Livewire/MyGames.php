@@ -9,6 +9,7 @@ use App\Models\Game;
 use App\Models\Guess;
 use App\Models\Today;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
@@ -24,6 +25,7 @@ class MyGames extends Component
     public $fastId = null;
     public $shortValue = null;
     public $fastValue = null;
+    public $diff;
 
     protected $listeners = ['MyGames' => '$refresh'];
 
@@ -39,6 +41,20 @@ class MyGames extends Component
     protected $user;
 
     public function mount(){
+        $now = Carbon::now();
+        $currentHour = $now->hour;
+        $x = 1;
+        while(true){
+            if(($x + $currentHour)%4 == 0)
+            {
+                break;
+            }
+            $x += 1;
+        }
+        $nextDate = $now->addHours($x);
+        $nextStart = Carbon::create($nextDate->year, $nextDate->month, $nextDate->day, $nextDate->hour, 0, 0);
+        $this->diff = $nextStart->diffForHumans(Carbon::now());
+
         $today = Today::orderBy('id', 'desc')->first();
         if(Game::where('user_id', 2)->where('opponent_id', Auth::id())->where('today_id', $today->id)->doesntExist()){
             $game = new Game();
