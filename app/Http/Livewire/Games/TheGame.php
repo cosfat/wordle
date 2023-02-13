@@ -67,9 +67,6 @@ class TheGame extends Component
             $first = $game->guesses()->orderBy('id', 'asc')->first()->created_at;
             $last = $game->guesses()->orderBy('id', 'desc')->first()->created_at;
             $duration = $first->diffInSeconds($last);
-
-            $game->first = $first;
-            $game->last = $last;
         }
         $durationPoint = round(500 / $duration);
         $point = Point::whereUser_id($game->opponent_id);
