@@ -11,6 +11,9 @@
         <div class="flex flex-wrap text-sm">
            Her 4 saatte bir yeni kelime gelir. Sonraki kelime: <span class="ml-2 bg-red-600 text-white text-xs font-medium px-2 py-1 rounded">{{ $diff }}</span>
         </div>
+        <div class="flex flex-wrap text-sm">
+            Sonraki kelime: <span class="ml-2 bg-red-600 text-white text-xs font-medium px-2 py-1 rounded">{{ $diff }}</span>
+        </div>
         <div class="flex flex-wrap">
             @if($today == 0)
                 <p>Günün yeni kelimesi geldi!</p>
