@@ -20,7 +20,7 @@
             @elseif($today == 2)
                 <p class="text-green-600">Günün kelimesini doğru tahmin ettin!</p>
             @elseif($today == 3)
-                <p>Günün kelimesini bilemedin :( Yeni kelime 4 saat içinde!</p>
+                <p>Günün kelimesini bilemedin ☹️</p>
             @elseif($today == 1)
                 <p>Günün kelimesini çözmeye devam et!</p>
             @endif
