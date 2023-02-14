@@ -21,11 +21,13 @@
             .listen('GameNotification', (e) => {
                 Livewire.emit('MyGames');
                 notifyIcon();
-                document.title = "Kelimeo (1)"
+                document.title = "Kelimeo (1)";
                 if (e.type === 1) {
-                    notifyGame(e.username + " yeni oyun isteği gönderdi!", "the-game/" + e.game);
-                } else {
-                    notifyGame(e.username + " yeni rekabet isteği gönderdi!", "the-challenge-game/" + e.game);
+                    notifyGame(e.username + " yeni OYUN isteği gönderdi!", "the-game/" + e.game);
+                } else if (e.type === 2) {
+                    notifyGame(e.username + " yeni REKABET isteği gönderdi!", "the-challenge-game/" + e.game);
+                } else if (e.type === 3) {
+                    notifyGame(e.username + " yeni DÜELLO isteği gönderdi!", "the-game/" + e.game + "/1");
                 }
 
             });
@@ -34,35 +36,38 @@
             .listen('GuessTyped', (e) => {
                 console.log(e)
                 if (e.type === 1) {
-                    notifyGame(e.username + " tahminde bulundu!", "game-watcher/" + e.game);
-
-                    Livewire.emit('refreshLogs');
-                    Livewire.emit('MyGames');
-                    Livewire.emit('refreshGameWatcher');
+                    if (e.isDuello === 0) {
+                        notifyGame(e.username + " tahminde bulundu!", "game-watcher/" + e.game);
+                        Livewire.emit('refreshLogs');
+                        Livewire.emit('MyGames');
+                        Livewire.emit('refreshGameWatcher');
+                    } else if (e.isDuello === 1) {
+                        notifyGame(e.username + " DÜELLO tahmininde bulundu!", "the-game/" + e.game + "/1");
+                        Livewire.emit('refreshDuelloGame');
+                    }
                     notifyIcon();
                 } else if (e.type === 2) {
                     let url = window.location.pathname;
-                    if(url.indexOf('the-challenge-game') === -1){
+                    if (url.indexOf('the-challenge-game') === -1) {
                         notifyGame(e.username + " rekabet tahmininde bulundu!", "the-challenge-game/" + e.game);
                         Livewire.emit('refreshChallengeGameWatcher');
-                    }else{
+                    } else {
                         let ypencil = "<svg width='34px' height='34px' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg' stroke='#facc15'><g id='SVGRepo_bgCarrier' stroke-width='0'></g><g id='SVGRepo_tracerCarrier' stroke-linecap='round' stroke-linejoin='round'></g><g id='SVGRepo_iconCarrier'><path fill-rule='evenodd' clip-rule='evenodd' d='m3.99 16.854-1.314 3.504a.75.75 0 0 0 .966.965l3.503-1.314a3 3 0 0 0 1.068-.687L18.36 9.175s-.354-1.061-1.414-2.122c-1.06-1.06-2.122-1.414-2.122-1.414L4.677 15.786a3 3 0 0 0-.687 1.068zm12.249-12.63 1.383-1.383c.248-.248.579-.406.925-.348.487.08 1.232.322 1.934 1.025.703.703.945 1.447 1.025 1.934.058.346-.1.677-.348.925L19.774 7.76s-.353-1.06-1.414-2.12c-1.06-1.062-2.121-1.415-2.121-1.415z' fill='#000000'></path></g></svg>";
                         let bpencil = "<svg width='34px' height='34px' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg' stroke='#000000'><g id='SVGRepo_bgCarrier' stroke-width='0'></g><g id='SVGRepo_tracerCarrier' stroke-linecap='round' stroke-linejoin='round'></g><g id='SVGRepo_iconCarrier'><path fill-rule='evenodd' clip-rule='evenodd' d='m3.99 16.854-1.314 3.504a.75.75 0 0 0 .966.965l3.503-1.314a3 3 0 0 0 1.068-.687L18.36 9.175s-.354-1.061-1.414-2.122c-1.06-1.06-2.122-1.414-2.122-1.414L4.677 15.786a3 3 0 0 0-.687 1.068zm12.249-12.63 1.383-1.383c.248-.248.579-.406.925-.348.487.08 1.232.322 1.934 1.025.703.703.945 1.447 1.025 1.934.058.346-.1.677-.348.925L19.774 7.76s-.353-1.06-1.414-2.12c-1.06-1.062-2.121-1.415-2.121-1.415z' fill='#facc15'></path></g></svg>";
                         let pstate = "y";
-                        let blink = setInterval(function (){
-                            if(pstate === "b"){
+                        let blink = setInterval(function () {
+                            if (pstate === "b") {
                                 document.getElementById(e.userId).innerHTML = ypencil;
                                 pstate = "y";
-                            }
-                            else{
+                            } else {
                                 document.getElementById(e.userId).innerHTML = bpencil;
                                 pstate = "b";
                             }
                         }, 100)
 
-                        setTimeout(function (){
+                        setTimeout(function () {
                             clearInterval(blink);
-                            document.getElementById(e.userId).innerHTML = "<h2 class='text-sm font-bold tracking-tight sm:text-center sm:text-4xl text-indigo-500'>"+e.username+"</h2>";
+                            document.getElementById(e.userId).innerHTML = "<h2 class='text-sm font-bold tracking-tight sm:text-center sm:text-4xl text-indigo-500'>" + e.username + "</h2>";
                         }, 1000)
 
                     }
@@ -71,6 +76,12 @@
                 } else if (e.type === 4) {
                     notifyGame(e.username + " rekabeti kazandı!", "finished-challenge-game-watcher/" + e.game);
                     window.location.href = "/finished-challenge-game-watcher/" + e.game;
+                }else if(e.type === 5){
+                    notifyGame(e.username + " DÜELLOYU kazandı!", "finished-game-watcher/" + e.game + "/1");
+                    window.location.href = "/finished-game-watcher/" + e.game + "/1";
+                }else if(e.type === 6){
+                    notifyGame("Rakibin 3 defa hatalı kelime girdi", "the-game/" + e.game + "/1");
+                    window.location.href = "/the-game/" + e.game + "/1";
                 }
 
                 document.title = "Kelimeo (1)"
@@ -165,7 +176,7 @@
                              @endif viewBox="0 0 44 44"
                              xmlns="http://www.w3.org/2000/svg"
                              @if(\App\Models\Game::where('opponent_id', \Illuminate\Support\Facades\Auth::id())->where('seen', 0)->exists() OR
-                            App\Models\Game::where('user_id', \Illuminate\Support\Facades\Auth::id())->whereNull('winner_id')->where('seen2', 0)->exists())
+                            App\Models\Game::where('user_id', \Illuminate\Support\Facades\Auth::id())->whereNull('winner_id')->where('isduello', '!=', 1)->where('seen2', 0)->exists())
                              fill="#EF4444"
                              @else
                              fill="#FACC15"
@@ -190,12 +201,12 @@
                             @else
                             width="34px" height="34px"
                             @endif viewBox="0 0 6.3500002 6.3500002" id="svg1976" version="1.1"
-                             xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#"
-                             xmlns:dc="http://purl.org/dc/elements/1.1/"
-                             xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-                             xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-                             xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-                             xmlns:svg="http://www.w3.org/2000/svg" fill="#FACC15">
+                            xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#"
+                            xmlns:dc="http://purl.org/dc/elements/1.1/"
+                            xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+                            xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+                            xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+                            xmlns:svg="http://www.w3.org/2000/svg" fill="#FACC15">
                             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                             <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
                             <g id="SVGRepo_iconCarrier">
@@ -232,7 +243,7 @@
                                 @else
                                 width="34px" height="34px"
                                 @endif viewBox="0 0 24 24" fill="none"
-                                 xmlns="http://www.w3.org/2000/svg">
+                                xmlns="http://www.w3.org/2000/svg">
                                 <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                                 <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
                                 <g id="SVGRepo_iconCarrier">

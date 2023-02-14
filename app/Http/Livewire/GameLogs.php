@@ -26,32 +26,6 @@ class GameLogs extends Component
 
     public function render()
     {
-        /*$games = Game::where('winner_id', '!=', null)->get();
-        foreach ($games as $game) {
-            if($game->guesses()->count() == 1){
-                $game->duration = $game->created_at->diffInSeconds($game->guesses()->first()->created_at);
-            }
-            else{
-                $first = $game->guesses()->orderBy('id', 'asc')->first()->created_at;
-                $last = $game->guesses()->orderBy('id', 'desc')->first()->created_at;
-                $game->duration = $first->diffInSeconds($last);
-            }
-            $game->save();
-        }
-
-        $games = Challenge::where('winner_id', '!=', null)->get();
-        foreach ($games as $game) {
-            if(Chguess::where('user_id', $game->winner_id)->where('challenge_id', $game->id)->count() == 1){
-                $game->duration = $game->created_at->diffInSeconds(Chguess::where('user_id', $game->winner_id)->where('challenge_id', $game->id)->first()->created_at);
-            }
-            else{
-                $first = Chguess::where('user_id', $game->winner_id)->where('challenge_id', $game->id)->orderBy('id', 'asc')->first()->created_at;
-                $last = Chguess::where('user_id', $game->winner_id)->where('challenge_id', $game->id)->orderBy('id', 'desc')->first()->created_at;
-                $game->duration = $first->diffInSeconds($last);
-            }
-            $game->save();
-        }*/
-
         if($this->mode == 1){
             $chusers = Chuser::where('user_id', Auth::id())->orderBy('id', 'desc')->limit(20)->get();
             $x = 0;
@@ -120,6 +94,7 @@ class GameLogs extends Component
                 $this->notes[$x]['word'] = $word;
                 $this->notes[$x]['link'] = $game->id;
                 $this->notes[$x]['point'] = $game->degree;
+                $this->notes[$x]['isDuello'] = $game->isduello;
                 $this->notes[$x]['duration'] = str_replace('dakika', 'dk', str_replace('saniye', 'sn', CarbonInterval::seconds($game->duration)->cascade()->forHumans()));
 
                 if ($game->winner_id != Auth::id()) {
@@ -151,6 +126,7 @@ class GameLogs extends Component
                 $this->notesMe[$x]['word'] = $word;
                 $this->notesMe[$x]['link'] = $game->id;
                 $this->notesMe[$x]['point'] = $game->degree;
+                $this->notesMe[$x]['isDuello'] = $game->isduello;
                 $this->notesMe[$x]['duration'] = str_replace('dakika', 'dk', str_replace('saniye', 'sn', CarbonInterval::seconds($game->duration)->cascade()->forHumans()));
 
                 if ($game->winner_id == Auth::id()) {

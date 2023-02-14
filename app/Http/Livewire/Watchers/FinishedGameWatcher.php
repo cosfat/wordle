@@ -27,12 +27,15 @@ class FinishedGameWatcher extends Component
     public $guessesCount;
     public $guessesArray;
     public $chat = false;
+    public $isDuello = 0;
+    public $winner;
 
-    public function mount($gameId)
+    public function mount($gameId, $duello = 0)
     {
         $game = Game::whereId($gameId)->where('winner_id', '!=', null);
         if ($game->exists()) {
             $game = $game->first();
+            $this->isDuello = $duello;
             if ($game->user_id == Auth::id() or $game->opponent_id == Auth::id()) {
                 $this->chat = true;
             }
@@ -61,6 +64,9 @@ class FinishedGameWatcher extends Component
             $this->wordName = $game->word->name;
             $this->opponentName = User::find($game->user_id)->name;
             $this->userName = User::find($game->opponent_id)->name;
+            if($duello == 1){
+                $this->winner = User::find($game->winner_id)->username;
+            }
             $this->duration = str_replace('dakika', 'dk', str_replace('saniye', 'sn', CarbonInterval::seconds($game->duration)->cascade()->forHumans()));
 
             $this->meaning = null;

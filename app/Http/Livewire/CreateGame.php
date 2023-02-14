@@ -51,17 +51,6 @@ class CreateGame extends Component
         return false;
     }
 
-    public function addChallengeFriend($friend)
-    {
-        if (($key = array_search($friend, $this->challengeFriends)) !== false) {
-            unset($this->challengeFriends[$key]);
-        } else {
-            if (count($this->challengeFriends) < 10) {
-                $this->challengeFriends[] = $friend;
-            }
-        }
-    }
-
     public function mount($length = 5)
     {
         $this->challengeFriends[] = Auth::user()->username;
@@ -73,11 +62,27 @@ class CreateGame extends Component
         }
     }
 
+    public function addChallengeFriend($friend)
+    {
+        if (($key = array_search($friend, $this->challengeFriends)) !== false) {
+            unset($this->challengeFriends[$key]);
+        } else {
+            if (count($this->challengeFriends) < 10) {
+                $this->challengeFriends[] = $friend;
+            }
+        }
+    }
+
+
     public function makeMode2(){
         $this->mode = 2;
         $this->suggestChFriend();
     }
-
+    public function makeMode4(){
+        $this->mode = 4;
+        $this->suggestFriend();
+        $this->hideOpponent = false;
+    }
     public function suggestChFriend()
     {
         $gamesArray = array();
@@ -262,7 +267,7 @@ class CreateGame extends Component
             $existingGames = Game::where('user_id', Auth::id())->where('opponent_id', $user->first()->id)->whereNull('winner_id')->get();
             foreach ($existingGames as $existingGame) {
                 $guessCount = $existingGame->guesses()->count();
-                if ($guessCount < 6) {
+                if ($guessCount < 5) {
                     $existing = true;
                     break;
                 }
@@ -293,18 +298,43 @@ class CreateGame extends Component
 
     public function startGame()
     {
-        $word = $this->gameWord;
-        $opp = $this->gameOpp;
+        if($this->mode == 3){
+            $word = $this->gameWord;
+            $opp = $this->gameOpp;
 
-        $game = new Game;
-        $game->user_id = Auth::id();
-        $game->opponent_id = $opp;
-        $game->word_id = $word;
-        $game->length = $this->length;
-        $game->save();
-        GameNotification::dispatch($opp, $game->id, Auth::user()->username, 1);
-        session()->flash('message', 'Oyun başarıyla oluşturuldu.');
-        return redirect()->to('/game-watcher/' . $game->id);
+            $game = new Game;
+            $game->user_id = Auth::id();
+            $game->opponent_id = $opp;
+            $game->word_id = $word;
+            $game->length = $this->length;
+            $game->save();
+            GameNotification::dispatch($opp, $game->id, Auth::user()->username, 1);
+            session()->flash('message', 'Oyun başarıyla oluşturuldu.');
+            return redirect()->to('/game-watcher/' . $game->id);
+        }
+        elseif ($this->mode == 4){
+            $opp = $this->gameOpp;
+            $game = new Game;
+            $game->user_id = Auth::id();
+            $game->sira = $opp;
+            $game->opponent_id = $opp;
+
+            $suggestQuery = DB::select(DB::raw("SELECT id, name, CHAR_LENGTH(name) AS 'chrlen' FROM words WHERE CHAR_LENGTH(name) = $this->length ORDER BY RAND() LIMIT 20"));
+            foreach ($suggestQuery as $item) {
+                if (Word::tdk($item->name)) {
+                    $word = $item->name;
+                    $wordId = $item->id;
+                    break;
+                }
+            }
+            $game->word_id = $wordId;
+            $game->isduello = 1;
+            $game->length = $this->length;
+            $game->save();
+            GameNotification::dispatch($opp, $game->id, Auth::user()->username, 3);
+            session()->flash('message', 'Oyun başarıyla oluşturuldu.');
+            return redirect()->to('/the-game/' . $game->id."/1");
+        }
     }
 
 

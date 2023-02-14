@@ -19,19 +19,21 @@ class GuessTyped implements ShouldBroadcast
     public $username;
     public $type;
     public $userId;
+    public $isDuello;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($opp, $game, $username, $type, $userId)
+    public function __construct($opp, $game, $username, $type, $userId, $isDuello)
     {
         $this->opp = $opp;
         $this->game = $game;
         $this->username = $username;
         $this->type = $type;
         $this->userId = $userId;
+        $this->isDuello = $isDuello;
     }
 
     /**

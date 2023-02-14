@@ -14,9 +14,11 @@ use Livewire\Component;
 
 class GuessRecorder extends Component
 {
-    protected $listeners = ['addGuess', 'addChGuess'];
+    protected $listeners = ['addGuess', 'addChGuess', 'siraChange'];
 
-    public function addGuess($word, $gameId)
+    public $sira = null;
+
+    public function addGuess($word, $gameId, $isDuello = 0)
     {
         $wordId = Word::whereName($word)->first()->id;
         $guess = new Guess();
@@ -31,7 +33,19 @@ class GuessRecorder extends Component
         if($game->guesscount == 1){
             $this->emit('startCounterFirstTime');
             }
-            GuessTyped::dispatch($game->user_id, $gameId, Auth::user()->username, 1, Auth::id());
+        if($isDuello == 0){
+            GuessTyped::dispatch($game->user_id, $gameId, Auth::user()->username, 1, Auth::id(), 0);
+        }
+        else{
+            $this->siraChange($gameId);
+            if($game->user_id == Auth::id()){
+                GuessTyped::dispatch($game->opponent_id, $gameId, Auth::user()->username, 1, Auth::id(), 1);
+            }
+            else{
+                GuessTyped::dispatch($game->user_id, $gameId, Auth::user()->username, 1, Auth::id(), 1);
+            }
+
+        }
     }
 
     public function addChGuess($word, $gameId)
@@ -57,7 +71,7 @@ class GuessRecorder extends Component
                 $c->save();
                 foreach ($c->chusers as $chuser) {
                     if($chuser->user_id != Auth::id()){
-                        GuessTyped::dispatch($chuser->user_id, $c->id, $user->username, 2, $user->id);
+                        GuessTyped::dispatch($chuser->user_id, $c->id, $user->username, 2, $user->id, 0);
                     }
                 }
             } else {
@@ -66,6 +80,30 @@ class GuessRecorder extends Component
         } else {
             session()->flash('message', 'Bu oyunu görme yetkiniz yok.');
             return redirect()->to('/create-game');
+        }
+    }
+
+
+    public function siraChange($gameId, $withRefresh = 0)
+    {
+        $game = Game::find($gameId);
+        if($game->sira == $game->user_id){
+            $game->sira = $game->opponent_id;
+        }
+        else{
+            $game->sira = $game->user_id;
+        }
+
+        $this->sira = $game->sira;
+        $game->save();
+        if($withRefresh == 0){
+            $this->emit('refreshDuelloGame');
+        }
+        else{
+
+            GuessTyped::dispatch($this->sira, $gameId, 'Rakip', 6, 0, 1);
+            session()->flash('message', '3 defa hatalı kelime girdiniz');
+            return redirect('/the-game/'. $gameId."/1");
         }
     }
 

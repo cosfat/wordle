@@ -14,13 +14,14 @@ class UserSummary extends Component
     protected $games;
     protected $user;
     public $ratio;
+    public $todayId;
     public function mount($user)
     {
         if($user != 2){
-            $todayId = Today::orderBy('id', 'desc')->first()->id;
+            $this->todayId = Today::orderBy('id', 'desc')->first()->id;
             $challengeGames = array();
             $this->user = User::findOrFail($user);
-            $ngames = User::find($user)->opponentGames()->where('today_id', '!=', $todayId)->orderBy('id', 'desc')->limit(10)->pluck('id');
+            $ngames = User::find($user)->opponentGames()->orderBy('id', 'desc')->limit(10)->pluck('id');
             $chgames = User::find($user)->challenges()->orderBy('id', 'desc')->limit(10)->pluck('challenge_id');
 
             foreach ($ngames as $game) {

@@ -1,6 +1,6 @@
 <div name="the-game">
     @include('loading')
-    <div class="flex justify-center mb-4">
+    <div class="flex justify-center mb-2">
         @if($opponentName == "Günün Kelimesi")
             <h2 class="text-2xl font-bold tracking-tight sm:text-center sm:text-4xl text-indigo-500">{{ $opponentName }}</h2>
         @else
@@ -21,6 +21,13 @@
             @endif
         @endif
     </div>
+    @if($isDuello == 1)
+        @if($sira != \Illuminate\Support\Facades\Auth::id())
+            <div class="flex justify-center text-sm bg-indigo-500 text-white p-2 mb-2">Rakibin hamlesi bekleniyor</div>
+        @else
+            <div class="flex justify-center text-sm bg-red-500 text-white p-2 mb-2">Hamle sırası sizde</div>
+        @endif
+    @endif
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <style>
         h1 {
@@ -79,9 +86,12 @@
             text-transform: uppercase;
         }
     </style>
+    @if($isDuello != 1)
     <livewire:games.live-counter :start="$start" :firstGuess="$firstGuess"></livewire:games.live-counter>
+    @endif
     <div id="game-board">
     </div>
+    @if($sira == \Illuminate\Support\Facades\Auth::id())
     <div id="keyboard-cont">
         <div class="first-row">
             <button class="keyboard-button">e</button>
@@ -124,9 +134,11 @@
             <button class="keyboard-button bg-red-500 text-white">TEMİZLE</button>
         </div>
     </div>
+    @endif
     @if($opponentName != "Günün Kelimesi")
     <livewire:chat-wire :gameId="$gameId" :gameType="1" />
     @endif
+
     <script>
         let words = JSON.parse({!! json_encode(\App\Models\Word::pluck('name')->toJSON()) !!})
         let guesses = @json($guessesArray);
@@ -315,6 +327,7 @@ if(chatMode === false){
             nextLetter -= 1
         }
 
+        let wrongGuess = 0;
         function checkGuess() {
             let row = document.getElementsByClassName("letter-row")[{{ $length + 1 }} - guessesRemaining]
             let guessString = ''
@@ -330,9 +343,17 @@ if(chatMode === false){
             }
 
             if (!words.includes(guessString)) {
+                wrongGuess += 1
                 notifyGame("Bu kelime veritabanımızda yok")
+
+                let isDuello = {{ $isDuello }};
+
+                if(wrongGuess > 2 && isDuello === 1){
+                    Livewire.emit('siraChange', {{ $gameId }}, 1);
+                }
                 return
             }
+
 
 
             for (let i = 0; i < {{ $length }}; i++) {
@@ -373,7 +394,7 @@ if(chatMode === false){
 
             var wordNumber = {{ $length + 1 }} - guessesRemaining;
 
-            Livewire.emit('addGuess', guessString, {{ $gameId }});
+            Livewire.emit('addGuess', guessString, {{ $gameId }}, {{ $isDuello }});
             setTimeout(function (){
                 if (guessString === rightGuessString) {
                     notifyGame("Tebrikler!")
@@ -391,6 +412,7 @@ if(chatMode === false){
                     }
                 }
             }, 1000)
+
         }
 
         function shadeKeyBoard(letter, color) {
@@ -457,7 +479,10 @@ if(chatMode === false){
             notifyGame("{{  session('message')  }}")
         </script>
     @endif
+
+    @if($sira == \Illuminate\Support\Facades\Auth::id())
     <livewire:games.guess-recorder></livewire:games.guess-recorder>
+    @endif
     <script src="https://code.jquery.com/jquery-3.6.3.min.js"
             integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
 </div>

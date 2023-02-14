@@ -207,6 +207,23 @@
             }
 
 
+            @if($isDuello == 1)
+
+            if (guessString === rightGuessString) {
+                notifyGame("{{ $winner }} kelimeyi bildi!")
+                guessesRemaining = 0
+                return
+            } else {
+                guessesRemaining -= 1;
+                currentGuess = [];
+                nextLetter = 0;
+
+                if (guessesRemaining === 0) {
+                    notifyGame(`Kimse kelimeyi bilemedi: ${rightGuessString}`)
+                }
+            }
+                @else
+
             if (guessString === rightGuessString) {
                 notifyGame("{{ $userName }} kelimeyi bildi!")
                 guessesRemaining = 0
@@ -220,6 +237,7 @@
                     notifyGame(`{{ $userName }} kelimeyi bilemedi: ${rightGuessString}`)
                 }
             }
+                @endif
         }
 
         function shadeKeyBoard(letter, color) {

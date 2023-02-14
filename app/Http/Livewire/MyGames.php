@@ -26,6 +26,7 @@ class MyGames extends Component
     public $shortValue = null;
     public $fastValue = null;
     public $diff;
+    protected $duellos;
 
     protected $listeners = ['MyGames' => '$refresh'];
 
@@ -112,7 +113,7 @@ class MyGames extends Component
 
     public function new()
     {
-        return Auth::user()->opponentGames()->where('seen', 0)->where('user_id', '!=', 2)->orderBy('id', 'desc')->get();
+        return Auth::user()->opponentGames()->where('seen', 0)->where('user_id', '!=', 2)->where('isduello', 0)->orderBy('id', 'desc')->get();
     }
 
     public function newChallenges()
@@ -122,6 +123,11 @@ class MyGames extends Component
             ->where('challenges.winner_id', '=', null)
             ->where('seen', 0)->orderBy('id', 'desc')->get();
     }
+
+    public function newDuellos(){
+        return $games =  Game::where('isduello', 1)->where('opponent_id', Auth::id())->where('seen', 0)->whereNull('winner_id')->orderBy('id', 'desc')->get();
+    }
+
 
     public function activeChallenges()
     {
@@ -162,6 +168,7 @@ class MyGames extends Component
         $gamesMe = Auth::user()->games()->select(['games.*'])
             ->leftJoin('guesses', 'games.id', '=', 'guesses.game_id')
             ->whereNull('winner_id')
+            ->where('isduello', '!=', 1)
             ->orderBy('guesses.created_at', 'desc')->get();
 
         $this->gamesMe = $gamesMe->groupBy('id');
@@ -170,15 +177,22 @@ class MyGames extends Component
         $gamesOpp = Auth::user()->opponentGames()->where('user_id', '!=', 2)->select(['games.*'])
             ->leftJoin('guesses', 'games.id', '=', 'guesses.game_id')
             ->whereNull('winner_id')
+            ->where('isduello', '!=', 1)
             ->orderBy('guesses.created_at', 'desc')->get();
 
         $this->gamesOpp = $gamesOpp->groupBy('id');
+
+        $duellosMe = Game::where('isduello', 1)->where('user_id', Auth::id())->whereNull('winner_id');
+        $this->duellos = Game::where('isduello', 1)->where('opponent_id', Auth::id())->whereNull('winner_id')->union($duellosMe)->get();
+
         return view('livewire.my-games', [
             'user' => Auth::user(),
             'gamesMe' => $this->gamesMe,
+            'duellos' => $this->duellos,
             'gamesOpp' => $this->gamesOpp,
             'new' => $this->new(),
             'newChallenges' => $this->newChallenges(),
+            'newDuellos' => $this->newDuellos(),
             'activeChallenges' => $this->activeChallenges()
         ]);
     }

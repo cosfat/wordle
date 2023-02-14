@@ -21,9 +21,11 @@ Route::middleware([
     'verified'
 ])->group(function () {
     Route::get('/the-game/{gameId}', \App\Http\Livewire\Games\TheGame::class);
+    Route::get('/the-game/{gameId}/{duello}', \App\Http\Livewire\Games\TheGame::class);
     Route::get('/the-challenge-game/{gameId}', \App\Http\Livewire\Games\TheChallengeGame::class);
     Route::get('/game-watcher/{gameId}', \App\Http\Livewire\Watchers\GameWatcher::class);
     Route::get('/finished-game-watcher/{gameId}', \App\Http\Livewire\Watchers\FinishedGameWatcher::class);
+    Route::get('/finished-game-watcher/{gameId}/{duello}', \App\Http\Livewire\Watchers\FinishedGameWatcher::class);
     Route::get('/finished-challenge-game-watcher/{gameId}', \App\Http\Livewire\Watchers\FinishedChallengeGameWatcher::class);
     Route::get('/finished-challenge-game-watcher/{gameId}/{userId}', \App\Http\Livewire\Watchers\FinishedChallengeGameWatcher::class);
     Route::get('/my-profile', \App\Http\Livewire\MyProfile::class);

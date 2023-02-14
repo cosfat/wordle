@@ -24,57 +24,104 @@ class TheGame extends Component
     public $guessesCount;
     public $guessesArray;
 
-    protected $listeners = ['loser', 'winner'];
+    public $isDuello = 0;
+    public $sira = null;
 
-    public function mount($gameId)
+    protected $listeners = ['loser', 'winner', 'refreshDuelloGame'];
+
+    public function refreshDuelloGame()
     {
-        $game = Game::whereId($gameId)->where('opponent_id', Auth::id());
-        if ($game->exists()) {
-            $game = $game->first();
-            $guesses = $game->guesses()->get();
-            if($guesses->count() == 0){
-                $this->firstGuess = true;
-            }
-            foreach ($guesses as $guess) {
-                $this->guessesArray[] = $guess->word->name;
-            }
-            $this->guessesCount = $game->guesscount;
+        return redirect('/the-game/' . $this->gameId . "/1");
+    }
 
-            $this->gameId = $gameId;
-            $this->length = $game->length;
-            $this->opponentName = User::find($game->user_id)->name;
+    public function mount($gameId, $duello = 0)
+    {
+        if ($duello == 1) {
+            $this->isDuello = 1;
+            $game = Game::find($gameId);
+            if ($game != null) {
+                if ($game->user_id == Auth::id() or $game->opponent_id == Auth::id()) {
+
+                        $guesses = $game->guesses()->get();
+                        if ($guesses->count() == 0) {
+                            $this->firstGuess = true;
+                        }
+                        foreach ($guesses as $guess) {
+                            $this->guessesArray[] = $guess->word->name;
+                        }
+                        $this->guessesCount = $game->guesscount;
+
+                        $this->gameId = $gameId;
+                        $this->length = $game->length;
+                        if ($game->user_id == Auth::id()) {
+                            $this->opponentName = User::find($game->opponent_id)->name;
+                        } else {
+                            $this->opponentName = User::find($game->user_id)->name;
+                        }
+                        $this->sira = $game->sira;
+
+                } else {
+                    session()->flash('message', 'Bu oyunu görme yetkiniz yok');
+                    return redirect()->to('/create-game');
+                }
+            }
+            else{
+                session()->flash('message', 'Bu oyunu görme yetkiniz yok');
+                return redirect()->to('/create-game');
+            }
 
         } else {
-            session()->flash('message', 'Bu oyunu görme yetkiniz yok.');
-            return redirect()->to('/create-game');
+            $game = Game::whereId($gameId)->where('opponent_id', Auth::id());
+            if ($game->exists()) {
+                $game = $game->first();
+                $guesses = $game->guesses()->get();
+                if ($guesses->count() == 0) {
+                    $this->firstGuess = true;
+                }
+                foreach ($guesses as $guess) {
+                    $this->guessesArray[] = $guess->word->name;
+                }
+                $this->guessesCount = $game->guesscount;
+
+                $this->gameId = $gameId;
+                $this->length = $game->length;
+                $this->opponentName = User::find($game->user_id)->name;
+
+            } else {
+                session()->flash('message', 'Bu oyunu görme yetkiniz yok.');
+                return redirect()->to('/create-game');
+            }
         }
     }
 
 
     public function winner()
     {
-        $game = Game::whereId($this->gameId)->first();
-        $game->winner_id = $game->opponent_id;
-        $degree = ($game->length - $game->guesscount + 3) * 5;
-
-        if($game->user_id == 2){
-            $degree = $degree * 2;
-        }
-        if($game->guesses()->count() == 1){
-            $duration = $game->created_at->diffInSeconds($game->guesses()->first()->created_at);
+        $game = Game::find($this->gameId);
+        if($this->isDuello == 1){
+            $game->winner_id = Auth::id();
         }
         else{
+            $game->winner_id = $game->opponent_id;
+        }
+        $degree = ($game->length - $game->guesscount + 3) * 5;
+
+        if ($game->user_id == 2) {
+            $degree = $degree * 2;
+        }
+        if ($game->guesses()->count() == 1) {
+            $duration = $game->created_at->diffInSeconds($game->guesses()->first()->created_at);
+        } else {
             $first = $game->guesses()->orderBy('id', 'asc')->first()->created_at;
             $last = $game->guesses()->orderBy('id', 'desc')->first()->created_at;
             $duration = $first->diffInSeconds($last);
         }
         $durationPoint = round(500 / $duration);
         $point = Point::whereUser_id($game->opponent_id);
-        if($point->exists()){
+        if ($point->exists()) {
             $point = $point->first();
             $point->point = $point->point + $degree + $durationPoint;
-        }
-        else {
+        } else {
             $point = new Point;
             $point->user_id = $game->winner_id;
             $point->point = $degree + $durationPoint;
@@ -86,53 +133,81 @@ class TheGame extends Component
         $game->save();
         $point->save();
 
-        GuessTyped::dispatch($game->user_id, $game->id, Auth::user()->username, 3, Auth::id());
-        return redirect('/finished-game-watcher/'.$this->gameId);
+        if($this->isDuello == 1){
+            if($game->user_id == Auth::id()){
+                $opp = $game->opponent_id;
+            }
+            else{
+                $opp = $game->user_id;
+            }
+            GuessTyped::dispatch($opp, $game->id, Auth::user()->username, 5, Auth::id(), 1);
+        }
+        else{
+            GuessTyped::dispatch($game->user_id, $game->id, Auth::user()->username, 3, Auth::id(), 0);
+        }
+        return redirect('/finished-game-watcher/' . $this->gameId);
     }
 
 
     public function loser()
     {
-        $game = Game::whereId($this->gameId)->first();
-        $game->winner_id = $game->user_id;
-        $game->degree = (8 - $game->length);
-        $first = $game->guesses()->orderBy('id', 'asc')->first()->created_at;
-        $last = $game->guesses()->orderBy('id', 'desc')->first()->created_at;
-        $game->duration = $first->diffInSeconds($last);
-        $game->save();
-
-        $point = Point::whereUser_id($game->user_id);
-        if($point->exists())
-        {
-            $point = $point->first();
-            $previous = $point->point;
-            $new = $game->degree;
-            $total = $previous + $new;
-            $point->point = $total;
-            $point->save();
+        if($this->isDuello == 1){
+            $game = Game::find($this->gameId);
+            $game->winner_id = 0;
+            $first = $game->guesses()->orderBy('id', 'asc')->first()->created_at;
+            $last = $game->guesses()->orderBy('id', 'desc')->first()->created_at;
+            $game->duration = $first->diffInSeconds($last);
+            $game->save();
+            return redirect('/finished-game-watcher/' . $this->gameId);
         }
-        else {
-            $point = new Point;
-            $point->user_id = $game->user_id;
-            $point->point = $game->degree;;
-            $point->save();
+        else{
 
+            $game = Game::whereId($this->gameId)->first();
+            $game->winner_id = $game->user_id;
+            $game->degree = (8 - $game->length);
+            $first = $game->guesses()->orderBy('id', 'asc')->first()->created_at;
+            $last = $game->guesses()->orderBy('id', 'desc')->first()->created_at;
+            $game->duration = $first->diffInSeconds($last);
+            $game->save();
+
+            $point = Point::whereUser_id($game->user_id);
+            if ($point->exists()) {
+                $point = $point->first();
+                $previous = $point->point;
+                $new = $game->degree;
+                $total = $previous + $new;
+                $point->point = $total;
+                $point->save();
+            } else {
+                $point = new Point;
+                $point->user_id = $game->user_id;
+                $point->point = $game->degree;;
+                $point->save();
+
+            }
+            return redirect('/finished-game-watcher/' . $this->gameId);
         }
-        return redirect('/finished-game-watcher/'.$this->gameId);
     }
+
 
 
     public function render()
     {
         $game = Game::find($this->gameId);
         $first = $game->guesses()->first();
-        if($first != null){
+        if ($first != null) {
             $this->start = $first->created_at->diffInSeconds(Carbon::now());
-        }
-        else{
+        } else {
             $this->start = 0;
         }
-        $game->seen = 1;
+        if($this->isDuello == 1){
+            if($game->opponent_id == Auth::id()){
+                $game->seen = 1;
+            }
+        }
+        else{
+            $game->seen = 1;
+        }
         $game->save();
         return view('livewire.games.the-game');
     }

@@ -18,6 +18,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property $degree
  * @property $length
  * @property $today_id
+ * @property $isduello
  * @property $created_at
  * @property $updated_at
  *
