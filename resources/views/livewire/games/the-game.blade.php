@@ -91,50 +91,94 @@
     @endif
     <div id="game-board">
     </div>
-    @if($sira == \Illuminate\Support\Facades\Auth::id())
-    <div id="keyboard-cont">
-        <div class="first-row">
-            <button class="keyboard-button">e</button>
-            <button class="keyboard-button">r</button>
-            <button class="keyboard-button">t</button>
-            <button class="keyboard-button">y</button>
-            <button class="keyboard-button">u</button>
-            <button class="keyboard-button">ı</button>
-            <button class="keyboard-button">o</button>
-            <button class="keyboard-button">p</button>
-            <button class="keyboard-button">ğ</button>
-            <button class="keyboard-button">ü</button>
+    @if($isDuello == null)
+        <div id="keyboard-cont">
+            <div class="first-row">
+                <button class="keyboard-button">e</button>
+                <button class="keyboard-button">r</button>
+                <button class="keyboard-button">t</button>
+                <button class="keyboard-button">y</button>
+                <button class="keyboard-button">u</button>
+                <button class="keyboard-button">ı</button>
+                <button class="keyboard-button">o</button>
+                <button class="keyboard-button">p</button>
+                <button class="keyboard-button">ğ</button>
+                <button class="keyboard-button">ü</button>
+            </div>
+            <div class="second-row">
+                <button class="keyboard-button">a</button>
+                <button class="keyboard-button">s</button>
+                <button class="keyboard-button">d</button>
+                <button class="keyboard-button">f</button>
+                <button class="keyboard-button">g</button>
+                <button class="keyboard-button">h</button>
+                <button class="keyboard-button">j</button>
+                <button class="keyboard-button">k</button>
+                <button class="keyboard-button">l</button>
+                <button class="keyboard-button">ş</button>
+                <button class="keyboard-button">i</button>
+            </div>
+            <div class="third-row">
+                <button class="keyboard-button">SİL</button>
+                <button class="keyboard-button">z</button>
+                <button class="keyboard-button">c</button>
+                <button class="keyboard-button">v</button>
+                <button class="keyboard-button">b</button>
+                <button class="keyboard-button">n</button>
+                <button class="keyboard-button">m</button>
+                <button class="keyboard-button">ö</button>
+                <button class="keyboard-button">ç</button>
+                <button class="keyboard-button">Enter</button>
+            </div>
+            <div class="fourth-row mt-2">
+                <button class="keyboard-button bg-red-500 text-white">TEMİZLE</button>
+            </div>
         </div>
-        <div class="second-row">
-            <button class="keyboard-button">a</button>
-            <button class="keyboard-button">s</button>
-            <button class="keyboard-button">d</button>
-            <button class="keyboard-button">f</button>
-            <button class="keyboard-button">g</button>
-            <button class="keyboard-button">h</button>
-            <button class="keyboard-button">j</button>
-            <button class="keyboard-button">k</button>
-            <button class="keyboard-button">l</button>
-            <button class="keyboard-button">ş</button>
-            <button class="keyboard-button">i</button>
+    @elseif($isDuello == 1 AND $sira == \Illuminate\Support\Facades\Auth::id())
+        <div id="keyboard-cont">
+            <div class="first-row">
+                <button class="keyboard-button">e</button>
+                <button class="keyboard-button">r</button>
+                <button class="keyboard-button">t</button>
+                <button class="keyboard-button">y</button>
+                <button class="keyboard-button">u</button>
+                <button class="keyboard-button">ı</button>
+                <button class="keyboard-button">o</button>
+                <button class="keyboard-button">p</button>
+                <button class="keyboard-button">ğ</button>
+                <button class="keyboard-button">ü</button>
+            </div>
+            <div class="second-row">
+                <button class="keyboard-button">a</button>
+                <button class="keyboard-button">s</button>
+                <button class="keyboard-button">d</button>
+                <button class="keyboard-button">f</button>
+                <button class="keyboard-button">g</button>
+                <button class="keyboard-button">h</button>
+                <button class="keyboard-button">j</button>
+                <button class="keyboard-button">k</button>
+                <button class="keyboard-button">l</button>
+                <button class="keyboard-button">ş</button>
+                <button class="keyboard-button">i</button>
+            </div>
+            <div class="third-row">
+                <button class="keyboard-button">SİL</button>
+                <button class="keyboard-button">z</button>
+                <button class="keyboard-button">c</button>
+                <button class="keyboard-button">v</button>
+                <button class="keyboard-button">b</button>
+                <button class="keyboard-button">n</button>
+                <button class="keyboard-button">m</button>
+                <button class="keyboard-button">ö</button>
+                <button class="keyboard-button">ç</button>
+                <button class="keyboard-button">Enter</button>
+            </div>
+            <div class="fourth-row mt-2">
+                <button class="keyboard-button bg-red-500 text-white">TEMİZLE</button>
+            </div>
         </div>
-        <div class="third-row">
-            <button class="keyboard-button">SİL</button>
-            <button class="keyboard-button">z</button>
-            <button class="keyboard-button">c</button>
-            <button class="keyboard-button">v</button>
-            <button class="keyboard-button">b</button>
-            <button class="keyboard-button">n</button>
-            <button class="keyboard-button">m</button>
-            <button class="keyboard-button">ö</button>
-            <button class="keyboard-button">ç</button>
-            <button class="keyboard-button">Enter</button>
-        </div>
-        <div class="fourth-row mt-2">
-            <button class="keyboard-button bg-red-500 text-white">TEMİZLE</button>
-        </div>
-    </div>
     @endif
+
     @if($opponentName != "Günün Kelimesi")
     <livewire:chat-wire :gameId="$gameId" :gameType="1" />
     @endif
@@ -395,6 +439,7 @@ if(chatMode === false){
             var wordNumber = {{ $length + 1 }} - guessesRemaining;
 
             Livewire.emit('addGuess', guessString, {{ $gameId }}, {{ $isDuello }});
+
             setTimeout(function (){
                 if (guessString === rightGuessString) {
                     notifyGame("Tebrikler!")
@@ -480,7 +525,7 @@ if(chatMode === false){
         </script>
     @endif
 
-    @if($sira == \Illuminate\Support\Facades\Auth::id())
+    @if($isDuello == 0 OR ($isDuello == 1 AND $sira == \Illuminate\Support\Facades\Auth::id()))
     <livewire:games.guess-recorder></livewire:games.guess-recorder>
     @endif
     <script src="https://code.jquery.com/jquery-3.6.3.min.js"
