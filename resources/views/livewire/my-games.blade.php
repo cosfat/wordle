@@ -9,7 +9,7 @@
             <h2 class="text-2xl font-bold tracking-tight sm:text-center sm:text-4xl text-indigo-500">Günün kelimesi</h2>
         </div>
         <div class="flex flex-wrap text-sm">
-           Her 4 saatte bir yeni kelime gelir.
+           Her 6 saatte yeni bir kelime!
         </div>
         <div class="flex flex-wrap text-sm">
             Sonraki kelime: <span class="ml-2 bg-red-600 text-white text-xs font-medium px-2 py-1 rounded">{{ $diff }}</span>

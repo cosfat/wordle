@@ -45,7 +45,7 @@ class MyGames extends Component
         $currentHour = $now->hour;
         $x = 1;
         while(true){
-            if(($x + $currentHour)%4 == 0)
+            if(($x + $currentHour)%6 == 0)
             {
                 break;
             }
