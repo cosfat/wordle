@@ -17,7 +17,6 @@ class ChatWire extends Component
     protected $listeners = ['refreshChat' => '$refresh'];
 
     public $msg;
-    public $today;
     public $gameId;
     public $gameType;
     public $userName;
@@ -33,7 +32,6 @@ class ChatWire extends Component
         }
         else{
             $this->gameId = Game::find($this->gameId)->id;
-            $this->today = Today::orderBy('id', 'desc')->first()->id;
         }
     }
 
@@ -50,7 +48,7 @@ class ChatWire extends Component
             }
             else{
                 $chat->seen = 1;
-                $chat->game_type = $this->today;
+                $chat->game_type = $this->gameType;
             }
             $chat->user_id = Auth::id();
             $chat->save();
@@ -66,7 +64,7 @@ class ChatWire extends Component
             $chats = $this->game->chats()->where('game_type', $this->gameType);
         }
         else{
-            $chats = Chat::where('game_type', $this->today);
+            $chats = Chat::where('game_type', $this->gameType);
         }
         $this->messages = $chats->orderBy('id', 'desc')->limit(30)->reOrder('id', 'asc')->get();
         $myChats = $chats->where('user_id', '!=', Auth::id())->where('seen', 0)->get();

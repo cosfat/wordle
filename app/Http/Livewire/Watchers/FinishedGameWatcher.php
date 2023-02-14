@@ -10,6 +10,7 @@ use App\Models\Word;
 use Carbon\CarbonInterval;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class FinishedGameWatcher extends Component
 {
@@ -32,15 +33,21 @@ class FinishedGameWatcher extends Component
         $game = Game::whereId($gameId)->where('winner_id', '!=', null);
         if ($game->exists()) {
             $game = $game->first();
-            if($game->user_id == Auth::id() OR $game->opponent_id == Auth::id()){
+            if ($game->user_id == Auth::id() or $game->opponent_id == Auth::id()) {
                 $this->chat = true;
             }
 
-            if($game->user_id == 2){
+            if ($game->user_id == 2) {
+                $today = Today::orderBy('id', 'desc')->first()->id;
+                if ($game->today_id == $today) {
+                    if (Auth::user()->opponentGames()->where('today_id', $today)->whereNull('winner_id')->exists()) {
+                        session()->flash('message', 'Önce günün kelimesini çözmelisin.');
+                        return redirect()->to('/my-games');
+                    }
+                }
                 $this->chat = true;
-                $this->gameType = Today::orderBy('id', 'desc')->first()->id;
-            }
-            else{
+                $this->gameType = $game->today_id;
+            } else {
                 $this->gameType = 1;
             }
             $guesses = $game->guesses()->get();
@@ -58,7 +65,7 @@ class FinishedGameWatcher extends Component
 
             $this->meaning = null;
 
-            if(Word::tdk($this->wordName)){
+            if (Word::tdk($this->wordName)) {
                 $this->meaning = Word::tdk($this->wordName);
             }
         } else {

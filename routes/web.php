@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 Route::get('/', \App\Http\Livewire\Welcome::class);
 // Route::get('/status', [\App\Http\Controllers\UserController::class, 'userOnlineStatus']);
 Route::middleware([
@@ -34,6 +33,5 @@ Route::middleware([
     Route::get('/leader-board', \App\Http\Livewire\LeaderBoard::class);
     Route::get('/create-game/{length}', \App\Http\Livewire\CreateGame::class);
     Route::get('/user-summary/{user}', \App\Http\Livewire\UserSummary::class);
-    Route::get('/user-summary/{user}/{o}', \App\Http\Livewire\UserSummary::class);
 });
 
