@@ -1,4 +1,4 @@
-<div>
+<div class="counter">
     <div class="flex justify-center mb-2">
         @if($counting)
             <script>

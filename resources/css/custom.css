@@ -16,13 +16,18 @@
     box-shadow: 0 3px 5px 0 rgb(0, 0, 0), 0 3px 10px 0 rgb(0, 0, 0);
 }
 
-#back {
+.back {
     position: fixed;
     top: 0;
     left: 0;
     padding: 4px;
 }
-
+.counter {
+    position: fixed;
+    top: 0;
+    right: 0;
+    padding: 4px;
+}
 /* Show the snackbar when clicking on a button (class added with JavaScript) */
 #notifyBar.show {
     visibility: visible; /* Show the snackbar */
