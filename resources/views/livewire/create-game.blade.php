@@ -29,18 +29,18 @@
 
         <div class="flex justify-center mt-3 border-b pb-4">
             <button
-                class="px-3 py-3 font-medium text-slate-700 shadow-xl @if($mode == 3) bg-white @else bg-yellow-400 @endif hover:bg-white bg- duration-150"
+                class="px-3 py-3 font-medium text-slate-700 shadow-xl @if($mode == 3) bg-yellow-400 @else bg-white @endif bg- duration-150"
                 type="button" wire:click="$set('mode', 3)">
                 Klasik
             </button>
 
             <button
-                class="px-3 py-3 font-medium text-slate-700 shadow-xl @if($mode == 2) bg-white @else bg-yellow-400 @endif hover:bg-white duration-150"
+                class="px-3 py-3 font-medium text-slate-700 shadow-xl @if($mode == 2) bg-yellow-400 @else bg-white @endif duration-150"
                 type="button" wire:click="makeMode2">
                 Rekabet
             </button>
             <button
-                class="px-3 py-3 font-medium text-slate-700 shadow-xl @if($mode == 4) bg-white @else bg-yellow-400 @endif hover:bg-white duration-150"
+                class="px-3 py-3 font-medium text-slate-700 shadow-xl @if($mode == 4) bg-yellow-400 @else bg-white @endif duration-150"
                 type="button" wire:click="makeMode4">
                 Düello
             </button>
@@ -60,7 +60,7 @@
                         </button>
                         @foreach($suggestChFriend as $friend)
                             <button type="button"
-                                    class="mt-1 px-5 py-3 font-medium text-slate-700 shadow-xl duration-150 @if(array_search($friend, $challengeFriends)) bg-white @else bg-yellow-400 @endif"
+                                    class="mt-1 px-5 py-3 font-medium text-slate-700 shadow-xl duration-150 @if(array_search($friend, $challengeFriends)) bg-yellow-400 @else bg-white @endif"
                                     wire:click="addChallengeFriend('{{ $friend }}')" class="ml-4">
 
                                 @if(\Illuminate\Support\Facades\Cache::has('user-is-online-' . \App\Models\User::where('username', $friend)->first()->id))
@@ -88,7 +88,7 @@
                                      class="mt-1"
                                      type="text" name="challengeUserName" value="{{ $challengeUserName }}"/>
                         <button type="button"
-                                class="ml-2 px-5 py-3 font-medium text-slate-700 shadow-xl hover:bg-white duration-150 bg-yellow-400"
+                                class="ml-2 px-5 py-3 font-medium text-slate-700 shadow-xl duration-150 bg-yellow-400"
                                 wire:click="checkChallengeUsername()" class="ml-4">
                             {{ __('Gönder') }}
                         </button>
@@ -107,14 +107,14 @@
                     </div>
                     <div class="flex justify-center mt-3">
                         <button type="button"
-                                class="mt-1 px-5 py-3 font-medium text-slate-700 shadow-xl hover:bg-white duration-150 bg-yellow-400"
+                                class="mt-1 px-5 py-3 font-medium text-slate-700 shadow-xl duration-150 bg-yellow-400"
                                 wire:click="autoChOpp()" class="ml-4">
                             {{ __('Rasgele rakip') }}
                         </button>
                     </div>
                     <div class="flex justify-center mt-3">
                         <button type="button"
-                                class="mt-1 px-5 py-3 font-medium text-slate-700 shadow-xl hover:bg-white duration-150 bg-yellow-400"
+                                class="mt-1 px-5 py-3 font-medium text-slate-700 shadow-xl duration-150 bg-yellow-400"
                                 wire:click="startChallengeGame()" class="ml-4">
                             {{ __('Hazırsanız başlayalım!') }}
                         </button>
@@ -136,7 +136,7 @@
                                      value="{{ $word }}" name="word" required autofocus/>
 
                         <button
-                            class="ml-2 px-5 py-3 font-medium text-slate-700 shadow-xl hover:bg-white duration-150 bg-yellow-400"
+                            class="ml-2 px-5 py-3 font-medium text-slate-700 shadow-xl duration-150 bg-yellow-400"
                             type="button" wire:click="checkWord()">
                             {{ __('Gönder') }}
                         </button>
@@ -149,7 +149,7 @@
                         <div class="flex justify-center mt-3">
                             @foreach($suggests as $suggest)
                                 <button
-                                    class="mt-1 px-3 py-3 font-medium text-slate-700 shadow-xl hover:bg-white duration-150 bg-yellow-400"
+                                    class="mt-1 px-3 py-3 font-medium text-slate-700 shadow-xl duration-150 @if($word == $suggest)) bg-yellow-400 @else bg-white @endif"
                                     type="button" wire:click="pickSuggest('{{ $suggest }}')">
                                     {{ $suggest }}
                                 </button>
@@ -160,7 +160,7 @@
 
                     <div class="flex justify-center">
                         <button
-                            class="mt-3 px-5 py-3 font-medium text-slate-700 shadow-xl hover:bg-white duration-150 bg-yellow-400"
+                            class="mt-3 px-5 py-3 font-medium text-slate-700 shadow-xl duration-150 bg-yellow-400"
                             type="button" wire:click="autoWord()">
                             {{ __('Bana kelime öner') }}
                         </button>
@@ -182,10 +182,9 @@
                         <div class="flex justify-center flex-wrap  mt-3">
                             @foreach($suggestFriend as $friend)
                                 <button type="button"
-                                        class="mt-1 px-5 py-3 font-medium text-slate-700 shadow-xl hover:bg-white duration-150 bg-yellow-400"
+                                        class="mt-1 px-5 py-3 font-medium text-slate-700 shadow-xl duration-150 @if($opponentUserName == $friend) bg-yellow-400 @else bg-white @endif"
                                         wire:click="$set('opponentUserName', '{{ $friend }}')" class="ml-4">
                                     {{ $friend }}
-
                                 </button>
                             @endforeach
                         </div>
@@ -199,7 +198,7 @@
                                          class="mt-1"
                                          type="text" name="opponentUserName" value="{{ $opponentUserName }}"/>
                             <button type="button"
-                                    class="ml-2 px-5 py-3 font-medium text-slate-700 shadow-xl hover:bg-white duration-150 bg-yellow-400"
+                                    class="ml-2 px-5 py-3 font-medium text-slate-700 shadow-xl duration-150 bg-yellow-400"
                                     wire:click="checkEmail()" class="ml-4">
                                 {{ __('Gönder') }}
                             </button>
@@ -218,7 +217,7 @@
                         </div>
                         <div class="flex justify-center mt-3">
                             <button type="button"
-                                    class="mt-1 px-5 py-3 font-medium text-slate-700 shadow-xl hover:bg-white duration-150 bg-yellow-400"
+                                    class="mt-1 px-5 py-3 font-medium text-slate-700 shadow-xl duration-150 bg-yellow-400"
                                     wire:click="autoOpp()" class="ml-4">
                                 {{ __('Rasgele rakip') }}
                             </button>
@@ -242,7 +241,7 @@
                         <div class="flex justify-center flex-wrap  mt-3">
                             @foreach($suggestFriend as $friend)
                                 <button type="button"
-                                        class="mt-1 px-5 py-3 font-medium text-slate-700 shadow-xl hover:bg-white duration-150 bg-yellow-400"
+                                        class="mt-1 px-5 py-3 font-medium text-slate-700 shadow-xl duration-150 @if($opponentUserName == $friend) bg-yellow-400 @else bg-white @endif"
                                         wire:click="$set('opponentUserName', '{{ $friend }}')" class="ml-4">
                                     {{ $friend }}
 
@@ -259,7 +258,7 @@
                                          class="mt-1"
                                          type="text" name="opponentUserName" value="{{ $opponentUserName }}"/>
                             <button type="button"
-                                    class="ml-2 px-5 py-3 font-medium text-slate-700 shadow-xl hover:bg-white duration-150 bg-yellow-400"
+                                    class="ml-2 px-5 py-3 font-medium text-slate-700 shadow-xl duration-150 bg-yellow-400"
                                     wire:click="checkEmail()" class="ml-4">
                                 {{ __('Gönder') }}
                             </button>
