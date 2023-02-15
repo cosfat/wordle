@@ -282,8 +282,10 @@
             {{ $slot }}
         </main>
         <div class="flex justify-center p-10">
+            <a href="/my-games">
             <h2 class="text-2xl font-bold tracking-tight sm:text-center sm:text-4xl text-indigo-500">
                 KELİMEO</h2>
+            </a>
         </div>
     @else
         <x-guest-layout>
