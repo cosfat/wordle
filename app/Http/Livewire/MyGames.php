@@ -113,7 +113,7 @@ class MyGames extends Component
 
     public function new()
     {
-        return Auth::user()->opponentGames()->where('seen', 0)->where('user_id', '!=', 2)->where('isduello', 0)->orderBy('id', 'desc')->get();
+        return Auth::user()->opponentGames()->where('seen', 0)->where('user_id', '!=', 2)->where('isduello', null)->orderBy('id', 'desc')->get();
     }
 
     public function newChallenges()
