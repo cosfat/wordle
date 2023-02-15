@@ -56,63 +56,6 @@
     </div>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
-    <style>
-        h1 {
-            text-align: center;
-        }
-
-        #game-board {
-            display: flex;
-            align-items: center;
-            flex-direction: column;
-        }
-
-        .letter-box {
-            border: 4px solid #4f46e5;
-            border-radius: 3px;
-            margin: 2px;
-            font-size: 2rem;
-            font-weight: 700;
-            height: 3rem;
-            width: 3rem;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-transform: uppercase;
-        }
-
-        .filled-box {
-            border: 4px solid #facc15;
-        }
-
-        .letter-row {
-            display: flex;
-        }
-
-        #keyboard-cont {
-            margin: 1rem 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        #keyboard-cont div {
-            display: flex;
-        }
-
-        .second-row {
-            margin: 0.5rem 0;
-        }
-
-        .keyboard-button {
-            font-size: 1rem;
-            font-weight: 700;
-            padding: 0.5rem;
-            margin: 0 2px;
-            cursor: pointer;
-            text-transform: uppercase;
-        }
-    </style>
     <div id="game-board">
     </div>
     @if($chat)
