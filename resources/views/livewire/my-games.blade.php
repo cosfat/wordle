@@ -49,38 +49,22 @@
             <div style="width: 33%">
                 @if($today == 2 OR $today == 3)
                     <a href="/finished-game-watcher/{{ $todayGame->id }}">
-                        @else
-                            <a href="/the-game/{{ $todayGame->id }}">
-                                @endif
-                                @if($todayGame->chats()->where('user_id', '!=', \Illuminate\Support\Facades\Auth::id())->where('seen', 0)->exists())
-                                    <div
-                                        class="absolute mr-12 inline-flex items-center justify-center">
-                                        <svg width="24px" height="24px" viewBox="0 0 24 24" fill="none"
-                                             xmlns="http://www.w3.org/2000/svg" stroke="#EF4444">
-                                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
-                                               stroke-linejoin="round"></g>
-                                            <g id="SVGRepo_iconCarrier">
-                                                <path opacity="0.4" d="M8.5 10.5H15.5" stroke="#EF4444"
-                                                      stroke-width="1.5"
-                                                      stroke-miterlimit="10" stroke-linecap="round"
-                                                      stroke-linejoin="round"></path>
-                                                <path
-                                                    d="M7 18.4302H11L15.45 21.3902C16.11 21.8302 17 21.3602 17 20.5602V18.4302C20 18.4302 22 16.4302 22 13.4302V7.43018C22 4.43018 20 2.43018 17 2.43018H7C4 2.43018 2 4.43018 2 7.43018V13.4302C2 16.4302 4 18.4302 7 18.4302Z"
-                                                    stroke="#EF4444" stroke-width="1.5" stroke-miterlimit="10"
-                                                    stroke-linecap="round" stroke-linejoin="round"></path>
-                                            </g>
-                                        </svg>
-                                    </div>
-                                @endif
-                                <div
-                                    class="p-4 flex flex-col items-center text-center group hover:bg-slate-50 cursor-pointer">
+                @else
+                    <a href="/the-game/{{ $todayGame->id }}">
+                @endif
+                        <div class="p-4 flex flex-col items-center text-center group hover:bg-slate-50 cursor-pointer">
+                            @if($todayGame->seen == 0)
+                            <div
+                                class="absolute mt-3 inline-flex items-center justify-center p-2 text-xs font-bold text-white bg-red-500 border-2 border-white rounded-full">
+                                Yeni oyun!
+                            </div>
+                            @endif
                         <span class="p-2 rounded-full
                         @if($today == 2 OR $today == 3)
                             bg-indigo-500 shadow-indigo-200
-@else
+                        @else
                             bg-red-500 shadow-red-200
-                            @endif
+                        @endif
                             text-white shadow-lg">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24"
                                  stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round"
@@ -95,8 +79,8 @@
                                     @else
                                         <p class="text-sm text-gray-600">{{ $todayGame->created_at->diffForHumans(\Carbon\Carbon::now()) }}</p>
                                     @endif
-                                </div>
-                            </a>
+                        </div>
+                    </a>
             </div>
             <div style="width: 66%" class="p-2">
                 @if(count($todays) > 0)
@@ -275,6 +259,12 @@
                         @endif
                         <div
                             class="p-4 flex flex-col items-center text-center group hover:bg-slate-50 cursor-pointer">
+                            @if($game->sira == \Illuminate\Support\Facades\Auth::id())
+                            <div
+                                class="absolute mt-3 inline-flex items-center justify-center p-2 text-xs font-bold text-white bg-red-500 border-2 border-white rounded-full">
+                                Sıra sende!
+                            </div>
+                            @endif
                         <span class="p-2 rounded-full
                         bg-yellow-400
                         text-white shadow-lg">

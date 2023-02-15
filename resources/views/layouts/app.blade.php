@@ -43,6 +43,7 @@
                         Livewire.emit('refreshGameWatcher');
                     } else if (e.isDuello === 1) {
                         notifyGame(e.username + " DÜELLO tahmininde bulundu!", "the-game/" + e.game + "/1");
+                        Livewire.emit('MyGames');
                         let url = window.location.pathname;
                         if(url.indexOf(e.game + "/1") !== -1){
                             Livewire.emit('refreshDuelloGame');
@@ -178,8 +179,9 @@
                              width="38px" height="38px"
                              @endif viewBox="0 0 44 44"
                              xmlns="http://www.w3.org/2000/svg"
-                             @if(\App\Models\Game::where('opponent_id', \Illuminate\Support\Facades\Auth::id())->where('seen', 0)->exists() OR
-                            App\Models\Game::where('user_id', \Illuminate\Support\Facades\Auth::id())->whereNull('winner_id')->where('isduello', '!=', 1)->where('seen2', 0)->exists())
+                             @if(\App\Models\Game::where('opponent_id', \Illuminate\Support\Facades\Auth::id())->where('seen', 0)->exists()
+                             OR App\Models\Game::where('user_id', \Illuminate\Support\Facades\Auth::id())->whereNull('winner_id')->where('isduello', '!=', 1)->where('seen2', 0)->exists()
+                             OR \App\Models\Game::where('isduello', 1)->where('sira', \Illuminate\Support\Facades\Auth::id())->whereNull('winner_id')->exists())
                              fill="#EF4444"
                              @else
                              fill="#FACC15"
