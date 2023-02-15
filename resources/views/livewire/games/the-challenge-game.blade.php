@@ -140,6 +140,7 @@
         let currentGuess = [];
         let nextLetter = 0;
         let rightGuessString = "{{ \App\Models\Challenge::find($gameId)->word->name }}";
+        let waitSubmit = 0;
 
         function initBoard() {
             let board = document.getElementById("game-board");
@@ -174,7 +175,13 @@
                 }
 
                 if (pressedKey === "Enter") {
+                    if(waitSubmit === 0){
                     checkGuess()
+                    waitSubmit = 1;
+                    setTimeout(function (){
+                        waitSubmit = 0;
+                    }, 1500)
+                }
                     return
                 }
 
