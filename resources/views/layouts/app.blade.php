@@ -43,7 +43,10 @@
                         Livewire.emit('refreshGameWatcher');
                     } else if (e.isDuello === 1) {
                         notifyGame(e.username + " DÜELLO tahmininde bulundu!", "the-game/" + e.game + "/1");
-                        Livewire.emit('refreshDuelloGame');
+                        let url = window.location.pathname;
+                        if(url.indexOf(e.game + "/1") !== -1){
+                            Livewire.emit('refreshDuelloGame');
+                        }
                     }
                     notifyIcon();
                 } else if (e.type === 2) {
