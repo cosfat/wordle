@@ -196,6 +196,35 @@
             for (const val of currentGuess) {
                 guessString += val
             }
+            const matches = [];
+            const greens = [];
+            const yellows = [];
+            for(let i = 0; i < {{ $length }}; i ++){
+                for(let k = 0; k < {{ $length }}; k++){
+                    if(currentGuess[i] === rightGuess[k]){
+                        matches.push(i)
+                    }
+                }
+            }
+            for(let x = 0; x < matches.length; x++){
+                if(currentGuess[matches[x]] === rightGuess[matches[x]]){
+                    console.log(currentGuess[matches[x]])
+                    greens.push(matches[x])
+                    rightGuess[matches[x]] = "#"
+                }
+                else{
+                    yellows.push(matches[x]);
+                }
+            }
+            for(let x = 0; x<greens.length; x++){
+                for(let y = 0; y<yellows.length; y++){
+                    if(currentGuess[greens[x]] === currentGuess[yellows[y]]){
+                        delete yellows[y]
+                    }
+                }
+            }
+            let yellowsU = yellows.filter((value, index, array) => array.indexOf(value) === index);
+            let greensU = greens.filter((value, index, array) => array.indexOf(value) === index);
 
 
             for (let i = 0; i < {{ $length }}; i++) {
@@ -203,24 +232,14 @@
                 let box = row.children[i]
                 let letter = currentGuess[i]
 
-                let letterPosition = rightGuess.indexOf(currentGuess[i])
-
-                // is letter in the correct guess?
-                if (letterPosition === -1) {
+                if(greensU.indexOf(i) !== -1){
+                    letterColor = '#02cc09'
+                }
+                else if(yellowsU.indexOf(i) !== -1){
+                    letterColor = 'yellow'
+                }
+                else{
                     letterColor = '#e3e3e3'
-                } else {
-                    // now, letter is definitely in word
-                    // if letter index and right guess index are the same
-                    // letter is in the right position
-                    if (currentGuess[i] === rightGuess[i]) {
-                        // shade green
-                        letterColor = '#02cc09'
-                    } else {
-                        // shade box yellow
-                        letterColor = 'yellow'
-                    }
-
-                    rightGuess[letterPosition] = "#"
                 }
 
                 box.style.backgroundColor = letterColor;

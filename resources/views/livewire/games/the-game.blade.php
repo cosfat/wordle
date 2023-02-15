@@ -87,7 +87,7 @@
         }
     </style>
     @if($isDuello != 1)
-    <livewire:games.live-counter :start="$start" :firstGuess="$firstGuess"></livewire:games.live-counter>
+        <livewire:games.live-counter :start="$start" :firstGuess="$firstGuess"></livewire:games.live-counter>
     @endif
     <div id="game-board">
     </div>
@@ -180,7 +180,7 @@
     @endif
 
     @if($opponentName != "Günün Kelimesi")
-    <livewire:chat-wire :gameId="$gameId" :gameType="1" />
+        <livewire:chat-wire :gameId="$gameId" :gameType="1"/>
     @endif
 
     <script>
@@ -189,13 +189,13 @@
 
         let chatMode = false;
 
-        if(document.getElementById('chatInput')){
+        if (document.getElementById('chatInput')) {
 
-            document.getElementById('chatInput').onfocus = function (){
+            document.getElementById('chatInput').onfocus = function () {
                 chatMode = true
             }
 
-            document.getElementById('chatInput').onblur = function (){
+            document.getElementById('chatInput').onblur = function () {
                 chatMode = false;
             }
         }
@@ -226,33 +226,32 @@
         initBoard()
 
 
-            document.addEventListener("keyup", (e) => {
-if(chatMode === false){
-    if (guessesRemaining === 0) {
-        return
-    }
+        document.addEventListener("keyup", (e) => {
+            if (chatMode === false) {
+                if (guessesRemaining === 0) {
+                    return
+                }
 
-    let pressedKey = String(e.key)
-    if (pressedKey === "Backspace" && nextLetter !== 0) {
-        deleteLetter()
-        return
-    }
+                let pressedKey = String(e.key)
+                if (pressedKey === "Backspace" && nextLetter !== 0) {
+                    deleteLetter()
+                    return
+                }
 
-    if (pressedKey === "Enter") {
-        checkGuess()
-        return
-    }
+                if (pressedKey === "Enter") {
+                    checkGuess()
+                    return
+                }
 
-    let found = pressedKey.match(/[a-zöçşıİğü]/gi)
-    if (!found || found.length > 1) {
-        return
-    } else {
-        insertLetter(pressedKey)
-    }
-}
+                let found = pressedKey.match(/[a-zöçşıİğü]/gi)
+                if (!found || found.length > 1) {
+                    return
+                } else {
+                    insertLetter(pressedKey)
+                }
+            }
 
-            })
-
+        })
 
 
         let addedGuessesCount = 0;
@@ -301,36 +300,54 @@ if(chatMode === false){
             for (const val of currentGuess) {
                 guessString += val
             }
+            const matches = [];
+            const greens = [];
+            const yellows = [];
+            for(let i = 0; i < {{ $length }}; i ++){
+                for(let k = 0; k < {{ $length }}; k++){
+                    if(currentGuess[i] === rightGuess[k]){
+                        matches.push(i)
+                    }
+                }
+            }
+            for(let x = 0; x < matches.length; x++){
+                if(currentGuess[matches[x]] === rightGuess[matches[x]]){
+                    console.log(currentGuess[matches[x]])
+                    greens.push(matches[x])
+                    rightGuess[matches[x]] = "#"
+                }
+                else{
+                    yellows.push(matches[x]);
+                }
+            }
+            for(let x = 0; x<greens.length; x++){
+                for(let y = 0; y<yellows.length; y++){
+                    if(currentGuess[greens[x]] === currentGuess[yellows[y]]){
+                        delete yellows[y]
+                    }
+                }
+            }
+            let yellowsU = yellows.filter((value, index, array) => array.indexOf(value) === index);
+            let greensU = greens.filter((value, index, array) => array.indexOf(value) === index);
 
             for (let i = 0; i < {{ $length }}; i++) {
                 let letterColor = ''
                 let box = row.children[i]
                 let letter = currentGuess[i]
-
-                let letterPosition = rightGuess.indexOf(currentGuess[i])
-
-                // is letter in the correct guess?
-                if (letterPosition === -1) {
-                    letterColor = '#e3e3e3'
-                } else {
-                    // now, letter is definitely in word
-                    // if letter index and right guess index are the same
-                    // letter is in the right position
-                    if (currentGuess[i] === rightGuess[i]) {
-                        // shade green
-                        letterColor = '#02cc09'
-                    } else {
-                        // shade box yellow
-                        letterColor = 'yellow'
-                    }
-
-                    rightGuess[letterPosition] = "#"
+                if(greensU.indexOf(i) !== -1){
+                    letterColor = '#02cc09'
                 }
+                else if(yellowsU.indexOf(i) !== -1){
+                    letterColor = 'yellow'
+                }
+                else{
+                    letterColor = '#e3e3e3'
+                }
+
 
                 box.style.backgroundColor = letterColor;
                 shadeKeyBoard(letter, letterColor)
             }
-
 
             if (guessString === rightGuessString) {
                 notifyGame("Tebrikler!")
@@ -372,6 +389,7 @@ if(chatMode === false){
         }
 
         let wrongGuess = 0;
+
         function checkGuess() {
             let row = document.getElementsByClassName("letter-row")[{{ $length + 1 }} - guessesRemaining]
             let guessString = ''
@@ -392,13 +410,44 @@ if(chatMode === false){
 
                 let isDuello = {{ $isDuello }};
 
-                if(wrongGuess > 2 && isDuello === 1){
+                if (wrongGuess > 2 && isDuello === 1) {
                     Livewire.emit('siraChange', {{ $gameId }}, 1);
                 }
                 return
             }
 
-
+            const matches = [];
+            const greens = [];
+            const yellows = [];
+            for(let i = 0; i < {{ $length }}; i ++){
+                for(let k = 0; k < {{ $length }}; k++){
+                    if(currentGuess[i] === rightGuess[k]){
+                        matches.push(i)
+                    }
+                }
+            }
+            for(let x = 0; x < matches.length; x++){
+                if(currentGuess[matches[x]] === rightGuess[matches[x]]){
+                    console.log(currentGuess[matches[x]])
+                    greens.push(matches[x])
+                    rightGuess[matches[x]] = "#"
+                }
+                else{
+                    yellows.push(matches[x]);
+                }
+            }
+            for(let x = 0; x<greens.length; x++){
+                for(let y = 0; y<yellows.length; y++){
+                    if(currentGuess[greens[x]] === currentGuess[yellows[y]]){
+                        delete yellows[y]
+                    }
+                }
+            }
+            function onlyUnique(value, index, array) {
+                return self.indexOf(value) === index;
+            }
+            let yellowsU = yellows.filter((value, index, array) => array.indexOf(value) === index);
+            let greensU = greens.filter((value, index, array) => array.indexOf(value) === index);
 
             for (let i = 0; i < {{ $length }}; i++) {
 
@@ -406,25 +455,15 @@ if(chatMode === false){
                 let box = row.children[i]
                 let letter = currentGuess[i]
 
-                let letterPosition = rightGuess.indexOf(currentGuess[i])
-                // is letter in the correct guess
-                if (letterPosition === -1) {
-                    letterColor = '#e3e3e3'
-                } else {
-                    // now, letter is definitely in word
-                    // if letter index and right guess index are the same
-                    // letter is in the right position
-                    if (currentGuess[i] === rightGuess[i]) {
-                        // shade green
-                        letterColor = '#02cc09'
-                    } else {
-                        // shade box yellow
-                        letterColor = 'yellow'
-                    }
-
-                    rightGuess[letterPosition] = "#"
+                if(greensU.indexOf(i) !== -1){
+                    letterColor = '#02cc09'
                 }
-
+                else if(yellowsU.indexOf(i) !== -1){
+                    letterColor = 'yellow'
+                }
+                else{
+                    letterColor = '#e3e3e3'
+                }
 
                 let delay = 250 * i
                 setTimeout(() => {
@@ -440,7 +479,7 @@ if(chatMode === false){
 
             Livewire.emit('addGuess', guessString, {{ $gameId }}, {{ $isDuello }});
 
-            setTimeout(function (){
+            setTimeout(function () {
                 if (guessString === rightGuessString) {
                     notifyGame("Tebrikler!")
                     guessesRemaining = 0;
@@ -459,6 +498,7 @@ if(chatMode === false){
             }, 1000)
 
         }
+
 
         function shadeKeyBoard(letter, color) {
             for (const elem of document.getElementsByClassName("keyboard-button")) {
@@ -526,7 +566,7 @@ if(chatMode === false){
     @endif
 
     @if($isDuello == 0 OR ($isDuello == 1 AND $sira == \Illuminate\Support\Facades\Auth::id()))
-    <livewire:games.guess-recorder></livewire:games.guess-recorder>
+        <livewire:games.guess-recorder></livewire:games.guess-recorder>
     @endif
     <script src="https://code.jquery.com/jquery-3.6.3.min.js"
             integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
