@@ -180,7 +180,7 @@
 
 
             if (guessString === rightGuessString) {
-                notifyGame("{{ $opponentName }} kelimeyi bildi!")
+                notifyGame("{{ $userName }} kelimeyi bildi!")
                 guessesRemaining = 0
                 return
             } else {
@@ -189,7 +189,7 @@
                 nextLetter = 0;
 
                 if (guessesRemaining === 0) {
-                    notifyGame(`{{ $opponentName }} kaybetti: ${rightGuessString}`)
+                    notifyGame(`{{ $userName }} kaybetti: ${rightGuessString}`)
                 }
             }
         }
