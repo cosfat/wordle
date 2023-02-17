@@ -50,12 +50,12 @@
                     }
                     notifyIcon();
                 } else if (e.type === 2) {
-                    let pstate = b;
                     let url = window.location.pathname;
                     if (url.indexOf('the-challenge-game') === -1) {
                         notifyGame(e.username + " rekabet tahmininde bulundu!", "the-challenge-game/" + e.game);
                         Livewire.emit('refreshChallengeGameWatcher');
                     } else {
+                        let pstate = "b";
                         let blink = setInterval(function () {
                             if (pstate === "b") {
                                 document.getElementById(e.userId).style.color = 'red';
