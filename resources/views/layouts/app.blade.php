@@ -50,6 +50,7 @@
                     }
                     notifyIcon();
                 } else if (e.type === 2) {
+                    let pstate = b;
                     let url = window.location.pathname;
                     if (url.indexOf('the-challenge-game') === -1) {
                         notifyGame(e.username + " rekabet tahmininde bulundu!", "the-challenge-game/" + e.game);
