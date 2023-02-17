@@ -55,22 +55,19 @@
                         notifyGame(e.username + " rekabet tahmininde bulundu!", "the-challenge-game/" + e.game);
                         Livewire.emit('refreshChallengeGameWatcher');
                     } else {
-                        let ypencil = "<svg width='34px' height='34px' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg' stroke='#facc15'><g id='SVGRepo_bgCarrier' stroke-width='0'></g><g id='SVGRepo_tracerCarrier' stroke-linecap='round' stroke-linejoin='round'></g><g id='SVGRepo_iconCarrier'><path fill-rule='evenodd' clip-rule='evenodd' d='m3.99 16.854-1.314 3.504a.75.75 0 0 0 .966.965l3.503-1.314a3 3 0 0 0 1.068-.687L18.36 9.175s-.354-1.061-1.414-2.122c-1.06-1.06-2.122-1.414-2.122-1.414L4.677 15.786a3 3 0 0 0-.687 1.068zm12.249-12.63 1.383-1.383c.248-.248.579-.406.925-.348.487.08 1.232.322 1.934 1.025.703.703.945 1.447 1.025 1.934.058.346-.1.677-.348.925L19.774 7.76s-.353-1.06-1.414-2.12c-1.06-1.062-2.121-1.415-2.121-1.415z' fill='#000000'></path></g></svg>";
-                        let bpencil = "<svg width='34px' height='34px' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg' stroke='#000000'><g id='SVGRepo_bgCarrier' stroke-width='0'></g><g id='SVGRepo_tracerCarrier' stroke-linecap='round' stroke-linejoin='round'></g><g id='SVGRepo_iconCarrier'><path fill-rule='evenodd' clip-rule='evenodd' d='m3.99 16.854-1.314 3.504a.75.75 0 0 0 .966.965l3.503-1.314a3 3 0 0 0 1.068-.687L18.36 9.175s-.354-1.061-1.414-2.122c-1.06-1.06-2.122-1.414-2.122-1.414L4.677 15.786a3 3 0 0 0-.687 1.068zm12.249-12.63 1.383-1.383c.248-.248.579-.406.925-.348.487.08 1.232.322 1.934 1.025.703.703.945 1.447 1.025 1.934.058.346-.1.677-.348.925L19.774 7.76s-.353-1.06-1.414-2.12c-1.06-1.062-2.121-1.415-2.121-1.415z' fill='#facc15'></path></g></svg>";
-                        let pstate = "y";
                         let blink = setInterval(function () {
                             if (pstate === "b") {
-                                document.getElementById(e.userId).innerHTML = ypencil;
+                                document.getElementById(e.userId).style.color = 'red';
                                 pstate = "y";
                             } else {
-                                document.getElementById(e.userId).innerHTML = bpencil;
+                                document.getElementById(e.userId).style.color = 'yellow';
                                 pstate = "b";
                             }
                         }, 100)
 
                         setTimeout(function () {
                             clearInterval(blink);
-                            document.getElementById(e.userId).innerHTML = "<h2 class='text-sm font-bold tracking-tight sm:text-center sm:text-4xl text-indigo-500'>" + e.username + "</h2>";
+                            document.getElementById(e.userId).style.color = "rgb(99 102 241, 0.8)";
                         }, 1000)
 
                     }
