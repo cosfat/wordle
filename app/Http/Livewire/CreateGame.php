@@ -159,7 +159,7 @@ class CreateGame extends Component
 
     public function checkWord()
     {
-        $word = $this->word;
+        $word = strtolower($this->word);
 
         if (Word::where('name', $word)->exists() and Str::length($word) == $this->length and Word::tdk($word)) {
             $wordRow = Word::where('name', $word)->first();

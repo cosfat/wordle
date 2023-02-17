@@ -250,55 +250,40 @@
             for (const val of currentGuess) {
                 guessString += val
             }
-            const matches = [];
-            const greens = [];
-            const yellows = [];
-            for(let i = 0; i < {{ $length }}; i ++){
-                for(let k = 0; k < {{ $length }}; k++){
-                    if(currentGuess[i] === rightGuess[k]){
-                        matches.push(i)
-                    }
-                }
-            }
-            for(let x = 0; x < matches.length; x++){
-                if(currentGuess[matches[x]] === rightGuess[matches[x]]){
-                    console.log(currentGuess[matches[x]])
-                    greens.push(matches[x])
-                    rightGuess[matches[x]] = "#"
-                }
-                else{
-                    yellows.push(matches[x]);
-                }
-            }
-            for(let x = 0; x<greens.length; x++){
-                for(let y = 0; y<yellows.length; y++){
-                    if(currentGuess[greens[x]] === currentGuess[yellows[y]]){
-                        delete yellows[y]
-                    }
-                }
-            }
-            let yellowsU = yellows.filter((value, index, array) => array.indexOf(value) === index);
-            let greensU = greens.filter((value, index, array) => array.indexOf(value) === index);
 
+            let answer = [];
             for (let i = 0; i < {{ $length }}; i++) {
-                let letterColor = ''
                 let box = row.children[i]
-                let letter = currentGuess[i]
-                if(greensU.indexOf(i) !== -1){
-                    letterColor = '#02cc09'
+                let letter = currentGuess[i];
+                answer.push(letter);
+                let letterColor = '#e3e3e3'
+                if(rightGuess.includes(letter)){
+                    if(rightGuess[i] === letter){
+                        letterColor = '#02cc09'
+                        if(count(currentGuess, letter) > count(rightGuess, letter)){
+                            for(let j = 0; j < {{ $length }}; j++){
+                                if(row.children[j].innerText == letter.toLocaleUpperCase('TR') && row.children[j].style.backgroundColor == 'yellow'){
+                                    row.children[j].style.backgroundColor = '#e3e3e3';
+                                    let index = answer.indexOf(letter);
+                                    if (index !== -1) {
+                                        answer.splice(index, 1);
+                                    }
+                                }
+                            }
+                        }
+                    }else{
+                        if(countOccurrences(answer, letter) <= count(rightGuessString, letter)){
+                            letterColor = 'yellow';
+                        }
+                        else{
+                            letterColor = '#e3e3e3';
+                        }
+                    }
                 }
-                else if(yellowsU.indexOf(i) !== -1){
-                    letterColor = 'yellow'
-                }
-                else{
-                    letterColor = '#e3e3e3'
-                }
-
 
                 box.style.backgroundColor = letterColor;
                 shadeKeyBoard(letter, letterColor)
             }
-
             if (guessString === rightGuessString) {
                 notifyGame("Tebrikler!")
                 guessesRemaining = 0
@@ -340,6 +325,28 @@
 
         let wrongGuess = 0;
 
+        function count(str, letter) {
+            let count = 0;
+
+            // looping through the items
+            for (let i = 0; i < str.length; i++) {
+
+                // check if the character is at that position
+                if (str.toString().charAt(i) === letter) {
+                    count += 1;
+                }
+            }
+            return count;
+        }
+        function countOccurrences(arr, val) {
+            let count = 0;
+            for (i = 0; i < arr.length; i++) {
+                if (arr[i] === val) {
+                    count++;
+                }
+            }
+            return count;
+        }
         function checkGuess() {
             let row = document.getElementsByClassName("letter-row")[{{ $length + 1 }} - guessesRemaining]
             let guessString = ''
@@ -366,62 +373,46 @@
                 return
             }
 
-            const matches = [];
-            const greens = [];
-            const yellows = [];
-            for(let i = 0; i < {{ $length }}; i ++){
-                for(let k = 0; k < {{ $length }}; k++){
-                    if(currentGuess[i] === rightGuess[k]){
-                        matches.push(i)
-                    }
-                }
-            }
-            for(let x = 0; x < matches.length; x++){
-                if(currentGuess[matches[x]] === rightGuess[matches[x]]){
-                    console.log(currentGuess[matches[x]])
-                    greens.push(matches[x])
-                    rightGuess[matches[x]] = "#"
-                }
-                else{
-                    yellows.push(matches[x]);
-                }
-            }
-            for(let x = 0; x<greens.length; x++){
-                for(let y = 0; y<yellows.length; y++){
-                    if(currentGuess[greens[x]] === currentGuess[yellows[y]]){
-                        delete yellows[y]
-                    }
-                }
-            }
-            function onlyUnique(value, index, array) {
-                return self.indexOf(value) === index;
-            }
-            let yellowsU = yellows.filter((value, index, array) => array.indexOf(value) === index);
-            let greensU = greens.filter((value, index, array) => array.indexOf(value) === index);
 
+            let answer = [];
             for (let i = 0; i < {{ $length }}; i++) {
-
-                let letterColor = ''
                 let box = row.children[i]
-                let letter = currentGuess[i]
+                let letter = currentGuess[i];
+                answer.push(letter);
+                let letterColor = '#e3e3e3'
+                if(rightGuess.includes(letter)){
+                    if(rightGuess[i] === letter){
+                        letterColor = '#02cc09'
+                        if(count(currentGuess, letter) > count(rightGuess, letter)){
+                            for(let j = 0; j < {{ $length }}; j++){
+                                console.log(row.children[j].innerText);
+                                if(row.children[j].innerText == letter.toLocaleUpperCase('TR') && row.children[j].style.backgroundColor == 'yellow'){
+                                    row.children[j].style.backgroundColor = '#e3e3e3';
+                                    let index = answer.indexOf(letter);
+                                    if (index !== -1) {
+                                        answer.splice(index, 1);
+                                    }
+                                }
+                            }
+                        }
+                    }else{
+                        if(countOccurrences(answer, letter) <= count(rightGuessString, letter)){
+                            letterColor = 'yellow';
+                        }
+                        else{
+                            letterColor = '#e3e3e3';
+                        }
+                    }
+                }
 
-                if(greensU.indexOf(i) !== -1){
-                    letterColor = '#02cc09'
-                }
-                else if(yellowsU.indexOf(i) !== -1){
-                    letterColor = 'yellow'
-                }
-                else{
-                    letterColor = '#e3e3e3'
-                }
-
-                let delay = 250 * i
+                let delay = 50 * i
                 setTimeout(() => {
                     animateCSS(box, 'flipInX')
                     //shade box
-                    box.style.backgroundColor = letterColor
-                    shadeKeyBoard(letter, letterColor)
                 }, delay)
+
+                box.style.backgroundColor = letterColor
+                shadeKeyBoard(letter, letterColor)
             }
 
 
