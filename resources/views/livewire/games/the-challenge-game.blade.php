@@ -281,6 +281,15 @@
                 guessString += val
             }
 
+            if (guessString.length != {{ $length }}) {
+                notifyGame("{{ $length }} harfli kelime yazmalısın")
+                return
+            }
+
+            if (!words.includes(guessString)) {
+                notifyGame("Bu kelime veritabanımızda yok")
+                return
+            }
 
             let answer = [];
             for (let i = 0; i < {{ $length }}; i++) {
@@ -321,16 +330,6 @@
 
                 box.style.backgroundColor = letterColor
                 shadeKeyBoard(letter, letterColor)
-            }
-
-            if (guessString.length != {{ $length }}) {
-                notifyGame("{{ $length }} harfli kelime yazmalısın")
-                return
-            }
-
-            if (!words.includes(guessString)) {
-                notifyGame("Bu kelime veritabanımızda yok")
-                return
             }
 
             let wordNumber = {{ $length + 1 }} - guessesRemaining;

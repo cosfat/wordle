@@ -55,7 +55,7 @@
                     </div>
                     <div class="flex justify-center flex-wrap mt-3">
                         <button type="button"
-                                class="mt-1 px-5 py-3 font-medium text-slate-700 shadow-xl duration-150 bg-white ml-4">
+                                class="mt-1 px-5 py-3 font-medium text-slate-700 shadow-xl duration-150 bg-yellow-400 ml-4">
                             {{ \Illuminate\Support\Facades\Auth::user()->username }}
                         </button>
                         @foreach($suggestChFriend as $friend)
