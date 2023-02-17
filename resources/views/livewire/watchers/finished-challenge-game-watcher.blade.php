@@ -208,8 +208,6 @@
                 guessesRemaining -= 1;
                 currentGuess = [];
                 nextLetter = 0;
-
-                notifyGame(`{{ $userName }} kaybetti: ${rightGuessString}`)
             }
         }
 
