@@ -70,7 +70,7 @@
 
                         setTimeout(function () {
                             clearInterval(blink);
-                            document.getElementById(e.userId).innerHTML = "<h2 class='mr-2 text-sm font-bold tracking-tight sm:text-center sm:text-4xl text-indigo-500'>" + e.username + "</h2>";
+                            document.getElementById(e.userId).innerHTML = "<h2 class='mr-2 text-sm font-bold tracking-tight sm:text-center sm:text-4xl text-green-600'>" + e.username + "</h2>";
                         }, 1000)
 
                     }
