@@ -22,8 +22,6 @@
                 Livewire.emit('MyGames');
                 notifyIcon();
                 document.title = "Kelimeo (1)";
-                let audio = new Audio('/audio/game.m4a');
-                audio.play();
                 if (e.type === 1) {
                     notifyGame(e.username + " yeni OYUN isteği gönderdi!", "the-game/" + e.game);
                 } else if (e.type === 2) {
@@ -36,8 +34,6 @@
 
         window.Echo.private(`guesses-channel.{{ \Illuminate\Support\Facades\Auth::id() }}`)
             .listen('GuessTyped', (e) => {
-                let audio = new Audio('/audio/type.m4a');
-                audio.play();
                 if (e.type === 1) {
                     if (e.isDuello === 0) {
                         notifyGame(e.username + " tahminde bulundu!", "game-watcher/" + e.game);

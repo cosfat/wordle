@@ -83,10 +83,6 @@
     <script type="module">
         window.Echo.private(`chat-channel.{{ $gameId }}`)
             .listen('ChatMessaged', (e) => {
-
-                let audio = new Audio('/audio/chat.m4a');
-                audio.play();
-                console.log(e.type)
                 Livewire.emit('refreshChat');
                 document.getElementById('messages').scrollTop = document.getElementById('messages').scrollHeight;
             });
