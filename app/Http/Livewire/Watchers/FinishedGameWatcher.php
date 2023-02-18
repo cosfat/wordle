@@ -75,7 +75,7 @@ class FinishedGameWatcher extends Component
             $this->userName = User::find($game->opponent_id)->name;
 
 
-            if($this->winner != 0){
+            if($game->winner_id != 0){
                 $this->winner = User::find($game->winner_id)->username;
             }
             else{
