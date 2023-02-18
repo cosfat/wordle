@@ -20,7 +20,6 @@ class Word extends Model
             return false;
         }
         else{
-
             return $json[0]['anlamlarListe'][0]['anlam'];
         }
     }
