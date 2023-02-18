@@ -456,6 +456,10 @@
 
                     elem.style.backgroundColor = color
                     break
+
+
+
+                    console.log(letter + " - " + oldColor + " - " + color);
                 }
             }
         }
