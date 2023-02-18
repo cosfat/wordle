@@ -75,7 +75,12 @@ class FinishedGameWatcher extends Component
             $this->userName = User::find($game->opponent_id)->name;
 
 
-            $this->winner = User::find($game->winner_id)->username;
+            if($this->winner != 0){
+                $this->winner = User::find($game->winner_id)->username;
+            }
+            else{
+                $this->winner = "Kimse kazanamadı";
+            }
 
             $this->duration = str_replace('dakika', 'dk', str_replace('saniye', 'sn', CarbonInterval::seconds($game->duration)->cascade()->forHumans()));
 
