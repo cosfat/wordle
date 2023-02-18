@@ -74,18 +74,23 @@ class CreateGame extends Component
     }
 
 
-    public function makeMode2(){
+    public function makeMode2()
+    {
         $this->mode = 2;
         $this->suggestChFriend();
     }
-    public function makeMode4(){
+
+    public function makeMode4()
+    {
         $this->mode = 4;
         $this->suggestFriend();
         $this->hideOpponent = false;
     }
+
     public function suggestChFriend()
     {
         $gamesArray = array();
+        $contacts = Auth::user()->contacts()->get();
         $chGames = Chuser::where('user_id', Auth::id())->orderBy('id', 'desc')->limit(5)->get();
         foreach ($chGames as $chGame) {
             $chid = $chGame->challenge_id;
@@ -94,8 +99,13 @@ class CreateGame extends Component
                 $gamesArray[] = User::find($chuser)->username;
             }
         }
+        if (count($gamesArray) < 2) {
+            foreach ($contacts as $contact) {
+                $gamesArray[] = $contact->user->username;
+            }
+        }
         $gamesArray = array_unique($gamesArray);
-        if(count($gamesArray) < 1){
+        if (count($gamesArray) < 1) {
             $gamesMe = Game::where('user_id', Auth::id())->orderBy('id', 'desc')->limit(100)->get();
             $gamesOp = Game::where('opponent_id', Auth::id())->where('user_id', '!=', 2)->orderBy('id', 'desc')->limit(100)->get();
             foreach ($gamesMe as $game) {
@@ -106,9 +116,14 @@ class CreateGame extends Component
             }
             $gamesArray = array_unique($gamesArray);
             if (count($gamesArray) < 1) {
-                $users = User::where('id', '!=', Auth::id())->inRandomOrder()->limit(5)->pluck('username');
-                foreach ($users as $user) {
-                    $gamesArray[] = $user;
+                foreach ($contacts as $contact) {
+                    $gamesArray[] = $contact->user->username;
+                }
+                if (count($gamesArray) < 1) {
+                    $users = User::where('id', '!=', Auth::id())->inRandomOrder()->limit(5)->pluck('username');
+                    foreach ($users as $user) {
+                        $gamesArray[] = $user;
+                    }
                 }
                 $gamesArray = array_unique($gamesArray);
             }
@@ -119,26 +134,13 @@ class CreateGame extends Component
     public function suggestFriend()
     {
         $gamesArray = array();
-
-        $games = Game::where('user_id', Auth::id())->orWhere('opponent_id', Auth::id())->where('user_id', '!=', 2)->where('winner_id', '!=', null)->orderBy('id', 'desc')->limit(10)->get();
-        foreach ($games as $game) {
-            if ($game->opponent_id == Auth::id()) {
-                $user = User::whereId($game->user_id)->first();
-                if (Game::where('user_id', Auth::id())->where('opponent_id', $user->id)->whereNull('winner_id')->doesntExist()) {
-                    $gamesArray[] = User::whereId($game->user_id)->first()->name;
-                }
-            } else {
-                $user = User::whereId($game->opponent_id)->first();
-                if (Game::where('user_id', Auth::id())->where('opponent_id', $user->id)->whereNull('winner_id')->doesntExist()) {
-                    $gamesArray[] = User::whereId($game->opponent_id)->first()->name;
-                }
-            }
+        $contacts = Auth::user()->contacts()->get();
+        foreach ($contacts as $contact) {
+            $gamesArray[] = $contact->user->username;
         }
-
 
         if (count($gamesArray) < 1) {
             $users = User::where('id', '!=', Auth::id())->inRandomOrder()->limit(5)->pluck('username');
-
             foreach ($users as $user) {
                 $gamesArray[] = $user;
             }
@@ -298,7 +300,7 @@ class CreateGame extends Component
 
     public function startGame()
     {
-        if($this->mode == 3){
+        if ($this->mode == 3) {
             $word = $this->gameWord;
             $opp = $this->gameOpp;
 
@@ -311,8 +313,7 @@ class CreateGame extends Component
             GameNotification::dispatch($opp, $game->id, Auth::user()->username, 1);
             session()->flash('message', 'Oyun başarıyla oluşturuldu.');
             return redirect()->to('/game-watcher/' . $game->id);
-        }
-        elseif ($this->mode == 4){
+        } elseif ($this->mode == 4) {
             $opp = $this->gameOpp;
             $game = new Game;
             $game->user_id = Auth::id();
@@ -333,7 +334,7 @@ class CreateGame extends Component
             $game->save();
             GameNotification::dispatch($opp, $game->id, Auth::user()->username, 3);
             session()->flash('message', 'Oyun başarıyla oluşturuldu.');
-            return redirect()->to('/the-game/' . $game->id."/1");
+            return redirect()->to('/the-game/' . $game->id . "/1");
         }
     }
 
