@@ -14,12 +14,12 @@
         <div class="flow-root">
             <ul role="list" class="divide-y divide-gray-200">
                 @foreach($friends as $friend)
-                    <a href="/user-summary/{{ $friend->contact_id }}">
+                    <a href="/user-summary/{{ $friend->user_id }}">
                         <li class="py-3 sm:py-2">
                             <div class="flex items-center space-x-4">
 
                                 <div class="inline-flex items-center text-base font-semibold text-gray-900 ">
-                                    @if(\Illuminate\Support\Facades\Cache::has('user-is-online-' . $friend->contact_id))
+                                    @if(\Illuminate\Support\Facades\Cache::has('user-is-online-' . $friend->user_id))
                                         <span style="background-color: chartreuse; height: 25px;
   width: 25px;
   border-radius: 50%;
