@@ -38,7 +38,7 @@
     <div id="game-board">
     </div>
     @if($chat)
-        <livewire:chat-wire :gameId="$gameId" :gameType="$gameType"/>)
+        <livewire:chat-wire :gameId="$gameId" :gameType="$gameType"/>
         <livewire:contact-wire :friend="$myOpp" />
     @elseif($myOpp)
         <livewire:contact-wire :friend="$myOpp" />
