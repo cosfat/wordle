@@ -163,7 +163,7 @@ class CreateGame extends Component
     {
         $word = strtolower($this->word);
 
-        if (Word::where('name', $word)->exists() and Str::length($word) == $this->length and Word::tdk($word)) {
+        if (Word::where('name', $word)->where('meaning', '!=', null)->exists() AND Str::length($word) == $this->length) {
             $wordRow = Word::where('name', $word)->first();
             $this->wordError = false;
             $this->hideOpponent = false;
@@ -192,12 +192,11 @@ class CreateGame extends Component
     {
         $this->suggests = [];
 
-        $suggestQuery = DB::select(DB::raw("SELECT id, name, CHAR_LENGTH(name) AS 'chrlen' FROM words WHERE CHAR_LENGTH(name) = $this->length ORDER BY RAND() LIMIT $this->suggetNumber"));
+        $suggestQuery = DB::select(DB::raw("SELECT id, meaning, name, CHAR_LENGTH(name) AS 'chrlen' FROM words WHERE CHAR_LENGTH(name) = $this->length AND meaning != 'null' ORDER BY RAND() LIMIT $this->suggetNumber"));
 
         foreach ($suggestQuery as $item) {
-            if (Word::tdk($item->name)) {
                 $this->suggests[] = $item->name;
-            }
+
         }
         $this->suggestBoxes = true;
 
@@ -320,13 +319,10 @@ class CreateGame extends Component
             $game->sira = $opp;
             $game->opponent_id = $opp;
 
-            $suggestQuery = DB::select(DB::raw("SELECT id, name, CHAR_LENGTH(name) AS 'chrlen' FROM words WHERE CHAR_LENGTH(name) = $this->length ORDER BY RAND() LIMIT 20"));
+            $suggestQuery = DB::select(DB::raw("SELECT id, meaning, name, CHAR_LENGTH(name) AS 'chrlen' FROM words WHERE CHAR_LENGTH(name) = $this->length  AND meaning != 'null' ORDER BY RAND() LIMIT 1"));
             foreach ($suggestQuery as $item) {
-                if (Word::tdk($item->name)) {
                     $word = $item->name;
                     $wordId = $item->id;
-                    break;
-                }
             }
             $game->word_id = $wordId;
             $game->isduello = 1;
@@ -341,13 +337,10 @@ class CreateGame extends Component
 
     public function startChallengeGame()
     {
-        $suggestQuery = DB::select(DB::raw("SELECT id, name, CHAR_LENGTH(name) AS 'chrlen' FROM words WHERE CHAR_LENGTH(name) = $this->length ORDER BY RAND() LIMIT 20"));
+        $suggestQuery = DB::select(DB::raw("SELECT id, meaning, name, CHAR_LENGTH(name) AS 'chrlen' FROM words WHERE CHAR_LENGTH(name) = $this->length AND meaning != 'null' ORDER BY RAND() LIMIT 1"));
         foreach ($suggestQuery as $item) {
-            if (Word::tdk($item->name)) {
                 $word = $item->name;
                 $wordId = $item->id;
-                break;
-            }
         }
 
         $game = new Challenge;

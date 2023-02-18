@@ -75,11 +75,8 @@ class FinishedChallengeGameWatcher extends Component
                 $this->wordName = $game->word->name;
                 $this->userName = User::find($userId)->name;
 
-                $this->meaning = null;
+                $this->meaning = $game->word->meaning;
 
-                if (Word::tdk($this->wordName)) {
-                    $this->meaning = Word::tdk($this->wordName);
-                }
             } else {
                 session()->flash('message', 'Önce oyunu bitirmeniz gerekir');
                 return redirect()->to('/create-game');

@@ -84,11 +84,7 @@ class FinishedGameWatcher extends Component
 
             $this->duration = str_replace('dakika', 'dk', str_replace('saniye', 'sn', CarbonInterval::seconds($game->duration)->cascade()->forHumans()));
 
-            $this->meaning = null;
-
-            if (Word::tdk($this->wordName)) {
-                $this->meaning = Word::tdk($this->wordName);
-            }
+            $this->meaning = $game->word->meaning;
         } else {
             session()->flash('message', 'Bu oyunu görme yetkiniz yok.');
             return redirect()->to('/create-game');

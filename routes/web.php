@@ -2,6 +2,7 @@
 
 use App\Events\GameNotification;
 use App\Models\Word;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -37,24 +38,3 @@ Route::middleware([
     Route::get('/create-game/{length}', \App\Http\Livewire\CreateGame::class);
     Route::get('/user-summary/{user}', \App\Http\Livewire\UserSummary::class);
 });
-
-Route::get('/tdk', function (){
-
-    Word::chunk(50, function ($words){
-        $x = 0;
-        foreach ($words as $word) {
-            if(mb_strlen($word->name, 'UTF-8') == 4){
-                $url = "https://sozluk.gov.tr/gts?ara=" . $word->name;
-                $json = json_decode(file_get_contents($url), true);
-                if (isset($json["error"])) {
-                } else {
-                    $word->meaning = $json[0]['anlamlarListe'][0]['anlam'];
-                    $word->save();
-                    $x += 1;
-                }
-            }
-        }
-        echo $x;
-    });
-});
-
