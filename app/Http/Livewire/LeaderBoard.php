@@ -11,33 +11,17 @@ use Livewire\Component;
 class LeaderBoard extends Component
 {
     protected $all;
-    protected $friends = array();
+    protected $friends;
     protected $listeners = ['refreshFeed' => '$refresh'];
 
     public function render()
     {
         $user = Auth::user();
-        $usersMyAll = array();
-        $gamesMe = $user->games()->orderBy('id', 'desc')->limit(30);
-        $gamesMyAll = $user->opponentGames()->where('user_id', '!=', 2)->orderBy('id', 'desc')->limit(30)->union($gamesMe)->get();
-
-        foreach ($gamesMyAll as $item) {
-            $usersMyAll[$item->user_id] = $item->user();
-            $usersMyAll[$item->opponent_id] = User::whereId($item->opponent_id)->first();
-        }
-
-        // $usersMyAll = array_slice($usersMyAll, 0, 40);
-
+        $this->friends = $user->contacts()->select(['points.*'])
+            ->join('points', 'contacts.contact_id', '=', 'points.user_id')
+            ->orderBy('points.point', 'desc')->get();
 
         $this->all = Point::orderBy('point', 'desc')->where('user_id', '!=', 2)->limit(20);
-
-        foreach ($this->all->get() as $point) {
-            if(isset($usersMyAll[$point->user_id]))
-            {
-                $this->friends[] = $point;
-            }
-        }
-
 
 
         return view('livewire.leader-board', [

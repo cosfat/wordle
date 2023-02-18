@@ -25,6 +25,9 @@
   display: inline-block;">&nbsp;</span>
                 @endif
             </div>
+            <div class="mt-2">
+            <livewire:contact-wire :friend="$user->id" />
+            </div>
         </div>
         <table class="min-w-max w-full table-auto">
             <thead>

@@ -17,6 +17,7 @@ class GameWatcher extends Component
     public $opponentName;
     public $lastGuessTime = "tahmin yok";
     public $meaning;
+    public $myOpp;
 
     public $guessesCount;
     public $guessesArray;
@@ -46,7 +47,9 @@ class GameWatcher extends Component
             $this->length = $game->length;
             $this->gameId = $gameId;
             $this->wordName = $game->word->name;
-            $this->opponentName = User::find($game->opponent_id)->name;
+            $opponent = User::find($game->opponent_id);
+            $this->opponentName = $opponent->name;
+            $this->myOpp = $opponent->id;
 
 
             $url = "https://sozluk.gov.tr/gts?ara=".$this->wordName;
@@ -65,14 +68,6 @@ class GameWatcher extends Component
             return redirect()->to('/create-game');
         }
 
-    }
-
-    public function editGame($gameId, $word, $wordNumber)
-    {
-        $theWord = "word_" . $wordNumber;
-        $game = Game::find($gameId);
-        $game->$theWord = $word;
-        $game->save();
     }
 
     public function render()

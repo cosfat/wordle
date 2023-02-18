@@ -29,6 +29,7 @@
     <div id="game-board">
     </div>
     <livewire:chat-wire :opponentName="$opponentName" :gameId="$gameId" :gameType="1" />
+    <livewire:contact-wire :friend="$myOpp" />
     <script>
         let words = JSON.parse({!! json_encode(\App\Models\Word::pluck('name')->toJSON()) !!})
         const NUMBER_OF_GUESSES = {{ $length + 1}};
@@ -139,9 +140,10 @@
                 if(rightGuess.includes(letter)){
                     if(rightGuess[i] === letter){
                         letterColor = '#02cc09'
+                        console.log(count(currentGuess,"i") + "-" +  count(rightGuess, "i"))
                         if(count(currentGuess, letter) > count(rightGuess, letter)){
+                            console.log("xxx");
                             for(let j = 0; j < {{ $length }}; j++){
-                                console.log(row.children[j].innerText);
                                 if(row.children[j].innerText == letter.toLocaleUpperCase('TR') && row.children[j].style.backgroundColor == 'yellow'){
                                     row.children[j].style.backgroundColor = '#e3e3e3';
                                     let index = answer.indexOf(letter);
@@ -152,6 +154,7 @@
                             }
                         }
                     }else{
+
                         if(countOccurrences(answer, letter) <= count(rightGuessString, letter)){
                             letterColor = 'yellow';
                         }

@@ -23,11 +23,12 @@ class FinishedGameWatcher extends Component
     public $userName;
     public $meaning;
     public $point;
+    public $myOpp = false;
 
     public $guessesCount;
     public $guessesArray;
     public $chat = false;
-    public $isDuello =  null;
+    public $isDuello = null;
     public $winner;
 
     public function mount($gameId)
@@ -38,6 +39,11 @@ class FinishedGameWatcher extends Component
             $this->isDuello = $game->isduello;
             if ($game->user_id == Auth::id() or $game->opponent_id == Auth::id()) {
                 $this->chat = true;
+                if ($game->user_id == Auth::id()) {
+                    $this->myOpp = $game->opponent_id;
+                } else {
+                    $this->myOpp = $game->user_id;
+                }
             }
 
             if ($game->user_id == 2) {
@@ -50,6 +56,9 @@ class FinishedGameWatcher extends Component
                 }
                 $this->chat = true;
                 $this->gameType = $game->today_id;
+                if ($game->opponent_id != Auth::id()) {
+                    $this->myOpp = $game->opponent_id;
+                }
             } else {
                 $this->gameType = 1;
             }
@@ -65,9 +74,9 @@ class FinishedGameWatcher extends Component
             $this->opponentName = User::find($game->user_id)->name;
             $this->userName = User::find($game->opponent_id)->name;
 
-            if($this->isDuello == 1){
-                $this->winner = User::find($game->winner_id)->username;
-            }
+
+            $this->winner = User::find($game->winner_id)->username;
+
             $this->duration = str_replace('dakika', 'dk', str_replace('saniye', 'sn', CarbonInterval::seconds($game->duration)->cascade()->forHumans()));
 
             $this->meaning = null;

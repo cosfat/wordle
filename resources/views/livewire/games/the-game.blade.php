@@ -124,6 +124,7 @@
 
     @if($opponentName != "Günün Kelimesi")
         <livewire:chat-wire :gameId="$gameId" :gameType="1"/>
+        <livewire:contact-wire :friend="$myOpp" />
     @endif
 
     <script>

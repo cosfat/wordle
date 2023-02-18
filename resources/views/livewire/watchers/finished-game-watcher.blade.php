@@ -38,7 +38,10 @@
     <div id="game-board">
     </div>
     @if($chat)
-        <livewire:chat-wire :gameId="$gameId" :gameType="$gameType"/>
+        <livewire:chat-wire :gameId="$gameId" :gameType="$gameType"/>)
+        <livewire:contact-wire :friend="$myOpp" />
+    @elseif($myOpp)
+        <livewire:contact-wire :friend="$myOpp" />
     @endif
     <script>
         let words = JSON.parse({!! json_encode(\App\Models\Word::pluck('name')->toJSON()) !!})
@@ -188,9 +191,15 @@
                 currentGuess = [];
                 nextLetter = 0;
 
+                @if($isDuello == 1)
                 if (guessesRemaining === 0) {
                     notifyGame(`Kimse kazanamadı`)
                 }
+                @else
+                if (guessesRemaining === 0) {
+                    notifyGame(`{{ $userName }} kelimeyi bilemedi`)
+                }
+                @endif
             }
         }
 

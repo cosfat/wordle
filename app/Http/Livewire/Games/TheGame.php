@@ -18,6 +18,7 @@ class TheGame extends Component
     public $gameId;
     public $word;
     public $opponentName;
+    public $myOpp;
     public $start;
     public $firstGuess = false;
 
@@ -54,9 +55,14 @@ class TheGame extends Component
                         $this->gameId = $gameId;
                         $this->length = $game->length;
                         if ($game->user_id == Auth::id()) {
-                            $this->opponentName = User::find($game->opponent_id)->name;
+                            $opponent = User::find($game->opponent_id);
+                            $this->opponentName = $opponent->username;
+                            $this->myOpp = $opponent->id;
+
                         } else {
-                            $this->opponentName = User::find($game->user_id)->name;
+                            $opponent = User::find($game->user_id);
+                            $this->opponentName = $opponent->username;
+                            $this->myOpp = $opponent->id;
                         }
                         $this->sira = $game->sira;
 
@@ -85,7 +91,9 @@ class TheGame extends Component
 
                 $this->gameId = $gameId;
                 $this->length = $game->length;
-                $this->opponentName = User::find($game->user_id)->name;
+                $opponent = User::find($game->user_id);
+                $this->opponentName = $opponent->username;
+                $this->myOpp = $opponent->id;
 
             } else {
                 session()->flash('message', 'Bu oyunu görme yetkiniz yok.');
