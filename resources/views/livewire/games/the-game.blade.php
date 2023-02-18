@@ -257,14 +257,14 @@
                 let box = row.children[i]
                 let letter = currentGuess[i];
                 answer.push(letter);
-                let letterColor = '#e3e3e3'
+                let letterColor = 'rgb(227, 227, 227)'
                 if(rightGuess.includes(letter)){
                     if(rightGuess[i] === letter){
-                        letterColor = '#02cc09'
+                        letterColor = 'rgb(2, 204, 9)'
                         if(count(currentGuess, letter) > count(rightGuess, letter)){
                             for(let j = 0; j < {{ $length }}; j++){
-                                if(row.children[j].innerText == letter.toLocaleUpperCase('TR') && row.children[j].style.backgroundColor == 'yellow'){
-                                    row.children[j].style.backgroundColor = '#e3e3e3';
+                                if(row.children[j].innerText == letter.toLocaleUpperCase('TR') && row.children[j].style.backgroundColor == 'rgb(255, 255, 0)'){
+                                    row.children[j].style.backgroundColor = 'rgb(227, 227, 227)';
                                     let index = answer.indexOf(letter);
                                     if (index !== -1) {
                                         answer.splice(index, 1);
@@ -274,10 +274,10 @@
                         }
                     }else{
                         if(countOccurrences(answer, letter) <= count(rightGuessString, letter)){
-                            letterColor = 'yellow';
+                            letterColor = 'rgb(255, 255, 0)';
                         }
                         else{
-                            letterColor = '#e3e3e3';
+                            letterColor = 'rgb(227, 227, 227)';
                         }
                     }
                 }
@@ -380,15 +380,15 @@
                 let box = row.children[i]
                 let letter = currentGuess[i];
                 answer.push(letter);
-                let letterColor = '#e3e3e3'
+                let letterColor = 'rgb(227, 227, 227)'
                 if(rightGuess.includes(letter)){
                     if(rightGuess[i] === letter){
-                        letterColor = '#02cc09'
+                        letterColor = 'rgb(2, 204, 9)'
                         if(count(currentGuess, letter) > count(rightGuess, letter)){
                             for(let j = 0; j < {{ $length }}; j++){
                                 console.log(row.children[j].innerText);
-                                if(row.children[j].innerText == letter.toLocaleUpperCase('TR') && row.children[j].style.backgroundColor == 'yellow'){
-                                    row.children[j].style.backgroundColor = '#e3e3e3';
+                                if(row.children[j].innerText == letter.toLocaleUpperCase('TR') && row.children[j].style.backgroundColor == 'rgb(255, 255, 0)'){
+                                    row.children[j].style.backgroundColor = 'rgb(227, 227, 227)';
                                     let index = answer.indexOf(letter);
                                     if (index !== -1) {
                                         answer.splice(index, 1);
@@ -398,19 +398,13 @@
                         }
                     }else{
                         if(countOccurrences(answer, letter) <= count(rightGuessString, letter)){
-                            letterColor = 'yellow';
+                            letterColor = 'rgb(255, 255, 0)';
                         }
                         else{
-                            letterColor = '#e3e3e3';
+                            letterColor = 'rgb(227, 227, 227)';
                         }
                     }
                 }
-
-                let delay = 50 * i
-                setTimeout(() => {
-                    animateCSS(box, 'flipInX')
-                    //shade box
-                }, delay)
 
                 box.style.backgroundColor = letterColor
                 shadeKeyBoard(letter, letterColor)
@@ -445,21 +439,21 @@
         function shadeKeyBoard(letter, color) {
             for (const elem of document.getElementsByClassName("keyboard-button")) {
                 if (elem.textContent === letter) {
-                    let oldColor = elem.style.backgroundColor
-                    if (oldColor === '#02cc09') {
+
+                    let oldColor = elem.style.backgroundColor;
+
+                    console.log(letter + " - " + oldColor + " - " + color);
+                    if (oldColor === 'rgb(2, 204, 9)') {
                         return
                     }
 
-                    if (oldColor === 'yellow' && color !== '#02cc09') {
+                    if (oldColor === 'rgb(255, 255, 0)' && color !== 'rgb(2, 204, 9)') {
                         return
                     }
 
                     elem.style.backgroundColor = color
                     break
 
-
-
-                    console.log(letter + " - " + oldColor + " - " + color);
                 }
             }
         }

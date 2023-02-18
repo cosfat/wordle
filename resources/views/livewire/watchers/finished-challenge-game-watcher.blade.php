@@ -4,7 +4,7 @@
         @foreach(\App\Models\Challenge::whereId($gameId)->first()->chusers()->get() as $user)
             <a href="/finished-challenge-game-watcher/{{ $gameId }}/{{ $user->user_id }}">
                 <div style="width: 140px"
-                    class="overflow-hidden flex justify-center px-3 py-3 font-medium text-slate-700 shadow-xl @if($userId == $user->user_id)) bg-white @else bg-yellow-400 @endif hover:bg-white duration-150">
+                    class="overflow-hidden flex justify-center px-3 py-3 font-medium text-slate-700 shadow-xl @if($userId == $user->user_id)) bg-white @else bg-rgb(255, 255, 0)-400 @endif hover:bg-white duration-150">
 
                     @if(\App\Models\Challenge::whereId($gameId)->first()->winner_id == $user->user_id)
 
@@ -168,15 +168,15 @@
                 let box = row.children[i]
                 let letter = currentGuess[i];
                 answer.push(letter);
-                let letterColor = '#e3e3e3'
+                let letterColor = 'rgb(227, 227, 227)'
                 if(rightGuess.includes(letter)){
                     if(rightGuess[i] === letter){
                         letterColor = '#02cc09'
                         if(count(currentGuess, letter) > count(rightGuess, letter)){
                             for(let j = 0; j < {{ $length }}; j++){
                                 console.log(row.children[j].innerText);
-                                if(row.children[j].innerText == letter.toLocaleUpperCase('TR') && row.children[j].style.backgroundColor == 'yellow'){
-                                    row.children[j].style.backgroundColor = '#e3e3e3';
+                                if(row.children[j].innerText == letter.toLocaleUpperCase('TR') && row.children[j].style.backgroundColor == 'rgb(255, 255, 0)'){
+                                    row.children[j].style.backgroundColor = 'rgb(227, 227, 227)';
                                     let index = answer.indexOf(letter);
                                     if (index !== -1) {
                                         answer.splice(index, 1);
@@ -186,10 +186,10 @@
                         }
                     }else{
                         if(countOccurrences(answer, letter) <= count(rightGuessString, letter)){
-                            letterColor = 'yellow';
+                            letterColor = 'rgb(255, 255, 0)';
                         }
                         else{
-                            letterColor = '#e3e3e3';
+                            letterColor = 'rgb(227, 227, 227)';
                         }
                     }
                 }
@@ -215,11 +215,11 @@
             for (const elem of document.getElementsByClassName("keyboard-button")) {
                 if (elem.textContent === letter) {
                     let oldColor = elem.style.backgroundColor
-                    if (oldColor === 'green') {
+                    if (oldColor === 'rgb(2, 204, 9)') {
                         return
                     }
 
-                    if (oldColor === 'yellow' && color !== 'green') {
+                    if (oldColor === 'rgb(255, 255, 0)' && color !== 'rgb(2, 204, 9)') {
                         return
                     }
 
