@@ -406,6 +406,12 @@
                     }
                 }
 
+
+                let delay = 70 * i
+                setTimeout(() => {
+                    animateCSS(box, 'flipInX')
+                    //shade box
+                }, delay)
                 box.style.backgroundColor = letterColor
                 shadeKeyBoard(letter, letterColor)
             }
