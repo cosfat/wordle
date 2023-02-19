@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Watchers;
 use App\Models\Game;
 use App\Models\Guess;
 use App\Models\User;
+use App\Models\Word;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
@@ -52,6 +53,9 @@ class GameWatcher extends Component
             $this->myOpp = $opponent->id;
 
             $this->meaning = $game->word->meaning;
+            if($this->meaning == ""){
+                $this->meaning = Word::tdk($this->wordName);
+            }
         } else {
             session()->flash('message', 'Bu oyunu görme yetkiniz yok.');
             return redirect()->to('/create-game');
