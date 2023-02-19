@@ -14,7 +14,7 @@
     <livewire:games.live-counter :start="$start" :firstGuess="$firstGuess"></livewire:games.live-counter>
     <div id="game-board">
     </div>
-    <div id="keyboard-cont">
+    <div id="keyboard-cont" style="touch-action: manipulation">
         <div class="first-row">
             <button class="keyboard-button">e</button>
             <button class="keyboard-button">r</button>
