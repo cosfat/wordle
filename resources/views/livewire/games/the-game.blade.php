@@ -35,7 +35,7 @@
     <div id="game-board">
     </div>
     @if($isDuello == null)
-        <div id="keyboard-cont">
+        <div id="keyboard-cont" style="touch-action: manipulation">
             <div class="first-row">
                 <button class="keyboard-button">e</button>
                 <button class="keyboard-button">r</button>

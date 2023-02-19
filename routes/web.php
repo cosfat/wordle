@@ -32,6 +32,7 @@ Route::middleware([
     Route::get('/finished-challenge-game-watcher/{gameId}/{userId}', \App\Http\Livewire\Watchers\FinishedChallengeGameWatcher::class);
     Route::get('/my-profile', \App\Http\Livewire\MyProfile::class);
     Route::get('/my-games', \App\Http\Livewire\MyGames::class);
+    Route::get('/word-stats', \App\Http\Livewire\WordStats::class);
     Route::get('/game-logs', \App\Http\Livewire\GameLogs::class);
     Route::get('/create-game', \App\Http\Livewire\CreateGame::class);
     Route::get('/leader-board', \App\Http\Livewire\LeaderBoard::class);
