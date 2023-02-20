@@ -1,9 +1,8 @@
 <div class="flex flex-wrap">
     @include('loading')
-    <div class="bg-white shadow-md rounded my-6 p-4">
-        <div class="p-4">
+    <div class="bg-white shadow-md rounded my-6 p-4 w-full">
             <a href="/user-summary/{{ $user->id }}">
-                <h2 class="text-2xl font-bold tracking-tight text-center sm:text-4xl text-indigo-500">
+            <h2 class="text-2xl font-bold tracking-tight text-center sm:text-4xl text-indigo-500">
                     {{ $user->username }}
 
                     @if(\Illuminate\Support\Facades\Cache::has('user-is-online-' . $user->id))
@@ -11,28 +10,27 @@
                     @else
                         <span class="bg-red-600 text-white text-xs font-medium px-2 py-1 rounded">offline</span>
                     @endif
-                </h2>
-                <h2 class="text-slate-500 text-center">"{{ $level }}"</h2>
-                <h2 class="text-2xl font-bold tracking-tight text-center sm:text-4xl text-red-500">
+            </h2>
+            <h2 class="text-slate-500 text-center">"{{ $level }}"</h2>
+            <h2 class="text-2xl font-bold tracking-tight text-center sm:text-4xl text-red-500">
                     @if($user->point != null)
                         {{ $user->point->point }} puan
                     @endif</h2></a>
-
             <h2 class="text-2xl font-bold tracking-tight text-center sm:text-4xl text-red-500">
                 % {{ $ratio }} başarı</h2>
             <div class="flex justify-center">
                 <span class="mr-2 bg-green-600 text-white text-xs font-medium px-2 py-1 rounded">
                     <svg
-                         fill="#FACC14"
-                         version="1.1"
-                         id="Capa_1"
-                         xmlns="http://www.w3.org/2000/svg"
-                         xmlns:xlink="http://www.w3.org/1999/xlink"
-                         width="20px"
-                         height="20px"
-                         viewBox="0 0 145.312 145.311"
-                         xml:space="preserve"
-                         stroke="#FACC14"><g
+                        fill="#FACC14"
+                        version="1.1"
+                        id="Capa_1"
+                        xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink"
+                        width="20px"
+                        height="20px"
+                        viewBox="0 0 145.312 145.311"
+                        xml:space="preserve"
+                        stroke="#FACC14"><g
                             id="SVGRepo_bgCarrier" stroke-width="0"></g>
                             <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
                             <g id="SVGRepo_iconCarrier">
@@ -44,7 +42,6 @@
                     {{ $winGames }}
                 </span>
                 <livewire:contact-wire :friend="$user->id"/>
-
                 <span class="ml-2 bg-red-600 text-white text-xs font-medium px-2 py-1 rounded">
                         <svg width="20px" height="20px" viewBox="0 0 24 24" version="1.1"
                              xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -63,123 +60,124 @@
                         </svg>
                     {{ $lostGames }}</span>
             </div>
-        </div>
-        <table class="min-w-max w-full table-auto">
-            <thead>
-            <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
-                <th class="py-3 pl-3 text-left">Rakip</th>
-                <th class="py-3">Tür</th>
-                <th class="py-3">Kelime</th>
-                <th class="py-3">Sonuç</th>
-                <th class="py-3">Puan</th>
-                <th class="py-3 pr-4 pl-3">Zaman</th>
-            </tr>
-            </thead>
-            <tbody class="text-gray-600 text-sm font-light">
-            @if($games)
-                @foreach($games as $game)
-                    @if($game->today_id == $todayId)
-                    @else
+    </div>
+    <div class="bg-white shadow-md rounded my-6 p-4">
+    <table class="min-w-max w-full table-auto">
+        <thead>
+        <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+            <th class="py-3 pl-3 text-left">Rakip</th>
+            <th class="py-3">Tür</th>
+            <th class="py-3">Kelime</th>
+            <th class="py-3">Sonuç</th>
+            <th class="py-3">Puan</th>
+            <th class="py-3 pr-4 pl-3">Zaman</th>
+        </tr>
+        </thead>
+        <tbody class="text-gray-600 text-sm font-light">
+        @if($games)
+            @foreach($games as $game)
+                @if($game->today_id == $todayId)
+                @else
 
-                        @if($game->winner_id != null)
-                            <tr class="border-b border-gray-200 hover:bg-gray-100">
-                                <td class="py-3  text-center whitespace-nowrap">
-                                    <div class="flex items-center">
-                                        <div class="mr-2">
-                                        </div>
-                                        @if($game->user->id != 2)
-                                            <a href="/user-summary/{{ $game->user->id }}">@endif
-                                                @if($game->user->id == 2)
-                                                    <span
-                                                        class="font-medium font-bold text-red-600">{{ $game->user->username }}</span>
-                                                @else
-
-                                                    <span class="font-medium">{{ $game->user->username }}</span>
-                                                @endif
-                                            </a>
+                    @if($game->winner_id != null)
+                        <tr class="border-b border-gray-200 hover:bg-gray-100">
+                            <td class="py-3  text-center whitespace-nowrap">
+                                <div class="flex items-center">
+                                    <div class="mr-2">
                                     </div>
-                                </td>
-                                <td class="py-3  text-center whitespace-nowrap">
-                                    <div class="flex items-center">
-                                        <div class="mr-2">
-                                        </div>
-                                        @if($game->usercount)
-                                            <a href="/finished-challenge-game-watcher/{{ $game->id }}">
+                                    @if($game->user->id != 2)
+                                        <a href="/user-summary/{{ $game->user->id }}">@endif
+                                            @if($game->user->id == 2)
+                                                <span
+                                                    class="font-medium font-bold text-red-600">{{ $game->user->username }}</span>
+                                            @else
+
+                                                <span class="font-medium">{{ $game->user->username }}</span>
+                                            @endif
+                                        </a>
+                                </div>
+                            </td>
+                            <td class="py-3  text-center whitespace-nowrap">
+                                <div class="flex items-center">
+                                    <div class="mr-2">
+                                    </div>
+                                    @if($game->usercount)
+                                        <a href="/finished-challenge-game-watcher/{{ $game->id }}">
                                         <span class="font-medium"
                                               style="color: #facc15; font-weight: bold">Rekabet</span></a>
-                                        @else
-                                            @if($game->isduello == 1)
-                                                <a href="/finished-game-watcher/{{ $game->id }}">
+                                    @else
+                                        @if($game->isduello == 1)
+                                            <a href="/finished-game-watcher/{{ $game->id }}">
                                         <span class="font-medium"
                                               style="color: #4F46E5; font-weight: bold">Düello</span>
-                                                </a>
-                                            @else
-                                                <a href="/finished-game-watcher/{{ $game->id }}">
+                                            </a>
+                                        @else
+                                            <a href="/finished-game-watcher/{{ $game->id }}">
                                         <span class="font-medium"
                                               style="color: #4F46E5; font-weight: bold">Klasik</span>
-                                                </a>
-                                            @endif
+                                            </a>
                                         @endif
+                                    @endif
+                                </div>
+                            </td>
+                            <td class="py-3  text-center whitespace-nowrap">
+                                <div class="flex items-center">
+                                    <div class="mr-2">
                                     </div>
-                                </td>
-                                <td class="py-3  text-center whitespace-nowrap">
-                                    <div class="flex items-center">
-                                        <div class="mr-2">
-                                        </div>
-                                        @if($game->usercount)
-                                            <a href="/finished-challenge-game-watcher/{{ $game->id }}">
-                                                @else
-                                                    <a href="/finished-game-watcher/{{ $game->id }}">
-                                                        @endif
-                                                        <span class="font-medium">{{ $game->word->name }}</span>
-                                                    </a>
-                                    </div>
-                                </td>
-                                <td class="py-3  text-center whitespace-nowrap">
-                                    <div class="flex items-center">
-                                        <div class="mr-2">
-                                        </div>
-                                        @if($game->winner_id == $user->id)
-                                            <span
-                                                class="bg-green-200 text-green-600 py-1 px-3 rounded-full text-xs">Kazandı</span>
-                                        @else
-                                            <span
-                                                class="bg-red-200 text-red-600 py-1 px-3 rounded-full text-xs">Kaybetti</span>
-                                        @endif
-                                    </div>
-                                </td>
-                                <td class="py-3 text-center whitespace-nowrap">
-                                    <div class="flex items-center">
-                                        <div class="mr-2">
-                                        </div>
-                                        @if($game->winner_id == $user->id)
-                                            @if($game->usercount)
-                                                <span class="font-medium">{{ $game->point }}</span>
+                                    @if($game->usercount)
+                                        <a href="/finished-challenge-game-watcher/{{ $game->id }}">
                                             @else
-                                                <span class="font-medium">{{ $game->degree }}</span>
-                                            @endif
+                                                <a href="/finished-game-watcher/{{ $game->id }}">
+                                                    @endif
+                                                    <span class="font-medium">{{ $game->word->name }}</span>
+                                                </a>
+                                </div>
+                            </td>
+                            <td class="py-3  text-center whitespace-nowrap">
+                                <div class="flex items-center">
+                                    <div class="mr-2">
+                                    </div>
+                                    @if($game->winner_id == $user->id)
+                                        <span
+                                            class="bg-green-200 text-green-600 py-1 px-3 rounded-full text-xs">Kazandı</span>
+                                    @else
+                                        <span
+                                            class="bg-red-200 text-red-600 py-1 px-3 rounded-full text-xs">Kaybetti</span>
+                                    @endif
+                                </div>
+                            </td>
+                            <td class="py-3 text-center whitespace-nowrap">
+                                <div class="flex items-center">
+                                    <div class="mr-2">
+                                    </div>
+                                    @if($game->winner_id == $user->id)
+                                        @if($game->usercount)
+                                            <span class="font-medium">{{ $game->point }}</span>
                                         @else
-                                            <span class="font-medium">0</span>
+                                            <span class="font-medium">{{ $game->degree }}</span>
                                         @endif
+                                    @else
+                                        <span class="font-medium">0</span>
+                                    @endif
+                                </div>
+                            </td>
+                            <td class="py-3 text-center whitespace-nowrap">
+                                <div class="flex items-center">
+                                    <div class="mr-2">
                                     </div>
-                                </td>
-                                <td class="py-3 text-center whitespace-nowrap">
-                                    <div class="flex items-center">
-                                        <div class="mr-2">
-                                        </div>
-                                        <span class="font-medium">{{ $game->created_at->diffForHumans() }}</span>
-                                    </div>
-                                </td>
-                            </tr>
-                        @endif
+                                    <span class="font-medium">{{ $game->created_at->diffForHumans() }}</span>
+                                </div>
+                            </td>
+                        </tr>
                     @endif
+                @endif
 
-                @endforeach
-            @else
-                Hiç oyun yok
-            @endif
-            </tbody>
-        </table>
+            @endforeach
+        @else
+            Hiç oyun yok
+        @endif
+        </tbody>
+    </table>
     </div>
 </div>
 
