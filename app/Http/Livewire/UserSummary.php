@@ -91,8 +91,11 @@ class UserSummary extends Component
             elseif ($this->ratio > 60 AND $this->ratio <= 70){
                 $this->level = "Repçi";
             }
-            elseif ($this->ratio > 80 AND $this->ratio <= 90){
+            elseif ($this->ratio > 70 AND $this->ratio <= 80){
                 $this->level = "Sözelci";
+            }
+            elseif ($this->ratio > 80 AND $this->ratio <= 90){
+                $this->level = "Servet-i Fünun";
             }
             elseif ($this->ratio > 90 AND $this->ratio <= 95){
                 $this->level = "İlber Ortaylı";
