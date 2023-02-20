@@ -18,6 +18,7 @@ class UserSummary extends Component
     public $todayId;
     public $winGames = 0;
     public $lostGames = 0;
+    public $level = 0;
 
     public function mount($user)
     {
@@ -66,7 +67,42 @@ class UserSummary extends Component
             } else {
                 $this->ratio = round(($winGames / ($winGames + $lostGames)) * 100, 1);
             }
-
+            if($this->ratio == 0){
+                $this->level = "Oralı değil";
+            }
+            elseif ($this->ratio > 0 AND $this->ratio <= 10){
+                $this->level = "Çevresi kötü";
+            }
+            elseif ($this->ratio > 10 AND $this->ratio <= 20){
+                $this->level = "Zeki ama çalışmıyor";
+            }
+            elseif ($this->ratio > 20 AND $this->ratio <= 30){
+                $this->level = "Demet Akalın öğrencisi";
+            }
+            elseif ($this->ratio > 30 AND $this->ratio <= 40){
+                $this->level = "Orhan Pamuk hayranı";
+            }
+            elseif ($this->ratio > 40 AND $this->ratio <= 50){
+                $this->level = "Cambaz";
+            }
+            elseif ($this->ratio > 50 AND $this->ratio <= 60){
+                $this->level = "Fen liseli";
+            }
+            elseif ($this->ratio > 60 AND $this->ratio <= 70){
+                $this->level = "Repçi";
+            }
+            elseif ($this->ratio > 80 AND $this->ratio <= 90){
+                $this->level = "Sözelci";
+            }
+            elseif ($this->ratio > 90 AND $this->ratio <= 95){
+                $this->level = "İlber Ortaylı";
+            }
+            elseif ($this->ratio > 95 AND $this->ratio <= 99){
+                $this->level = "Allame-i Cihan";
+            }
+            elseif ($this->ratio > 99){
+                $this->level = "İnsan değil";
+            }
             $this->winGames = $winGames;
             $this->lostGames = $lostGames;
         } else {

@@ -12,6 +12,7 @@
                         <span class="bg-red-600 text-white text-xs font-medium px-2 py-1 rounded">offline</span>
                     @endif
                 </h2>
+                <h2 class="text-slate-500 text-center">"{{ $level }}"</h2>
                 <h2 class="text-2xl font-bold tracking-tight text-center sm:text-4xl text-red-500">
                     @if($user->point != null)
                         {{ $user->point->point }} puan
