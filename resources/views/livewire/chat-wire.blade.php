@@ -44,7 +44,7 @@
                             </svg>
                         </button>
                     </div>
-                    <div wire:loading wire:target="sendMessage">
+                    <div wire:loading.delay.long wire:target="sendMessage">
                         <button type="button"
                                 class="inline-flex items-center justify-center rounded-lg px-4 py-4 text-white bg-gray-500 focus:outline-none">
                             <span class="font-bold">Yükleniyor</span>

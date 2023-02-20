@@ -61,7 +61,7 @@
                     {{ $lostGames }}</span>
             </div>
     </div>
-    <div class="bg-white shadow-md rounded my-6 p-4">
+    <div class="bg-white shadow-md rounded my-2 p-4">
     <table class="min-w-max w-full table-auto">
         <thead>
         <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
@@ -69,8 +69,7 @@
             <th class="py-3">Tür</th>
             <th class="py-3">Kelime</th>
             <th class="py-3">Sonuç</th>
-            <th class="py-3">Puan</th>
-            <th class="py-3 pr-4 pl-3">Zaman</th>
+            <th class="py-3 px-2">Puan</th>
         </tr>
         </thead>
         <tbody class="text-gray-600 text-sm font-light">
@@ -159,13 +158,6 @@
                                     @else
                                         <span class="font-medium">0</span>
                                     @endif
-                                </div>
-                            </td>
-                            <td class="py-3 text-center whitespace-nowrap">
-                                <div class="flex items-center">
-                                    <div class="mr-2">
-                                    </div>
-                                    <span class="font-medium">{{ $game->created_at->diffForHumans() }}</span>
                                 </div>
                             </td>
                         </tr>
