@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Challenge;
+use App\Models\Chuser;
 use App\Models\Game;
 use App\Models\Today;
 use App\Models\User;
@@ -15,9 +16,12 @@ class UserSummary extends Component
     protected $user;
     public $ratio;
     public $todayId;
+    public $winGames = 0;
+    public $lostGames = 0;
+
     public function mount($user)
     {
-        if($user != 2){
+        if ($user != 2) {
             $this->todayId = Today::orderBy('id', 'desc')->first()->id;
             $challengeGames = array();
             $this->user = User::findOrFail($user);
@@ -28,7 +32,7 @@ class UserSummary extends Component
                 $this->games[] = Game::find($game);
             }
 
-            foreach ($chgames as $chgame){
+            foreach ($chgames as $chgame) {
                 $challengeGames[] = Challenge::find($chgame);
             }
 
@@ -36,22 +40,36 @@ class UserSummary extends Component
                 $this->games[] = $challengeGame;
             }
 
-            if($this->games != null){
+            if ($this->games != null) {
 
                 usort($this->games, fn($a, $b) => $b['created_at'] <=> $a['created_at']);
             }
 
             $winGames = Game::where('winner_id', $this->user->id)->count() + Challenge::where('winner_id', $this->user->id)->count();
-            $lostGames = Game::where('opponent_id', $this->user->id)->where('winner_id', '!=', $this->user->id)->where('winner_id', '!=', null)->count();
+            $lostGames = Game::where('opponent_id', $this->user->id)
+                ->where('winner_id', '!=', $this->user->id)
+                ->where('winner_id', '!=', null)
+                ->count();
 
-            if($winGames + $lostGames == 0){
-                $this->ratio = 0;
+
+            $chusers = Chuser::where('user_id', $this->user->id)->get();
+            $x = 0;
+            foreach ($chusers as $item) {
+                if (Challenge::where('id', $item->challenge_id)->where('winner_id', '!=', $this->user->id)->exists()) {
+                    $x += 1;
+                }
             }
-            else{
+            $lostGames = $x + $lostGames;
+
+            if ($winGames + $lostGames == 0) {
+                $this->ratio = 0;
+            } else {
                 $this->ratio = round(($winGames / ($winGames + $lostGames)) * 100, 1);
             }
-        }
-        else{
+
+            $this->winGames = $winGames;
+            $this->lostGames = $lostGames;
+        } else {
             return redirect('/my-games');
         }
 

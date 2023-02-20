@@ -186,7 +186,7 @@
     <div class="p-5 gap-2 border-b-2">
         <div class="flex flex-wrap">
             <h2 class="text-2xl font-bold tracking-tight sm:text-center sm:text-4xl text-indigo-500">
-                Aktif rekabet oyunlarım</h2>
+                Rekabetler</h2>
         </div>
         <div class="flex flex-wrap">
             @if(count($activeChallenges) == 0)
@@ -228,7 +228,7 @@
     <div class="p-4 gap-2 border-b-2">
         <div class="flex flex-wrap">
             <h2 class="text-2xl font-bold tracking-tight sm:text-center sm:text-4xl text-indigo-500">
-                Düellolarım</h2>
+                Düellolar</h2>
         </div>
         <div class="flex flex-wrap">
             @if($duellos->count() == 0)
@@ -291,7 +291,7 @@
     <div class="p-4 gap-2 border-b-2">
         <div class="flex flex-wrap">
             <h2 class="text-2xl font-bold tracking-tight sm:text-center sm:text-4xl text-indigo-500">
-                Aktif klasik oyunlarım</h2>
+                Klasik</h2>
         </div>
         <div class="flex flex-wrap">
             @if($gamesOpp->count() == 0)
