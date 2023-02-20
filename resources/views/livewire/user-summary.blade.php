@@ -59,8 +59,8 @@
                     {{ $lostGames }}</span>
             </div>
     </div>
-    <div class="bg-white shadow-md rounded my-2 p-4">
-    <table class="min-w-max w-full table-auto">
+    <div class="bg-white shadow-md rounded my-2 p-4 flex justify-center">
+    <table class="min-w-max table-auto">
         <thead>
         <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
             <th class="py-3 pl-3 text-left">Rakip</th>
