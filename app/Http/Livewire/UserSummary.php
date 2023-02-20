@@ -65,53 +65,61 @@ class UserSummary extends Component
             if ($winGames + $lostGames == 0) {
                 $this->ratio = 0;
             } else {
-                $this->ratio = round(($winGames / ($winGames + $lostGames)) * 100, 1);
+                $this->ratio = round(($winGames / ($winGames + $lostGames)) * 100);
             }
-            if($this->ratio == 0){
-                $this->level = "Oralı değil";
-            }
-            elseif ($this->ratio > 0 AND $this->ratio <= 10){
-                $this->level = "Çevresi kötü";
-            }
-            elseif ($this->ratio > 10 AND $this->ratio <= 20){
-                $this->level = "Zeki ama çalışmıyor";
-            }
-            elseif ($this->ratio > 20 AND $this->ratio <= 30){
-                $this->level = "Demet Akalın öğrencisi";
-            }
-            elseif ($this->ratio > 30 AND $this->ratio <= 40){
-                $this->level = "Orhan Pamuk hayranı";
-            }
-            elseif ($this->ratio > 40 AND $this->ratio <= 50){
-                $this->level = "Cambaz";
-            }
-            elseif ($this->ratio > 50 AND $this->ratio <= 60){
-                $this->level = "Fen liseli";
-            }
-            elseif ($this->ratio > 60 AND $this->ratio <= 70){
-                $this->level = "Repçi";
-            }
-            elseif ($this->ratio > 70 AND $this->ratio <= 80){
-                $this->level = "Sözelci";
-            }
-            elseif ($this->ratio > 80 AND $this->ratio <= 90){
-                $this->level = "Servet-i Fünun";
-            }
-            elseif ($this->ratio > 90 AND $this->ratio <= 95){
-                $this->level = "İlber Ortaylı";
-            }
-            elseif ($this->ratio > 95 AND $this->ratio <= 99){
-                $this->level = "Allame-i Cihan";
-            }
-            elseif ($this->ratio > 99){
-                $this->level = "İnsan değil";
-            }
+
+            $this->level = $this->getLevel($this->ratio);
+
+
+
             $this->winGames = $winGames;
             $this->lostGames = $lostGames;
         } else {
             return redirect('/my-games');
         }
 
+    }
+
+    public function getLevel($ratio){
+        if($ratio == 0){
+            return "Oralı değil";
+        }
+        elseif ($ratio > 0 AND $ratio <= 10){
+            return "Çevresi kötü";
+        }
+        elseif ($ratio > 10 AND $ratio <= 20){
+            return "Zeki ama çalışmıyor";
+        }
+        elseif ($ratio > 20 AND $ratio <= 30){
+            return "Demet Akalın öğrencisi";
+        }
+        elseif ($ratio > 30 AND $ratio <= 40){
+            return "Orhan Pamuk hayranı";
+        }
+        elseif ($ratio > 40 AND $ratio <= 50){
+            return "Cambaz";
+        }
+        elseif ($ratio > 50 AND $ratio <= 60){
+            return "Fen liseli";
+        }
+        elseif ($ratio > 60 AND $ratio <= 70){
+            return "Repçi";
+        }
+        elseif ($ratio > 70 AND $ratio <= 80){
+            return "Sözelci";
+        }
+        elseif ($ratio > 80 AND $ratio <= 90){
+            return "Servet-i Fünun";
+        }
+        elseif ($ratio > 90 AND $ratio <= 95){
+            return "İlber Ortaylı";
+        }
+        elseif ($ratio > 95 AND $ratio <= 99){
+            return "Allame-i Cihan";
+        }
+        elseif ($ratio > 99){
+            return "İnsan değil";
+        }
     }
 
     public function render()

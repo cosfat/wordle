@@ -14,10 +14,8 @@
             <h2 class="text-slate-500 text-center">"{{ $level }}"</h2>
             <h2 class="text-2xl font-bold tracking-tight text-center sm:text-4xl text-red-500">
                     @if($user->point != null)
-                        {{ $user->point->point }} puan
+                        {{ $user->point->point }} puan, % {{ $ratio }} başarı
                     @endif</h2></a>
-            <h2 class="text-2xl font-bold tracking-tight text-center sm:text-4xl text-red-500">
-                % {{ $ratio }} başarı</h2>
             <div class="flex justify-center">
                 <span class="mr-2 bg-green-600 text-white text-xs font-medium px-2 py-1 rounded">
                     <svg
