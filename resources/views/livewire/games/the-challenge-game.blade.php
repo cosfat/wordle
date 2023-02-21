@@ -306,7 +306,18 @@
             }
 
             if (!words.includes(guessString)) {
-                notifyGame("Bu kelime veritabanımızda yok")
+                for (let i = 0; i < {{ $length }}; i++) {
+                    let box = row.children[i]
+                    box.style.borderColor = "red";
+                    let delay = 100 * i;
+                    setTimeout(() => {
+                        animateCSS(box, 'headShake')
+
+                        box.style.borderColor = "#facc15";
+                        //shade box
+                    }, delay)
+
+                }
                 return
             }
 
