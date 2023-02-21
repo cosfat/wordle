@@ -25,6 +25,8 @@ class MyGames extends Component
     public $fastId = null;
     public $shortValue = null;
     public $fastValue = null;
+    public $todayWinners;
+    public $todayLosers;
     public $diff;
     protected $duellos;
 
@@ -68,13 +70,16 @@ class MyGames extends Component
         }
         $todayId = $today->id;
 
-        $fastest = Game::where('today_id', $todayId)->where('winner_id', '!=', 2)->where('winner_id', '!=', null)->orderBy('duration', 'asc')->first();
+        $todayRequest = Game::where('today_id', $todayId)->where('winner_id', '!=', 2)->where('winner_id', '!=', null);
+        $this->todayWinners = $todayRequest->where('winner_id', '!=', 2)->count();
+        $this->todayLosers = $todayRequest->where('winner_id', 2)->count();
+        $fastest = $todayRequest->orderBy('duration', 'asc')->first();
         if($fastest != null){
             $this->fastName = User::find($fastest->opponent_id)->username;
             $this->fastId = $fastest->id;
             $this->fastValue = $this->secondHuman($fastest->duration);
         }
-        $shortest = Game::where('today_id', $todayId)->where('winner_id', '!=', 2)->where('winner_id', '!=', null)->orderBy('guesscount', 'asc')->orderBy('duration', 'asc')->first();
+        $shortest = $todayRequest->orderBy('guesscount', 'asc')->orderBy('duration', 'asc')->first();
         if($shortest != null){
             $this->shortName = User::find($shortest->opponent_id)->username;
             $this->shortId = $shortest->id;
