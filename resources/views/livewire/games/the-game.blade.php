@@ -366,12 +366,14 @@
                 wrongGuess += 1
                 for (let i = 0; i < {{ $length }}; i++) {
                     let box = row.children[i]
-                    box.style.borderColor = "red";
+                    box.classList.add("wrong-box")
+                    box.classList.remove("filled-box")
                     let delay = 100 * i;
                     setTimeout(() => {
                         animateCSS(box, 'headShake')
 
-                        box.style.borderColor = "#facc15";
+                        box.classList.add("filled-box")
+                        box.classList.remove("wrong-box")
                         //shade box
                     }, delay)
 
