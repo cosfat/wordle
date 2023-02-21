@@ -68,11 +68,11 @@ class ChatWire extends Component
         if($this->gameType == 1 OR $this->gameType == 2){
             $chats = $this->game->chats()->where('game_type', $this->gameType);
         }
-        else if($this->gameType == 3){
-            $chats = Chat::where('game_type', $this->gameType);
-        }
         else if($this->gameType == 4){
             $chats = Chat::where('game_type', 4)->where('game_id', $this->multichat);
+        }
+        else {
+            $chats = Chat::where('game_type', $this->gameType);
         }
         $this->messages = $chats->orderBy('id', 'desc')->limit(30)->reOrder('id', 'asc')->get();
         $myChats = $chats->where('user_id', '!=', Auth::id())->where('seen', 0)->get();
