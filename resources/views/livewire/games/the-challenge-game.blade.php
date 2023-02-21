@@ -56,7 +56,26 @@
             <button class="keyboard-button bg-red-500 text-white">TEMİZLE</button>
         </div>
     </div>
-    <livewire:chat-wire :gameId="$gameId" :gameType="2" />
+    @if($game->replay == 1)
+        <livewire:chat-wire :gameId="$gameId" :gameType="4" :multichat="$multichat"/>
+    @else
+        <livewire:chat-wire :gameId="$gameId" :gameType="2" :multichat="$multichat"/>
+    @endif
+
+    @if($owner == \Illuminate\Support\Facades\Auth::id())
+        <div class="flex justify-center mt-3">
+            <button type="button"
+                    class="mt-1 px-5 py-3 font-medium text-slate-700 shadow-xl duration-150 @if($replay == 1) bg-yellow-400 @else bg-white @endif"
+                    wire:click="replayState"
+                    class="ml-4">
+                @if($replay == 1)
+                    Otomatik başlatmayı kapat
+                @else
+                    Otomatik başlatmayı aç
+                @endif
+            </button>
+        </div>
+    @endif
     <script>
         let words = JSON.parse({!! json_encode(\App\Models\Word::pluck('name')->toJSON()) !!})
         let guesses = @json($guessesArray);

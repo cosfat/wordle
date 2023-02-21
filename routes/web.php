@@ -29,6 +29,7 @@ Route::middleware([
     Route::get('/finished-game-watcher/{gameId}', \App\Http\Livewire\Watchers\FinishedGameWatcher::class);
     Route::get('/finished-game-watcher/{gameId}/{duello}', \App\Http\Livewire\Watchers\FinishedGameWatcher::class);
     Route::get('/finished-challenge-game-watcher/{gameId}', \App\Http\Livewire\Watchers\FinishedChallengeGameWatcher::class);
+    Route::get('/replay-challenge-game-watcher/{gameId}/{replay}', \App\Http\Livewire\Watchers\FinishedChallengeGameWatcher::class);
     Route::get('/finished-challenge-game-watcher/{gameId}/{userId}', \App\Http\Livewire\Watchers\FinishedChallengeGameWatcher::class);
     Route::get('/my-profile', \App\Http\Livewire\MyProfile::class);
     Route::get('/my-games', \App\Http\Livewire\MyGames::class);

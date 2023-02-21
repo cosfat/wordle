@@ -26,7 +26,13 @@
                     notifyGame(e.username + " yeni OYUN isteği gönderdi!", "the-game/" + e.game);
                 } else if (e.type === 2) {
                     notifyGame(e.username + " yeni REKABET isteği gönderdi!", "the-challenge-game/" + e.game);
-                } else if (e.type === 3) {
+                }else if (e.type === 23) {
+                    notifyGame(e.username+" oyunu kazandı: "+e.word, "finished-challenge-game-watcher/" + e.previous);
+                    setTimeout(function (){
+                        notifyGame("Yeni Rekabet oyununa katıl!", "the-challenge-game/" + e.game);
+                    },4500)
+
+                }  else if (e.type === 3) {
                     notifyGame(e.username + " yeni DÜELLO isteği gönderdi!", "the-game/" + e.game + "/1");
                 }
 
@@ -126,8 +132,8 @@
 <div class="min-h-screen bg-gray-100 dark:bg-gray-100 pt-4">
     @auth
         <div name="welcome" class="mx-auto">
-            @if(str_contains(request()->path(), 'the-game') OR str_contains(request()->path(), 'the-challenge-game'))
-                <div class="back">
+
+                <div class="back" @if(!str_contains(request()->path(), 'the-game') AND !str_contains(request()->path(), 'the-challenge-game')) style="display:none" @endif >
                     @if(str_contains(url()->previous(), 'the-game'))
                         <a href="/my-games">
                     @else
@@ -136,10 +142,11 @@
                             <svg width="64px" height="64px" viewBox="0 0 1024 1024" fill="#4F46E5FF" class="icon" version="1.1" xmlns="http://www.w3.org/2000/svg" stroke="#4F46E5FF" stroke-width="77.824"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="M669.6 849.6c8.8 8 22.4 7.2 30.4-1.6s7.2-22.4-1.6-30.4l-309.6-280c-8-7.2-8-17.6 0-24.8l309.6-270.4c8.8-8 9.6-21.6 2.4-30.4-8-8.8-21.6-9.6-30.4-2.4L360.8 480.8c-27.2 24-28 64-0.8 88.8l309.6 280z" fill=""></path></g></svg>
                     </a>
                 </div>
-            @else
+
                 <div>
                     <div class="bg-indigo-600 shadow-xl shadow-indigo-800 flex items-center px-2 py-4"
-                         style="position:  fixed; bottom: 0; width: 100%; justify-content: space-evenly; z-index: 1000">
+                         style="position:  fixed; bottom: 0; width: 100%; justify-content: space-evenly; z-index: 1000;
+                         @if(str_contains(request()->path(), 'the-game') OR str_contains(request()->path(), 'the-challenge-game')) display: none @endif ">
 
 
                         <a href="/game-logs">
@@ -278,7 +285,7 @@
                         @endif
                     </div>
                 </div>
-            @endif
+
         </div>
         <!-- Page Content -->
         <main>

@@ -16,18 +16,22 @@ class GameNotification implements ShouldBroadcast
     public $game;
     public $username;
     public $type;
+    public $previous;
+    public $word;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($opp, $game, $username, $type)
+    public function __construct($opp, $game, $username, $type, $previous, $word)
     {
         $this->opp = $opp;
         $this->game = $game;
         $this->username = $username;
         $this->type = $type;
+        $this->previous = $previous;
+        $this->word = $word;
 
     }
 

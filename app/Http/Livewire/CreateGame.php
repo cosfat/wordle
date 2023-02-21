@@ -46,6 +46,9 @@ class CreateGame extends Component
     public $suggestChFriend = array();
     public $challengeFriends = array();
 
+    public $replay = 0;
+    public $replayText = "Otomatik başlatma kapalı";
+
     public function test()
     {
         return false;
@@ -309,7 +312,7 @@ class CreateGame extends Component
             $game->word_id = $word;
             $game->length = $this->length;
             $game->save();
-            GameNotification::dispatch($opp, $game->id, Auth::user()->username, 1);
+            GameNotification::dispatch($opp, $game->id, Auth::user()->username, 1, null, null);
             session()->flash('message', 'Oyun başarıyla oluşturuldu.');
             return redirect()->to('/game-watcher/' . $game->id);
         } elseif ($this->mode == 4) {
@@ -328,7 +331,7 @@ class CreateGame extends Component
             $game->isduello = 1;
             $game->length = $this->length;
             $game->save();
-            GameNotification::dispatch($opp, $game->id, Auth::user()->username, 3);
+            GameNotification::dispatch($opp, $game->id, Auth::user()->username, 3, null, null);
             session()->flash('message', 'Oyun başarıyla oluşturuldu.');
             return redirect()->to('/the-game/' . $game->id . "/1");
         }
@@ -347,9 +350,11 @@ class CreateGame extends Component
         $game->user_id = Auth::id();
         $game->word_id = $wordId;
         $game->length = $this->length;
+        $game->replay = $this->replay;
         $game->usercount = count($this->challengeFriends);
         $game->save();
-
+        $game->multichat = $game->id;
+        $game->save();
         foreach ($this->challengeFriends as $challengeFriend) {
             $team = new Chuser;
             $team->challenge_id = $game->id;
@@ -358,7 +363,7 @@ class CreateGame extends Component
             $team->save();
 
             if ($team->user_id != Auth::id()) {
-                GameNotification::dispatch($team->user_id, $game->id, Auth::user()->username, 2);
+                GameNotification::dispatch($team->user_id, $game->id, Auth::user()->username, 2, null, null);
             }
         }
         session()->flash('message', 'Oyun başarıyla oluşturuldu.');

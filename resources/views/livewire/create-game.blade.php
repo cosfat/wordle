@@ -112,6 +112,26 @@
                             {{ __('Rasgele rakip') }}
                         </button>
                     </div>
+
+                    <div class="flex justify-center mt-3">
+                        <h2>Oyun bitiminde aynı kişilerle yeni oyun başlatılsın mı?</h2>
+                    </div>
+                    <div class="flex justify-center mt-3">
+                        <button type="button"
+                                class="mt-1 px-5 py-3 font-medium text-slate-700 shadow-xl duration-150 @if($replay == 1) bg-yellow-400 @else bg-white @endif"
+                                @if($replay == 1)
+                                wire:click="$set('replay', 0)"
+                                    @else
+                                wire:click="$set('replay', 1)"
+                                    @endif
+                                 class="ml-4">
+                            @if($replay == 1)
+                                Otomatik başlatmayı kapat
+                            @else
+                                Otomatik başlatmayı aç
+                            @endif
+                        </button>
+                    </div>
                     <div class="flex justify-center mt-3">
                         <button type="button"
                                 class="mt-1 px-5 py-3 font-medium text-slate-700 shadow-xl duration-150 bg-yellow-400"

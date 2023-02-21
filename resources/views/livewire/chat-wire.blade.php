@@ -30,7 +30,7 @@
         </div>
         <div class="border-t-2 border-gray-200 px-4 pt-4 sm:mb-0">
             <div class="relative flex" style="z-index: 1 !important;">
-                <input id="chatInput" type="text" placeholder="@if($gameType == 1 OR $gameType == 2) Mesajınızı yazın! @else Günün kelimesi yorumunuz @endif" wire:model="msg"
+                <input id="chatInput" type="text" placeholder="@if($gameType == 1 OR $gameType == 2 OR $gameType == 4) Mesajınızı yazın! @else Günün kelimesi yorumunuz @endif" wire:model="msg"
                        class="w-full border-gray-200 text-gray-600 placeholder-gray-600 p-4 bg-gray-200 rounded-md overflow-hidden">
                 <div class="absolute right-0 items-center sm:flex">
                     <div wire:loading.remove wire:target="sendMessage">

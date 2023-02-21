@@ -21,13 +21,13 @@ class ChatWire extends Component
     public $gameType;
     public $userName;
     public $game;
+    public $multichat;
 
     public function mount(){
-
         if($this->gameType == 1){
             $this->game = Game::find($this->gameId);
         }
-        elseif($this->gameType == 2){
+        elseif($this->gameType == 2 OR $this->gameType == 4){
             $this->game = Challenge::find($this->gameId);
         }
         else{
@@ -39,10 +39,15 @@ class ChatWire extends Component
         $msg = $this->msg;
         if($msg!=null){
             $chat = new Chat();
-            $chat->game_id = $this->gameId;
+            if($this->gameType == 4){
+                $chat->game_id = $this->multichat;
+            }
+            else{
+                $chat->game_id = $this->gameId;
+            }
             $chat->user_id = Auth::id();
             $chat->message = $msg;
-            if($this->gameType == 1 OR $this->gameType == 2){
+            if($this->gameType == 1 OR $this->gameType == 2 OR $this->gameType == 4){
                 $chat->game_type = $this->gameType;
                 ChatMessaged::dispatch($this->gameId, $this->gameType);
             }
@@ -63,8 +68,11 @@ class ChatWire extends Component
         if($this->gameType == 1 OR $this->gameType == 2){
             $chats = $this->game->chats()->where('game_type', $this->gameType);
         }
-        else{
+        else if($this->gameType == 3){
             $chats = Chat::where('game_type', $this->gameType);
+        }
+        else if($this->gameType == 4){
+            $chats = Chat::where('game_type', 4)->where('game_id', $this->multichat);
         }
         $this->messages = $chats->orderBy('id', 'desc')->limit(30)->reOrder('id', 'asc')->get();
         $myChats = $chats->where('user_id', '!=', Auth::id())->where('seen', 0)->get();
