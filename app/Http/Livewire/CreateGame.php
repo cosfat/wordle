@@ -313,7 +313,6 @@ class CreateGame extends Component
             $game->length = $this->length;
             $game->save();
             GameNotification::dispatch($opp, $game->id, Auth::user()->username, 1, null, null);
-            session()->flash('message', 'Oyun başarıyla oluşturuldu.');
             return redirect()->to('/game-watcher/' . $game->id);
         } elseif ($this->mode == 4) {
             $opp = $this->gameOpp;
@@ -332,7 +331,6 @@ class CreateGame extends Component
             $game->length = $this->length;
             $game->save();
             GameNotification::dispatch($opp, $game->id, Auth::user()->username, 3, null, null);
-            session()->flash('message', 'Oyun başarıyla oluşturuldu.');
             return redirect()->to('/the-game/' . $game->id . "/1");
         }
     }
@@ -366,7 +364,6 @@ class CreateGame extends Component
                 GameNotification::dispatch($team->user_id, $game->id, Auth::user()->username, 2, null, null);
             }
         }
-        session()->flash('message', 'Oyun başarıyla oluşturuldu.');
         return redirect()->to('/the-challenge-game/' . $game->id);
     }
 
