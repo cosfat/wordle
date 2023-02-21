@@ -61,7 +61,7 @@ class TheChallengeGame extends Component
                     $game->duration = $first->diffInSeconds($last);
                 }
                 $durationPoint = round(500 / $game->duration);
-                $game->point = ($game->length - Chguess::whereChallenge_id($this->gameId)->where('user_id', $userId)->count() + 2) * $userCount * 2 + $durationPoint;
+                $game->point = ($game->length - Chguess::whereChallenge_id($this->gameId)->where('user_id', $userId)->count() + 10) * $userCount * 2 + $durationPoint;
                 $game->save();
 
                 $point = Point::whereUser_id($userId);
