@@ -111,7 +111,33 @@ class Kernel extends ConsoleKernel
             }
         })->
         hourly();
-    }
+
+
+        // Bitememiş oyunları bitir
+        $schedule->call(function (){
+            $games = Game::whereNull('winner_id')->get();
+            foreach ($games as $game) {
+                $winner = null;
+                $guesses = $game->guesses()->get();
+                foreach ($guesses as $guess){
+                    if($guess->word_id == $game->word_id){
+                        $game->winner_id = $game->opponent_id;
+                        $game->save();
+                        $winner = 2;
+
+                    }
+                }
+                if($winner == null){
+                    if($guesses->count() > $game->length){
+
+                        echo $guesses->count()."-";
+                        $game->winner_id = $game->user_id;
+                        $game->save();
+                    }
+                }
+            }
+        })->everyFourHours();
+}
 
     /**
      * Register the commands for the application.

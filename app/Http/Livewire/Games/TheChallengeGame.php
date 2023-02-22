@@ -28,7 +28,6 @@ class TheChallengeGame extends Component
     public $firstGuess = false;
     public $replay = 0;
     public $owner;
-
     public $game;
     public $multichat;
 
@@ -124,6 +123,7 @@ class TheChallengeGame extends Component
 
     public function chLoser()
     {
+
         return redirect('/finished-challenge-game-watcher/' . $this->gameId);
     }
 
@@ -136,6 +136,9 @@ class TheChallengeGame extends Component
                 $game = Challenge::whereId($gameId)->first();
                 $this->multichat = $game->multichat;
                 $this->game = $game;
+                if($game->replay == 1 AND $game->multichat != $game->id AND $game->chusers->count() > 1){
+                    $this->waitForOthers = true;
+                }
                 if (Chguess::where('challenge_id', $gameId)->where('user_id', Auth::id())->count() == $game->length + 1) {
 
                     return redirect('/finished-challenge-game-watcher/' . $this->gameId);

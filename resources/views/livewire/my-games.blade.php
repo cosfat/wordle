@@ -1,7 +1,7 @@
 <div class="gap-2 container mx-auto rounded-lg">
     <div class="flex justify-center">
         <h2 class="text-2xl font-bold tracking-tight sm:text-center sm:text-4xl text-indigo-500">
-            DEVAM EDEN OYUNLAR</h2>
+            OYUNLARIM</h2>
     </div>
     @include('loading')
     <div class="p-5 gap-2 border-b-2">
@@ -137,7 +137,7 @@
     <div class="p-5 gap-2 border-b-2">
         <div class="flex flex-wrap">
             <h2 class="text-2xl font-bold tracking-tight sm:text-center sm:text-4xl text-indigo-500">
-                Yeni oyun isteklerim</h2>
+                Yeni oyunlar</h2>
         </div>
         <div class="flex flex-wrap">
             @if($new->count() == 0 AND $newChallenges->count() == 0 AND $newDuellos->count() == 0)
@@ -329,7 +329,7 @@
     <div class="p-4 gap-2 border-b-2">
         <div class="flex flex-wrap">
             <h2 class="text-2xl font-bold tracking-tight sm:text-center sm:text-4xl text-indigo-500">
-                Klasik</h2>
+                Klasik oyunlar</h2>
         </div>
         <div class="flex flex-wrap">
             @if($gamesOpp->count() == 0)

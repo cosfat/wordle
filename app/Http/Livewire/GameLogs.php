@@ -31,7 +31,7 @@ class GameLogs extends Component
             $x = 0;
             foreach ($chusers as $chuser) {
                 $challenge = $chuser->challenge()->first();
-                $guessesCount =$challenge->guesscount;
+                $guessesCount = $challenge->guesscount;
                 $length = $challenge->length;
                 $userCount = $challenge->usercount;
                 $shouldTotal = $userCount * ($length + 1);
