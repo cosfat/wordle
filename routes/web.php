@@ -35,7 +35,6 @@ Route::get('/auth/callback', function () {
 
     return redirect('/my-games');
 
-    // $user->token
 });
 
 Route::get('/', \App\Http\Livewire\Welcome::class);
