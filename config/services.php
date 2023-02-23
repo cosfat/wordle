@@ -34,7 +34,7 @@ return [
     'google' => [
         'client_id' => '634366951242-tqqlsims5qlpidu7g1bp3htve7nhp3tk.apps.googleusercontent.com',
         'client_secret' => env('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'),
-        'redirect' => 'https://kelimeo.com/auth/redirect',
+        'redirect' => 'https://kelimeo.com/auth/callback',
     ],
 
 ];
