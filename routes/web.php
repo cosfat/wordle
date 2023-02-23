@@ -1,9 +1,8 @@
 <?php
-
-use App\Events\GameNotification;
-use App\Models\Word;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
+use Laravel\Socialite\Facades\Socialite;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,6 +14,30 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/auth/redirect', function () {
+    return Socialite::driver('google')->redirect();
+});
+
+Route::get('/auth/callback', function () {
+    $user = Socialite::driver('google')->user();
+
+    $user2 = User::updateOrCreate([
+        'google_id' => $user->id,
+    ], [
+        'name' => $user->name,
+        'username' => $user->name,
+        'email' => $user->email,
+        'google_token' => $user->token,
+        'google_refresh_token' => $user->refreshToken,
+    ]);
+
+    Auth::login($user2);
+
+    return redirect('/my-games');
+
+    // $user->token
+});
+
 Route::get('/', \App\Http\Livewire\Welcome::class);
 // Route::get('/status', [\App\Http\Controllers\UserController::class, 'userOnlineStatus']);
 Route::middleware([
