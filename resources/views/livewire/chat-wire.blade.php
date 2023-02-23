@@ -33,11 +33,11 @@
         <div class="border-t-2 border-gray-200 px-4 pt-4 sm:mb-0">
             <div class="relative flex" style="z-index: 1 !important;">
                 <input id="chatInput" type="text" placeholder="@if($gameType == 1 OR $gameType == 2 OR $gameType == 4) Mesajınızı yazın! @else Günün kelimesi yorumunuz @endif" wire:model="msg"
-                       class="w-full border-gray-200 text-gray-600 placeholder-gray-600 p-4 bg-gray-200 rounded-md overflow-hidden">
-                <div class="absolute right-0 items-center sm:flex">
+                       class="w-full border-gray-200 text-gray-600 placeholder-gray-600 p-4 bg-gray-200 overflow-hidden rounded-l-md">
+                <div class="float-right items-center sm:flex p4 bg-gray-200 rounded-r-md">
                     <div wire:loading.remove wire:target="sendMessage">
                         <button type="button" wire:click="sendMessage"
-                                class="inline-flex items-center justify-center bg-gray-200 rounded-lg py-2 text-green-600 focus:outline-none mt-2 mr-2 mb-2">
+                                class="inline-flex items-center justify-center py-2 text-green-600 focus:outline-none mt-2 mr-2 mb-2">
                             <span class="font-bold">Gönder</span>
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
                                  class="h-6 w-6 ml-2 transform rotate-90">
@@ -46,9 +46,9 @@
                             </svg>
                         </button>
                     </div>
-                    <div wire:loading.delay.long wire:target="sendMessage">
+                    <div wire:loading wire:target="sendMessage">
                         <button type="button"
-                                class="inline-flex items-center justify-center rounded-lg px-4 py-4 text-white bg-gray-500 focus:outline-none">
+                                class="inline-flex items-center justify-center px-4 py-4 text-white bg-gray-500 focus:outline-none">
                             <span class="font-bold">Yükleniyor</span>
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
                                  class="h-6 w-6 ml-2 transform rotate-90">
