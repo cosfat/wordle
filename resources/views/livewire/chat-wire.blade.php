@@ -9,8 +9,9 @@
                     <div class="chat-message">
                         <div class="flex items-end justify-end">
                             <div class="flex flex-col space-y-2 text-xs max-w-xs mx-2 order-1 items-end">
-                                <div><span
-                                        class="px-4 py-2 rounded-lg inline-block rounded-br-none bg-green-600 text-white">{{ $message->message }}</span>
+                                <div class="px-4 py-2 rounded-lg inline-block rounded-br-none bg-green-600 ">
+                                    <span class="text-white text-sm">{{ $message->message }} </span>
+                                    <span class="text-white mt-4" style="font-size: 8px">{{ \Carbon\Carbon::parse($message->created_at)->isoFormat('Do MMMM, h:mm') }}</span>
                                 </div>
                             </div>
                         </div>
@@ -19,8 +20,9 @@
                     <div class="chat-message">
                         <div class="flex items-end">
                             <div class="flex flex-col space-y-2 text-xs max-w-xs mx-2 order-2 items-start">
-                                <div><span
-                                        class="px-4 py-2 rounded-lg inline-block rounded-bl-none bg-indigo-600 text-white"><strong>{{ \App\Models\User::find($message->user_id)->username }}:</strong> {{ $message->message }}</span>
+                                <div class="px-4 py-2 rounded-lg inline-block rounded-br-none bg-green-600 ">
+                                    <span class="text-white" style="font-size: 8px">{{ \Carbon\Carbon::parse($message->created_at)->isoFormat('Do MMMM, h:mm') }}</span>
+                                    <span class="text-white text-sm"><strong>{{ \App\Models\User::find($message->user_id)->username }}:</strong> {{ $message->message }}</span>
                                 </div>
                             </div>
                         </div>
