@@ -109,7 +109,7 @@ class MyGames extends Component
             ->where('winner_id', '!=', 2)
             ->orderBy('duration', 'asc')
             ->orderBy('guesscount', 'asc')
-            ->limit(7)->get();
+            ->limit(10)->get();
         foreach ($todayScores as $todayScore) {
             $this->todays[] = array($todayScore->id, User::find($todayScore->opponent_id)->username, $this->secondHuman($todayScore->duration), $todayScore->guesscount);
         }
