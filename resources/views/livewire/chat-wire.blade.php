@@ -20,7 +20,7 @@
                     <div class="chat-message">
                         <div class="flex items-end">
                             <div class="flex flex-col space-y-2 text-xs max-w-xs mx-2 order-2 items-start">
-                                <div class="px-4 py-2 rounded-lg inline-block rounded-br-none bg-green-600 ">
+                                <div class="px-4 py-2 rounded-lg inline-block rounded-br-none bg-indigo-500">
                                     <span class="text-white" style="font-size: 8px">{{ \Carbon\Carbon::parse($message->created_at)->isoFormat('Do MMMM, h:mm') }}</span>
                                     <span class="text-white text-sm"><strong>{{ \App\Models\User::find($message->user_id)->username }}:</strong> {{ $message->message }}</span>
                                 </div>
