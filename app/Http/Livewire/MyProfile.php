@@ -10,7 +10,7 @@ class MyProfile extends Component
 {
     public function render()
     {
-        $games = Game::where('user_id', '!=', 2)->get();
+     /*   $games = Game::where('user_id', '!=', 2)->get();
         foreach ($games as $game) {
             $usr1 = $game->opponent_id;
             $usr2 = $game->user_id;
@@ -41,7 +41,7 @@ class MyProfile extends Component
                 $chat->chatcode = hash('md5', $chatHash);
                 $chat->save();
             }
-        }
+        }*/
         return view('livewire.my-profile');
     }
 }
