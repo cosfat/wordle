@@ -299,6 +299,16 @@ class CreateGame extends Component
         }
     }
 
+    public function createChatHash($usr1, $usr2){
+        if($usr1 > $usr2){
+            $chatHash = $usr1."with".$usr2."hash";
+        }
+        else{
+            $chatHash = $usr2."with".$usr1."hash";
+        }
+        return hash('md5', $chatHash);
+    }
+
 
     public function startGame()
     {
@@ -311,6 +321,7 @@ class CreateGame extends Component
             $game->opponent_id = $opp;
             $game->word_id = $word;
             $game->length = $this->length;
+            $game->chatcode = $this->createChatHash($game->user_id, $game->opponent_id);
             $game->save();
             GameNotification::dispatch($opp, $game->id, Auth::user()->username, 1, null, null);
             return redirect()->to('/game-watcher/' . $game->id);
@@ -321,6 +332,7 @@ class CreateGame extends Component
             $game->sira = $opp;
             $game->opponent_id = $opp;
 
+            $game->chatcode = $this->createChatHash($game->user_id, $game->opponent_id);
             $suggestQuery = DB::select(DB::raw("SELECT id, meaning, name, CHAR_LENGTH(name) AS 'chrlen' FROM words WHERE CHAR_LENGTH(name) = $this->length  AND meaning != 'null' ORDER BY RAND() LIMIT 1"));
             foreach ($suggestQuery as $item) {
                     $word = $item->name;
@@ -329,6 +341,7 @@ class CreateGame extends Component
             $game->word_id = $wordId;
             $game->isduello = 1;
             $game->length = $this->length;
+            $game->chatcode = $this->createChatHash($game->user_id, $game->opponent_id);
             $game->save();
             GameNotification::dispatch($opp, $game->id, Auth::user()->username, 3, null, null);
             return redirect()->to('/the-game/' . $game->id . "/1");

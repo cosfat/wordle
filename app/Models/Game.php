@@ -19,6 +19,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property $length
  * @property $today_id
  * @property $isduello
+ * @property $chatcode
  * @property $created_at
  * @property $updated_at
  *
@@ -31,10 +32,7 @@ class Game extends Model
     static $rules = [
 		'user_id' => 'required',
 		'opponent_id' => 'required',
-		'word_id' => 'required',
-		'seen' => '',
-		'seen2' => '',
-		'smiley' => '',
+		'word_id' => 'required'
     ];
 
     protected $perPage = 20;
@@ -44,7 +42,10 @@ class Game extends Model
      *
      * @var array
      */
-    protected $fillable = ['user_id','opponent_id','word','seen','winner_id','degree', 'seen2', 'smiley'];
+    protected $fillable = [];
+    /**
+     * @var false|mixed|string
+     */
 
 
     public function user(){

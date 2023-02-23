@@ -27,6 +27,7 @@ class TheGame extends Component
 
     public $isDuello = 0;
     public $sira = null;
+    public $chatcode;
 
     protected $listeners = ['loser', 'winner', 'refreshDuelloGame'];
 
@@ -54,6 +55,7 @@ class TheGame extends Component
 
                         $this->gameId = $gameId;
                         $this->length = $game->length;
+                        $this->chatcode = $game->chatcode;
                         if ($game->user_id == Auth::id()) {
                             $opponent = User::find($game->opponent_id);
                             $this->opponentName = $opponent->username;
@@ -80,6 +82,7 @@ class TheGame extends Component
             $game = Game::whereId($gameId)->where('opponent_id', Auth::id());
             if ($game->exists()) {
                 $game = $game->first();
+                $this->chatcode = $game->chatcode;
                 $guesses = $game->guesses()->get();
                 if ($guesses->count() == 0) {
                     $this->firstGuess = true;

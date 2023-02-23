@@ -36,6 +36,17 @@ Broadcast::channel('chat-channel.{game}', function ($user, $game) {
 
 });
 
+
+Broadcast::channel('sustained-chat.{chatcode}', function ($user, $chatcode) {
+
+    return Game::where('chatcode', $chatcode)->where('user_id', $user->id)->exists() OR
+        Game::where('chatcode', $chatcode)->where('opponent_id', $user->id)->exists();
+
+
+});
+
+
+
 Broadcast::channel('guesses-channel.{opp}', function ($user, $opp) {
 
     if (Game::whereOpponent_id($opp)->exists()) {

@@ -81,11 +81,19 @@
         }
     </style>
     <script type="module">
+        @if($gameType == 1)
+        window.Echo.private(`sustained-chat.{{ $chatcode }}`)
+            .listen('SustchatReceived', (e) => {
+                Livewire.emit('refreshChat');
+                document.getElementById('messages').scrollTop = document.getElementById('messages').scrollHeight;
+            });
+        @else
         window.Echo.private(`chat-channel.{{ $gameId }}`)
             .listen('ChatMessaged', (e) => {
                 Livewire.emit('refreshChat');
                 document.getElementById('messages').scrollTop = document.getElementById('messages').scrollHeight;
             });
+        @endif
 
         document.getElementById('messages').scrollTop = document.getElementById('messages').scrollHeight;
 

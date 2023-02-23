@@ -30,12 +30,14 @@ class FinishedGameWatcher extends Component
     public $chat = false;
     public $isDuello = null;
     public $winner;
+    public $chatCode;
 
     public function mount($gameId)
     {
         $game = Game::whereId($gameId)->where('winner_id', '!=', null);
         if ($game->exists()) {
             $game = $game->first();
+            $this->chatcode = $game->chatcode;
             $this->isDuello = $game->isduello;
             if ($game->user_id == Auth::id() or $game->opponent_id == Auth::id()) {
                 $this->chat = true;
@@ -85,9 +87,6 @@ class FinishedGameWatcher extends Component
             $this->duration = str_replace('dakika', 'dk', str_replace('saniye', 'sn', CarbonInterval::seconds($game->duration)->cascade()->forHumans()));
 
             $this->meaning = $game->word->meaning;
-            if($this->meaning == ""){
-                $this->meaning = Word::tdk($this->wordName);
-            }
         } else {
             session()->flash('message', 'Bu oyunu görme yetkiniz yok.');
             return redirect()->to('/create-game');

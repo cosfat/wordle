@@ -28,7 +28,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <div id="game-board">
     </div>
-    <livewire:chat-wire :opponentName="$opponentName" :gameId="$gameId" :gameType="1" />
+    <livewire:chat-wire :opponentName="$opponentName" :gameId="$gameId" :gameType="1" :chatcode="$chatcode"/>
     <livewire:contact-wire :friend="$myOpp" />
     <script>
         let words = JSON.parse({!! json_encode(\App\Models\Word::pluck('name')->toJSON()) !!})

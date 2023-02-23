@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Events\ChatMessaged;
+use App\Events\SustchatReceived;
 use App\Models\Challenge;
 use App\Models\Game;
 use App\Models\Chat;
@@ -22,6 +23,7 @@ class ChatWire extends Component
     public $userName;
     public $game;
     public $multichat;
+    public $chatcode;
 
     public function mount(){
         if($this->gameType == 1){
@@ -47,7 +49,11 @@ class ChatWire extends Component
             }
             $chat->user_id = Auth::id();
             $chat->message = $msg;
-            if($this->gameType == 1 OR $this->gameType == 2 OR $this->gameType == 4){
+            if($this->gameType == 1){
+                $chat->game_type = $this->gameType;
+                SustchatReceived::dispatch($this->chatcode);
+            }
+            else if($this->gameType == 2 OR $this->gameType == 4){
                 $chat->game_type = $this->gameType;
                 ChatMessaged::dispatch($this->gameId, $this->gameType);
             }
@@ -56,6 +62,7 @@ class ChatWire extends Component
                 $chat->game_type = $this->gameType;
             }
             $chat->user_id = Auth::id();
+            $chat->chatcode = $this->chatcode;
             $chat->save();
             $this->emit('refreshChat');
             $this->msg = "";
@@ -65,7 +72,10 @@ class ChatWire extends Component
 
     public function render()
     {
-        if($this->gameType == 1 OR $this->gameType == 2){
+        if($this->gameType == 1){
+            $chats = Chat::where('chatcode', $this->chatcode);
+        }
+        else if($this->gameType == 2){
             $chats = $this->game->chats()->where('game_type', $this->gameType);
         }
         else if($this->gameType == 4){

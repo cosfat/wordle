@@ -123,7 +123,7 @@
     @endif
 
     @if($opponentName != "Günün Kelimesi")
-        <livewire:chat-wire :gameId="$gameId" :gameType="1"/>
+        <livewire:chat-wire :gameId="$gameId" :gameType="1" :chatcode="$chatcode"/>
         <livewire:contact-wire :friend="$myOpp" />
     @endif
 

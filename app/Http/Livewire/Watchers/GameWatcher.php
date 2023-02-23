@@ -19,6 +19,7 @@ class GameWatcher extends Component
     public $lastGuessTime = "tahmin yok";
     public $meaning;
     public $myOpp;
+    public $chatcode;
 
     public $guessesCount;
     public $guessesArray;
@@ -33,6 +34,7 @@ class GameWatcher extends Component
         $game = Game::whereId($gameId)->where('user_id', Auth::id());
         if ($game->exists()) {
             $game = $game->first();
+            $this->chatcode = $game->chatcode;
             $game->seen2 = 1;
             $game->save();
             $guesses = $game->guesses()->get();
@@ -53,9 +55,6 @@ class GameWatcher extends Component
             $this->myOpp = $opponent->id;
 
             $this->meaning = $game->word->meaning;
-            if($this->meaning == ""){
-                $this->meaning = Word::tdk($this->wordName);
-            }
         } else {
             session()->flash('message', 'Bu oyunu görme yetkiniz yok.');
             return redirect()->to('/create-game');
