@@ -84,7 +84,7 @@ class ChatWire extends Component
         else {
             $chats = Chat::where('game_type', $this->gameType);
         }
-        $this->messages = $chats->orderBy('id', 'desc')->limit(30)->reOrder('id', 'asc')->get();
+        $this->messages = $chats->orderBy('id', 'desc')->limit(30)->get()->reverse();
         $myChats = $chats->where('user_id', '!=', Auth::id())->where('seen', 0)->get();
         if($this->gameType == 1 OR $this->gameType == 2){
             foreach ($myChats as $chat) {
