@@ -3,25 +3,21 @@
 namespace App\Http\Livewire;
 
 use App\Models\Game;
+use App\Models\Word;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
 class WordStats extends Component
 {
     public function mount(){
-        $classics = DB::table('games')
-        ->select(['word_id', DB::raw('count(*) as total')])
-            ->where('isduello', null)
+        $wordCounts = DB::table('games')
             ->where('user_id', '!=', 2)
-            ->where('winner_id', '!=', 'user_id')
-            ->where('winner_id', '!=', null)
-            ->orderBy('total')
-            ->get();
-        $classics = $classics->groupBy('word_id');
-        foreach ($classics as $classic) {
-            if($classic->count() > 1){
-                echo $classic[0]->word->name."-".$classic->count()."<br>";
-            }
+        ->select('word_id', DB::raw('COUNT(*) as count'))
+        ->groupBy('word_id')
+        ->orderByDesc('count')
+        ->get();
+        foreach ($wordCounts as $wordCount) {
+            echo Word::find($wordCount->word_id)->name ." occurs ". $wordCount->count." times.<br>";
         }
     }
 
