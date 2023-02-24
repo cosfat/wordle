@@ -132,7 +132,6 @@
 <div class="min-h-screen bg-gray-100 dark:bg-gray-100 pt-4">
     @auth
         <div name="welcome" class="mx-auto">
-
                 <div class="back" @if(!str_contains(request()->path(), 'the-game') AND !str_contains(request()->path(), 'the-challenge-game')) style="display:none" @endif >
                     @if(str_contains(url()->previous(), 'the-game'))
                         <a href="/my-games">
@@ -142,13 +141,10 @@
                             <svg width="40px" height="40px" viewBox="0 0 1024 1024" fill="#4F46E5FF" class="icon" version="1.1" xmlns="http://www.w3.org/2000/svg" stroke="#4F46E5FF" stroke-width="77.824"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="M669.6 849.6c8.8 8 22.4 7.2 30.4-1.6s7.2-22.4-1.6-30.4l-309.6-280c-8-7.2-8-17.6 0-24.8l309.6-270.4c8.8-8 9.6-21.6 2.4-30.4-8-8.8-21.6-9.6-30.4-2.4L360.8 480.8c-27.2 24-28 64-0.8 88.8l309.6 280z" fill=""></path></g></svg>
                     </a>
                 </div>
-
                 <div>
                     <div class="bg-indigo-600 shadow-xl shadow-indigo-800 flex items-center px-2 py-4"
                          style="position:  fixed; bottom: 0; width: 100%; justify-content: space-evenly; z-index: 1000;
                          @if(str_contains(request()->path(), 'the-game') OR str_contains(request()->path(), 'the-challenge-game')) display: none @endif ">
-
-
                         <a href="/game-logs">
                             <svg fill="#facc15"
                                  @if(strpos(url()->current(), 'game-logs'))
@@ -300,17 +296,17 @@
     @else
         <x-guest-layout>
             <x-jet-authentication-card>
-                <x-slot name="logo">
-
                     <x-slot name="logo">
                         <x-jet-authentication-card-logo/>
                     </x-slot>
                     <div class="flex justify-center">
                         <div class="px-4 sm:px-8 max-w-5xl m-auto">
-                            <h1 class="text-center font-semibold text-sm">Nasıl oynanır?</h1>
-                            <p class="mt-2 text-center text-sm mb-4 text-gray-500">Size verilen kelimeyi tahmin etmeye
-                                çalışırsınız</p>
-                            <ul class="border border-gray-200 rounded overflow-hidden shadow-md">
+                            <h1 class="text-center font-bold">Nasıl oynanır?</h1>
+                            <ul class="border border-gray-200 rounded overflow-hidden shadow-md mt-2">
+                                <li class="px-4 py-2 bg-white hover:bg-sky-100 hover:text-sky-900 border-b last:border-none border-gray-200 transition-all duration-300 ease-in-out">
+                                    Size verilen kelimeyi tahmin etmeye
+                                    çalışırsınız
+                                </li>
                                 <li class="px-4 py-2 bg-white hover:bg-sky-100 hover:text-sky-900 border-b last:border-none border-gray-200 transition-all duration-300 ease-in-out">
                                     Harfler kelimedeki yerlerinin doğruluğuna göre renk alır
                                 </li>
@@ -329,21 +325,20 @@
                                     Kelimede olmayan diğer harfler gri yanar.
                                 </li>
                                 <li class="px-4 py-2 bg-white hover:bg-sky-100 hover:text-sky-900 border-b last:border-none border-gray-200 transition-all duration-300 ease-in-out">
-                                    Oyunun 2 modu var: Klasik mod ve rekabet modu
+                                    Oyunun 3 modu var: Klasik mod, rekabet modu ve düello
                                 </li>
                                 <li class="px-4 py-2 bg-white hover:bg-sky-100 hover:text-sky-900 border-b last:border-none border-gray-200 transition-all duration-300 ease-in-out">
                                     Klasik mod: Arkadaşınıza kelime sorarsınız, bulmaya çalışır.
                                 </li>
                                 <li class="px-4 py-2 bg-white hover:bg-sky-100 hover:text-sky-900 border-b last:border-none border-gray-200 transition-all duration-300 ease-in-out">
-                                    Rekabet modu: Arkadaşınızla beraber bilgisayarın seçtiği bir kelimeyi bulmaya
-                                    çalışırsınız.
+                                    Rekabet modu: Bilgisayarın seçtiği bir kelimeyi grubunuzdan ilk bulan kazanır.
+                                </li>
+                                <li class="px-4 py-2 bg-white hover:bg-sky-100 hover:text-sky-900 border-b last:border-none border-gray-200 transition-all duration-300 ease-in-out">
+                                    Düello: Bilgisayarın seçtiği kelimeyi arkadaşınız ile sırayla bulmaya çalışırsınız.
                                 </li>
                             </ul>
-                            <a href="mailto:hello@kelimeo.com" class="text-xs text-center block mt-4 hover:underline">Sorularınız
-                                için: hello@kelimeo.com</a>
                         </div>
                     </div>
-                </x-slot>
 
                 <x-jet-validation-errors class="mb-4"/>
 
@@ -353,6 +348,20 @@
                     </div>
                 @endif
 
+                <div class="flex justify-center w-full">
+                <a href="{{ route('register') }}">
+                    <button
+                        class="mt-4 px-3 py-3 font-medium text-slate-700 shadow-xl bg-yellow-400 bg- duration-150"
+                        type="button">
+                        Üye olmak için tıklayın
+                    </button>
+                </a>
+                </div>
+                <div class="shadow-md p-6">
+                <div class="flex justify-center mt-4">
+                    <h2 class="text-2xl font-bold tracking-tight sm:text-center sm:text-4xl text-indigo-500">
+                        Zaten üye misiniz?</h2>
+                </div>
                 <form method="POST" action="{{ route('login') }}">
                     @csrf
                     <div>
@@ -385,13 +394,12 @@
                             {{ __('Giriş') }}
                         </x-jet-button>
                     </div>
-
-                    <div class="flex items-center justify-end mt-4">
-                        <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('register') }}">
-                            {{ __('Üye ol') }}
-                        </a>
+                    <div class="flex justify-center mt-4">
+                        <a href="mailto:hello@kelimeo.com" class="text-xs text-center block mt-4 hover:underline">Sorularınız
+                            için: hello@kelimeo.com</a>
                     </div>
                 </form>
+                </div>
             </x-jet-authentication-card>
         </x-guest-layout>
     @endauth

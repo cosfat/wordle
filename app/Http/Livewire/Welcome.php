@@ -13,10 +13,6 @@ class Welcome extends Component
         {
             return redirect()->to('/my-games');
         }
-        else{
-            return view('livewire.welcome');
-        }
-
     }
     public function render()
     {

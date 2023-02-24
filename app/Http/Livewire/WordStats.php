@@ -9,15 +9,17 @@ use Livewire\Component;
 
 class WordStats extends Component
 {
-    public function mount(){
+    public function mount()
+    {
         $wordCounts = DB::table('games')
             ->where('user_id', '!=', 2)
-        ->select('word_id', DB::raw('COUNT(*) as count'))
-        ->groupBy('word_id')
-        ->orderByDesc('count')
-        ->get();
+            ->select('word_id', DB::raw('COUNT(*) as count'))
+            ->groupBy('word_id')
+            ->orderByDesc('count')
+            ->limit(10)
+            ->get();
         foreach ($wordCounts as $wordCount) {
-            echo Word::find($wordCount->word_id)->name ." occurs ". $wordCount->count." times.<br>";
+            echo Word::find($wordCount->word_id)->name . " occurs " . $wordCount->count . " times.<br>";
         }
     }
 
