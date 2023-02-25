@@ -24,11 +24,13 @@
         </h2>
             </div>
 
+    @if($todayRank != null)
     <div class="flex justify-center">
                 <span class="text-green-600 text-sm">
         Sıralamada: {{ $todayRank }}
                 </span>
     </div>
+    @endif
     <div class="flex justify-center">
         <h2 class="text-2xl font-bold tracking-tight sm:text-center sm:text-4xl text-red-600">{{ $wordName }}</h2>
     </div>
