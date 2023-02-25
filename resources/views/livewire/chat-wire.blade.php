@@ -5,6 +5,7 @@
         <div id="messages"
              class="pb-3 flex flex-col space-y-4 overflow-y-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch">
             @foreach($messages as $message)
+                <a href="/user-summary/{{ $message->user_id }}">
                 @if($message->user_id == \Illuminate\Support\Facades\Auth::id())
                     <div class="chat-message">
                         <div class="flex items-end justify-end">
@@ -28,6 +29,7 @@
                         </div>
                     </div>
                 @endif
+                </a>
             @endforeach
         </div>
         <div class="border-t-2 border-gray-200 px-4 pt-4 sm:mb-0">

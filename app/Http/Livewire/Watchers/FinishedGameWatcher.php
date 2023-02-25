@@ -31,6 +31,7 @@ class FinishedGameWatcher extends Component
     public $isDuello = null;
     public $winner;
     public $chatCode;
+    public $todayRank;
 
     public function mount($gameId)
     {
@@ -61,6 +62,7 @@ class FinishedGameWatcher extends Component
                 if ($game->opponent_id != Auth::id()) {
                     $this->myOpp = $game->opponent_id;
                 }
+                $this->todayRank = Game::getTodayRanking($game->today_id, $game->opponent_id);
             } else {
                 $this->gameType = 1;
             }

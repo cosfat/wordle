@@ -69,4 +69,26 @@ class Game extends Model
     {
         return $this->hasMany(Chat::class);
     }
+
+    public static function getTodayRanking($todayId, $userId){
+        $lists = Game::where('user_id', 2)
+            ->where('today_id', $todayId)
+            ->where('winner_id', '!=', null)
+            ->orderBy('duration', 'asc')
+            ->orderBy('guesscount', 'asc')
+            ->pluck('opponent_id');
+        $x = 0;
+        foreach ($lists as $list) {
+            $x += 1;
+            if($list == $userId){
+                break;
+            }
+        }
+        if($x == 0){
+            return "Kazanamdı";
+        }
+        else{
+            return $x.". oldu";
+        }
+    }
 }
