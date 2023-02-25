@@ -300,7 +300,7 @@
                         <x-jet-authentication-card-logo/>
                     </x-slot>
                     <div class="flex justify-center">
-                        <div class="px-4 sm:px-8 max-w-5xl m-auto">
+                        <div class="m-auto">
                             <h1 class="text-center font-bold">Nasıl oynanır?</h1>
                             <ul class="border border-gray-200 rounded overflow-hidden shadow-md mt-2">
                                 <li class="px-4 py-2 bg-white hover:bg-sky-100 hover:text-sky-900 border-b last:border-none border-gray-200 transition-all duration-300 ease-in-out">
@@ -357,8 +357,8 @@
                     </button>
                 </a>
                 </div>
-                <div class="shadow-md p-6">
-                <div class="flex justify-center mt-4">
+                <div class="shadow-md p-6 border mt-4">
+                <div class="flex justify-center mb-2">
                     <h2 class="text-2xl font-bold tracking-tight sm:text-center sm:text-4xl text-indigo-500">
                         Zaten üye misiniz?</h2>
                 </div>
