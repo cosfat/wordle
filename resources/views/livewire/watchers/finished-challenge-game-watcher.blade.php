@@ -69,7 +69,7 @@
         let guessesRemaining = NUMBER_OF_GUESSES;
         let currentGuess = [];
         let nextLetter = 0;
-        let rightGuessString = "{{ \App\Models\Challenge::find($gameId)->word->name }}";
+        let rightGuessString = "{{ $rightGuessString }}";
 
         function initBoard() {
             let board = document.getElementById("game-board");

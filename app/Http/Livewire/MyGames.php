@@ -106,12 +106,13 @@ class MyGames extends Component
         $todayScores = Game::where('user_id', 2)
             ->where('today_id', $todayId)
             ->where('winner_id', '!=', null)
-            ->where('winner_id', '!=', 2)
             ->orderBy('duration', 'asc')
             ->orderBy('guesscount', 'asc')
             ->limit(10)->get();
         foreach ($todayScores as $todayScore) {
-            $this->todays[] = array($todayScore->id, User::find($todayScore->opponent_id)->username, $this->secondHuman($todayScore->duration), $todayScore->guesscount);
+            if($todayScore->winner_id != 2){
+                $this->todays[] = array($todayScore->id, User::find($todayScore->opponent_id)->username, $this->secondHuman($todayScore->duration), $todayScore->guesscount);
+            }
         }
     }
 

@@ -10,6 +10,7 @@ use App\Models\User;
 use App\Models\Word;
 use Carbon\CarbonInterval;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
 class FinishedChallengeGameWatcher extends Component
@@ -23,9 +24,11 @@ class FinishedChallengeGameWatcher extends Component
     public $meaning;
     public $point;
     public $duration;
+    public $words;
 
     public $guessesCount;
     public $guessesArray;
+    public $rightGuessString;
 
     public $chat = false;
 
@@ -42,8 +45,10 @@ class FinishedChallengeGameWatcher extends Component
             if(Chuser::where('challenge_id', $gameId)->where('user_id', Auth::id())->exists()){
                 $this->chat = true;
             }
-
             $game = $game->first();
+            $this->words = DB::select(DB::raw("SELECT id, name, CHAR_LENGTH(name) AS 'chrlen' FROM words WHERE CHAR_LENGTH(name) = $game->length AND meaning != 'null' ORDER BY RAND() "));
+
+            $this->rightGuessString = $game->word->name;
             $myGuesses = Chguess::where('user_id', Auth::id())->where('challenge_id', $game->id)->count();
             if($myGuesses > $game->length OR $game->winner_id != null){
             if ($userId == null) {
