@@ -80,14 +80,15 @@ class Game extends Model
         $x = 0;
         foreach ($lists as $list) {
             if($list->winner_id != 2){
-                $x += 1;
                 if($list->opponent_id == $userId){
+                    $x += 1;
                     break;
                 }
             }
         }
+
         if($x == 0){
-            return "Kazanamdı";
+            return "Kazanamadı";
         }
         else{
             return $x.". oldu";
