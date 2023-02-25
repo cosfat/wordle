@@ -43,7 +43,10 @@ class TheGame extends Component
             $game = Game::find($gameId);
             if ($game != null) {
                 if ($game->user_id == Auth::id() or $game->opponent_id == Auth::id()) {
-
+                    if($game->winner_id != null){
+                        return redirect()->to('/finished-game-watcher/'.$game->id);
+                    }
+                    else{
                         $guesses = $game->guesses()->get();
                         if ($guesses->count() == 0) {
                             $this->firstGuess = true;
@@ -67,6 +70,7 @@ class TheGame extends Component
                             $this->myOpp = $opponent->id;
                         }
                         $this->sira = $game->sira;
+                    }
 
                 } else {
                     session()->flash('message', 'Bu oyunu görme yetkiniz yok');
