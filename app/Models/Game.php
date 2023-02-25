@@ -76,12 +76,14 @@ class Game extends Model
             ->where('winner_id', '!=', null)
             ->orderBy('duration', 'asc')
             ->orderBy('guesscount', 'asc')
-            ->pluck('opponent_id');
+            ->get();
         $x = 0;
         foreach ($lists as $list) {
-            $x += 1;
-            if($list == $userId){
-                break;
+            if($list->winner_id != 2){
+                $x += 1;
+                if($list->opponent_id == $userId){
+                    break;
+                }
             }
         }
         if($x == 0){
