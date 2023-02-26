@@ -109,6 +109,13 @@
         }
 
 
+        function doldur(k){
+            Array.from(k).forEach(function (m){
+                addedLetter = String(m);
+                insertAddedLetter(addedLetter, k);
+            })
+        }
+
         function insertAddedLetter(addedLetter, k) {
 
             let row = document.getElementsByClassName("letter-row")[addedGuessesCount]
