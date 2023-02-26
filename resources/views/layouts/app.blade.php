@@ -40,21 +40,28 @@
 
         window.Echo.private(`guesses-channel.{{ \Illuminate\Support\Facades\Auth::id() }}`)
             .listen('GuessTyped', (e) => {
+                let url = window.location.pathname;
                 if (e.type === 1) {
                     if (e.isDuello === 0) {
-                        notifyGame(e.username + " tahminde bulundu!", "game-watcher/" + e.game);
-                        Livewire.emit('refreshLogs');
-                        Livewire.emit('MyGames');
-                        Livewire.emit('refreshGameWatcher');
+                        if(url.indexOf("game-watcher/" + e.game) !== -1){
+                            doldur(e.word);
+                        }
+                        else{
+                            Livewire.emit('MyGames');
+                            Livewire.emit('refreshLogs');
+                            notifyGame(e.username + " tahminde bulundu!", "game-watcher/" + e.game);
+                            notifyIcon();
+                        }
                     } else if (e.isDuello === 1) {
-                        notifyGame(e.username + " DÜELLO tahmininde bulundu!", "the-game/" + e.game + "/1");
-                        Livewire.emit('MyGames');
-                        let url = window.location.pathname;
                         if(url.indexOf(e.game + "/1") !== -1){
                             Livewire.emit('refreshDuelloGame');
                         }
+                        else{
+                            notifyGame(e.username + " DÜELLO tahmininde bulundu!", "the-game/" + e.game + "/1");
+                            Livewire.emit('MyGames');
+                            notifyIcon();
+                        }
                     }
-                    notifyIcon();
                 } else if (e.type === 2) {
                     let url = window.location.pathname;
                     if (url.indexOf('the-challenge-game') === -1) {

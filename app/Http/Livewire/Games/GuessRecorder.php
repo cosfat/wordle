@@ -34,15 +34,15 @@ class GuessRecorder extends Component
             $this->emit('startCounterFirstTime');
             }
         if($isDuello == 0){
-            GuessTyped::dispatch($game->user_id, $gameId, Auth::user()->username, 1, Auth::id(), 0);
+            GuessTyped::dispatch($game->user_id, $gameId, Auth::user()->username, 1, Auth::id(), 0, $word);
         }
         else{
             $this->siraChange($gameId);
             if($game->user_id == Auth::id()){
-                GuessTyped::dispatch($game->opponent_id, $gameId, Auth::user()->username, 1, Auth::id(), 1);
+                GuessTyped::dispatch($game->opponent_id, $gameId, Auth::user()->username, 1, Auth::id(), 1, $word);
             }
             else{
-                GuessTyped::dispatch($game->user_id, $gameId, Auth::user()->username, 1, Auth::id(), 1);
+                GuessTyped::dispatch($game->user_id, $gameId, Auth::user()->username, 1, Auth::id(), 1, $word);
             }
 
         }
@@ -71,7 +71,7 @@ class GuessRecorder extends Component
                 $c->save();
                 foreach ($c->chusers as $chuser) {
                     if($chuser->user_id != Auth::id()){
-                        GuessTyped::dispatch($chuser->user_id, $c->id, $user->username, 2, $user->id, 0);
+                        GuessTyped::dispatch($chuser->user_id, $c->id, $user->username, 2, $user->id, 0, $word);
                     }
                 }
             } else {
@@ -100,8 +100,7 @@ class GuessRecorder extends Component
             $this->emit('refreshDuelloGame');
         }
         else{
-
-            GuessTyped::dispatch($this->sira, $gameId, 'Rakip', 6, 0, 1);
+            GuessTyped::dispatch($this->sira, $gameId, 'Rakip', 6, 0, 1 ,0);
             session()->flash('message', '3 defa hatalı kelime girdiniz');
             return redirect('/the-game/'. $gameId."/1");
         }

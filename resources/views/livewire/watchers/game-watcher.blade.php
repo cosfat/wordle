@@ -40,6 +40,13 @@
         let nextLetter = 0;
         let rightGuessString = "{{ \App\Models\Game::find($gameId)->word->name }}";
 
+        function doldur(k){
+            Array.from(k).forEach(function (m){
+                addedLetter = String(m);
+                insertAddedLetter(addedLetter, k);
+            })
+        }
+
         function initBoard() {
             let board = document.getElementById("game-board");
 
@@ -64,7 +71,6 @@
         let nextAddedLetter = 0;
         let addedRow = {{ $length + 1 }};
         if(guesses !== null){
-
             guesses.forEach(function (k){
                 Array.from(k).forEach(function (m){
                     addedLetter = String(m);
@@ -140,9 +146,7 @@
                 if(rightGuess.includes(letter)){
                     if(rightGuess[i] === letter){
                         letterColor = 'rgb(2, 204, 9)'
-                        console.log(count(currentGuess,"i") + "-" +  count(rightGuess, "i"))
                         if(count(currentGuess, letter) > count(rightGuess, letter)){
-                            console.log("xxx");
                             for(let j = 0; j < {{ $length }}; j++){
                                 if(row.children[j].innerText == letter.toLocaleUpperCase('TR') && row.children[j].style.backgroundColor == 'rgb(255, 255, 0)'){
                                     row.children[j].style.backgroundColor = 'rgb(227, 227, 227)';
