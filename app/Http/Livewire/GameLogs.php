@@ -20,13 +20,9 @@ class GameLogs extends Component
     public $mode;
     protected $listeners = ['refreshLogs' => '$refresh'];
 
-    public function mount(){
-        $this->mode = 1;
-    }
 
     public function render()
     {
-        if($this->mode == 1){
             $chusers = Chuser::where('user_id', Auth::id())->orderBy('id', 'desc')->limit(20)->get();
             $x = 0;
             foreach ($chusers as $chuser) {
@@ -73,8 +69,7 @@ class GameLogs extends Component
 
                 $x += 1;
             }
-        }
-        elseif($this->mode == 2){
+
             $finished = Game::where('user_id', Auth::id())->where('winner_id', '!=', null)->orderBy('updated_at', 'desc')->limit(20)->get();
             $x = 0;
             foreach ($finished as $game) {
@@ -105,8 +100,6 @@ class GameLogs extends Component
                 }
                 $x += 1;
             }
-        }
-        else {
             $finishedMe = Game::where('opponent_id', Auth::id())->where('winner_id', '!=', null)->orderBy('updated_at', 'desc')->limit(20)->get();
             $x = 0;
             foreach ($finishedMe as $game) {
@@ -139,7 +132,7 @@ class GameLogs extends Component
 
             }
 
-        }
+
         return view('livewire.game-logs');
     }
 }

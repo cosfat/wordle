@@ -1,0 +1,99 @@
+// variables
+$num-of-tabs: 3;
+$tabs-header-width: 100% / $num-of-tabs;
+
+@mixin tabs {
+    @for $i from 1 through $num-of-tabs {
+        &:nth-of-type(#{$i}) {
+            &.swiper-pagination-bullet-active {
+                ~ .active-mark {
+                    left: $tabs-header-width * ($i - 1);
+                }
+            }
+        }
+    }
+}
+
+:root {
+    box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: inherit;
+}
+
+a {
+    text-decoration: none;
+}
+
+.swiper-container {
+    width: 100%;
+    height: 100%;
+}
+
+.swiper-slide {
+    color: #333;
+    min-height: 300px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.swiper-container-horizontal {
+    > .swiper-pagination {
+        top: 0;
+        bottom: auto;
+
+        .swiper-pagination-bullet {
+            margin: 0;
+        }
+    }
+}
+
+.active-mark {
+    background: rgb(79 70 229);
+    width: $tabs-header-width;
+    height: 4px;
+    position: absolute;
+    left: 0;
+    transition: left 0.5s ease-out;
+}
+
+.swiper-pagination-bullet {
+    border-radius: 0;
+    box-sizing: border-box;
+    color: #ffffff;
+    background-color: rgb(79 70 229);
+    cursor: pointer;
+    font-size: 1.2rem;
+    font-weight: normal;
+    opacity: 1;
+    height: 46px;
+    width: $tabs-header-width;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+    transition: font-weight 0.22s ease;
+
+    @include tabs;
+    &:first-of-type {
+        &.swiper-pagination-bullet-active {
+            ~ .active-mark {
+                left: 0;
+            }
+        }
+    }
+}
+
+.swiper-pagination-bullet-active {
+    font-weight: bold;
+    color: rgb(79 70 229);
+    background-color: #facc15;
+}
