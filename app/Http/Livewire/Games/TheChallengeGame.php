@@ -77,7 +77,7 @@ class TheChallengeGame extends Component
                 if($game->replay == 0){
                     foreach ($game->chusers as $chuser) {
                         if ($chuser->user_id != Auth::id()) {
-                            GuessTyped::dispatch($chuser->user_id, $game->id, Auth::user()->username, 4, Auth::id(), 0);
+                            GuessTyped::dispatch($chuser->user_id, $game->id, Auth::user()->username, 4, Auth::id(), 0, 0);
                         }
                     }
                     return redirect('/finished-challenge-game-watcher/' . $this->gameId);

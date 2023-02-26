@@ -155,10 +155,10 @@ class TheGame extends Component
             else{
                 $opp = $game->user_id;
             }
-            GuessTyped::dispatch($opp, $game->id, Auth::user()->username, 5, Auth::id(), 1);
+            GuessTyped::dispatch($opp, $game->id, Auth::user()->username, 5, Auth::id(), 1, 0);
         }
         else{
-            GuessTyped::dispatch($game->user_id, $game->id, Auth::user()->username, 3, Auth::id(), 0);
+            GuessTyped::dispatch($game->user_id, $game->id, Auth::user()->username, 3, Auth::id(), 0, 0);
         }
         return redirect('/finished-game-watcher/' . $this->gameId);
     }
