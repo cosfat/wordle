@@ -144,7 +144,7 @@
     @auth
         <div name="welcome" class="mx-auto">
                 <div class="back" @if(!str_contains(request()->path(), 'the-game') AND !str_contains(request()->path(), 'the-challenge-game')) style="display:none" @endif >
-                    @if(str_contains(url()->previous(), 'the-game'))
+                    @if(str_contains(url()->previous(), 'the-game') OR str_contains(url()->previous(), 'the-challenge-game'))
                         <a href="/my-games">
                     @else
                         <a href="{{ url()->previous() }}">
