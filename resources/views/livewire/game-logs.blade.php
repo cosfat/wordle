@@ -6,7 +6,7 @@
         <div class="swiper-pagination">
         </div>
         <div class="swiper-wrapper">
-            <div class="swiper-slide"><ul style="margin-top: 60px" class="w-full text-left text-sm font-medium bg-white text-white rounded-lg">
+            <div class="swiper-slide"><ul style="margin-top: 40px" class="p-4 w-full text-left text-sm font-medium text-white rounded-lg">
                     @foreach($notesCh as $note)
                         <a href="/finished-challenge-game-watcher/{{ $note['link'] }}">
                             @if($note['status'] == 1)
@@ -29,7 +29,7 @@
                                     @endif
 
                                     @if($note['chat'])
-                                        <svg class="float-right" width="24px" height="24px" viewBox="0 0 24 24" fill="none"
+                                        <svg class="float-right mr-3" width="24px" height="24px" viewBox="0 0 24 24" fill="none"
                                              xmlns="http://www.w3.org/2000/svg" stroke="#EF4444">
                                             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                                             <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
@@ -50,7 +50,7 @@
                     @endforeach
                 </ul>
             </div>
-            <div class="swiper-slide"><ul style="margin-top: 60px" class="w-full text-left text-sm font-medium bg-white text-white rounded-lg">
+            <div class="swiper-slide"><ul style="margin-top: 40px" class="p-4 w-full text-left text-sm font-medium text-white rounded-lg">
                     @foreach($notes as $note)
                         <a href="/finished-game-watcher/{{ $note['link'] }}">
                             <li class="w-full px-4 py-2 text-gray-600 bg-gray-200">{{ $note['user'] }}
@@ -72,7 +72,7 @@
                                         class="bg-gray-800 text-white text-xs font-medium  px-2 py-1 rounded">Kaybetti</span>
                                 @endif
                                 @if($note['chat'])
-                                    <svg class="float-right" width="24px" height="24px" viewBox="0 0 24 24" fill="none"
+                                    <svg class="float-right mr-3" width="24px" height="24px" viewBox="0 0 24 24" fill="none"
                                          xmlns="http://www.w3.org/2000/svg" stroke="#EF4444">
                                         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                                         <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -94,7 +94,7 @@
                         </a>
                     @endforeach
                 </ul></div>
-            <div class="swiper-slide"><ul style="margin-top: 60px" class="w-full text-left text-sm font-medium bg-white text-white rounded-lg">
+            <div class="swiper-slide"><ul style="margin-top: 40px" class="p-4 w-full text-left text-sm font-medium text-white rounded-lg">
                     @foreach($notesMe as $note)
                         <a href="/finished-game-watcher/{{ $note['link'] }}">
                             <li class="w-full px-4 py-2 text-gray-600 bg-gray-200">{{ $note['user'] }}:
@@ -113,7 +113,7 @@
                                         class="bg-gray-800 text-white text-xs font-medium  px-2 py-1 rounded">Bilemedin</span>
                                 @endif
                                 @if($note['chat'])
-                                    <svg class="float-right" width="24px" height="24px" viewBox="0 0 24 24" fill="none"
+                                    <svg class="float-right mr-3" width="24px" height="24px" viewBox="0 0 24 24" fill="none"
                                          xmlns="http://www.w3.org/2000/svg" stroke="#EF4444">
                                         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                                         <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
