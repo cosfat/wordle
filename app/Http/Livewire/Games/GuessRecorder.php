@@ -96,13 +96,8 @@ class GuessRecorder extends Component
 
         $this->sira = $game->sira;
         $game->save();
-        if($withRefresh == 0){
-            $this->emit('refreshDuelloGame');
-        }
-        else{
-            GuessTyped::dispatch($this->sira, $gameId, 'Rakip', 6, 0, 1 ,0);
-            session()->flash('message', '3 defa hatalı kelime girdiniz');
-            return redirect('/the-game/'. $gameId."/1");
+        if($withRefresh != 0){
+            GuessTyped::dispatch($this->sira, $gameId, 'Rakip', 6, 0, 1, 0);
         }
     }
 

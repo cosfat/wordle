@@ -54,7 +54,8 @@
                         }
                     } else if (e.isDuello === 1) {
                         if(url.indexOf(e.game + "/1") !== -1){
-                            Livewire.emit('refreshDuelloGame');
+                            doldur(e.word);
+                            activateDuello();
                         }
                         else{
                             notifyGame(e.username + " DÜELLO tahmininde bulundu!", "the-game/" + e.game + "/1");
@@ -89,7 +90,6 @@
                             clearInterval(blink);
                             document.getElementById(e.userId).innerHTML = "<h2 class='mr-2 text-sm font-bold tracking-tight sm:text-center sm:text-4xl text-green-600'>" + e.username + "</h2>";
                         }, 1000)
-
                     }
                 } else if (e.type === 3) {
                     notifyGame(e.username + " oyunu kazandı!", "finished-game-watcher/" + e.game);
@@ -100,10 +100,14 @@
                     notifyGame(e.username + " düelloyu kazandı!", "finished-game-watcher/" + e.game + "/1");
                     window.location.href = "/finished-game-watcher/" + e.game + "/1";
                 }else if(e.type === 6){
-                    notifyGame("Rakibin 3 defa hatalı kelime girdi", "the-game/" + e.game + "/1");
-                    window.location.href = "/the-game/" + e.game + "/1";
+                    if(url.indexOf(e.game + "/1") !== -1){
+                        activateDuello();
+                        notifyGame("Rakibin 3 defa hatalı kelime girdi", "the-game/" + e.game + "/1");
+                    }
+                    else{
+                        notifyGame("Rakibin 3 defa hatalı kelime girdi", "the-game/" + e.game + "/1");
+                    }
                 }
-
                 document.title = "Kelimeo (1)"
             });
     </script>

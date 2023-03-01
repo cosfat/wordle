@@ -1,5 +1,4 @@
 <div name="the-game">
-    @include('loading')
     <div class="flex justify-center mb-2">
         @if($opponentName == "Günün Kelimesi")
             <h2 class="text-2xl font-bold tracking-tight sm:text-center sm:text-4xl text-indigo-500">{{ $opponentName }}</h2>
@@ -21,80 +20,111 @@
             @endif
         @endif
     </div>
-    @if($isDuello == 1)
-        @if($sira != \Illuminate\Support\Facades\Auth::id())
-            <div class="flex justify-center text-sm bg-indigo-500 text-white p-2 mb-2">Rakibin hamlesi bekleniyor</div>
-        @else
-            <div class="flex justify-center text-sm bg-red-500 text-white p-2 mb-2">Hamle sırası sizde</div>
-        @endif
-    @endif
+    <div id="duelloAlert" class="flex justify-center text-sm bg-indigo-500 text-white p-2 mb-2">
+    </div>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     @if($isDuello != 1)
         <livewire:games.live-counter :start="$start" :firstGuess="$firstGuess"></livewire:games.live-counter>
     @endif
     <div id="game-board">
     </div>
-    @if($isDuello == null OR ($isDuello == 1 AND $sira == \Illuminate\Support\Facades\Auth::id()))
-        <div id="keyboard-cont" style="touch-action: manipulation">
-            <div class="first-row">
-                <button class="keyboard-button">e</button>
-                <button class="keyboard-button">r</button>
-                <button class="keyboard-button">t</button>
-                <button class="keyboard-button">y</button>
-                <button class="keyboard-button">u</button>
-                <button class="keyboard-button">ı</button>
-                <button class="keyboard-button">o</button>
-                <button class="keyboard-button">p</button>
-                <button class="keyboard-button">ğ</button>
-                <button class="keyboard-button">ü</button>
-            </div>
-            <div class="second-row">
-                <button class="keyboard-button">a</button>
-                <button class="keyboard-button">s</button>
-                <button class="keyboard-button">d</button>
-                <button class="keyboard-button">f</button>
-                <button class="keyboard-button">g</button>
-                <button class="keyboard-button">h</button>
-                <button class="keyboard-button">j</button>
-                <button class="keyboard-button">k</button>
-                <button class="keyboard-button">l</button>
-                <button class="keyboard-button">ş</button>
-                <button class="keyboard-button">i</button>
-            </div>
-            <div class="third-row">
-                <button class="keyboard-button">SİL</button>
-                <button class="keyboard-button">z</button>
-                <button class="keyboard-button">c</button>
-                <button class="keyboard-button">v</button>
-                <button class="keyboard-button">b</button>
-                <button class="keyboard-button">n</button>
-                <button class="keyboard-button">m</button>
-                <button class="keyboard-button">ö</button>
-                <button class="keyboard-button">ç</button>
-                <button class="keyboard-button">Enter</button>
-            </div>
-            <div class="fourth-row mt-2">
-                <button class="keyboard-button bg-red-500 text-white">TEMİZLE</button>
-            </div>
+    <div id="keyboard-cont" style="touch-action: manipulation">
+        <div class="first-row">
+            <div class="keyboard-button">e</div>
+            <div class="keyboard-button">r</div>
+            <div class="keyboard-button">t</div>
+            <div class="keyboard-button">y</div>
+            <div class="keyboard-button">u</div>
+            <div class="keyboard-button">ı</div>
+            <div class="keyboard-button">o</div>
+            <div class="keyboard-button">p</div>
+            <div class="keyboard-button">ğ</div>
+            <div class="keyboard-button">ü</div>
         </div>
-    @endif
+        <div class="second-row">
+            <div class="keyboard-button">a</div>
+            <div class="keyboard-button">s</div>
+            <div class="keyboard-button">d</div>
+            <div class="keyboard-button">f</div>
+            <div class="keyboard-button">g</div>
+            <div class="keyboard-button">h</div>
+            <div class="keyboard-button">j</div>
+            <div class="keyboard-button">k</div>
+            <div class="keyboard-button">l</div>
+            <div class="keyboard-button">ş</div>
+            <div class="keyboard-button">i</div>
+        </div>
+        <div class="third-row">
+            <div class="keyboard-button">z</div>
+            <div class="keyboard-button">c</div>
+            <div class="keyboard-button">v</div>
+            <div class="keyboard-button">b</div>
+            <div class="keyboard-button">n</div>
+            <div class="keyboard-button">m</div>
+            <div class="keyboard-button">ö</div>
+            <div class="keyboard-button">ç</div>
+        </div>
+        <div class="fourth-row mt-4" style="justify-content: space-evenly">
+            <div class="keyboard-button keyboard-button-action del">SİL</div>
+            <div class="keyboard-button keyboard-button-action clear">TEMİZLE</div>
+            <div class="keyboard-button keyboard-button-action enter">Enter</div>
+        </div>
+    </div>
     @if($opponentName != "Günün Kelimesi")
         <livewire:chat-wire :gameId="$gameId" :gameType="1" :chatcode="$chatcode"/>
-        <livewire:contact-wire :friend="$myOpp" />
+        <livewire:contact-wire :friend="$myOpp"/>
     @endif
 
     <script>
-        let words = JSON.parse({!! json_encode(\App\Models\Word::pluck('name')->toJSON()) !!})
+        let words = @json( \App\Models\Word::pluck('name'));
         let guesses = @json($guessesArray);
 
         let chatMode = false;
+        let keyActive = true;
+
+        function activateDuello() {
+            document.getElementById('duelloAlert').style.visibility = "visible";
+            document.getElementById('duelloAlert').innerHTML = "Hamle sırası sende";
+            document.getElementById('duelloAlert').classList.add('bg-red-500');
+            document.getElementById('duelloAlert').classList.remove('bg-indigo-500');
+            document.getElementById('keyboard-cont').style.visibility = "visible";
+            keyActive = true;
+        }
+
+        function deactivateDuello() {
+            document.getElementById('duelloAlert').style.visibility = "visible";
+            document.getElementById('duelloAlert').innerHTML = "Rakibin hamlesi bekleniyor";
+            document.getElementById('duelloAlert').classList.add('bg-indigo-500');
+            document.getElementById('duelloAlert').classList.remove('bg-red-500');
+            document.getElementById('keyboard-cont').style.visibility = "hidden";
+            keyActive = false;
+        }
+
+        function normalGame() {
+            document.getElementById('keyboard-cont').style.visibility = "visible";
+            document.getElementById('duelloAlert').style.visibility = "hidden";
+            keyActive = true;
+        }
+
+        function doldur(k){
+            Array.from(k).forEach(function (m){
+                addedLetter = String(m);
+                insertAddedLetter(addedLetter, k);
+            })
+        }
+
+        @if($isDuello == null)
+        normalGame();
+        @elseif($isDuello == 1 AND $sira == \Illuminate\Support\Facades\Auth::id())
+        activateDuello();
+        @elseif($isDuello == 1 AND $sira != \Illuminate\Support\Facades\Auth::id())
+        deactivateDuello();
+        @endif
 
         if (document.getElementById('chatInput')) {
-
             document.getElementById('chatInput').onfocus = function () {
                 chatMode = true
             }
-
             document.getElementById('chatInput').onblur = function () {
                 chatMode = false;
             }
@@ -128,7 +158,7 @@
 
 
         document.addEventListener("keyup", (e) => {
-            if (chatMode === false) {
+            if (chatMode === false && keyActive === true) {
                 if (guessesRemaining === 0) {
                     return
                 }
@@ -140,10 +170,10 @@
                 }
 
                 if (pressedKey === "Enter") {
-                    if(waitSubmit === 0){
+                    if (waitSubmit === 0) {
                         checkGuess()
                         waitSubmit = 1;
-                        setTimeout(function (){
+                        setTimeout(function () {
                             waitSubmit = 0;
                         }, 1500)
                     }
@@ -214,12 +244,12 @@
                 let letter = currentGuess[i];
                 answer.push(letter);
                 let letterColor = 'rgb(227, 227, 227)'
-                if(rightGuess.includes(letter)){
-                    if(rightGuess[i] === letter){
+                if (rightGuess.includes(letter)) {
+                    if (rightGuess[i] === letter) {
                         letterColor = 'rgb(2, 204, 9)'
-                        if(count(currentGuess, letter) > count(rightGuess, letter)){
-                            for(let j = 0; j < {{ $length }}; j++){
-                                if(row.children[j].innerText == letter.toLocaleUpperCase('TR') && row.children[j].style.backgroundColor == 'rgb(255, 255, 0)'){
+                        if (count(currentGuess, letter) > count(rightGuess, letter)) {
+                            for (let j = 0; j < {{ $length }}; j++) {
+                                if (row.children[j].innerText == letter.toLocaleUpperCase('TR') && row.children[j].style.backgroundColor == 'rgb(255, 255, 0)') {
                                     row.children[j].style.backgroundColor = 'rgb(227, 227, 227)';
                                     let index = answer.indexOf(letter);
                                     if (index !== -1) {
@@ -228,11 +258,10 @@
                                 }
                             }
                         }
-                    }else{
-                        if(countOccurrences(answer, letter) <= count(rightGuessString, letter)){
+                    } else {
+                        if (countOccurrences(answer, letter) <= count(rightGuessString, letter)) {
                             letterColor = 'rgb(255, 255, 0)';
-                        }
-                        else{
+                        } else {
                             letterColor = 'rgb(227, 227, 227)';
                         }
                     }
@@ -295,6 +324,7 @@
             }
             return count;
         }
+
         function countOccurrences(arr, val) {
             let count = 0;
             for (i = 0; i < arr.length; i++) {
@@ -304,6 +334,8 @@
             }
             return count;
         }
+
+        let isDuello = {{ $isDuello }};
         function checkGuess() {
             let row = document.getElementsByClassName("letter-row")[{{ $length + 1 }} - guessesRemaining]
             let guessString = ''
@@ -335,10 +367,14 @@
 
                 }
 
-                let isDuello = {{ $isDuello }};
-
                 if (wrongGuess > 2 && isDuello === 1) {
+                    let key = "Backspace";
+                    for (let x = 0; x < 8; x++) {
+                        document.dispatchEvent(new KeyboardEvent("keyup", {'key': key}))
+                    }
+                    notifyGame("3 defa hatalı kelime girdin, sıra karşıya geçti", "");
                     Livewire.emit('siraChange', {{ $gameId }}, 1);
+                    deactivateDuello();
                 }
                 return
             }
@@ -350,13 +386,12 @@
                 let letter = currentGuess[i];
                 answer.push(letter);
                 let letterColor = 'rgb(227, 227, 227)'
-                if(rightGuess.includes(letter)){
-                    if(rightGuess[i] === letter){
+                if (rightGuess.includes(letter)) {
+                    if (rightGuess[i] === letter) {
                         letterColor = 'rgb(2, 204, 9)'
-                        if(count(currentGuess, letter) > count(rightGuess, letter)){
-                            for(let j = 0; j < {{ $length }}; j++){
-                                console.log(row.children[j].innerText);
-                                if(row.children[j].innerText == letter.toLocaleUpperCase('TR') && row.children[j].style.backgroundColor == 'rgb(255, 255, 0)'){
+                        if (count(currentGuess, letter) > count(rightGuess, letter)) {
+                            for (let j = 0; j < {{ $length }}; j++) {
+                                if (row.children[j].innerText == letter.toLocaleUpperCase('TR') && row.children[j].style.backgroundColor == 'rgb(255, 255, 0)') {
                                     row.children[j].style.backgroundColor = 'rgb(227, 227, 227)';
                                     let index = answer.indexOf(letter);
                                     if (index !== -1) {
@@ -365,11 +400,10 @@
                                 }
                             }
                         }
-                    }else{
-                        if(countOccurrences(answer, letter) <= count(rightGuessString, letter)){
+                    } else {
+                        if (countOccurrences(answer, letter) <= count(rightGuessString, letter)) {
                             letterColor = 'rgb(255, 255, 0)';
-                        }
-                        else{
+                        } else {
                             letterColor = 'rgb(227, 227, 227)';
                         }
                     }
@@ -385,10 +419,14 @@
                 shadeKeyBoard(letter, letterColor)
             }
 
+            Livewire.emit('addGuess', guessString, {{ $gameId }}, isDuello);
+            Livewire.on('deneme', guessString => {
+                    alert('A post was added with the id of: ' + guessString);
+                })
 
-            var wordNumber = {{ $length + 1 }} - guessesRemaining;
-
-            Livewire.emit('addGuess', guessString, {{ $gameId }}, {{ $isDuello }});
+            if(isDuello === 1){
+                deactivateDuello();
+            }
 
             setTimeout(function () {
                 if (guessString === rightGuessString) {
@@ -417,7 +455,6 @@
 
                     let oldColor = elem.style.backgroundColor;
 
-                    console.log(letter + " - " + oldColor + " - " + color);
                     if (oldColor === 'rgb(2, 204, 9)') {
                         return
                     }

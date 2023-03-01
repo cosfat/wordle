@@ -8,52 +8,49 @@
         @endforeach
     </div>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
-    <style>
-
-    </style>
     <livewire:games.live-counter :start="$start" :firstGuess="$firstGuess"></livewire:games.live-counter>
     <div id="game-board">
     </div>
     <div id="keyboard-cont" style="touch-action: manipulation">
         <div class="first-row">
-            <button class="keyboard-button">e</button>
-            <button class="keyboard-button">r</button>
-            <button class="keyboard-button">t</button>
-            <button class="keyboard-button">y</button>
-            <button class="keyboard-button">u</button>
-            <button class="keyboard-button">ı</button>
-            <button class="keyboard-button">o</button>
-            <button class="keyboard-button">p</button>
-            <button class="keyboard-button">ğ</button>
-            <button class="keyboard-button">ü</button>
+            <div class="keyboard-button">e</div>
+            <div class="keyboard-button">r</div>
+            <div class="keyboard-button">t</div>
+            <div class="keyboard-button">y</div>
+            <div class="keyboard-button">u</div>
+            <div class="keyboard-button">ı</div>
+            <div class="keyboard-button">o</div>
+            <div class="keyboard-button">p</div>
+            <div class="keyboard-button">ğ</div>
+            <div class="keyboard-button">ü</div>
         </div>
         <div class="second-row">
-            <button class="keyboard-button">a</button>
-            <button class="keyboard-button">s</button>
-            <button class="keyboard-button">d</button>
-            <button class="keyboard-button">f</button>
-            <button class="keyboard-button">g</button>
-            <button class="keyboard-button">h</button>
-            <button class="keyboard-button">j</button>
-            <button class="keyboard-button">k</button>
-            <button class="keyboard-button">l</button>
-            <button class="keyboard-button">ş</button>
-            <button class="keyboard-button">i</button>
+            <div class="keyboard-button">a</div>
+            <div class="keyboard-button">s</div>
+            <div class="keyboard-button">d</div>
+            <div class="keyboard-button">f</div>
+            <div class="keyboard-button">g</div>
+            <div class="keyboard-button">h</div>
+            <div class="keyboard-button">j</div>
+            <div class="keyboard-button">k</div>
+            <div class="keyboard-button">l</div>
+            <div class="keyboard-button">ş</div>
+            <div class="keyboard-button">i</div>
         </div>
         <div class="third-row">
-            <button class="keyboard-button">SİL</button>
-            <button class="keyboard-button">z</button>
-            <button class="keyboard-button">c</button>
-            <button class="keyboard-button">v</button>
-            <button class="keyboard-button">b</button>
-            <button class="keyboard-button">n</button>
-            <button class="keyboard-button">m</button>
-            <button class="keyboard-button">ö</button>
-            <button class="keyboard-button">ç</button>
-            <button class="keyboard-button">Enter</button>
+            <div class="keyboard-button">z</div>
+            <div class="keyboard-button">c</div>
+            <div class="keyboard-button">v</div>
+            <div class="keyboard-button">b</div>
+            <div class="keyboard-button">n</div>
+            <div class="keyboard-button">m</div>
+            <div class="keyboard-button">ö</div>
+            <div class="keyboard-button">ç</div>
         </div>
-        <div class="fourth-row mt-2">
-            <button class="keyboard-button bg-red-500 text-white">TEMİZLE</button>
+        <div class="fourth-row mt-4" style="justify-content: space-evenly">
+            <div class="keyboard-button keyboard-button-action del rounded-md">SİL</div>
+            <div class="keyboard-button keyboard-button-action clear rounded-md">TEMİZLE</div>
+            <div class="keyboard-button keyboard-button-action enter rounded-md">GÖNDER</div>
         </div>
     </div>
     @if($game->replay == 1)
@@ -73,7 +70,7 @@
                 @else
                     Otomatik başlatmayı aç
                 @endif
-            </button>
+            </div>
         </div>
     @endif
     <script>

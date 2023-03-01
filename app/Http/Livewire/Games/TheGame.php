@@ -29,12 +29,8 @@ class TheGame extends Component
     public $sira = null;
     public $chatcode;
 
-    protected $listeners = ['loser', 'winner', 'refreshDuelloGame'];
+    protected $listeners = ['loser', 'winner'];
 
-    public function refreshDuelloGame()
-    {
-        return redirect('/the-game/' . $this->gameId . "/1");
-    }
 
     public function mount($gameId, $duello = 0)
     {
