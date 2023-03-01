@@ -50,7 +50,7 @@
         <div class="fourth-row mt-4" style="justify-content: space-evenly">
             <div class="keyboard-button keyboard-button-action del rounded-md">SİL</div>
             <div class="keyboard-button keyboard-button-action clear rounded-md">TEMİZLE</div>
-            <div class="keyboard-button keyboard-button-action enter rounded-md">GÖNDER</div>
+            <div class="keyboard-button keyboard-button-action enter rounded-md">Enter</div>
         </div>
     </div>
     @if($game->replay == 1)
