@@ -229,7 +229,6 @@
 
         function checkAddedGuess(a) {
 
-
             let row = document.getElementsByClassName("letter-row")[{{ $length + 1 }} - a]
             let guessString = ''
             let rightGuess = Array.from(rightGuessString)
@@ -336,6 +335,7 @@
         }
 
         let isDuello = {{ $isDuello }};
+
         function checkGuess() {
             let row = document.getElementsByClassName("letter-row")[{{ $length + 1 }} - guessesRemaining]
             let guessString = ''
@@ -517,9 +517,8 @@
         </script>
     @endif
 
-    @if($isDuello == 0 OR ($isDuello == 1 AND $sira == \Illuminate\Support\Facades\Auth::id()))
         <livewire:games.guess-recorder></livewire:games.guess-recorder>
-    @endif
+
     <script src="https://code.jquery.com/jquery-3.6.3.min.js"
             integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
 </div>
