@@ -47,7 +47,7 @@
             <button class="keyboard-button">ö</button>
             <button class="keyboard-button">ç</button>
         </div>
-        <div class="fourth-row mt-4" style="justify-content: space-evenly">
+        <div class="fourth-row mt-6" style="justify-content: space-evenly">
             <button class="keyboard-button del rounded-md">SİL</button>
             <button class="keyboard-button clear rounded-md">TEMİZLE</button>
             <button class="keyboard-button enter rounded-md">Enter</button>
