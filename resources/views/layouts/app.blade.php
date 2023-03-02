@@ -54,7 +54,8 @@
                         }
                     } else if (e.isDuello === 1) {
                         if(url.indexOf(e.game + "/1") !== -1){
-                            doldur(e.word);
+                            currentGuess = e.word;
+                            checkGuess2(e.word);
                             activateDuello();
                         }
                         else{

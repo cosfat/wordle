@@ -76,6 +76,8 @@
     @endif
 
     <script>
+
+        let addedRow = {{ $length + 1 }};
         let words = @json( \App\Models\Word::pluck('name'));
         let guesses = @json($guessesArray);
 
@@ -190,12 +192,9 @@
 
         })
 
-
         let addedGuessesCount = 0;
         let nextAddedLetter = 0;
-        let addedRow = {{ $length + 1 }};
         if (guesses !== null) {
-
             guesses.forEach(function (k) {
                 Array.from(k).forEach(function (m) {
                     addedLetter = String(m);
@@ -203,7 +202,6 @@
                 })
             })
         }
-
 
         function insertAddedLetter(addedLetter, k) {
 
@@ -230,6 +228,8 @@
         function checkAddedGuess(a) {
 
             let row = document.getElementsByClassName("letter-row")[{{ $length + 1 }} - a]
+            console.log("onAddedGuess:")
+            console.log({{ $length + 1 }} - a);
             let guessString = ''
             let rightGuess = Array.from(rightGuessString)
 
@@ -335,9 +335,13 @@
         }
 
         let isDuello = {{ $isDuello }};
+        console.log("onLoad:")
+        console.log(+{{ $length + 1 }} - guessesRemaining);
 
         function checkGuess() {
             let row = document.getElementsByClassName("letter-row")[{{ $length + 1 }} - guessesRemaining]
+            console.log("onCheckGuess:")
+            console.log({{ $length + 1 }} - guessesRemaining);
             let guessString = ''
             let rightGuess = Array.from(rightGuessString)
 
@@ -420,12 +424,89 @@
             }
 
             Livewire.emit('addGuess', guessString, {{ $gameId }}, isDuello);
-            Livewire.on('deneme', guessString => {
-                    alert('A post was added with the id of: ' + guessString);
-                })
 
             if(isDuello === 1){
                 deactivateDuello();
+            }
+
+            setTimeout(function () {
+                if (guessString === rightGuessString) {
+                    notifyGame("Tebrikler!")
+                    guessesRemaining = 0;
+                    Livewire.emit('winner');
+                    return
+                } else {
+                    guessesRemaining -= 1;
+                    currentGuess = [];
+                    nextLetter = 0;
+
+                    if (guessesRemaining === 0) {
+                        notifyGame(`Kaybettin! Doğru kelime: ${rightGuessString}`);
+                        Livewire.emit('loser');
+                    }
+                }
+            }, 1000)
+
+        }
+
+
+
+        function checkGuess2(k) {
+            let row = document.getElementsByClassName("letter-row")[{{ $length + 1 }} - guessesRemaining];
+            let nad = 0;
+            Array.from(k).forEach(function (m){
+                addedLetter = String(m)
+                let box = row.children[nad];
+                box.style.borderColor = "red";
+                addedLetter = addedLetter.toLowerCase()
+                box.textContent = addedLetter
+                nad += 1
+            })
+
+            let guessString = ''
+            let rightGuess = Array.from(rightGuessString)
+
+            for (const val of currentGuess) {
+                guessString += val
+            }
+
+            let answer = [];
+            for (let i = 0; i < {{ $length }}; i++) {
+                let box = row.children[i]
+                let letter = currentGuess[i];
+                answer.push(letter);
+                let letterColor = 'rgb(227, 227, 227)'
+                if (rightGuess.includes(letter)) {
+                    if (rightGuess[i] === letter) {
+                        letterColor = 'rgb(2, 204, 9)'
+                        if (count(currentGuess, letter) > count(rightGuess, letter)) {
+                            for (let j = 0; j < {{ $length }}; j++) {
+                                if (row.children[j].innerText == letter.toLocaleUpperCase('TR') && row.children[j].style.backgroundColor == 'rgb(255, 255, 0)') {
+                                    row.children[j].style.backgroundColor = 'rgb(227, 227, 227)';
+                                    let index = answer.indexOf(letter);
+                                    if (index !== -1) {
+                                        answer.splice(index, 1);
+                                    }
+                                }
+                            }
+                        }
+                    } else {
+                        if (countOccurrences(answer, letter) <= count(rightGuessString, letter)) {
+                            letterColor = 'rgb(255, 255, 0)';
+                        } else {
+                            letterColor = 'rgb(227, 227, 227)';
+                        }
+                    }
+                }
+
+
+                let delay = 70 * i
+                setTimeout(() => {
+                    animateCSS(box, 'flipInX')
+                    //shade box
+                }, delay)
+                box.style.backgroundColor = letterColor
+                shadeKeyBoard(letter, letterColor)
             }
 
             setTimeout(function () {

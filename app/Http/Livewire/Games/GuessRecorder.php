@@ -44,7 +44,6 @@ class GuessRecorder extends Component
             else{
                 GuessTyped::dispatch($game->user_id, $gameId, Auth::user()->username, 1, Auth::id(), 1, $word);
             }
-
         }
     }
 
