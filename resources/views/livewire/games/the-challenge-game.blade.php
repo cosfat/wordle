@@ -13,6 +13,8 @@
     </div>
     <div id="keyboard-cont" style="touch-action: manipulation">
         <div class="first-row">
+            <button class="keyboard-button">q</button>
+            <button class="keyboard-button">w</button>
             <button class="keyboard-button">e</button>
             <button class="keyboard-button">r</button>
             <button class="keyboard-button">t</button>
@@ -39,6 +41,7 @@
         </div>
         <div class="third-row">
             <button class="keyboard-button">z</button>
+            <button class="keyboard-button">x</button>
             <button class="keyboard-button">c</button>
             <button class="keyboard-button">v</button>
             <button class="keyboard-button">b</button>
