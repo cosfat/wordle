@@ -98,13 +98,13 @@
             document.getElementById('duelloAlert').innerHTML = "Rakibin hamlesi bekleniyor";
             document.getElementById('duelloAlert').classList.add('bg-indigo-500');
             document.getElementById('duelloAlert').classList.remove('bg-red-500');
-            document.getElementById('keyboard-cont').style.visibility = "hidden";
+            document.getElementById('keyboard-cont').style.display = "none";
             keyActive = false;
         }
 
         function normalGame() {
             document.getElementById('keyboard-cont').style.visibility = "visible";
-            document.getElementById('duelloAlert').style.visibility = "hidden";
+            document.getElementById('duelloAlert').style.display = "none";
             keyActive = true;
         }
 
