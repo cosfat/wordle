@@ -89,7 +89,7 @@
             document.getElementById('duelloAlert').innerHTML = "Hamle sırası sende";
             document.getElementById('duelloAlert').classList.add('bg-red-500');
             document.getElementById('duelloAlert').classList.remove('bg-indigo-500');
-            document.getElementById('keyboard-cont').style.display = "inline-block";
+            document.getElementById('keyboard-cont').style.display = "flex";
             keyActive = true;
         }
 
@@ -103,7 +103,7 @@
         }
 
         function normalGame() {
-            document.getElementById('keyboard-cont').style.display = "inline-block";
+            document.getElementById('keyboard-cont').style.display = "flex";
             document.getElementById('duelloAlert').style.display = "none";
             keyActive = true;
         }
