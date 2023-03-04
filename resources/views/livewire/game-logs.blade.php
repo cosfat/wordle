@@ -6,25 +6,25 @@
         <div class="swiper-pagination">
         </div>
         <div class="swiper-wrapper">
-            <div class="swiper-slide"><ul style="margin-top: 40px" class="p-4 w-full text-left text-sm font-medium text-white rounded-lg">
+            <div class="swiper-slide"><ul style="margin-top: 40px" class="p-2 w-full text-left text-sm font-medium text-white rounded-lg">
                     @foreach($notesCh as $note)
                         <a href="/finished-challenge-game-watcher/{{ $note['link'] }}">
                             @if($note['status'] == 1)
 
-                                <li class="w-full px-4 py-2 bg-gray-200 text-gray-600"><strong>{{ $note['user'] }}</strong>
+                                <li class="w-full py-2 bg-gray-200 text-gray-600"><strong>{{ $note['user'] }}</strong>
                                     <strong>{{ $note['word'] }}</strong>
                                     <span
                                         class="bg-red-600 text-white text-xs font-medium px-2 py-1 rounded">{{ $note['duration'] }}</span>
                                     <span class="bg-green-600 text-white text-xs font-medium  px-2 py-1 rounded">{{ $note['point'] }} p</span>
                             @elseif($note['status']==2)
 
-                                <li class="w-full px-4 py-2 bg-gray-200 text-gray-600"><strong>{{ $note['user'] }}</strong>
+                                <li class="w-full py-2 bg-gray-200 text-gray-600"><strong>{{ $note['user'] }}</strong>
                                     <strong>{{ $note['word'] }}</strong>
                                     <span
                                         class="bg-red-600 text-white text-xs font-medium px-2 py-1 rounded">{{ $note['duration'] }}</span>
                                     <span class="bg-green-600 text-white text-xs font-medium  px-2 py-1 rounded">{{ $note['point'] }} p</span>
                             @else
-                                <li class="w-full px-4 py-2 text-white-500 bg-gray-800">{{ $note['user'] }}:
+                                <li class="w-full py-2 text-white-500 bg-gray-800">{{ $note['user'] }}:
                                     <strong>{{ $note['word'] }}</strong>
                                     @endif
 
@@ -50,10 +50,10 @@
                     @endforeach
                 </ul>
             </div>
-            <div class="swiper-slide"><ul style="margin-top: 40px" class="p-4 w-full text-left text-sm font-medium text-white rounded-lg">
+            <div class="swiper-slide"><ul style="margin-top: 40px" class="p-2 w-full text-left text-sm font-medium text-white rounded-lg">
                     @foreach($notes as $note)
                         <a href="/finished-game-watcher/{{ $note['link'] }}">
-                            <li class="w-full px-4 py-2 text-gray-600 bg-gray-200">{{ $note['user'] }}
+                            <li class="w-full py-2 text-gray-600 bg-gray-200">{{ $note['user'] }}
                                 @if($note['status'] == 1)
                                     <strong>{{ $note['word'] }}</strong>
                                     <span
@@ -94,10 +94,10 @@
                         </a>
                     @endforeach
                 </ul></div>
-            <div class="swiper-slide"><ul style="margin-top: 40px" class="p-4 w-full text-left text-sm font-medium text-white rounded-lg">
+            <div class="swiper-slide"><ul style="margin-top: 40px" class="p-2 w-full text-left text-sm font-medium text-white rounded-lg">
                     @foreach($notesMe as $note)
                         <a href="/finished-game-watcher/{{ $note['link'] }}">
-                            <li class="w-full px-4 py-2 text-gray-600 bg-gray-200">{{ $note['user'] }}:
+                            <li class="w-full py-2 text-gray-600 bg-gray-200">{{ $note['user'] }}:
                                 @if($note['status'] == 1)
                                     <strong>{{ $note['word'] }}</strong>
                                     <span

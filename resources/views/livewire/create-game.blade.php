@@ -1,10 +1,10 @@
 <div>
     @include('loading')
+
     <div class="flex justify-center">
         <h2 class="text-2xl font-bold tracking-tight sm:text-center sm:text-4xl text-indigo-500">
             YENİ OYUN BAŞLAT</h2>
     </div>
-    @if($startGame == false)
         <div class="flex justify-center mt-2">
             <h3><strong>Kaç harfli olsun?</strong></h3></div>
         <div class="flex justify-center mt-2">
@@ -295,7 +295,6 @@
                 </form>
             @endif
         @endif
-@endif
         @if (session()->has('message'))
             <script>
                 notifyGame("{{  session('message')  }}")

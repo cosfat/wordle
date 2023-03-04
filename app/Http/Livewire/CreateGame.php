@@ -32,7 +32,6 @@ class CreateGame extends Component
     public $chOpponentError = false;
     public $existingGameError = false;
     public $chExistingGameError = false;
-    public $startGame = false;
     public $suggestBoxes = false;
 
     public $gameWord;
@@ -216,7 +215,6 @@ class CreateGame extends Component
         $opponent = User::where('id', '!=', Auth::id())->where('id', '!=', 2)->inRandomOrder()->first();
         $this->opponent = $opponent->name;
         $this->opponentId = $opponent->id;
-        $this->startGame = true;
         $this->gameOpp = $opponent->id;
         $this->startGame();
     }
@@ -281,21 +279,17 @@ class CreateGame extends Component
                 $this->opponent = $user->first()->name;
                 $this->opponentId = $user->first()->id;
                 $this->gameOpp = $this->opponentId;
-
                 $this->opponentError = false;
                 $this->existingGameError = false;
-                $this->startGame = true;
                 $this->startGame();
             } else {
                 $this->opponentError = true;
                 $this->existingGameError = true;
-                $this->startGame = false;
             }
 
         } else {
             $this->opponentError = true;
             $this->existingGameError = false;
-            $this->startGame = false;
         }
     }
 
