@@ -119,6 +119,14 @@
 
     initBoard()
 
+    function feedSuggest(k){
+        for (x = 0; x < 8; x++) {
+            document.dispatchEvent(new KeyboardEvent("keyup", {'key': "Backspace"}))
+        }
+        Array.from(k).forEach(function (m){
+            insertLetter(m)
+        })
+    }
 
     document.addEventListener("keyup", (e) => {
         if (chatMode === false) {
