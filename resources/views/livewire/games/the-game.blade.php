@@ -29,7 +29,7 @@
     <div id="game-board">
     </div>
     @if(count($frequents) != 0)
-        <div class="flex justify-center text-sm">
+        <div class="flex justify-center text-sm mt-2">
             @foreach($frequents as $word)
                <span class="cursor-pointer mr-2" onclick="feedSuggest('{{ $word }}')">{{ $word }}</span>
             @endforeach
