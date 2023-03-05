@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Games;
 
 use App\Events\GuessTyped;
+use App\Models\Challenge;
 use App\Models\Game;
 use App\Models\Guess;
 use App\Models\Point;
@@ -29,6 +30,8 @@ class TheGame extends Component
     public $sira = null;
     public $chatcode;
 
+    public $frequents = array();
+
     protected $listeners = ['loser', 'winner'];
 
 
@@ -54,6 +57,7 @@ class TheGame extends Component
 
                         $this->gameId = $gameId;
                         $this->length = $game->length;
+                        $this->frequents = $this->frequentWords();
                         $this->chatcode = $game->chatcode;
                         if ($game->user_id == Auth::id()) {
                             $opponent = User::find($game->opponent_id);
@@ -94,6 +98,7 @@ class TheGame extends Component
 
                 $this->gameId = $gameId;
                 $this->length = $game->length;
+                $this->frequents = $this->frequentWords();
                 $opponent = User::find($game->user_id);
                 $this->opponentName = $opponent->username;
                 $this->myOpp = $opponent->id;
@@ -201,6 +206,30 @@ class TheGame extends Component
     }
 
 
+    public function frequentWords(){
+
+        $games = Auth::user()->opponentGames()->where('length', $this->length)->orderBy('id', 'desc')->limit(10)->get();
+        $chGames = Challenge::where('user_id', Auth::id())->where('length', $this->length)->orderBy('id', 'desc')->limit(10)->get();
+        foreach ($games as $game) {
+            if($game->guesses()->first() != null){
+
+                $guesses[] = $game->guesses()->first()->word->name;
+            }
+        }
+
+        foreach ($chGames as $chGame) {
+            $guess = $chGame->chguesses()->where('user_id', Auth::id())->first();
+            if($guess != null)
+            {
+                $guesses[] = $guess->word->name;
+            }
+        }
+
+        $values = array_count_values($guesses);
+        arsort($values);
+        return array_slice(array_keys($values), 0, 3, true);
+
+    }
 
     public function render()
     {

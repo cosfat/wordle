@@ -28,7 +28,13 @@
     @endif
     <div id="game-board">
     </div>
-
+    @if(count($frequents) != 0)
+        <div class="flex justify-center text-sm">
+            @foreach($frequents as $word)
+               <span class="cursor-pointer mr-2" onclick="feedSuggest('{{ $word }}')">{{ $word }}</span>
+            @endforeach
+        </div>
+    @endif
     <div id="keyboard-cont" style="touch-action: manipulation">
         <div class="first-row">
             <button class="keyboard-button">e</button>
@@ -109,10 +115,19 @@
             keyActive = true;
         }
 
-        function doldur(k){
-            Array.from(k).forEach(function (m){
+        function doldur(k) {
+            Array.from(k).forEach(function (m) {
                 addedLetter = String(m);
                 insertAddedLetter(addedLetter, k);
+            })
+        }
+
+        function feedSuggest(k){
+            for (x = 0; x < 8; x++) {
+                document.dispatchEvent(new KeyboardEvent("keyup", {'key': "Backspace"}))
+            }
+            Array.from(k).forEach(function (m){
+                insertLetter(m)
             })
         }
 
@@ -426,7 +441,7 @@
 
             Livewire.emit('addGuess', guessString, {{ $gameId }}, isDuello);
 
-            if(isDuello === 1){
+            if (isDuello === 1) {
                 deactivateDuello();
             }
 
@@ -451,11 +466,10 @@
         }
 
 
-
         function checkGuess2(k) {
             let row = document.getElementsByClassName("letter-row")[{{ $length + 1 }} - guessesRemaining];
             let nad = 0;
-            Array.from(k).forEach(function (m){
+            Array.from(k).forEach(function (m) {
                 addedLetter = String(m)
                 let box = row.children[nad];
                 box.style.borderColor = "red";
@@ -599,7 +613,7 @@
         </script>
     @endif
 
-        <livewire:games.guess-recorder></livewire:games.guess-recorder>
+    <livewire:games.guess-recorder></livewire:games.guess-recorder>
 
     <script src="https://code.jquery.com/jquery-3.6.3.min.js"
             integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>

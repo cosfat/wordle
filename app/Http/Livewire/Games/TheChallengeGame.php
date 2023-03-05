@@ -30,6 +30,7 @@ class TheChallengeGame extends Component
     public $owner;
     public $game;
     public $multichat;
+    public $frequents = array();
 
     protected $listeners = ['chWinner', 'chLoser'];
 
@@ -140,7 +141,6 @@ class TheChallengeGame extends Component
                     $this->waitForOthers = true;
                 }
                 if (Chguess::where('challenge_id', $gameId)->where('user_id', Auth::id())->count() == $game->length + 1) {
-
                     return redirect('/finished-challenge-game-watcher/' . $this->gameId);
                 } else {
                     $guesses = Chguess::where('challenge_id', $game->id)->where('user_id', Auth::id())->get();
@@ -155,6 +155,7 @@ class TheChallengeGame extends Component
 
                     $this->gameId = $gameId;
                     $this->length = $game->length;
+                    $this->frequents = $this->frequentWords();
                     foreach ($game->chusers as $chuser) {
                         $this->opponents[$chuser->user_id] = User::whereId($chuser->user_id)->first()->name;
                     }
@@ -186,6 +187,31 @@ class TheChallengeGame extends Component
         $game->save();
 
         return redirect('/the-challenge-game/' . $this->gameId);
+    }
+
+    public function frequentWords(){
+
+        $games = Auth::user()->opponentGames()->where('length', $this->length)->orderBy('id', 'desc')->limit(10)->get();
+        $chGames = Challenge::where('user_id', Auth::id())->where('length', $this->length)->orderBy('id', 'desc')->limit(10)->get();
+        foreach ($games as $game) {
+            if($game->guesses()->first() != null){
+
+                $guesses[] = $game->guesses()->first()->word->name;
+            }
+        }
+
+        foreach ($chGames as $chGame) {
+            $guess = $chGame->chguesses()->where('user_id', Auth::id())->first();
+            if($guess != null)
+            {
+                $guesses[] = $guess->word->name;
+            }
+        }
+
+        $values = array_count_values($guesses);
+        arsort($values);
+        return array_slice(array_keys($values), 0, 3, true);
+
     }
 
     public function render()

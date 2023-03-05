@@ -11,6 +11,13 @@
     <livewire:games.live-counter :start="$start" :firstGuess="$firstGuess"></livewire:games.live-counter>
     <div id="game-board">
     </div>
+    @if(count($frequents) != 0)
+        <div class="flex justify-center text-sm">
+            @foreach($frequents as $word)
+                <span class="cursor-pointer mr-2" onclick="feedSuggest('{{ $word }}')">{{ $word }}</span>
+            @endforeach
+        </div>
+    @endif
     <div id="keyboard-cont" style="touch-action: manipulation">
         <div class="first-row">
             <button class="keyboard-button">e</button>
