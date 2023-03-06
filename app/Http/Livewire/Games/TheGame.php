@@ -208,26 +208,28 @@ class TheGame extends Component
 
     public function frequentWords(){
 
+        $guessesX = array();
         $games = Auth::user()->opponentGames()->where('length', $this->length)->orderBy('id', 'desc')->limit(10)->get();
         $chGames = Challenge::where('user_id', Auth::id())->where('length', $this->length)->orderBy('id', 'desc')->limit(10)->get();
         foreach ($games as $game) {
             if($game->guesses()->first() != null){
 
-                $guesses[] = $game->guesses()->first()->word->name;
+                $guessesX[] = $game->guesses()->first()->word->name;
             }
         }
+
 
         foreach ($chGames as $chGame) {
             $guess = $chGame->chguesses()->where('user_id', Auth::id())->first();
             if($guess != null)
             {
-                $guesses[] = $guess->word->name;
+                $guessesX[] = $guess->word->name;
             }
         }
 
-        $values = array_count_values($guesses);
+        $values = array_count_values($guessesX);
         arsort($values);
-        return array_slice(array_keys($values), 0, 3, true);
+        return array_slice(array_keys($values), 0, 5, true);
 
     }
 
