@@ -59,7 +59,7 @@
                     {{ $lostGames }}</span>
             </div>
     </div>
-    <div class="bg-white shadow-md rounded my-2 p-4 flex justify-center">
+    <div class="bg-white shadow-md rounded my-2 p-4 w-full flex justify-center">
     <table class="min-w-max table-auto">
         <thead>
         <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
