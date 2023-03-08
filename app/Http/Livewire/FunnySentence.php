@@ -23,15 +23,15 @@ class FunnySentence extends Component
             $open_ai = new OpenAi($open_ai_key);
 
             $complete = $open_ai->chat([
-                'model' => 'gpt-3.5-turbo',
+                'model' => 'text-curie-001',
                 'messages' => [
                     [
                         "role" => 'user',
                         "content" => "Amerikan yarışma programı Jeopardy tarzında bir yarışmanın Türkçe versiyonunda '".$this->word."' kelimesini nasıl sorardın?. Lütfen soruda '".$this->word."' kelimesini kullanma ki oyunun heyecanı azalmasın."
                     ]
                 ],
-                'temperature' => 1,
-                'max_tokens' => 4000,
+                'temperature' => 0.5,
+                'max_tokens' => 2000,
                 'frequency_penalty' => 0,
                 'presence_penalty' => 0,
             ]);
