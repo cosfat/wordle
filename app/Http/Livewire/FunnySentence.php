@@ -37,7 +37,9 @@ class FunnySentence extends Component
             ]);
 
             $user = Auth::user();
-            $user->credit = $this->credit-1;
+            if(Auth::id() != 1){
+                $user->credit = $this->credit-1;
+            }
             $this->credit = $user->credit;
             $user->save();
 

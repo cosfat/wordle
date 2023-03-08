@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Challenge;
 use App\Models\Chat;
 use App\Models\Game;
 use Livewire\Component;
@@ -10,7 +11,6 @@ class MyProfile extends Component
 {
     public function render()
     {
-
      /*   $games = Game::where('user_id', '!=', 2)->get();
         foreach ($games as $game) {
             $usr1 = $game->opponent_id;
