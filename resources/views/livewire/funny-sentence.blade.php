@@ -4,9 +4,9 @@
         type="button"
         wire:click="$set('readyToLoad', true)">
         @if($readyToLoad)
-        {{ $funnyText }} <br> (Kalan: <strong>{{ $credit }}</strong>) <br> Yeni ipucu için tıkla
+        {{ $funnyText }} <br> Yeni ipucu için tıkla <br> <strong>({{ $credit }})</strong>
         @else
-            Bana ipucu ver (İpucu hakkın: <strong>{{ $credit }}</strong>)
+            Bana ipucu ver <strong>({{ $credit }})</strong>
         @endif
     </button>
     <div wire:loading>
