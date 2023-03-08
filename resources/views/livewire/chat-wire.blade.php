@@ -1,6 +1,5 @@
 <div>
-    <!-- component -->
-    <div class="bg-gray-50 border-t mt-4 flex-1 p:2 sm:p-6 justify-between flex flex-col pt-8"
+    <div class="bg-gray-50 border-t mt-4 flex-1 p:2 sm:p-6 justify-between flex flex-col"
          style="max-height: 20rem; min-height: 2rem; margin-bottom: 8px">
         <div id="messages"
              class="pb-3 flex flex-col space-y-4 overflow-y-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch">
