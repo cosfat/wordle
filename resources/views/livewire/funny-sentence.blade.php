@@ -1,6 +1,6 @@
 <div class="flex justify-center mt-2">
     <button
-        class="px-3 py-3 font-medium text-slate-700 shadow-xl bg-yellow-400 bg- duration-150"
+        class="px-3 py-3 font-medium text-sm text-slate-700 shadow-xl bg-yellow-400 bg- duration-150 rounded-md"
         type="button"
         wire:click="$set('readyToLoad', true)">
         @if($readyToLoad)
