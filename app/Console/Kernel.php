@@ -27,6 +27,12 @@ class Kernel extends ConsoleKernel
             DB::table('points')->delete();
         })->weeklyOn(1, '00:00');
 
+
+        // Her gün credit 3 yap
+        $schedule->call(function () {
+            User::query()->update(['credit' => 3]);
+        })->daily();
+
         // Todays Word
         $schedule->call(function () {
             $array = [4, 5, 6, 7];
