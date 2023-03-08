@@ -17,7 +17,7 @@ class TheGame extends Component
 {
     public $length;
     public $gameId;
-    public $word;
+    public $wordName;
     public $opponentName;
     public $myOpp;
     public $start;
@@ -40,6 +40,7 @@ class TheGame extends Component
         if ($duello == 1) {
             $this->isDuello = 1;
             $game = Game::find($gameId);
+            $this->wordName = $game->word->name;
             if ($game != null) {
                 if ($game->user_id == Auth::id() or $game->opponent_id == Auth::id()) {
                     if($game->winner_id != null){
@@ -86,6 +87,7 @@ class TheGame extends Component
             $game = Game::whereId($gameId)->where('opponent_id', Auth::id());
             if ($game->exists()) {
                 $game = $game->first();
+                $this->wordName = $game->word->name;
                 $this->chatcode = $game->chatcode;
                 $guesses = $game->guesses()->get();
                 if ($guesses->count() == 0) {
@@ -213,7 +215,6 @@ class TheGame extends Component
         $chGames = Challenge::where('user_id', Auth::id())->where('length', $this->length)->orderBy('id', 'desc')->limit(10)->get();
         foreach ($games as $game) {
             if($game->guesses()->first() != null){
-
                 $guessesX[] = $game->guesses()->first()->word->name;
             }
         }

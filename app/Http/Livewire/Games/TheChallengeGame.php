@@ -19,7 +19,7 @@ class TheChallengeGame extends Component
 {
     public $length;
     public $gameId;
-    public $word;
+    public $wordName;
     public $opponents = array();
 
     public $guessesCount;
@@ -135,6 +135,7 @@ class TheChallengeGame extends Component
             if (Challenge::whereId($gameId)->whereNull('winner_id')->exists()) {
 
                 $game = Challenge::whereId($gameId)->first();
+                $this->wordName = $game->word->name;
                 $this->multichat = $game->multichat;
                 $this->game = $game;
                 if($game->replay == 1 AND $game->multichat != $game->id AND $game->chusers->count() > 1){

@@ -11,6 +11,7 @@ use Carbon\CarbonInterval;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use Orhanerday\OpenAi\OpenAi;
 
 class FinishedGameWatcher extends Component
 {
@@ -75,6 +76,7 @@ class FinishedGameWatcher extends Component
             $this->length = $game->length;
             $this->gameId = $gameId;
             $this->wordName = $game->word->name;
+
             $this->opponentName = User::find($game->user_id)->name;
             $this->userName = User::find($game->opponent_id)->name;
 
@@ -95,7 +97,6 @@ class FinishedGameWatcher extends Component
         }
 
     }
-
 
     public function render()
     {

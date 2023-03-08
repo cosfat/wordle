@@ -60,6 +60,7 @@
             <button class="keyboard-button enter rounded-md">Enter</button>
         </div>
     </div>
+    <livewire:funny-sentence :word="$wordName"/>
     @if($game->replay == 1)
         <livewire:chat-wire :gameId="$gameId" :gameType="4" :multichat="$multichat"/>
     @else
@@ -97,7 +98,7 @@
     let guessesRemaining = NUMBER_OF_GUESSES;
     let currentGuess = [];
     let nextLetter = 0;
-    let rightGuessString = "{{ \App\Models\Challenge::find($gameId)->word->name }}";
+    let rightGuessString = "{{ $wordName }}";
     let waitSubmit = 0;
 
     function initBoard() {

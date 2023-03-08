@@ -77,6 +77,8 @@
             <button class="keyboard-button enter rounded-md">Enter</button>
         </div>
     </div>
+
+    <livewire:funny-sentence :word="$wordName"/>
     @if($opponentName != "Günün Kelimesi")
         <livewire:chat-wire :gameId="$gameId" :gameType="1" :chatcode="$chatcode"/>
         <livewire:contact-wire :friend="$myOpp"/>
@@ -152,7 +154,7 @@
         let guessesRemaining = NUMBER_OF_GUESSES;
         let currentGuess = [];
         let nextLetter = 0;
-        let rightGuessString = "{{ \App\Models\Game::find($gameId)->word->name }}";
+        let rightGuessString = "{{ $wordName }}";
         let waitSubmit = 0;
 
         function initBoard() {
