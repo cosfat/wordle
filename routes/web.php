@@ -14,6 +14,9 @@ use Illuminate\Support\Facades\Auth;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::controller(\App\Http\Controllers\ServiceWorkerController::class)->group(function (){
+    Route::get('/service-worker', 'index');
+});
 Route::get('/', \App\Http\Livewire\Welcome::class);
 // Route::get('/status', [\App\Http\Controllers\UserController::class, 'userOnlineStatus']);
 Route::middleware([
