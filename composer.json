@@ -16,7 +16,6 @@
         "livewire/livewire": "^2.5",
         "orhanerday/open-ai": "^4.6",
         "pusher/pusher-php-server": "^7.2",
-        "pusher/pusher-push-notifications": "^2.0",
         "spatie/laravel-honeypot": "*",
         "symfony/http-client": "^6.0",
         "symfony/mailgun-mailer": "^6.0"

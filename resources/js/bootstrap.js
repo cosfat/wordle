@@ -35,14 +35,3 @@ Pusher.logToConsole = true;
      },
      authEndpoint: "/broadcasting/auth",
  });
-
-
-import * as PusherPushNotifications from "@pusher/push-notifications-web";
-
-const beamsClient = new PusherPushNotifications.Client({
-    instanceId: "b057dbbd-15b7-48ba-9ce3-6e9bfa5e3bba",
-});
-
-beamsClient.start().then(() => {
-    // Build something beatiful 🌈
-});

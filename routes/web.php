@@ -14,20 +14,6 @@ use Illuminate\Support\Facades\Auth;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::controller(\App\Http\Controllers\ServiceWorkerController::class)->group(function (){
-    Route::get('/service-worker', 'index');
-});
-Route::middleware('auth:api')->get('/pusher/beams-auth', function (\Symfony\Component\HttpFoundation\Request $request) {
-    $userID = Auth::id(); // If you use a different auth system, do your checks here
-    $userIDInQueryParam = Input::get('user_id');
-
-        $beamsToken = $beamsClient->generateToken($userID);
-        return response()->json($beamsToken);
-
-});
-
-
-
 Route::get('/', \App\Http\Livewire\Welcome::class);
 // Route::get('/status', [\App\Http\Controllers\UserController::class, 'userOnlineStatus']);
 Route::middleware([
