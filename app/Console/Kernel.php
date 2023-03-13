@@ -30,7 +30,7 @@ class Kernel extends ConsoleKernel
 
         // Her gün credit 3 yap
         $schedule->call(function () {
-            User::query()->update(['credit' => 3]);
+            User::query()->update(['credit' => 7]);
         })->daily();
 
         // Todays Word

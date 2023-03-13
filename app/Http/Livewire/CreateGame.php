@@ -89,6 +89,12 @@ class CreateGame extends Component
         $this->hideOpponent = false;
     }
 
+    public function makeMode5()
+    {
+        $this->mode = 5;
+
+    }
+
     public function suggestChFriend()
     {
         $gamesArray = array();
@@ -340,6 +346,33 @@ class CreateGame extends Component
             GameNotification::dispatch($opp, $game->id, Auth::user()->username, 3, null, null);
             return redirect()->to('/the-game/' . $game->id . "/1");
         }
+    }
+    
+    public function solo(){
+    
+    $suggestQuery = DB::select(DB::raw("SELECT id, meaning, name, CHAR_LENGTH(name) AS 'chrlen' FROM words WHERE CHAR_LENGTH(name) = $this->length AND meaning != 'null' ORDER BY RAND() LIMIT 1"));
+        foreach ($suggestQuery as $item) {
+                $word = $item->name;
+                $wordId = $item->id;
+        }
+
+        $game = new Challenge;
+        $game->user_id = Auth::id();
+        $game->word_id = $wordId;
+        $game->length = $this->length;
+        $game->replay = $this->replay;
+        $game->usercount = 1;
+        $game->save();
+        $game->multichat = $game->id;
+        $game->save();
+        
+            $team = new Chuser;
+            $team->challenge_id = $game->id;
+         
+            $team->user_id = Auth()->id;
+            $team->save();
+        
+       return redirect()->to('/the-challenge-game/' . $game->id);
     }
 
 

@@ -44,6 +44,13 @@
                 type="button" wire:click="makeMode4">
                 Düello
             </button>
+            
+            <button
+                class="px-3 py-3 font-medium text-slate-700 shadow-xl @if($mode == 5) bg-yellow-400 @else bg-white @endif duration-150"
+                type="button" wire:click="makeMode5">
+                Solo
+            </button>
+            
         </div>
 
         @if($mode == 2)
@@ -144,6 +151,32 @@
                 </div>
 
             </form>
+            
+            
+            @elseif($mode==5)
+             <div class="flex justify-center mt-3">
+                        <button type="button"
+                                class="mt-1 px-5 py-3 font-medium text-slate-700 shadow-xl duration-150 @if($replay == 1) bg-yellow-400 @else bg-white @endif"
+                                @if($replay == 1)
+                                wire:click="$set('replay', 0)"
+                                    @else
+                                wire:click="$set('replay', 1)"
+                                    @endif
+                                 class="ml-4">
+                            @if($replay == 1)
+                                Otomatik başlatmayı kapat
+                            @else
+                                Otomatik başlatmayı aç
+                            @endif
+                        </button>
+                    </div>
+                    <div class="flex justify-center mt-3">
+                        <button type="button"
+                                class="mt-1 px-5 py-3 font-medium text-slate-700 shadow-xl duration-150 bg-yellow-400"
+                                wire:click="startChallengeGame()" class="ml-4">
+                            {{ __('Hazırsanız başlayalım!') }}
+                        </button>
+                    </div>
 
         @elseif($mode == 3)
             <form method="POST" action="#" wire:submit.prevent="test">
