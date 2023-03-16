@@ -15,7 +15,17 @@
 
     <!-- Styles -->
     @livewireStyles
+    <script src="https://js.pusher.com/beams/1.0/push-notifications-cdn.js"></script>
+    <script>
+        const beamsClient = new PusherPushNotifications.Client({
+            instanceId: 'b057dbbd-15b7-48ba-9ce3-6e9bfa5e3bba',
+        });
 
+        beamsClient.start()
+            .then(() => beamsClient.addDeviceInterest('hello'))
+            .then(() => console.log('Successfully registered and subscribed!'))
+            .catch(console.error);
+    </script>
     <script type="module">
         window.Echo.private(`game-channel.{{ \Illuminate\Support\Facades\Auth::id() }}`)
             .listen('GameNotification', (e) => {

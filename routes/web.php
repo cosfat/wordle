@@ -36,6 +36,7 @@ Route::middleware([
     Route::get('/game-logs', \App\Http\Livewire\GameLogs::class);
     Route::get('/create-game', \App\Http\Livewire\CreateGame::class);
     Route::get('/leader-board', \App\Http\Livewire\LeaderBoard::class);
+    Route::get('/send-notification', \App\Http\Livewire\SendNotification::class);
     Route::get('/create-game/{length}', \App\Http\Livewire\CreateGame::class);
     Route::get('/user-summary/{user}', \App\Http\Livewire\UserSummary::class);
 });
