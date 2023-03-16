@@ -27,7 +27,7 @@ class FunnySentence extends Component
                 'messages' => [
                     [
                         "role" => 'user',
-                        "content" => "Amerikan yarışma programı Jeopardy tarzında bir yarışmanın Türkçe versiyonunda '".$this->word."' kelimesini nasıl sorardın?. Lütfen soruda '".$this->word."' kelimesini kullanma ki oyunun heyecanı azalmasın."
+                        "content" => $this->word." kelimesinin tanımını kısaca yapar mısın?"
                     ]
                 ],
                 'temperature' => 0.1,
@@ -46,6 +46,20 @@ class FunnySentence extends Component
             // dd($complete);
 
             $result = json_decode($complete)->choices[0]->message->content;
+            
+          $result = str_replace('İ', 'i', $result);
+
+            
+            $result = str_ireplace($this->word, '', $result);
+                  
+            $result = str_ireplace('kelimesi', '', $result);
+            
+            $result = str_ireplace(',', '', $result);
+            $result = ltrim($result);
+            $result = ucfirst($result)."...";
+            $result = explode('.', $result);
+            $result = $result[0];
+            
         }
         else{
             $result = "İpucu hakkın bitti :/";
