@@ -3,6 +3,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Kelimeo ile arkadaşlarınla veya tek başına wordle tarzı kelime oyunu oyna"/>
+    <meta name="keywords" content="kelimeo, kelime oyunu, wordle, online kelime oyunu, online oyna, kelime oyunu kelimeler, anlat bakalım, bil bakalım, kelime bulmaca"/>
+    <meta name="theme-color" content="#facc15">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'Laravel') }}</title>
