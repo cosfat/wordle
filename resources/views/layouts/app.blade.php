@@ -9,7 +9,7 @@
 
     <!-- Fonts -->
     <link rel="stylesheet" href="/css/fontbunny.css">
-
+    <link rel="manifest" href="/manifest.json">
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/css/custom.css', 'resources/js/app.js'])
 
@@ -25,6 +25,14 @@
             .then(() => beamsClient.addDeviceInterest('hello'))
             .then(() => console.log('Successfully registered and subscribed!'))
             .catch(console.error);
+
+
+        function beamsStart(){
+            beamsClient.start()
+                .then(() => beamsClient.addDeviceInterest('hello'))
+                .then(() => console.log('Successfully registered and subscribed!'))
+                .catch(console.error);
+        }
     </script>
     <script type="module">
         window.Echo.private(`game-channel.{{ \Illuminate\Support\Facades\Auth::id() }}`)
