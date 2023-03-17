@@ -1,4 +1,4 @@
-<div class="gap-2 container mx-auto rounded-lg bg-gray-200">
+<div class="gap-2 container mx-auto rounded-lg bg-gray-200" style="margin-top: -12px">
     <link rel="stylesheet" href="/css/swiper.css">
     @vite(['resources/css/scss.scss'])
     <div class="swiper-container">

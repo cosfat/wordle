@@ -25,14 +25,6 @@
             .then(() => beamsClient.addDeviceInterest('hello'))
             .then(() => console.log('Successfully registered and subscribed!'))
             .catch(console.error);
-
-
-        function beamsStart(){
-            beamsClient.start()
-                .then(() => beamsClient.addDeviceInterest('hello'))
-                .then(() => console.log('Successfully registered and subscribed!'))
-                .catch(console.error);
-        }
     </script>
     <script type="module">
         window.Echo.private(`game-channel.{{ \Illuminate\Support\Facades\Auth::id() }}`)
@@ -318,7 +310,9 @@
 
         </div>
         <!-- Page Content -->
-        <main>
+
+        @include('makeApp')
+        <main class="py-3">
             {{ $slot }}
         </main>
         <div class="flex justify-center p-10">
