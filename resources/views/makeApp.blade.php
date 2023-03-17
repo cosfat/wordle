@@ -8,7 +8,7 @@
     }
 </style>
 <div id="m1"
-     class="flex w-full bg-yellow-400 cursor-pointer text-indigo-700 font-bold p-2 justify-between"
+     class="flex w-full bg-yellow-400 cursor-pointer text-indigo-700 font-bold p-2 justify-between mb-2"
      style="margin-top: -12px"><span onclick="show1()">iPhone'a indir</span> <span onclick="show1a()">Android'e indir</span>
 </div>
 <div class="flex justify-center">
