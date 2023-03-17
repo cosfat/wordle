@@ -24,6 +24,7 @@
 <script>
     function show1() {
         document.getElementById('m2').style = 'display: block';
+        stopAppa();
     }
 
     function show2() {
@@ -50,6 +51,7 @@
 
     function show1a() {
         document.getElementById('m2a').style = 'display: block';
+        stopApp();
     }
 
     function show2a() {
