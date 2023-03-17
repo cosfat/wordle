@@ -1,4 +1,5 @@
 <div class="gap-2 container mx-auto rounded-lg">
+    @include('makeApp')
     <div class="flex justify-center">
         <h2 class="text-2xl font-bold tracking-tight sm:text-center sm:text-4xl text-indigo-500">
             OYUNLARIM</h2>

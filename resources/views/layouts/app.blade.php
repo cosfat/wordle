@@ -310,8 +310,6 @@
 
         </div>
         <!-- Page Content -->
-
-        @include('makeApp')
         <main class="py-3">
             {{ $slot }}
         </main>
