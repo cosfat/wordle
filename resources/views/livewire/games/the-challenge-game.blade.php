@@ -60,7 +60,7 @@
             <button class="keyboard-button enter rounded-md">Enter</button>
         </div>
     </div>
-    <livewire:funny-sentence :word="$wordName"/>
+{{--    <livewire:funny-sentence :word="$wordName"/>--}}
     @if($game->replay == 1)
         <livewire:chat-wire :gameId="$gameId" :gameType="4" :multichat="$multichat"/>
     @else

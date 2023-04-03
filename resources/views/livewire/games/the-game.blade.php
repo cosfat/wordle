@@ -78,7 +78,7 @@
         </div>
     </div>
 
-    <livewire:funny-sentence :word="$wordName"/>
+{{--    <livewire:funny-sentence :word="$wordName"/>--}}
     @if($opponentName != "Günün Kelimesi")
         <livewire:chat-wire :gameId="$gameId" :gameType="1" :chatcode="$chatcode"/>
         <livewire:contact-wire :friend="$myOpp"/>
