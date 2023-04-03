@@ -15,6 +15,7 @@
     <link rel="manifest" href="/manifest.json">
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/css/custom.css', 'resources/js/app.js'])
+    <script src="https://js.pusher.com/beams/1.0/push-notifications-cdn.js"></script>
 
     <!-- Styles -->
     @livewireStyles
@@ -421,6 +422,16 @@
             </x-jet-authentication-card>
         </x-guest-layout>
     @endauth
+        <script>
+            const beamsClient = new PusherPushNotifications.Client({
+                instanceId: 'b057dbbd-15b7-48ba-9ce3-6e9bfa5e3bba',
+            });
+
+            beamsClient.start()
+                .then(() => beamsClient.addDeviceInterest('hello'))
+                .then(() => console.log('Successfully registered and subscribed!'))
+                .catch(console.error);
+        </script>
 </div>
 
 @stack('modals')
