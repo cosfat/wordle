@@ -10,8 +10,7 @@
             <h2 class="text-2xl font-bold tracking-tight sm:text-center sm:text-4xl text-indigo-500">Günün kelimesi</h2>
         </div>
         <div class="flex flex-wrap text-sm">
-            Sonraki kelime: <span
-                class="ml-2 bg-red-600 text-white text-xs font-medium px-2 py-1 rounded">{{ $diff }}</span>
+            Her hün 09:00 ve 21:00'de yeni kelime!
         </div>
         <div class="flex flex-wrap">
             @if($today == 0)
@@ -47,23 +46,23 @@
             <div style="width: 33%">
                 @if($today == 2 OR $today == 3)
                     <a href="/finished-game-watcher/{{ $todayGame->id }}">
-                @else
-                    <a href="/the-game/{{ $todayGame->id }}">
-                @endif
-                        <div class="p-4 flex flex-col items-center text-center group hover:bg-slate-50 cursor-pointer">
-                            @if($todayGame->seen == 0)
-                            <div
-                                class="absolute mt-3 inline-flex items-center justify-center p-2 text-xs font-bold text-white bg-red-500 border-2 border-white rounded-full">
-                                Yeni oyun!
-                            </div>
-                            @endif
-                        <span class="p-2 rounded-full
-                        @if($today == 2 OR $today == 3)
-                            bg-indigo-500 shadow-indigo-200
                         @else
-                            bg-red-500 shadow-red-200
-                        @endif
-                            text-white shadow-lg">
+                            <a href="/the-game/{{ $todayGame->id }}">
+                                @endif
+                                <div class="p-4 flex flex-col items-center text-center group hover:bg-slate-50 cursor-pointer">
+                                    @if($todayGame->seen == 0)
+                                        <div
+                                            class="absolute mt-3 inline-flex items-center justify-center p-2 text-xs font-bold text-white bg-red-500 border-2 border-white rounded-full">
+                                            Yeni oyun!
+                                        </div>
+                                    @endif
+                                    <span class="p-2 rounded-full
+                        @if($today == 2 OR $today == 3)
+                                        bg-indigo-500 shadow-indigo-200
+@else
+                                        bg-red-500 shadow-red-200
+@endif
+                                        text-white shadow-lg">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24"
                                  stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round"
                                                                                 stroke-linejoin="round"
@@ -77,7 +76,7 @@
                                     @else
                                         <p class="text-sm text-gray-600">{{ $todayGame->created_at->diffForHumans(\Carbon\Carbon::now()) }}</p>
                                     @endif
-<div class="flex justify-center">
+                                    <div class="flex justify-center">
                                 <span class="bg-green-600 text-white text-xs font-medium px-2 py-1 rounded">
                     <svg
                         fill="#FACC14"
@@ -101,7 +100,7 @@
                     {{ $todayWinners }}
                 </span>
 
-                                <span class="ml-2 bg-red-600 text-white text-xs font-medium px-2 py-1 rounded">
+                                        <span class="ml-2 bg-red-600 text-white text-xs font-medium px-2 py-1 rounded">
                         <svg width="20px" height="20px" viewBox="0 0 24 24" version="1.1"
                              xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                              fill="#FFFFFF">
@@ -118,8 +117,8 @@
                             </g>
                         </svg>
                     {{ $todayLosers }}</span></div>
-                        </div>
-                    </a>
+                                </div>
+                            </a>
             </div>
             <div style="width: 66%" class="p-2">
                 @if(count($todays) > 0)
@@ -144,31 +143,31 @@
             @if($new->count() == 0 AND $newChallenges->count() == 0 AND $newDuellos->count() == 0)
                 <p>Hiç oyun isteğin yok, oyunu arkadaşlarına tavsiye edebilirsin!</p>
             @endif
-                @foreach($newDuellos as $game)
-                    <div style="width: 33%">
-                        <a href="/the-game/{{ $game->id }}/1">
-                            <div class="p-4 flex flex-col  items-center text-center group hover:bg-slate-50 cursor-pointer">
-                                <div
-                                    class="absolute mt-3 inline-flex items-center justify-center p-2 text-xs font-bold text-white bg-red-500 border-2 border-white rounded-full">
-                                    Yeni Düello
-                                </div>
-                                <span class="p-2 rounded-full bg-yellow-400 text-white shadow-lg">
+            @foreach($newDuellos as $game)
+                <div style="width: 33%">
+                    <a href="/the-game/{{ $game->id }}/1">
+                        <div class="p-4 flex flex-col  items-center text-center group hover:bg-slate-50 cursor-pointer">
+                            <div
+                                class="absolute mt-3 inline-flex items-center justify-center p-2 text-xs font-bold text-white bg-red-500 border-2 border-white rounded-full">
+                                Yeni Düello
+                            </div>
+                            <span class="p-2 rounded-full bg-yellow-400 text-white shadow-lg">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24"
                                  stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round"
                                                                                 stroke-linejoin="round"
                                                                                 d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
                         </span>
 
-                                <p class="text-xl font-medium text-slate-700 mt-3">
-                                    <strong>
-                                        {{ substr($game->user->name, 0, 9)}}
-                                    </strong>
-                                </p>
-                                <p class="text-sm text-gray-600">{{ $game->created_at->diffForHumans(\Carbon\Carbon::now()) }}</p>
-                            </div>
-                        </a>
-                    </div>
-                @endforeach
+                            <p class="text-xl font-medium text-slate-700 mt-3">
+                                <strong>
+                                    {{ substr($game->user->name, 0, 9)}}
+                                </strong>
+                            </p>
+                            <p class="text-sm text-gray-600">{{ $game->created_at->diffForHumans(\Carbon\Carbon::now()) }}</p>
+                        </div>
+                    </a>
+                </div>
+            @endforeach
             @foreach($newChallenges as $game)
                 <div style="width: 33%">
                     <a href="/the-challenge-game/{{ $game->challenge_id }}">
@@ -299,12 +298,12 @@
                         <div
                             class="p-4 flex flex-col items-center text-center group hover:bg-slate-50 cursor-pointer">
                             @if($game->sira == \Illuminate\Support\Facades\Auth::id())
-                            <div
-                                class="absolute mt-3 inline-flex items-center justify-center p-2 text-xs font-bold text-white bg-red-500 border-2 border-white rounded-full">
-                                Sıra sende!
-                            </div>
+                                <div
+                                    class="absolute mt-3 inline-flex items-center justify-center p-2 text-xs font-bold text-white bg-red-500 border-2 border-white rounded-full">
+                                    Sıra sende!
+                                </div>
                             @endif
-                        <span class="p-2 rounded-full
+                            <span class="p-2 rounded-full
                         bg-yellow-400
                         text-white shadow-lg">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24"

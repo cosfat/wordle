@@ -68,13 +68,13 @@ class Kernel extends ConsoleKernel
                 $exToday->seen2 = 1;
                 $exToday->save();
             }
-/*
-            $exgames = Game::where('today_id', '!=', $today->id)->where('today_id', '!=', null)->get();
-            foreach ($exgames as $exgame) {
-                $exgame->guesses()->delete();
-                $exgame->delete();
-            }*/
-        })->everySixHours();
+            /*
+                        $exgames = Game::where('today_id', '!=', $today->id)->where('today_id', '!=', null)->get();
+                        foreach ($exgames as $exgame) {
+                            $exgame->guesses()->delete();
+                            $exgame->delete();
+                        }*/
+        })->twiceDaily(9, 21);
 
         // 1 haftadır galibi olmayan klasik oyunları sil
         $schedule->call(function () {
@@ -143,7 +143,7 @@ class Kernel extends ConsoleKernel
                 }
             }
         })->everyFourHours();
-}
+    }
 
     /**
      * Register the commands for the application.
